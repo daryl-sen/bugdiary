@@ -110,7 +110,7 @@ header {
     }
   }
 
-  nav {
+  nav, #navigation {
     grid-area: nav;
     padding: $standard_padding/2;
     text-align: right;
@@ -222,17 +222,20 @@ footer {
     -moz-border-radius: 1em 1em 1em 1em;
     -webkit-border-radius: 0em 0em 1em 1em;
 
-    a {
-      display: block;
-      padding: 0.75em 1.5em;
-      color: $navlink_mobile_color;
-      border-bottom: 1px solid $navlink_mobile_border_color;
-    }
+  }
 
-    #closeMenu {
-      display: block;
-      color: $secondary_color;
-    }
+  header #navigation a {
+    display: block;
+    font-size: 1.5em;
+    padding: 0.75em 1.5em;
+    color: $navlink_mobile_color;
+    border-bottom: 1px solid $navlink_mobile_border_color;
+  }
+
+  header #navigation #closeMenu {
+    display: block;
+    color: $secondary_color;
+    border-bottom: 0;
   }
 
   #openMenu {
@@ -257,25 +260,6 @@ p {
 }
 
 main {
-
-  a:link, a:visited {
-    color: $link_color;
-  }
-  a:hover {
-    color: $link_hover;
-  }
-  a[target=_blank]::before {
-    content: '\274F  ';
-  }
-
-  a.navigation {
-    display: block;
-    margin: 0.5em 0;
-  }
-  a.navigation:before {
-    content: '\261B  ';
-  }
-
   %link-button
   {
     padding: 0.5em 1em;
@@ -301,14 +285,32 @@ main {
   }
 }
 
-h1, h2, h3, h4, h5 {
-  padding: 0;
-  margin: 0;
+a:link, a:visited {
+  color: $link_color;
+}
+a:hover {
+  color: $link_hover;
+}
+a[target=_blank]::before {
+  content: '\274F  ';
+}
+
+a.navigation {
+  display: block;
+  margin: 0.5em 0;
+}
+a.navigation:before {
+  content: '\261B  ';
+}
+
+h2, h3, h4, h5 {
+  margin: 0.5em 0;
 }
 
 h1 {
   color: $heading1_color;
   font-size: $heading1_size;
+  margin: 1em 0;
 }
 
 h2 {
@@ -378,7 +380,7 @@ BLOCK LEVEL ELEMENTS
 }
 
 .sidebar-block {
-  padding: 0 $standard_padding 0 $standard_padding;
+  padding: $standard_padding/2 $standard_padding;
   margin-bottom: $standard_padding
 }
 
@@ -512,6 +514,10 @@ ADDON CHARACTERISTICS
 
 .hidden {
   display: none;
+}
+
+.padded {
+  padding: $standard_padding;
 }
 
 .display-block {
