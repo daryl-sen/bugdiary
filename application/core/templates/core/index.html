@@ -11,7 +11,7 @@
     <p>BugDiary is a <b>simple-to-use</b> project collaboration and issue-tracking platform that's built for everyone.</p>
     <p>Did I mention that it's free to use?</p>
     <p></p>
-    <a href="" class="button-primary rounded shadowed">Start Now</a>
+    <a href="{{ url_for('users.register') }}" class="button-primary rounded shadowed">Start Now</a>
   </div>
 </section>
 
@@ -59,7 +59,7 @@
     <p>
       Collaborate with other BugDiary users to track multiple projects together.
     </p>
-    <a href="" class="button-primary rounded shadowed">Sign Up Now</a>
+    <a href="{{ url_for('users.register') }}" class="button-primary rounded shadowed">Sign Up Now</a>
   </main>
   <aside class="shadowed" style="background-repeat: no-repeat; background-size: cover; min-height: 300px; background-image: url({{ url_for('static', filename='images/debug.jpg') }})">
   </aside>
@@ -67,7 +67,7 @@
 
 
 
-<section class="text-centered padded" style="background-attachment: fixed; background-image: url({{ url_for('static', filename='images/lines.jpg') }});">
+<section class="text-centered padded" style="background-color: #cf6b6e">
   <h1>More Features</h1>
   <div class="block-comparison-3 confined">
     <div class="comp1 lined bg-white rounded shadowed">
@@ -109,9 +109,7 @@
       </p>
     </div>
   </div>
-</section>
-<section class="confined">
-  <p>
+  <p style="text-align: left;" class="confined">
     1. Feature coming soon.<br>
     2. Premium feature
 

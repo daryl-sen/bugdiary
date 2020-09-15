@@ -1,4 +1,5 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
+from application.users.forms import login_form, registration_form
 
 users = Blueprint('users', __name__, template_folder = 'templates/users')
 
@@ -13,7 +14,8 @@ def dashboard():
 
 @users.route('/login')
 def login():
-    return render_template('login.html')
+    form = login_form()
+    return render_template('login.html', form = form)
 
 
 
@@ -22,4 +24,5 @@ def login():
 
 @users.route('/register')
 def register():
-    return render_template('register.html')
+    form = registration_form()
+    return render_template('register.html', form = form)

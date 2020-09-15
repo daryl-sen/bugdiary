@@ -13,9 +13,10 @@ import datetime as dt
 
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
-    username = db.Column(db.String(200), index = True, unique = True)
-    email = db.Column(db.String(200), index = True)
+    display_name = db.Column(db.String(200), index = True)
+    email = db.Column(db.String(200), index = True, unique = True)
     password = db.Column(db.String(200))
+    bio = db.Column(db.Text)
 
     # AS PARENT
     owned_projects = db.relationship('Projects', backref="owner")
@@ -48,7 +49,7 @@ class Projects(db.Model):
     # AS PARENT
     bugs = db.relationship('Bugs', backref = 'containing_project')
     settings = db.relationship('Project_settings', backref = 'settings_for', uselist = False)
-    blog_posts = db.relationships('Blog_posts', backref= 'post_target')
+    blog_posts = db.relationship('Blog_posts', backref= 'post_target')
 
 
 

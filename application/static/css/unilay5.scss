@@ -180,7 +180,6 @@ section {
 }
 
 footer {
-  font-size: 0.85em;
   border-top: 1px solid $line_color;
   padding-top: 1em;
   max-width: $page_width;
@@ -194,10 +193,12 @@ footer {
   #copyright {
     grid-area: copyright;
     text-align: left;
+    font-size: 0.85em;
   }
   #version {
     grid-area: version;
     text-align: right;
+    font-size: 0.85em;
   }
 }
 

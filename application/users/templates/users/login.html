@@ -1,5 +1,28 @@
 {% set webtitle = "Login" %}
-
+{% extends 'confined.html' %}
 {% block main %}
+
+<h1>Welcome Back!</h1>
+<div class="main-aside">
+    <main class="bg-white rounded lined block">
+        <h2>Login</h2>
+        <form method="post">
+            {{ form.hidden_tag() }}
+            {{ form.email.label }} {{ form.email }}
+            {{ form.password.label }} {{ form.password }}
+            {{ form.submit(class_="button-primary") }}
+        </form>
+    </main>
+    <aside>
+        <div class="bg-gray rounded sidebar-block">
+            <h3>Forgot Password</h3>
+            <a href="" class="navigation">Reset Password</a>
+        </div>
+        <div class="bg-gray rounded sidebar-block">
+            <h3>No Account</h3>
+            <a href="" class="navigation">Sign Up</a>
+        </div>
+    </aside>
+</div>
 
 {% endblock %}
