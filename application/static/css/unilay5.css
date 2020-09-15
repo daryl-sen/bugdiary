@@ -15,7 +15,7 @@ body {
 }
 
 header {
-  background-color: #f9f9f9;
+  background-color: #a72c30;
   border-bottom: 1px solid #d0d0d0;
   padding: 1.5em;
   display: grid;
@@ -33,7 +33,7 @@ header #logo {
   font-size: 1.8em;
 }
 header #logo a:link, header #logo a:visited {
-  color: #393939;
+  color: #fff;
   text-decoration: none;
 }
 header nav, header #navigation {
@@ -44,12 +44,12 @@ header nav, header #navigation {
 }
 header nav a, header #navigation a {
   display: inline-block;
-  color: #000;
+  color: #eeeeee;
   text-decoration: none;
   padding: 0 1em;
 }
 header nav a:hover, header #navigation a:hover {
-  color: #e0e0e0;
+  color: #fff;
 }
 header nav #closeMenu, header #navigation #closeMenu {
   display: none;
@@ -62,7 +62,7 @@ header nav #closeMenu, header #navigation #closeMenu {
   top: 0;
   right: 1em;
   padding: 1em;
-  color: #000;
+  color: #eeeeee;
   background-color: #dddddd;
   border: 1px solid #e9e9e9;
   border-top: 0;
@@ -98,7 +98,7 @@ section {
 }
 
 .confined {
-  max-width: 50em;
+  max-width: 65em;
   margin-left: auto;
   margin-right: auto;
 }
@@ -123,7 +123,7 @@ footer #version {
   text-align: right;
 }
 
-@media screen and (max-width: 59em) {
+@media screen and (max-width: 74em) {
   body > main, footer {
     padding: 1.5em;
   }
@@ -182,8 +182,8 @@ main a.button-secondary, main a.button-primary {
   text-align: center;
 }
 main a.button-primary {
-  background-color: #ff3939;
-  color: #000;
+  background-color: #a72c30;
+  color: #fff;
 }
 main a.button-secondary {
   background-color: #358bdc;
@@ -191,7 +191,7 @@ main a.button-secondary {
 }
 main a.button-primary:hover,
 main a.button-secondary:hover {
-  color: #e0e0e0;
+  color: #fff;
 }
 
 a:link, a:visited {
@@ -446,11 +446,15 @@ ADDON CHARACTERISTICS
 }
 
 .bg-yellow {
-  background-color: yellow;
+  background-color: #FED766;
+}
+
+.bg-gray {
+  background-color: #eeeeee;
 }
 
 .border-left-accent {
-  border-left: 5px solid #ff3939;
+  border-left: 5px solid #a72c30;
   padding: 0.5em 1em;
 }
 
@@ -517,8 +521,8 @@ input[type=checkbox] {
 }
 
 .button-primary {
-  background-color: #ff3939;
-  color: #000;
+  background-color: #a72c30;
+  color: #fff;
 }
 
 .button-secondary {
