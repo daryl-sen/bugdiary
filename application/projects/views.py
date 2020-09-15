@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
-from application.projects.forms import project_form
+from application.projects.forms import project_form, location_and_type_form
 
 projects = Blueprint('projects', __name__, template_folder = 'templates/projects')
 
@@ -7,6 +7,15 @@ projects = Blueprint('projects', __name__, template_folder = 'templates/projects
 def dashboard(project_name):
     return render_template('dashboard.html')
 
+
+
+
+
+
+@projects.route('/<string:project_name>/location_and_type')
+def location_and_type(project_name):
+    form = location_and_type_form()
+    return render_template('location_and_type.html', form = form)
 
 
 

@@ -1,0 +1,62 @@
+{% set webtitle = "Bug Locations and Types" %}
+{% extends 'confined.html' %}
+
+
+{% block main %}
+<h1>Possible Locations and Types</h1>
+<div class="main-aside-reversed">
+    <main>
+        <div class="rounded lined block">
+            <form method="post">
+                <h3>Dynamic Lists</h3>
+                <p>
+                    The following will generate a list of options that testers or users can select when they report an issue to your BugDiary. You can leave this blank so users can enter a value that they feel is appropriate.
+                </p>
+                <p>
+                    When users enter a value for <b>type</b> or <b>location</b> that's not in this list, you will have an option to add that value to it.
+                </p>
+
+                {{ form.hidden_tag() }}
+
+                
+                {% for location in form.bug_locations %}
+                {{ location.label }}
+                {{ location }}
+                {% endfor %}
+
+                {% for location in form.bug_types %}
+                {{ location.label }}
+                {{ location }}
+                {% endfor %}
+
+            </form>
+        </div>
+    </main>
+    <aside>
+        <div class="block rounded bg-gray">
+            <h3>Final Step</h3>
+            <p>
+                Examples of <b>types</b> include:
+            </p>
+            <ul>
+                <li>typos</li>
+                <li>404 page not found</li>
+                <li>wrong URL</li>
+                <li>inappropriate language</li>
+                <li>suggestions</li>
+            </ul>
+            <p>
+                Examples of <b>locations</b> include:
+            </p>
+            <ul>
+                <li>homepage</li>
+                <li>contact page</li>
+                <li>or a URL</li>
+            </ul>
+            <p>
+                These will appear as options when your testers or users report errors.
+            </p>
+        </div>
+    </aside>
+</div>
+{% endblock %}

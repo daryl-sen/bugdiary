@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, SelectField, PasswordField, BooleanField, HiddenField, IntegerField
+from wtforms import StringField, SubmitField, TextAreaField, SelectField, PasswordField, BooleanField, HiddenField, IntegerField, FieldList
 from wtforms.validators import DataRequired, Length, ValidationError, EqualTo
 from wtforms_validators import AlphaNumeric, ActiveUrl, AlphaSpace
 from application.models import Users
@@ -25,5 +25,5 @@ class project_form(FlaskForm):
 
 
 class location_and_type_form(FlaskForm):
-    bug_location = StringField()
-    bug_type = StringField()
+    bug_locations = FieldList(StringField('Location'), min_entries=1)
+    bug_types = FieldList(StringField('Type'), min_entries=1)
