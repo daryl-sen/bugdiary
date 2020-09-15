@@ -22,8 +22,8 @@ Migrate(app,db)
 from application.core.views import core
 app.register_blueprint(core, url_prefix="/")
 
-# from application.projects.views import projects
-# app.register_blueprint(projects, url_prefix="/projects")
+from application.projects.views import projects
+app.register_blueprint(projects, url_prefix="/projects")
 
-# from application.users.views import users
-# app.register_blueprint(users, url_prefix="/users")
+from application.users.views import users
+app.register_blueprint(users, url_prefix="/users")
