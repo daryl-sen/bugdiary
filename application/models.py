@@ -12,11 +12,11 @@ import datetime as dt
 
 
 class Users(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key = True)
-    display_name = db.Column(db.String(200), index = True)
-    email = db.Column(db.String(200), index = True, unique = True)
-    password = db.Column(db.String(200))
-    bio = db.Column(db.Text)
+    id = db.Column(db.Integer, primary_key = True, nullable = False)
+    display_name = db.Column(db.String(200), nullable = False)
+    email = db.Column(db.String(200), index = True, unique = True, nullable = False)
+    password = db.Column(db.String(200), nullable = False)
+    bio = db.Column(db.Text, nullable = False)
 
     # AS PARENT
     owned_projects = db.relationship('Projects', backref="owner")
@@ -36,14 +36,14 @@ class Users(db.Model, UserMixin):
 
 
 class Projects(db.Model):
-    id  = db.Column(db.Integer, primary_key = True)
-    url = db.Column(db.String(100), index = True)
-    name = db.Column(db.String(100))
-    description = db.Column(db.Text)
-    creation_date = db.Column(db.DateTime, index = True)
-    expiry_date = db.Column(db.DateTime, index = True)
-    status = db.Column(db.String(10))
-    access_code = db.Column(db.String(50))
+    id  = db.Column(db.Integer, primary_key = True, nullable = False)
+    url = db.Column(db.String(100), index = True, unique = True, nullable = False)
+    name = db.Column(db.String(100), nullable = False)
+    description = db.Column(db.Text, nullable = False)
+    creation_date = db.Column(db.DateTime, index = True, nullable = False)
+    expiry_date = db.Column(db.DateTime, index = True, nullable = False)
+    status = db.Column(db.String(10), nullable = False)
+    access_code = db.Column(db.String(50), nullable = True)
     # AS CHILD
     owner = db.Column(db.Integer, db.ForeignKey('users.id')) #linked
     # AS PARENT
@@ -58,10 +58,22 @@ class Projects(db.Model):
 
 class Project_settings(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    index = db.Column(db.String(20))
-    value = db.Column(db.String(20))
+    ext_url = db.Column(db.String(100), unique = True)
+    current_version = db.Column(db.String(20), index = True)
+    
+    # CUSTOMIZATION
+    header_color = db.Column(db.String(7))
+    background_color = db.Column(db.String(7))
+    link_color = db.Column(db.String(7))
+
+    # PREFERENCES
+    per_page = db.Column(db.Integer)
+    visibility = db.Column(db.Integer)
+    
     # AS CHILD
     project = db.Column(db.Integer, db.ForeignKey('projects.id')) #linked
+
+
 
 class Project_bug_locations(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -83,7 +95,7 @@ class Project_bug_types(db.Model):
 
 class Bugs(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    ref_id = db.Column(db.String(100), index = True)
+    ref_id = db.Column(db.String(100), index = True, unique = True)
     details = db.Column(db.Text)
     author = db.Column(db.String(100))
     author_email = db.Column(db.String(100))

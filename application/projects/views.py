@@ -1,4 +1,5 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
+from application.projects.forms import project_form
 
 projects = Blueprint('projects', __name__, template_folder = 'templates/projects')
 
@@ -31,5 +32,6 @@ def delete(project_name):
 
 @projects.route('/create')
 def create():
-    return render_template('create.html')
+    form = project_form()
+    return render_template('create.html', form = form)
 

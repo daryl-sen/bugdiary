@@ -17,11 +17,15 @@
             {{ form.name.label }} {{ form.name }}
             {{ form.bio.label }} {{ form.bio(placeholder = "Optional") }}
             <div class="spacer-medium"></div>
-            
+
             <h3>Terms of Service and Privacy Policy</h3>
-            <p></p>
             {{ form.tos }} {{ form.tos.label() }}
+            <p></p>
             {{ form.submit(class_="button-primary") }}
+            <div class="spacer-medium"></div>
+
+            <h3>Development Notice</h3>
+            <p>This website is currently under development, not all features are available to use.</p>
         </form>
     </main>
     <aside>

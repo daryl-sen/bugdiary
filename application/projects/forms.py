@@ -1,0 +1,29 @@
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, TextAreaField, SelectField, PasswordField, BooleanField, HiddenField, IntegerField
+from wtforms.validators import DataRequired, Length, ValidationError, EqualTo
+from wtforms_validators import AlphaNumeric, ActiveUrl, AlphaSpace
+from application.models import Users
+
+
+class project_form(FlaskForm):
+    #project info
+    name = StringField()
+    description = TextAreaField()
+    ext_url = StringField()
+    current_version = StringField()
+
+    #preferences
+    access_code = StringField()
+    per_page = IntegerField()
+    visibility = BooleanField()
+
+    create = SubmitField('Create BugDiary')
+    edit = SubmitField('Edit BugDiary')
+
+
+
+
+
+class location_and_type_form(FlaskForm):
+    bug_location = StringField()
+    bug_type = StringField()
