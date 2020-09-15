@@ -598,7 +598,8 @@ input[type='number'],
 input[type='submit'],
 input[type='password'],
 select,
-textarea {
+textarea,
+button[type='button'] {
   font-size: 1em;
   padding: 0.5em;
   -webkit-appearance: none;

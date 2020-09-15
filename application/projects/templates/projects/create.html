@@ -20,6 +20,8 @@
                 <h3>Basic Preferences</h3>
                 {{ form.per_page.label }}{{ form.per_page }}
                 {{ form.access_code.label }}{{ form.access_code(placeholder = "(Optional)") }}
+                {{ form.allow_suggestions }}
+                {{ form.allow_suggestions.label }} <br>
                 {{ form.visibility }}
                 {{ form.visibility.label }}
                 <div class="spacer-medium"></div>

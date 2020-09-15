@@ -39,6 +39,32 @@ def delete(project_name):
 
 
 
+@projects.route('/<string:project_name>/blog')
+def blog(project_name):
+    return render_template('dashboard.html')
+
+
+
+
+
+@projects.route('/<string:project_name>/blog/new_post')
+def new_post(project_name):
+    return render_template('dashboard.html')
+
+
+
+
+
+
+@projects.route('/<string:project_name>/blog/edit_post')
+def edit_post(project_name):
+    return render_template('dashboard.html')
+
+
+
+
+
+
 @projects.route('/create')
 def create():
     form = project_form()

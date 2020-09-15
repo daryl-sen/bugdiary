@@ -69,6 +69,7 @@ class Project_settings(db.Model):
     # PREFERENCES
     per_page = db.Column(db.Integer)
     visibility = db.Column(db.Integer)
+    allow_suggestions = db.Column(db.Integer)
     
     # AS CHILD
     project = db.Column(db.Integer, db.ForeignKey('projects.id')) #linked

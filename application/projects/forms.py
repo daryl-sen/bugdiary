@@ -15,7 +15,8 @@ class project_form(FlaskForm):
     #preferences
     access_code = StringField()
     per_page = IntegerField()
-    visibility = BooleanField()
+    visibility = BooleanField("Other users can find this BugDiary in search")
+    allow_suggestions = BooleanField("Allow testers/users to suggest additional types and locations")
 
     create = SubmitField('Create BugDiary')
     edit = SubmitField('Edit BugDiary')
