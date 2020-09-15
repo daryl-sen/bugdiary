@@ -15,7 +15,7 @@ body {
 }
 
 header {
-  background-color: #a72c30;
+  background-color: #cf6b6e;
   border-bottom: 1px solid #d0d0d0;
   padding: 1.5em;
   display: grid;
@@ -63,7 +63,7 @@ header nav #closeMenu, header #navigation #closeMenu {
   right: 1em;
   padding: 1em;
   color: #eeeeee;
-  background-color: #dddddd;
+  background-color: #a72c30;
   border: 1px solid #e9e9e9;
   border-top: 0;
   border-radius: 1em 1em 1em 1em;
@@ -107,7 +107,7 @@ footer {
   font-size: 0.85em;
   border-top: 1px solid #e6e6e6;
   padding-top: 1em;
-  max-width: 900px;
+  max-width: 65em;
   color: #393939;
   margin: 5em auto 3em auto;
   display: grid;
@@ -363,15 +363,15 @@ BLOCK LEVEL ELEMENTS
 
 .main-aside {
   grid-template-areas: "main aside";
-  grid-template-columns: auto 300px;
+  grid-template-columns: auto 400px;
 }
 
 .aside-main {
   grid-template-areas: "aside main";
-  grid-template-columns: 300px auto;
+  grid-template-columns: 400px auto;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1200px) {
   .main-aside, .aside-main {
     grid-template-areas: "main" "aside";
     grid-template-columns: auto;
