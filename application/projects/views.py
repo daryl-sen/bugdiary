@@ -1,10 +1,13 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
 from application.projects.forms import project_form, location_and_type_form
+from application.models import Users, Projects, Project_settings
+from flask_login import login_required, current_user
+from application import db
 
 projects = Blueprint('projects', __name__, template_folder = 'templates/projects')
 
-@projects.route('/<string:project_name>')
-def dashboard(project_name):
+@projects.route('/view/<string:project_url>')
+def dashboard(project_url):
     return render_template('dashboard.html')
 
 
@@ -12,8 +15,8 @@ def dashboard(project_name):
 
 
 
-@projects.route('/<string:project_name>/location_and_type')
-def location_and_type(project_name):
+@projects.route('/location_and_type/<string:project_url>', methods=['post', 'get'])
+def location_and_type(project_url):
     form = location_and_type_form()
     return render_template('location_and_type.html', form = form)
 
@@ -21,8 +24,8 @@ def location_and_type(project_name):
 
 
 
-@projects.route('/<string:project_name>/edit')
-def edit(project_name):
+@projects.route('/edit/<string:project_url>', methods=['post'])
+def edit(project_url):
     return render_template('dashboard.html')
 
 
@@ -30,8 +33,8 @@ def edit(project_name):
 
 
 
-@projects.route('/<string:project_name>/delete')
-def delete(project_name):
+@projects.route('/delete/<string:project_url>')
+def delete(project_url):
     return render_template('dashboard.html')
 
 
@@ -39,25 +42,16 @@ def delete(project_name):
 
 
 
-@projects.route('/<string:project_name>/blog')
-def blog(project_name):
+@projects.route('/blog/<string:project_url>')
+def blog(project_url):
     return render_template('dashboard.html')
 
 
 
 
 
-@projects.route('/<string:project_name>/blog/new_post')
-def new_post(project_name):
-    return render_template('dashboard.html')
-
-
-
-
-
-
-@projects.route('/<string:project_name>/blog/edit_post')
-def edit_post(project_name):
+@projects.route('/blog/new_post/<string:project_url>', methods=['post'])
+def new_post(project_url):
     return render_template('dashboard.html')
 
 
@@ -65,8 +59,26 @@ def edit_post(project_name):
 
 
 
-@projects.route('/create')
+@projects.route('/blog/edit_post/<string:project_url>', methods=['post'])
+def edit_post(project_url):
+    return render_template('dashboard.html')
+
+
+
+
+
+
+@projects.route('/create', methods=['post', 'get'])
 def create():
     form = project_form()
+    if form.validate_on_submit():
+        new_project = Projects(name=form.name.data, description=form.description.data, access_code=form.access_code.data, owner=current_user.id)
+        db.session.add(new_project)
+        db.session.commit()
+        project_settings = Project_settings(ext_url = form.ext_url.data, current_version = form.current_version.data, per_page = form.per_page.data, visibility = form.visibility.data, allow_suggestions = form.allow_suggestions.data, project_id = new_project.id)
+        db.session.add(project_settings)
+        db.session.commit()
+        flash(f"Your new project ({new_project.name}) has been created.")
+        return redirect(url_for('projects.location_and_type', project_url = new_project.url))
     return render_template('create.html', form = form)
 

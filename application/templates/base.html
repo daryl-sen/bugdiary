@@ -20,6 +20,9 @@
           <a href="">MY BUGDIARY</a>
           <a href="">ABOUT</a>
           <a href="">CONTACT</a>
+          {% if current_user.is_authenticated %}
+          <a href="">LOGOUT</a>
+          {% endif %}
           <a id="closeMenu" onClick="toggleMenu()">CLOSE</a>
         </nav>
         <button id="openMenu" onClick="toggleMenu()">

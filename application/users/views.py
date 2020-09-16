@@ -1,5 +1,10 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
 from application.users.forms import login_form, registration_form
+from application import db
+from application.models import Users
+from flask_login import login_user, login_required, logout_user, current_user
+import datetime as dt
+from werkzeug.security import generate_password_hash
 
 users = Blueprint('users', __name__, template_folder = 'templates/users')
 
@@ -12,7 +17,7 @@ def dashboard():
 
 
 
-@users.route('/login')
+@users.route('/login', methods=['post'])
 def login():
     form = login_form()
     return render_template('login.html', form = form)
@@ -22,7 +27,17 @@ def login():
 
 
 
-@users.route('/register')
+@users.route('/register', methods=['post', 'get'])
 def register():
     form = registration_form()
+    if form.validate_on_submit():
+        new_user = Users(form.email.data, form.password.data, form.name.data, form.bio.data)
+        db.session.add(new_user)
+        db.session.commit()
+        login_user(new_user)
+        flash(f"Welcome, {new_user.display_name}!")
+        return redirect(url_for('projects.create'))
+    else:
+        for field, error in form.errors.items():
+            flash('{} ({} error)'.format(error[0], field))
     return render_template('register.html', form = form)
