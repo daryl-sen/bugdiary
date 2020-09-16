@@ -7,6 +7,7 @@ from application import db
 projects = Blueprint('projects', __name__, template_folder = 'templates/projects')
 
 @projects.route('/view/<string:project_url>')
+@login_required
 def dashboard(project_url):
     return render_template('dashboard.html')
 
@@ -16,6 +17,7 @@ def dashboard(project_url):
 
 
 @projects.route('/location_and_type/<string:project_url>', methods=['post', 'get'])
+@login_required
 def location_and_type(project_url):
     form = location_and_type_form()
     return render_template('location_and_type.html', form = form)
@@ -24,7 +26,8 @@ def location_and_type(project_url):
 
 
 
-@projects.route('/edit/<string:project_url>', methods=['post'])
+@projects.route('/edit/<string:project_url>', methods=['post', 'get'])
+@login_required
 def edit(project_url):
     return render_template('dashboard.html')
 
@@ -34,6 +37,7 @@ def edit(project_url):
 
 
 @projects.route('/delete/<string:project_url>')
+@login_required
 def delete(project_url):
     return render_template('dashboard.html')
 
@@ -43,6 +47,7 @@ def delete(project_url):
 
 
 @projects.route('/blog/<string:project_url>')
+@login_required
 def blog(project_url):
     return render_template('dashboard.html')
 
@@ -51,6 +56,7 @@ def blog(project_url):
 
 
 @projects.route('/blog/new_post/<string:project_url>', methods=['post'])
+@login_required
 def new_post(project_url):
     return render_template('dashboard.html')
 
@@ -60,6 +66,7 @@ def new_post(project_url):
 
 
 @projects.route('/blog/edit_post/<string:project_url>', methods=['post'])
+@login_required
 def edit_post(project_url):
     return render_template('dashboard.html')
 
@@ -69,6 +76,7 @@ def edit_post(project_url):
 
 
 @projects.route('/create', methods=['post', 'get'])
+@login_required
 def create():
     form = project_form()
     if form.validate_on_submit():
