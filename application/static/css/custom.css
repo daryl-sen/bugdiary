@@ -82,3 +82,7 @@
       grid-template-rows: auto auto;
     }
   }
+
+  .bignum {
+    font-size: 3em;
+  }

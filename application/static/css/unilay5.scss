@@ -3,14 +3,14 @@ CONFIGURABLE COLORS
 ***************************************************************************** */
 
 @function contrast_text($color) {
-  @if (lightness($color) > 50) {
+  @if (lightness($color) > 40) {
     @return #000;
   } @else {
     @return #fff;
   }
 }
 
-$primary_color: #a72c30; // color that will appear most
+$primary_color: #cf6b6e; // color that will appear most
 $secondary_color: #358bdc; // a secondary color
 $primary_contrast_text: contrast_text($primary_color);
 $secondary_contrast_text: contrast_text($secondary_color);
@@ -39,7 +39,7 @@ $title_color: #fff; // color for the page logo/title
 $header_color: #cf6b6e; // color for the <header> element
 $header_bottom_border: #d0d0d0; // color for the bottom border of the header
 $shadow_color: rgba(0, 0, 0, 0.1);
-$body_background: #ffffff;
+$body_background: #f0f0f0;
 
 
 // HEADINGS
@@ -170,8 +170,8 @@ header {
 }
 
 section {
-  margin: 4em 0 1em 0;
-  // padding: 0 $standard_padding;
+  margin: 0;
+  padding: 0;
 }
 
 .confined {
@@ -555,33 +555,37 @@ ADDON CHARACTERISTICS
   background-color: #FED766;
 }
 .bg-gray {
-  background-color: #eeeeee;
+  background-color: #cacaca;
 }
 
 .border-left-accent {
   border-left: 5px solid $primary_color;
   padding: 0.5em 1em;
+  margin-bottom: $standard_padding;
 }
 
 .notification {
-  padding: $standard_padding;
-  border: 1px solid $line_color;
+  padding: $standard_padding/2 $standard_padding;
+  background: #ffa6a9;
   line-height: 1.5em;
   margin: $standard_padding 0;
+  border-radius: 1em 1em 1em 1em;
+  -moz-border-radius: 1em 1em 1em 1em;
+  -webkit-border-radius: 1em 1em 1em 1em;
 }
-.notification::before {
-  content: '\26A0';
-  font-size: 1.5em;
-  padding-left: 0;
-}
-.notification::after {
-  content: 'Dismiss';
-  display: block;
-  text-align: right;
-  border-top: 1px solid $line_color;
-  margin-top: 0.5em;
-  color: #595959;
-}
+// .notification::before {
+//   content: '\26A0';
+//   font-size: 1.5em;
+//   padding-left: 0;
+// }
+// .notification::after {
+//   content: 'Dismiss';
+//   display: block;
+//   text-align: right;
+//   border-top: 1px solid $line_color;
+//   margin-top: 0.5em;
+//   color: #595959;
+// }
 
 
 

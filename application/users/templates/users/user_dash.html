@@ -5,7 +5,7 @@
 <h1>My BugDiaries</h1>
 <div class="main-aside">
     <main>
-        <div class="bg-white rounded lined block text-centered">
+        <div class="bg-white rounded shadowed block text-centered">
             <h3>Global Stats</h3>
             <div class="block-comparison-3">
                 <div class="comp1 text-centered lined bg-white">
@@ -23,15 +23,34 @@
             </div>
         </div>
 
-        <div class="bg-white rounded lined block">
-            <h2>BugDiary</h2>
-            <div class="hidden">
+        <div class="bg-white rounded shadowed block">
+            <h2>My BugDiaries</h2>
+
+            <div class="border-left-accent">
+                <h3>My Project</h3>
                 <p>
                     Some description about this project.
                 </p>
+                <a href="" class="navigation">Go to BugDiary</a>
             </div>
-            <a href="" class="navigation">Go to BugDiary</a>
+            <div class="border-left-accent">
+                <h3>My Project</h3>
+                <p>
+                    Some description about this project.
+                </p>
+                <a href="" class="navigation">Go to BugDiary</a>
+            </div>
+            <a href="" class="button-primary rounded shadowed">
+                Create New BugDiary
+            </a>
+
         </div>
     </main>
+    <aside>
+        <div class="sidebar-block bg-gray">
+            <h3>Welcome Back!</h3>
+            <p>Hi (User), your last login was on (date).</p>
+        </div>
+    </aside>
 </div>
 {% endblock %}
