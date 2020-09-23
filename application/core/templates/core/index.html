@@ -1,5 +1,16 @@
-{% set web_title = "Homepage" %}
 {% extends 'unconfined.html' %}
+
+{% block addons %}
+<style>
+  body {
+    background-color: #fff;
+  }
+</style>
+{% endblock %}
+
+{% block title %}
+  BugDiary - Homepage
+{% endblock %}
 
 {% block main %}
 <section id="splash">

@@ -1,6 +1,13 @@
-{% set webtitle = "My BugDiaries" %}
-{% import 'macros.html' as macros %}
 {% extends 'confined.html' %}
+
+{% block addons %}
+{% endblock %}
+
+{% block title %}
+    BugDiary - {{project.name}} Dashboard
+{% endblock %}
+
+{% import 'macros.html' as macros %}
 
 {% block main %}
 <h1>{{ project.name }}</h1>
