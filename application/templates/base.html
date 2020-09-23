@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/fav.ico') }}">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}BugDiary{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/unilay5.css') }}?v={{version}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}?v={{version}}">
     <script src="{{ url_for('static', filename='js/toggles.js')}}?v={{version}}" charset="utf-8"></script>
@@ -14,9 +14,10 @@
   <body class="unilay5">
     <header>
         <div id="logo"><a href="{{ url_for('core.index') }}">
-            BugDiary
+            {% block custom_logo %}BugDiary{% endblock %}
         </a></div>
         <nav id="navigation">
+          {% block custom_nav %}
           <a href="{{ url_for('users.dashboard') }}">MY BUGDIARY</a>
           <a href="">ABOUT</a>
           <a href="">CONTACT</a>
@@ -24,6 +25,7 @@
           <a href="{{ url_for('users.logout') }}">LOGOUT</a>
           {% endif %}
           <a id="closeMenu" onClick="toggleMenu()">CLOSE</a>
+          {% endblock %}
         </nav>
         <button id="openMenu" onClick="toggleMenu()">
           &#9776;
@@ -40,7 +42,7 @@
         &copy; Sen Tang, 2020
       </div>
       <div id="version">
-        V {{ version }}
+        BugDiary.com (v{{ version }})
       </div>
     </footer>
   </body>

@@ -116,6 +116,7 @@ header {
     text-align: right;
     z-index: 10;
     a {
+      text-transform: uppercase;
       display: inline-block;
       color: $navlink_color;
       text-decoration: none;

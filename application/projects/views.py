@@ -51,6 +51,21 @@ def delete(project_url):
 
 
 
+@projects.route('/report/<string:project_url>')
+def report(project_url):
+    target_project = Projects.query.filter_by(url = project_url).first()
+    if target_project.settings.allow_suggestions == 1:
+        pass
+    elif target_project.settings.allow_suggestions == 0:
+        pass
+    else:
+        flash('Something has gone wrong while fetching your report form.')
+    return render_template('report.html', project = target_project)
+
+
+
+
+
 
 @projects.route('/blog/<string:project_url>')
 @login_required

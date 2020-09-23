@@ -4,7 +4,32 @@
 {% endblock %}
 
 {% block title %}
-  BugDiary - {{project.name}} - Report a Bug
+  {{project.name}} - Report a Bug
 {% endblock %}
 
+{% block custom_nav %}
+<a href="">BLOG</a>
+<a href="">BACK TO {{ project.name }}</a>
+{% endblock %}
+
+{% block custom_logo %}{{ project.name }}{% endblock %}
+
 {% import 'macros.html' as macros %}
+
+{% block main %}
+<h1>Report an Issue</h1>
+<div class="main-aside">
+  <main>
+    <div class="bg-white rounded shadowed block">
+
+    </div>
+  </main>
+  <aside>
+    <div class="sidebar-block bg-gray">
+      <h3>Create Your Own</h3>
+      <p>BugDiary.com is a simple-to-use issue-tracking and bug-reporting platform, create your own today!</p>
+    </div>
+    {{ macros.ad(medium) }}
+  </aside>
+</div>
+{% endblock %}

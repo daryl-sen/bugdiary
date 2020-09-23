@@ -43,6 +43,7 @@ header nav, header #navigation {
   z-index: 10;
 }
 header nav a, header #navigation a {
+  text-transform: uppercase;
   display: inline-block;
   color: #eeeeee;
   text-decoration: none;

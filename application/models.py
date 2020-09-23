@@ -31,6 +31,7 @@ class Users(db.Model, UserMixin):
         self.password = generate_password_hash(password)
         self.display_name = display_name
         self.bio = bio
+        self.last_login = dt.datetime.now()
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
