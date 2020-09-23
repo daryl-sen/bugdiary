@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block title %}
-    BugDiary - Bug Locations and Types
+    BugDiary - {{title}} - Bug Locations and Types
 {% endblock %}
 
 {% import 'macros.html' as macros %}
@@ -14,7 +14,7 @@
 <h1>Possible Locations and Types</h1>
 <p class="border-left-accent">
     This is the final step! Help your users/testers describe the bugs they report by listing some possible types (i.e. typos, grammar, suggestions) and locations (i.e. homepage, contact page, url). A preview is available in the yellow box. Click on the "Done" button below when you're ready to move on.
-    <br><a href="" class="button-primary rounded shadowed">All Done</a>
+    <br><a href="{{ url_for('projects.dashboard', project_url = url) }}" class="button-primary rounded shadowed">All Done</a>
 </p>
 <!-- <p class="border-left-accent">
     Users/testers can manually enter a value that's not listed here.
@@ -23,15 +23,15 @@
 <div class="main-aside-reversed">
     <main>
         <div>
-            <form method="post" class="shadowed bg-white block rounded">
-                <label for="">New Location</label>
-                <input type="text">
-                <button type="button" class="button-primary">Add Location</button>
+            <form method="post" action="" class="shadowed bg-white block rounded">
+                <label for="new_location">New Location</label>
+                <input name="new_location" type="text"/>
+                <input type="submit" class="button-primary" value="Add Location"/>
             </form>
-            <form method="post" class="shadowed bg-white block rounded">
-                <label for="">New Type</label>
-                <input type="text">
-                <button type="button" class="button-primary">Add Type</button>
+            <form method="post" action="" class="shadowed bg-white block rounded">
+                <label for="new_type">New Type</label>
+                <input name="new_type" type="text"/>
+                <input type="submit" class="button-primary" value="Add Type"/>
             </form>
         </div>
     </main>
@@ -41,14 +41,38 @@
             <p>The following is what your testers/users will see when they report a bug.</p>
             <div class="bg-white rounded shadowed block" id="preview">
                 <h3>Reporting a Bug</h3>
-                <label>Bug Location</label>
-                <select>
-                    <option value="">Test</option>
-                </select>
-                <label>Bug Type</label>
-                <select>
-                    <option value="">Test</option>
-                </select>
+
+                {% if form_type == "suggest" %}
+                    <label>Bug Location</label>
+                    <input type="text" list="location_list">
+                    <datalist id="location_list">
+                        {% for loc in bug_locations %}
+                        <option value="{{ loc }}"></option>
+                        {% endfor %}
+                    </datalist>
+
+                    <label>Bug Type</label>
+                    <input type="text" list="type_list">
+                    <datalist id="type_list">
+                        {% for bug_type in bug_types %}
+                        <option value="{{ bug_type }}"></option>
+                        {% endfor %}
+                    </datalist>
+                {% elif form_type == "select" %}
+                    <label>Bug Location (select)</label>
+                    <select>
+                        {% for loc in bug_locations %}
+                        <option value="{{ loc }}">{{ loc }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label>Bug Type (select)</label>
+                    <select>
+                        {% for bug_type in bug_types %}
+                        <option value="{{ bug_type }}">{{ bug_type }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
                 <label>Description</label>
                 <textarea></textarea>
                 <p>

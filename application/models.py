@@ -52,6 +52,8 @@ class Projects(db.Model):
     owner = db.Column(db.Integer, db.ForeignKey('users.id')) #linked
     # AS PARENT
     bugs = db.relationship('Bugs', backref = 'containing_project')
+    locations = db.relationship('Project_bug_locations', backref = 'locations_in')
+    types = db.relationship('Project_bug_types', backref = 'types_in')
     settings = db.relationship('Project_settings', backref = 'settings_for', uselist = False)
     blog_posts = db.relationship('Blog_posts', backref= 'post_target')
 
@@ -107,12 +109,20 @@ class Project_bug_locations(db.Model):
     # AS PARENT
     associated_bugs = db.relationship('Bugs', backref = "interpreted_bug_location")
 
+    def __init__(self, project, location):
+        self.project = project
+        self.location = location
+
 class Project_bug_types(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     project = db.Column(db.Integer, db.ForeignKey('projects.id')) # no link required, never need to backref
     bug_type = db.Column(db.String(50))
     # AS PARENT
     associated_bugs = db.relationship('Bugs', backref = "interpreted_bug_type")
+
+    def __init__(self, project, bug_type):
+        self.bug_type = bug_type
+        self.project = project
 
 
 

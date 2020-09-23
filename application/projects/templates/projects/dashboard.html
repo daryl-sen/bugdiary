@@ -50,6 +50,7 @@
         <div class="sidebar-block bg-gray">
             <h3>Useful Links</h3>
             <a href="" class="navigation">Project Settings</a>
+            <a href="{{ url_for('projects.location_and_type', project_url = project.url) }}" class="navigation">Bug locations and types</a>
             <a href="" class="navigation">My Dev Blog</a>
             <a href="" class="navigation">Collaborate</a>
             <a href="" class="navigation">Preview Report Form</a>
