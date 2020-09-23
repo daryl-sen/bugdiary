@@ -37,3 +37,14 @@ class report_form(FlaskForm):
     bug_type = StringField('Bug Type')
     bug_location = StringField('Bug Location')
     submit = SubmitField('Report')
+
+
+
+
+
+
+class blog_post_form(FlaskForm):
+    title = StringField()
+    content = HiddenField()
+    visibility = BooleanField('Available to Public?')
+    submit = SubmitField('Post')

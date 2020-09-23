@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
-from application.projects.forms import project_form, location_and_type_form
-from application.models import Users, Projects, Project_settings, Project_bug_locations, Project_bug_types
+from application.projects.forms import project_form, location_and_type_form, blog_post_form
+from application.models import Users, Projects, Project_settings, Project_bug_locations, Project_bug_types, Blog_posts
 from flask_login import login_required, current_user
 from application import db
 
@@ -102,16 +102,26 @@ def report(project_url):
 @projects.route('/blog/<string:project_url>')
 @login_required
 def blog(project_url):
-    return render_template('dashboard.html')
+    target_project = Projects.query.filter_by(url = project_url).first()
+    blog_posts = Blog_posts.query.filter_by(project = target_project.id)
+    return render_template('blog.html', blog_posts = blog_posts, project = target_project)
 
 
 
 
 
-@projects.route('/blog/new_post/<string:project_url>', methods=['post'])
+@projects.route('/blog/new_post/<string:project_url>', methods=['post', 'get'])
 @login_required
 def new_post(project_url):
-    return render_template('dashboard.html')
+    target_project = Projects.query.filter_by(url = project_url).first()
+    form = blog_post_form()
+    if form.validate_on_submit():
+        new_post = Blog_posts(form.title.data, form.content.data, form.visibility.data, target_project.id, current_user.id)
+        db.session.add(new_post)
+        db.session.commit()
+        flash('Your new blog post has been added')
+        return redirect(url_for('projects.blog', project_url = project_url))
+    return render_template('blog_new.html', form = form, project = target_project)
 
 
 

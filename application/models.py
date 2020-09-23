@@ -162,10 +162,17 @@ class Bug_comments(db.Model):
 
 class Blog_posts(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    date = db.Column(db.DateTime)
-    title = db.Column(db.String(100))
-    content = db.Column(db.Text)
-    visibility = db.Column(db.Integer)
+    date = db.Column(db.DateTime, default = dt.datetime.now())
+    title = db.Column(db.String(100), nullable = False)
+    content = db.Column(db.Text, nullable = False)
+    visibility = db.Column(db.Integer, nullable = False, default = 0)
     # AS CHILD
-    project = db.Column(db.Integer, db.ForeignKey('projects.id')) #linked
-    author = db.Column(db.Integer, db.ForeignKey('users.id')) #linked
+    project = db.Column(db.Integer, db.ForeignKey('projects.id'), index = True, nullable = False) #linked
+    author = db.Column(db.Integer, db.ForeignKey('users.id'), index = True, nullable = False) #linked
+
+    def __init__(self, title, content, visibility, project, author):
+        self.title = title
+        self.content = content
+        self.visibility = visibility
+        self.project = project
+        self.author = author

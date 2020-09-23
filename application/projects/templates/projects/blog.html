@@ -1,0 +1,35 @@
+{% extends 'confined.html' %}
+
+{% block addons %}{% endblock %}
+
+{% block title %}
+    BugDiary - {{project.name}} Blog
+{% endblock %}
+
+{% import 'macros.html' as macros %}
+
+{% block main %}
+<h1>{{project.name}} Development Blog</h1>
+<div class="main-aside">
+    <main>
+        {% for post in blog_posts %}
+        <div class="bg-white rounded shadowed block">
+            <h3>{{ post.title }}</h3>
+            {{post.content|safe}}
+            <div>
+                Posted by {{post.post_author.display_name}} on {{post.date}}
+            </div>
+        </div>
+        {% endfor %}
+    </main>
+    <aside>
+        <div class="sidebar-block bg-gray">
+            <h3>About this Project</h3>
+            <p>
+                {{ project.description }}
+            </p>
+            <a class="navigation" href="{{ url_for('projects.new_post', project_url = project.url) }}">New Post</a>
+        </div>
+    </aside>
+</div>
+{% endblock %}
