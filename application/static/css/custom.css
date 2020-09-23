@@ -122,6 +122,11 @@
   font-size: 0.8em;
 }
 
+.project-summary .name p {
+  font-size: 0.9em;
+  padding: 0.25em 1em 0.5em 1em;
+}
+
 @media screen and (max-width: 750px) {
   .project-summary {
     display: block;

@@ -35,7 +35,7 @@
 
             <h2>My Own</h2>
             <p>
-                The following are Bug Diaries you created, click on the gray box to show the diary's description!
+                The following are Bug Diaries you created, click on the name to show the diary's description!
             </p>
             
             {% for project in user.owned_projects %}
@@ -43,7 +43,11 @@
                 <div class="name shadowed">
                     <a href="{{ url_for('projects.dashboard', project_url = project.url) }}">open</a>{{ project.name }}
                     <p class="hidden" id="sum-{{loop.index}}">
+                        {% if project.description != "" %}
                         {{ project.description }}
+                        {% else %}
+                        No Description Provided
+                        {% endif %}
                     </p>
                 </div>
                 <div class="stats text-centered shadowed bg-yellow">

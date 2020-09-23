@@ -18,6 +18,7 @@ class Users(db.Model, UserMixin):
     email = db.Column(db.String(200), index = True, unique = True, nullable = False)
     password = db.Column(db.String(200), nullable = False)
     bio = db.Column(db.Text, nullable = False)
+    last_login = db.Column(db.DateTime, nullable = False)
 
     # AS PARENT
     owned_projects = db.relationship('Projects', backref="project_owner")
