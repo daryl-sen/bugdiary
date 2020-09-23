@@ -1,4 +1,5 @@
 {% set webtitle = "My BugDiaries" %}
+{% import 'macros.html' as macros %}
 {% extends 'confined.html' %}
 
 {% block main %}
@@ -8,39 +9,57 @@
         <div class="bg-white rounded shadowed block text-centered">
             <h3>Global Stats</h3>
             <div class="block-comparison-3">
-                <div class="comp1 text-centered lined bg-white">
+                <div class="comp1 text-centered lined bg-yellow">
                     <h4>Reported</h4>
-                    <span class="bignum">12</span>
+                    <span class="bignum">X</span>
                 </div>
-                <div class="comp2 text-centered lined bg-white">
+                <div class="comp2 text-centered lined bg-green">
                     <h4>Resolved</h4>
-                    <span class="bignum">5</span>
+                    <span class="bignum">X</span>
                 </div>
-                <div class="comp3 text-centered lined bg-white">
+                <div class="comp3 text-centered lined bg-red">
                     <h4>Unresolved</h4>
-                    <span class="bignum">20</span>
+                    <span class="bignum">X</span>
                 </div>
             </div>
         </div>
 
         <div class="bg-white rounded shadowed block">
-            <h2>My BugDiaries</h2>
 
-            <div class="border-left-accent">
-                <h3>My Project</h3>
-                <p>
-                    Some description about this project.
-                </p>
-                <a href="" class="navigation">Go to BugDiary</a>
+            <h2>My Own</h2>
+            <p>
+                The following are Bug Diaries you created, click on the gray box to show the diary's description!
+            </p>
+            
+            {% for project in user.owned_projects %}
+            <div class="project-summary" onclick="toggleElement('sum-{{loop.index}}')">
+                <div class="name shadowed">
+                    <a href="{{ url_for('projects.dashboard', project_url = project.url) }}">open</a>{{ project.name }}
+                    <p class="hidden" id="sum-{{loop.index}}">
+                        {{ project.description }}
+                    </p>
+                </div>
+                <div class="stats text-centered shadowed bg-yellow">
+                    X
+                </div>
+                <div class="stats text-centered shadowed bg-green">
+                    X
+                </div>
+                <div class="stats text-centered shadowed bg-red">
+                    X
+                </div>
             </div>
-            <div class="border-left-accent">
-                <h3>My Project</h3>
-                <p>
-                    Some description about this project.
-                </p>
-                <a href="" class="navigation">Go to BugDiary</a>
-            </div>
-            <a href="" class="button-primary rounded shadowed">
+            
+            {% endfor %}
+
+            <div class="spacer-small"></div>
+            <h4>Expiry</h4>
+            <p>
+                Bug Diaries will expire in 6 months unless you manually extend the expiry date. You can choose one bug diary to be perpetual by favoriting it in its own settings page.
+            </p>
+            
+            <div class="spacer-small"></div>
+            <a href="{{ url_for('projects.create') }}" class="button-primary rounded shadowed">
                 Create New BugDiary
             </a>
 
@@ -51,6 +70,13 @@
             <h3>Welcome Back!</h3>
             <p>Hi (User), your last login was on (date).</p>
         </div>
+        <div class="sidebar-block bg-gray">
+            <h3>Useful Links</h3>
+            <a href="" class="navigation">My Preferences</a>
+            <a href="" class="navigation">My Account</a>
+            <a href="" class="navigation">Upgrade to Premium</a>
+        </div>
+        {{ macros.ad(medium) }}
     </aside>
 </div>
 {% endblock %}

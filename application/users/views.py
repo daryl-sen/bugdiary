@@ -11,7 +11,8 @@ users = Blueprint('users', __name__, template_folder = 'templates/users')
 @users.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('user_dash.html')
+    
+    return render_template('user_dash.html', user = current_user)
 
 
 

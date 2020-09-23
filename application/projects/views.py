@@ -9,7 +9,11 @@ projects = Blueprint('projects', __name__, template_folder = 'templates/projects
 @projects.route('/view/<string:project_url>')
 @login_required
 def dashboard(project_url):
-    return render_template('dashboard.html')
+    target_project = Projects.query.filter_by(url = project_url).first()
+    if target_project == None:
+        flash("Sorry, the Bug Diary you were trying to access could not be found. It might have expired or you might have entered a typo.")
+        return redirect(url_for('users.dashboard'))
+    return render_template('dashboard.html', project = target_project)
 
 
 
@@ -20,6 +24,8 @@ def dashboard(project_url):
 @login_required
 def location_and_type(project_url):
     form = location_and_type_form()
+    if form.validate_on_submit:
+        pass
     return render_template('location_and_type.html', form = form)
 
 

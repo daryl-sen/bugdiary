@@ -1,6 +1,54 @@
 {% set webtitle = "My BugDiaries" %}
+{% import 'macros.html' as macros %}
 {% extends 'confined.html' %}
 
 {% block main %}
-<h1>My BugDiaries</h1>
+<h1>{{ project.name }}</h1>
+<div class="main-aside">
+    <main>
+        <div class="bg-white rounded shadowed block text-centered">
+            <h3>Diary Stats</h3>
+            <div class="block-comparison-3">
+                <div class="comp1 text-centered lined bg-yellow">
+                    <h4>Reported</h4>
+                    <span class="bignum">X</span>
+                </div>
+                <div class="comp2 text-centered lined bg-green">
+                    <h4>Resolved</h4>
+                    <span class="bignum">X</span>
+                </div>
+                <div class="comp3 text-centered lined bg-red">
+                    <h4>Unresolved</h4>
+                    <span class="bignum">X</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded shadowed block">
+
+            <h2>My Own</h2>
+            
+            <div class="spacer-medium"></div>
+
+        </div>
+    </main>
+    <aside>
+        <div class="sidebar-block bg-gray">
+            <h3>Memo</h3>
+            Ajax this shit
+            <br>
+            <a class="button-secondary rounded shadowed">Edit</a>
+        </div>
+
+        <div class="sidebar-block bg-gray">
+            <h3>Useful Links</h3>
+            <a href="" class="navigation">Project Settings</a>
+            <a href="" class="navigation">My Dev Blog</a>
+            <a href="" class="navigation">Collaborate</a>
+            <a href="" class="navigation">Preview Report Form</a>
+            <a href="" class="navigation">Compact View</a>
+        </div>
+        {{ macros.ad(medium) }}
+    </aside>
+</div>
 {% endblock %}
