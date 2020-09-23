@@ -88,7 +88,7 @@
 }
 
 
-.project-summary {
+.project-summary, .bugs-table {
   display: flex;
   justify-content: space-between;
   gap: 1em;
@@ -134,4 +134,36 @@
   .project-summary .stats {
     display: none;
   }
+}
+
+
+
+table {
+  border-collapse: collapse;
+  table-layout: auto;
+  width: 100%;
+  border: 1px solid #333;
+}
+
+th {
+  background-color: #393939;
+  color: #fff;
+  text-align: left;
+  padding: 0.3em;
+  border: 1px solid #fff;
+}
+
+td {
+  padding: 0.3em;
+  text-align: left;
+  border: 1px solid #333;
+  vertical-align: top;
+}
+
+tr:nth-child(odd) td {
+  background: #e6e6e6;
+}
+
+tr:nth-child(even) td {
+  background: #fff;
 }

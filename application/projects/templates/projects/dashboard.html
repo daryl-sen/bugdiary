@@ -1,7 +1,6 @@
 {% extends 'confined.html' %}
 
-{% block addons %}
-{% endblock %}
+{% block addons %}{% endblock %}
 
 {% block title %}
     BugDiary - {{project.name}} Dashboard
@@ -13,29 +12,30 @@
 <h1>{{ project.name }}</h1>
 <div class="main-aside">
     <main>
-        <div class="bg-white rounded shadowed block text-centered">
+        <div class="bg-white block text-centered">
             <h3>Diary Stats</h3>
             <div class="block-comparison-3">
-                <div class="comp1 text-centered lined bg-yellow">
+                <div class="comp1 text-centered lined">
                     <h4>Reported</h4>
                     <span class="bignum">X</span>
                 </div>
-                <div class="comp2 text-centered lined bg-green">
+                <div class="comp2 text-centered lined">
                     <h4>Resolved</h4>
                     <span class="bignum">X</span>
                 </div>
-                <div class="comp3 text-centered lined bg-red">
+                <div class="comp3 text-centered lined">
                     <h4>Unresolved</h4>
                     <span class="bignum">X</span>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded shadowed block">
-
-            <h2>My Own</h2>
-            
-            <div class="spacer-medium"></div>
+        <div class="spacer-small"></div>
+        <h2>New Reports</h2>
+        <p>
+            The following issues have been reported since your last login. You can see a full list of your reports in <a href="">cards form</a> or <a href="">table form</a>.
+        </p>
+        <div class="bg-white lined shadowed block">
 
         </div>
     </main>
@@ -52,9 +52,6 @@
             <a href="" class="navigation">Project Settings</a>
             <a href="{{ url_for('projects.location_and_type', project_url = project.url) }}" class="navigation">Bug locations and types</a>
             <a href="" class="navigation">My Dev Blog</a>
-            <a href="" class="navigation">Collaborate</a>
-            <a href="" class="navigation">Preview Report Form</a>
-            <a href="" class="navigation">Compact View</a>
         </div>
         {{ macros.ad(medium) }}
     </aside>

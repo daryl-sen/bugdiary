@@ -136,6 +136,7 @@ class Bugs(db.Model):
     author_email = db.Column(db.String(100))
     status = db.Column(db.String(20))
     version = db.Column(db.String(20), index = True)
+    report_date = db.Column(db.DateTime, index = True, default = dt.datetime.now())
     # AS CHILD
     project = db.Column(db.Integer, db.ForeignKey('projects.id')) #linked
     bug_location = db.Column(db.Integer, db.ForeignKey('project_bug_locations.id')) #linked

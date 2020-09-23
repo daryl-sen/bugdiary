@@ -38,20 +38,19 @@ def location_and_type(project_url):
     else:
         form_type = "select"
     
-    form = location_and_type_form()
-
-    if form.validate_on_submit:
-        if 'new_location' in request.form:
-            new_location = Project_bug_locations(target_project.id, request.form['new_location'])
-            db.session.add(new_location)
-            db.session.commit()
-            flash(f"Location ({request.form['new_location']}) has been added.")
-        if 'new_type' in request.form:
-            new_type = Project_bug_types(target_project.id, request.form['new_type'])
-            db.session.add(new_type)
-            db.session.commit()
-            flash(f"Type ({request.form['new_type']}) has been added")
-    return render_template('location_and_type.html', form = form, form_type = form_type, bug_locations = location_list, bug_types = type_list, url = project_url, title = target_project.name)
+    if 'new_location' in request.form:
+        new_location = Project_bug_locations(target_project.id, request.form['new_location'])
+        db.session.add(new_location)
+        db.session.commit()
+        flash(f"Location ({request.form['new_location']}) has been added.")
+        return redirect(url_for('projects.location_and_type', project_url = target_project.url))
+    if 'new_type' in request.form:
+        new_type = Project_bug_types(target_project.id, request.form['new_type'])
+        db.session.add(new_type)
+        db.session.commit()
+        flash(f"Type ({request.form['new_type']}) has been added")
+        return redirect(url_for('projects.location_and_type', project_url = target_project.url))
+    return render_template('location_and_type.html', form_type = form_type, bug_locations = location_list, bug_types = type_list, url = project_url, title = target_project.name)
 
 
 
