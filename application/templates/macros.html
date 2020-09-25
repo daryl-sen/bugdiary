@@ -6,3 +6,14 @@
     </p>
 </div>
 {% endmacro %}
+
+{% macro custom_style(header_color, background_color) %}
+<style>
+header {
+    background-color: {{ header_color }};
+}
+body {
+    background-color: {{ background_color }};
+}
+</style>
+{% endmacro %}

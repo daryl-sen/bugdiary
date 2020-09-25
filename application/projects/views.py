@@ -12,7 +12,7 @@ def dashboard(project_url):
     target_project = Projects.query.filter_by(url = project_url).first()
 
     # STATS
-    since_last_login = Bugs.query.filter(report_date > current_user.last_login).count()
+    since_last_login = Bugs.query.filter(Bugs.report_date > current_user.last_login).count()
     print(since_last_login)
 
     if target_project == None:
@@ -200,6 +200,8 @@ def settings(project_url):
         target_project.settings.per_page = form.per_page.data
         target_project.settings.visibility = form.visibility.data
         target_project.settings.allow_suggestions = form.allow_suggestions.data
+        target_project.settings.header_color = form.header_color.data
+        target_project.settings.background_color = form.background_color.data
         db.session.commit()
         flash('Your settings have been updated!')
         return redirect(url_for('projects.settings', project_url = project_url))

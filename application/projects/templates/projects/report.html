@@ -1,6 +1,8 @@
 {% extends 'confined.html' %}
+{% import 'macros.html' as macros %}
 
 {% block addons %}
+{{ macros.custom_style(project.settings.header_color, project.settings.background_color) }}
 {% endblock %}
 
 {% block title %}
@@ -15,8 +17,6 @@
 {% endblock %}
 
 {% block custom_logo %}{{ project.name }}{% endblock %}
-
-{% import 'macros.html' as macros %}
 
 {% block main %}
 <h1>Report an Issue</h1>

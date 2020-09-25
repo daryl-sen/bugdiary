@@ -62,4 +62,6 @@ class settings_form(FlaskForm):
     visibility = BooleanField()
     allow_suggestions = BooleanField()
     ext_url = StringField()
+    header_color = StringField()
+    background_color = StringField()
     submit = SubmitField('Change Settings')
