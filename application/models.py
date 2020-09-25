@@ -80,8 +80,8 @@ class Project_settings(db.Model):
     current_version = db.Column(db.String(20), index = True, default="V 1.0")
     
     # CUSTOMIZATION
-    header_color = db.Column(db.String(7), default="#ffffff")
-    background_color = db.Column(db.String(7), default="#ffffff")
+    header_color = db.Column(db.String(7), default="#cf6b6e")
+    background_color = db.Column(db.String(7), default="#f0f0f0")
     link_color = db.Column(db.String(7), default="#ff3939")
 
     # PREFERENCES
@@ -137,6 +137,7 @@ class Bugs(db.Model):
     status = db.Column(db.String(20))
     version = db.Column(db.String(20), index = True)
     report_date = db.Column(db.DateTime, index = True, default = dt.datetime.now())
+    resolve_date = db.Column(db.DateTime, default = None)
     # AS CHILD
     project = db.Column(db.Integer, db.ForeignKey('projects.id')) #linked
     bug_location = db.Column(db.Integer, db.ForeignKey('project_bug_locations.id')) #linked
