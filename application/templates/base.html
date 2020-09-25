@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% set version = "0.0.1" %}
+{% set version = "0.1.0" %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
         </a></div>
         <nav id="navigation">
           {% block custom_nav %}
-          <a href="{{ url_for('users.dashboard') }}">MY BUGDIARY</a>
+          <a href="{{ url_for('users.dashboard') }}">MY BUGDIARIES</a>
           <a href="">ABOUT</a>
           <a href="">CONTACT</a>
           {% if current_user.is_authenticated %}
