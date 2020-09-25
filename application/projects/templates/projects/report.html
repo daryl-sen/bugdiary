@@ -21,7 +21,41 @@
 <div class="main-aside">
   <main>
     <div class="bg-white rounded shadowed block">
-
+      <form method="post">
+        {{ form.hidden_tag() }}
+          
+        {% if form_type == "suggest" %}
+        {{ form.bug_type.label }}{{ form.bug_type(list = 'types_list')}}
+        {% for bug_type in bug_types %}
+        <datalist id="types_list">
+          <option value="{{ bug_type }}">{{ bug_type }}</option>
+        </datalist>
+        {% endfor %}
+        {% else %}
+        {{ form.bug_type.label }} {{ form.bug_type }}
+        {% endif %}
+        
+        {% if form_type == "suggest" %}
+        {{ form.bug_location.label }} {{ form.bug_location(list = 'locations_list') }}
+        <datalist id="locations_list">
+          {% for bug_location in bug_locations %}
+          <option value="{{ bug_location }}">{{ bug_location }}</option>
+          {% endfor %}
+        </datalist>
+        {% else %}
+        {{ form.bug_location.label }} {{ form.bug_location }}
+        {% endif %}
+        
+        {{ form.details.label }}{{ form.details }}
+        <p>
+          <a onClick="toggleElement('form-contact')">(Optional) Click to Provide Contact Details</a>
+        </p>
+        <div id="form-contact" class="hidden block bg-gray rounded">
+          {{ form.author.label }}{{ form.author }}
+          {{ form.author_email.label }}{{ form.author_email }}
+        </div>
+        {{ form.submit() }}
+      </form>
     </div>
   </main>
   <aside>

@@ -144,6 +144,17 @@ class Bugs(db.Model):
     # AS PARENT
     comments = db.relationship('Bug_comments', backref = "comment_target")
 
+    def __init__(self, details, author, author_email, status, version, project, bug_location, bug_type):
+        self.ref_id = shortuuid.uuid()
+        self.details = details
+        self.author = author
+        self.author_email = author_email
+        self.status = status
+        self.version = version
+        self.project = project
+        self.bug_location = bug_location
+        self.bug_type = bug_type
+
 
 
 

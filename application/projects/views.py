@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
-from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form
-from application.models import Users, Projects, Project_settings, Project_bug_locations, Project_bug_types, Blog_posts
+from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form, report_form
+from application.models import Users, Projects, Project_settings, Project_bug_locations, Project_bug_types, Blog_posts, Bugs
 from flask_login import login_required, current_user
 from application import db
 
@@ -75,7 +75,7 @@ def delete(project_url):
 
 
 
-@projects.route('/report/<string:project_url>')
+@projects.route('/report/<string:project_url>', methods=['get', 'post'])
 def report(project_url):
     target_project = Projects.query.filter_by(url = project_url).first()
 
@@ -88,11 +88,29 @@ def report(project_url):
         type_list.append(bug_type.bug_type)
     
     if target_project.settings.allow_suggestions == 0:
-        form_type = "suggest"
-    else:
         form_type = "select"
+        from wtforms import SelectField
+        report_form.bug_type = SelectField("Bug Type", choices = type_list)
+        report_form.bug_location = SelectField("Bug Location", choices = location_list)
+        form = report_form()
+    else:
+        form_type = "suggest"
+        form = report_form()
+    
+    if form.validate_on_submit():
+        new_bug = Bugs(form.details.data, form.author.data, form.author_email.data, "PENDING", target_project.settings.current_version, target_project.id, form.bug_location.data, form.bug_type.data)
+        db.session.add(new_bug)
+        db.session.commit()
+        flash('Thank you for reporting this bug, your report has been submitted!')
+        if target_project.settings.ext_url != "":
+            return redirect(target_project.ext_url)
+        else:
+            return redirect(url_for('projects.report', project_url = project_url))
+    else:
+        for field, error in form.errors.items():
+            flash('{} ({} error)'.format(error[0], field))
 
-    return render_template('report.html', form_type = form_type, project = target_project, bug_locations = location_list, bug_types = type_list)
+    return render_template('report.html', form = form, form_type = form_type, project = target_project, bug_locations = location_list, bug_types = type_list)
 
 
 
