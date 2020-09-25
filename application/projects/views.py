@@ -128,10 +128,20 @@ def new_post(project_url):
 
 
 
-@projects.route('/blog/edit_post/<string:project_url>', methods=['post'])
+@projects.route('/blog/edit_post/<string:post_url>', methods=['post', 'get'])
 @login_required
-def edit_post(project_url):
-    return render_template('dashboard.html')
+def edit_post(post_url):
+    target_post = Blog_posts.query.filter_by(permalink = post_url).first()
+    target_project = Projects.query.get(int(target_post.project))
+    form = blog_post_form(obj=target_post)
+    if form.validate_on_submit():
+        target_post.title = form.title.data
+        target_post.content = form.content.data
+        target_post.visibility = form.visibility.data
+        db.session.commit()
+        flash('Your blog post has been editted.')
+        return redirect(url_for('projects.blog', project_url = target_project.url))
+    return render_template('blog_edit.html', form = form, project = target_project)
 
 
 

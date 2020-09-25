@@ -17,7 +17,10 @@
             <h3>{{ post.title }}</h3>
             {{post.content|safe}}
             <div>
+                <hr>
                 Posted by {{post.post_author.display_name}} on {{post.date}}
+                <br>
+                <a href="{{url_for('projects.edit_post', post_url = post.permalink)}}">Edit</a>
             </div>
         </div>
         {% endfor %}

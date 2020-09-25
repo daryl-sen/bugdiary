@@ -162,6 +162,7 @@ class Bug_comments(db.Model):
 
 class Blog_posts(db.Model):
     id = db.Column(db.Integer, primary_key = True)
+    permalink = db.Column(db.String(22), index = True, unique = True, nullable = False)
     date = db.Column(db.DateTime, default = dt.datetime.now())
     title = db.Column(db.String(100), nullable = False)
     content = db.Column(db.Text, nullable = False)
@@ -171,6 +172,7 @@ class Blog_posts(db.Model):
     author = db.Column(db.Integer, db.ForeignKey('users.id'), index = True, nullable = False) #linked
 
     def __init__(self, title, content, visibility, project, author):
+        self.permalink = shortuuid.uuid()
         self.title = title
         self.content = content
         self.visibility = visibility

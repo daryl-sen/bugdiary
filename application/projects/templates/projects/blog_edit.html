@@ -1,0 +1,69 @@
+{% extends 'confined.html' %}
+
+{% block addons %}
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/quill-snow.css') }}">
+{% endblock %}
+
+{% block title %}
+    BugDiary - {{project.name}} Blog - Edit Post
+{% endblock %}
+
+{% import 'macros.html' as macros %}
+
+{% block main %}
+<h1>{{project.name}} Development Blog</h1>
+
+<div class="main-aside">
+    <main>
+        <div class="bg-white rounded shadowed block">
+            <h3>Edit Blog Post</h3>
+            <form method="post" autocomplete="off">
+                {{ form.hidden_tag() }}
+                {{ form.title.label }}{{ form.title }}
+                {{ form.content.label }}{{ form.content }}
+                <div id="quillEditor"></div><br>
+                {{ form.visibility }}
+                {{ form.visibility.label }}
+                {{ form.submit }}
+            </form>
+            <script src="{{ url_for('static', filename='js/quill.js') }}?v={{version}}"></script>
+            <script type="text/javascript">
+                var toolbarOptions = [
+                ['bold', 'italic', 'underline'],
+                [{ 'header': [2, 3, 4, 5, false] }],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                ['clean'],
+                ];
+          
+                var quill = new Quill('#quillEditor', {
+                  modules: {
+                    toolbar: toolbarOptions
+                  },
+                  theme: 'snow', // default settings
+                  scrollingContainer: 'body'
+                });
+          
+                // quill.root.innerHTML = document.querySelector('input[name=content]').value;
+                var form = document.querySelector('form');
+                form.onsubmit = function() {
+                  // Populate hidden form on submit
+                  var about = document.querySelector('input[name=content]');
+                  var editorContent = quill.root.innerHTML;
+                  about.value = editorContent;
+                };
+          
+                quill.root.innerHTML = document.querySelector('input[name=content]').value;
+          
+                document.querySelectorAll(".ql-picker").forEach(tool => {
+                tool.addEventListener("mousedown", function(event) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                });
+              });
+            </script>
+        </div>
+    </main>
+</div>
+
+
+{% endblock %}
