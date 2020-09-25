@@ -1,7 +1,7 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
 from application.users.forms import login_form, registration_form
 from application import db
-from application.models import Users
+from application.models import Users, Bugs
 from flask_login import login_user, login_required, logout_user, current_user
 import datetime as dt
 from werkzeug.security import generate_password_hash
@@ -11,8 +11,15 @@ users = Blueprint('users', __name__, template_folder = 'templates/users')
 @users.route('/dashboard')
 @login_required
 def dashboard():
-    
-    return render_template('user_dash.html', user = current_user)
+    # STATS
+    # since_last_login = Bugs.query.filter(Bugs.containing_project in current_user.owned_projects).filter(Bugs.report_date > current_user.last_login).count()
+    # resolved = Bugs.query.filter(Bugs.containing_project in current_user.owned_projects).filter(Bugs.report_date > current_user.last_login).filter_by(status = "RESOLVED").count()
+    # unresolved = Bugs.query.filter(Bugs.containing_project in current_user.owned_projects).filter_by(status = "RESOLVED").count()
+    since_last_login = Bugs.query.filter(Bugs.containing_project in current_user.owned_projects).filter(Bugs.report_date > current_user.last_login).count()
+    resolved = Bugs.query.filter(Bugs.containing_project in current_user.owned_projects).filter(Bugs.report_date > current_user.last_login).filter_by(status = "RESOLVED").count()
+    unresolved = Bugs.query.filter(Bugs.containing_project in current_user.owned_projects).filter_by(status = "RESOLVED").count()
+    print(since_last_login)
+    return render_template('user_dash.html', user = current_user, since_last_login = since_last_login, resolved = resolved, unresolved = unresolved)
 
 
 

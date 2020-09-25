@@ -10,10 +10,15 @@ projects = Blueprint('projects', __name__, template_folder = 'templates/projects
 @login_required
 def dashboard(project_url):
     target_project = Projects.query.filter_by(url = project_url).first()
+
+    # STATS
+    since_last_login = Bugs.query.filter(report_date > current_user.last_login).count()
+    print(since_last_login)
+
     if target_project == None:
         flash("Sorry, the Bug Diary you were trying to access could not be found. It might have expired or you might have entered a typo.")
         return redirect(url_for('users.dashboard'))
-    return render_template('dashboard.html', project = target_project)
+    return render_template('dashboard.html', project = target_project, since_last_login = since_last_login)
 
 
 
