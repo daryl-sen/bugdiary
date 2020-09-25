@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
-from application.projects.forms import project_form, location_and_type_form, blog_post_form
+from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form
 from application.models import Users, Projects, Project_settings, Project_bug_locations, Project_bug_types, Blog_posts
 from flask_login import login_required, current_user
 from application import db
@@ -34,9 +34,9 @@ def location_and_type(project_url):
         type_list.append(bug_type.bug_type)
 
     if target_project.settings.allow_suggestions == 0:
-        form_type = "suggest"
-    else:
         form_type = "select"
+    else:
+        form_type = "suggest"
     
     if 'new_location' in request.form:
         new_location = Project_bug_locations(target_project.id, request.form['new_location'])
@@ -163,3 +163,21 @@ def create():
         return redirect(url_for('projects.location_and_type', project_url = new_project.url))
     return render_template('create.html', form = form)
 
+
+
+
+
+@projects.route('/settings/<string:project_url>', methods = ['post', 'get'])
+@login_required
+def settings(project_url):
+    target_project = Projects.query.filter_by(url = project_url).first()
+    form = settings_form(obj = target_project.settings)
+    if form.validate_on_submit():
+        target_project.settings.current_version = form.current_version.data
+        target_project.settings.per_page = form.per_page.data
+        target_project.settings.visibility = form.visibility.data
+        target_project.settings.allow_suggestions = form.allow_suggestions.data
+        db.session.commit()
+        flash('Your settings have been updated!')
+        return redirect(url_for('projects.settings', project_url = project_url))
+    return render_template('settings.html', form = form, project = target_project)

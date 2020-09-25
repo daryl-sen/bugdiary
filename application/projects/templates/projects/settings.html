@@ -1,0 +1,34 @@
+{% extends 'confined.html' %}
+
+{% block addons %}{% endblock %}
+
+{% block title %}
+    BugDiary - {{project.name}} Settings
+{% endblock %}
+
+{% import 'macros.html' as macros %}
+
+{% block main %}
+<h1>{{project.name}} Settings</h1>
+<div class="main-aside">
+    <main>
+        <div class="bg-white shadowed rounded block">
+            <form method="post">
+                {{ form.hidden_tag() }}
+                {{ form.current_version.label }}{{ form.current_version }}
+                {{ form.per_page.label }}{{ form.per_page }}
+                {{ form.ext_url.label }}{{ form.ext_url }}
+                {{ form.visibility }}
+                {{ form.visibility.label }} <br>
+                {{ form.allow_suggestions }}
+                {{ form.allow_suggestions.label }}
+                {{ form.submit }}
+            </form>
+        </div>
+    </main>
+    <aside>
+        <div class="sidebar-block bg-gray">
+        </div>
+    </aside>
+</div>
+{% endblock %}

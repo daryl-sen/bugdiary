@@ -48,3 +48,15 @@ class blog_post_form(FlaskForm):
     content = HiddenField()
     visibility = BooleanField('Available to Public?')
     submit = SubmitField('Post')
+
+
+
+
+
+class settings_form(FlaskForm):
+    current_version = StringField()
+    per_page = StringField()
+    visibility = BooleanField()
+    allow_suggestions = BooleanField()
+    ext_url = StringField()
+    submit = SubmitField('Change Settings')
