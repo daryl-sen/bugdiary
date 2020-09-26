@@ -108,7 +108,7 @@ def report(project_url):
         db.session.commit()
         flash('Thank you for reporting this bug, your report has been submitted!')
         if target_project.settings.ext_url != "":
-            return redirect(target_project.ext_url)
+            return redirect('http://' + target_project.settings.ext_url)
         else:
             return redirect(url_for('projects.report', project_url = project_url))
     else:
