@@ -57,11 +57,11 @@ class Projects(db.Model):
     # AS CHILD
     owner = db.Column(db.Integer, db.ForeignKey('users.id')) #linked
     # AS PARENT
-    bugs = db.relationship('Bugs', backref = 'containing_project')
-    locations = db.relationship('Project_bug_locations', backref = 'locations_in')
-    types = db.relationship('Project_bug_types', backref = 'types_in')
-    settings = db.relationship('Project_settings', backref = 'settings_for', uselist = False)
-    blog_posts = db.relationship('Blog_posts', backref= 'post_target')
+    bugs = db.relationship('Bugs', backref = 'containing_project', cascade = "all,delete")
+    locations = db.relationship('Project_bug_locations', backref = 'locations_in', cascade = "all,delete")
+    types = db.relationship('Project_bug_types', backref = 'types_in', cascade = "all,delete")
+    settings = db.relationship('Project_settings', backref = 'settings_for', cascade = "all,delete", uselist = False)
+    blog_posts = db.relationship('Blog_posts', backref= 'post_target', cascade = "all,delete")
 
     def __init__(self, name, description, access_code, owner):
         self.url = shortuuid.uuid()

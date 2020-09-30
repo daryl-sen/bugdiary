@@ -71,16 +71,6 @@ def edit(project_url):
 
 
 
-
-@projects.route('/delete/<string:project_url>')
-@login_required
-def delete(project_url):
-    return render_template('dashboard.html')
-
-
-
-
-
 @projects.route('/report/<string:project_url>', methods=['get', 'post'])
 def report(project_url):
     target_project = Projects.query.filter_by(url = project_url).first()
@@ -243,4 +233,19 @@ def collaborators(project_url):
             flash(f'The target user ({target_user.display_name}) has been added')
             return redirect(url_for('projects.collaborators', project_url = target_project.url))
     return render_template('collaborate.html', form = form, project = target_project)
+
+
+
+
+
+
+@projects.route('/delete/<string:project_url>', methods = ['get','post'])
+@login_required
+def delete(project_url):
+    target_project = Projects.query.filter_by(url = project_url).first()
+    if current_user.id == target_project.owner:
+        db.session.delete(target_project)
+        db.session.commit()
+        flash(f'Your Bug Diary for "{target_project.name}" has been deleted.')
+        return redirect(url_for('users.dashboard'))
     
