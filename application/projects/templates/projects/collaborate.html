@@ -23,7 +23,7 @@
             <h3>Current Collaborators</h3>
             {% for collaborator in project.collaborators %}
                 <div>
-                    {{ collaborator.name }}
+                    {{ collaborator.display_name }}{% if collaborator == current_user %} - (You){% endif %}
                 </div>
             {% endfor %}
             <h3>Invite</h3>

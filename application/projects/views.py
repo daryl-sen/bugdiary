@@ -233,14 +233,14 @@ def collaborators(project_url):
         target_user = Users.query.filter_by(email = form.email.data).first()
         if target_user is None:
             flash('No user with this email address exists.')
-            return redirect(url('projects.collaborators', project_url = target_project.url))
+            return redirect(url_for('projects.collaborators', project_url = target_project.url))
         elif target_user in target_project.collaborators:
             flash("That user is already registered as a collaborator on this project.")
             return redirect(url_for('projects.collaborators', project_url = target_project.url))
         else: 
             target_project.collaborators.append(target_user)
             db.session.commit()
-            flash(f'The target user ({target_user.name}) has been added')
+            flash(f'The target user ({target_user.display_name}) has been added')
             return redirect(url_for('projects.collaborators', project_url = target_project.url))
     return render_template('collaborate.html', form = form, project = target_project)
     
