@@ -64,10 +64,7 @@
             
             {% endfor %}
             <div class="spacer-small"></div>
-            <form action="" class="lined block">
-                <input type="text" placeholder="Enter a project name">
-                <input type="submit" value="Search" class="button-primary">
-            </form>
+            {{ macros.search(current_user.collab_projects) }}
 
             <div class="spacer-small"></div>
             <h4>Expiry</h4>

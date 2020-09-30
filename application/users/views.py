@@ -85,3 +85,17 @@ def register():
         for field, error in form.errors.items():
             flash('{} ({} error)'.format(error[0], field))
     return render_template('register.html', form = form)
+
+
+
+
+
+
+@users.route('/search', methods=['get'])
+def search():
+    if request.args.get('search_term'):
+        results = Projects.query.filter(Projects.name.like(f"%{request.args.get('search_term')}%"))
+    else:
+        results = None
+    
+    return render_template('search.html', results = results)

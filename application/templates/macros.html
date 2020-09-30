@@ -17,3 +17,16 @@ body {
 }
 </style>
 {% endmacro %}
+
+
+{% macro search(suggestions) %}
+<form action="{{ url_for('users.search') }}" method="get" class="lined block">
+    <input name="search_term" type="text" list="project_names" placeholder="Enter a project name">
+    <datalist id="project_names">
+        {% for suggestion in suggestions %}
+        <option value="{{suggestion.name}}">{{suggestion.name}} - {{suggestion.description[:20]}}</option>
+        {% endfor %}
+    </datalist>
+    <input type="submit" value="Search" class="button-primary">
+</form>
+{% endmacro %}
