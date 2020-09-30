@@ -39,26 +39,26 @@
                 The following are Bug Diaries you created, click on the name to show the diary's description!
             </p>
             
-            {% for project in user.owned_projects %}
-            <div class="project-summary" onclick="toggleElement('sum-{{loop.index}}')">
+            {% for project in project_summaries %}
+            <div class="project-summary">
                 <div class="name shadowed">
-                    <a href="{{ url_for('projects.dashboard', project_url = project.url) }}">open</a>{{ project.name }}
+                    <a href="{{ url_for('projects.dashboard', project_url = project['url']) }}">open</a><span onclick="toggleElement('sum-{{loop.index}}')">{{ project['name'] }}</span>
                     <p class="hidden" id="sum-{{loop.index}}">
-                        {% if project.description != "" %}
-                        {{ project.description }}
+                        {% if project['description'] != "" %}
+                        {{ project['description'] }}
                         {% else %}
                         No Description Provided
                         {% endif %}
                     </p>
                 </div>
                 <div class="stats text-centered shadowed bg-yellow">
-                    X
+                    {{ project['since_last_login'] }}
                 </div>
                 <div class="stats text-centered shadowed bg-green">
-                    X
+                    {{ project['resolved'] }}
                 </div>
                 <div class="stats text-centered shadowed bg-red">
-                    X
+                    {{ project['unresolved'] }}
                 </div>
             </div>
             

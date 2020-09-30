@@ -12,13 +12,14 @@ def dashboard(project_url):
     target_project = Projects.query.filter_by(url = project_url).first()
 
     # STATS
-    since_last_login = Bugs.query.filter(Bugs.report_date > current_user.last_login).count()
-    print(since_last_login)
+    since_last_login = Bugs.query.filter_by(project = target_project.id).filter(Bugs.report_date > current_user.last_login).filter_by(status = "PENDING").count()
+    resolved = Bugs.query.filter_by(project = target_project.id).filter_by(status = "RESOLVED").count()
+    unresolved = Bugs.query.filter_by(project = target_project.id).filter_by(status = "PENDING").count()
 
     if target_project == None:
         flash("Sorry, the Bug Diary you were trying to access could not be found. It might have expired or you might have entered a typo.")
         return redirect(url_for('users.dashboard'))
-    return render_template('dashboard.html', project = target_project, since_last_login = since_last_login)
+    return render_template('dashboard.html', project = target_project, since_last_login = since_last_login, resolved = resolved, unresolved = unresolved)
 
 
 
@@ -100,6 +101,9 @@ def report(project_url):
         form = report_form()
     else:
         form_type = "suggest"
+        from wtforms import StringField
+        report_form.bug_type = StringField('Bug Type')
+        report_form.bug_location = StringField('Bug Location')
         form = report_form()
     
     if form.validate_on_submit():

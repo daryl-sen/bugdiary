@@ -17,15 +17,15 @@
             <div class="block-comparison-3">
                 <div class="comp1 text-centered lined bg-white">
                     <h4>Since Last Login</h4>
-                    <span class="bignum">X</span>
+                    <span class="bignum">{{ since_last_login }}</span>
                 </div>
                 <div class="comp2 text-centered lined bg-white">
                     <h4>Resolved</h4>
-                    <span class="bignum">X</span>
+                    <span class="bignum">{{ resolved }}</span>
                 </div>
                 <div class="comp3 text-centered lined bg-white">
                     <h4>Total Unresolved</h4>
-                    <span class="bignum">X</span>
+                    <span class="bignum">{{ unresolved }}</span>
                 </div>
             </div>
 
@@ -47,9 +47,11 @@
         <p>
             The following issues have been reported since your last login. You can see a full list of your reports in <a href="">cards form</a> or <a href="">table form</a>.
         </p>
-        <div class="bg-white lined shadowed block">
-
-        </div>
+        {% for bug in project.bugs %}
+            <div class="bg-white lined shadowed block">
+                {{ bug.details }}
+            </div>
+        {% endfor %}
     </main>
     <aside>
         <div class="sidebar-block bg-gray">

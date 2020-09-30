@@ -34,8 +34,6 @@ class location_and_type_form(FlaskForm):
 
 
 class report_form(FlaskForm):
-    bug_type = StringField('Bug Type')
-    bug_location = StringField('Bug Location')
     details = TextAreaField()
     author = StringField()
     author_email = StringField()
