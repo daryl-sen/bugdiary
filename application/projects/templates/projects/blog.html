@@ -7,16 +7,23 @@
 {% endblock %}
 
 {% block custom_nav %}
-<a href="{{ url_for('projects.report', project_url = project.url) }}">REPORT</a>
-{% if project.settings.ext_url != "" %}
-<a href="{{ project.settings.ext_url }}">BACK TO {{ project.name }}</a>
+{% if current_user.is_authenticated and current_user in project.collaborators %}
+    <a href="{{ url_for('users.dashboard') }}">All projects</a>
+    <a href="{{ url_for('projects.dashboard', project_url = project.url) }}">{{project.name}}</a>
+    <a href="{{ url_for('projects.settings', project_url = project.url) }}">Settings</a>
+    <a href="{{ url_for('users.logout') }}">Logout</a>
+{% else %}
+    <a href="{{ url_for('projects.report', project_url = project.url) }}">REPORT</a>
+    {% if project.settings.ext_url != "" %}
+    <a href="{{ project.settings.ext_url }}">BACK TO {{ project.name }}</a>
+    {% endif %}
 {% endif %}
 {% endblock %}
 
 {% import 'macros.html' as macros %}
 
 {% block main %}
-<h1>{{project.name}} Development Blog</h1>
+<h1>"{{project.name}}" Blog</h1>
 <div class="main-aside">
     <main>
         {% if blog_posts != None %}

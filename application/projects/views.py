@@ -56,7 +56,7 @@ def location_and_type(project_url):
         db.session.commit()
         flash(f"Type ({request.form['new_type']}) has been added")
         return redirect(url_for('projects.location_and_type', project_url = target_project.url))
-    return render_template('location_and_type.html', form_type = form_type, bug_locations = location_list, bug_types = type_list, url = project_url, title = target_project.name)
+    return render_template('location_and_type.html', form_type = form_type, bug_locations = location_list, bug_types = type_list, url = project_url, title = target_project.name, project = target_project)
 
 
 
