@@ -12,12 +12,11 @@ users = Blueprint('users', __name__, template_folder = 'templates/users')
 @login_required
 def dashboard():
     # STATS
-    # since_last_login = Bugs.query.filter(Bugs.containing_project in current_user.owned_projects).filter(Bugs.report_date > current_user.last_login).count()
-    # resolved = Bugs.query.filter(Bugs.containing_project in current_user.owned_projects).filter(Bugs.report_date > current_user.last_login).filter_by(status = "RESOLVED").count()
-    # unresolved = Bugs.query.filter(Bugs.containing_project in current_user.owned_projects).filter_by(status = "RESOLVED").count()
-    since_last_login = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.owned_projects]))).filter(Bugs.report_date > current_user.last_login).count()
-    resolved = Bugs.query.filter(Bugs.containing_project in current_user.owned_projects).filter(Bugs.report_date > current_user.last_login).filter_by(status = "RESOLVED").count()
-    unresolved = Bugs.query.filter(Bugs.containing_project in current_user.owned_projects).filter_by(status = "RESOLVED").count()
+    since_last_login = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.owned_projects]))).filter_by(status = "PENDING").filter(Bugs.report_date > current_user.last_login).count()
+    resolved = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.owned_projects]))).filter_by(status = "RESOLVED").count()
+    unresolved = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.owned_projects]))).filter_by(status = "PENDING").count()
+
+    # project_summaries = Projects.query.filter_by()
     print(since_last_login)
     return render_template('user_dash.html', user = current_user, since_last_login = since_last_login, resolved = resolved, unresolved = unresolved)
 
@@ -33,6 +32,8 @@ def login():
         this_user = Users.query.filter_by(email = form.email.data.lower()).first()
         if this_user is not None and this_user.check_password(form.password.data):
             login_user(this_user)
+            this_user.last_login = dt.datetime.now()
+            db.session.commit()
             flash(f'Welcome back, {this_user.display_name}')
             next = request.args.get('next')
             if next == None or not next[0]=='/':
