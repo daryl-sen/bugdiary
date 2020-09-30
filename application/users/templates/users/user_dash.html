@@ -34,9 +34,9 @@
 
         <div class="bg-white rounded shadowed block">
 
-            <h2>My Own</h2>
+            <h2>Recent Activity</h2>
             <p>
-                The following are Bug Diaries you created, click on the name to show the diary's description!
+                The following five Bug Diaries have recent activity like new reports or resolutions. You can see all your Bug Diaries <a href="">here</a> or search for a specific one below.
             </p>
             
             {% for project in project_summaries %}
@@ -63,6 +63,11 @@
             </div>
             
             {% endfor %}
+            <div class="spacer-small"></div>
+            <form action="" class="lined block">
+                <input type="text" placeholder="Enter a project name">
+                <input type="submit" value="Search" class="button-primary">
+            </form>
 
             <div class="spacer-small"></div>
             <h4>Expiry</h4>

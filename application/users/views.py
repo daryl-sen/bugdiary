@@ -18,13 +18,17 @@ def dashboard():
     resolved = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.owned_projects]))).filter_by(status = "RESOLVED").count()
     unresolved = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.owned_projects]))).filter_by(status = "PENDING").count()
 
-    project_list = current_user.collab_projects
+    project_list = current_user.collab_projects[:5]
     project_summaries = []
     for project in project_list:
-        project_summaries.append({'name': project.name, 'description': project.description, 'url': project.url,
+        project_summaries.append({'name': project.name, 'description': project.description, 'url': project.url, 'last_activity': project.last_activity,
         'since_last_login': Bugs.query.filter_by(project = project.id).filter_by(status = "PENDING").filter(Bugs.report_date > current_user.last_login).count(), 
         'resolved': Bugs.query.filter_by(project = project.id).filter_by(status = "RESOLVED").count(), 
         'unresolved': Bugs.query.filter_by(project = project.id).filter_by(status = "PENDING").count()})
+    
+    def get_dates(p):
+        return p['last_activity']
+    project_summaries.sort(key=get_dates, reverse=True)
     return render_template('user_dash.html', user = current_user, since_last_login = since_last_login, resolved = resolved, unresolved = unresolved, project_summaries = project_summaries)
 
 
