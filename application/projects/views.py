@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
-from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form, report_form
+from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form, report_form, collaborate_form
 from application.models import Users, Projects, Project_settings, Project_bug_locations, Project_bug_types, Blog_posts, Bugs
 from flask_login import login_required, current_user
 from application import db
@@ -178,6 +178,7 @@ def create():
     if form.validate_on_submit():
         new_project = Projects(name=form.name.data, description=form.description.data, access_code=form.access_code.data, owner=current_user.id)
         db.session.add(new_project)
+        new_project.collaborators.append(current_user)
         db.session.commit()
         project_settings = Project_settings(ext_url = form.ext_url.data, current_version = form.current_version.data, per_page = form.per_page.data, visibility = form.visibility.data, allow_suggestions = form.allow_suggestions.data, project_id = new_project.id)
         db.session.add(project_settings)
@@ -206,3 +207,30 @@ def settings(project_url):
         flash('Your settings have been updated!')
         return redirect(url_for('projects.settings', project_url = project_url))
     return render_template('settings.html', form = form, project = target_project)
+
+
+
+
+
+@projects.route('/collaborators/<string:project_url>', methods = ['post', 'get'])
+@login_required
+def collaborators(project_url):
+    target_project = Projects.query.filter_by(url = project_url).first()
+    if target_project is None:
+        return redirect(url_for('users.dashboard'))
+    form = collaborate_form()
+    if form.validate_on_submit():
+        target_user = Users.query.filter_by(email = form.email.data).first()
+        if target_user is None:
+            flash('No user with this email address exists.')
+            return redirect(url('projects.collaborators', project_url = target_project.url))
+        elif target_user in target_project.collaborators:
+            flash("That user is already registered as a collaborator on this project.")
+            return redirect(url_for('projects.collaborators', project_url = target_project.url))
+        else: 
+            target_project.collaborators.append(target_user)
+            db.session.commit()
+            flash(f'The target user ({target_user.name}) has been added')
+            return redirect(url_for('projects.collaborators', project_url = target_project.url))
+    return render_template('collaborate.html', form = form, project = target_project)
+    

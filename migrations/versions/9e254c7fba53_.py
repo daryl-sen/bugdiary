@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: bde5dcecb157
+Revision ID: 9e254c7fba53
 Revises: 
-Create Date: 2020-09-24 19:51:49.789994
+Create Date: 2020-09-29 19:42:26.738164
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'bde5dcecb157'
+revision = '9e254c7fba53'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -89,6 +89,12 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_project_settings_current_version'), 'project_settings', ['current_version'], unique=False)
+    op.create_table('users_to_projects',
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('proj_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['proj_id'], ['projects.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], )
+    )
     op.create_table('bugs',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('ref_id', sa.String(length=100), nullable=True),
@@ -98,6 +104,7 @@ def upgrade():
     sa.Column('status', sa.String(length=20), nullable=True),
     sa.Column('version', sa.String(length=20), nullable=True),
     sa.Column('report_date', sa.DateTime(), nullable=True),
+    sa.Column('resolve_date', sa.DateTime(), nullable=True),
     sa.Column('project', sa.Integer(), nullable=True),
     sa.Column('bug_location', sa.Integer(), nullable=True),
     sa.Column('bug_type', sa.Integer(), nullable=True),
@@ -129,6 +136,7 @@ def downgrade():
     op.drop_index(op.f('ix_bugs_report_date'), table_name='bugs')
     op.drop_index(op.f('ix_bugs_ref_id'), table_name='bugs')
     op.drop_table('bugs')
+    op.drop_table('users_to_projects')
     op.drop_index(op.f('ix_project_settings_current_version'), table_name='project_settings')
     op.drop_table('project_settings')
     op.drop_table('project_bug_types')

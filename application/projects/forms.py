@@ -65,3 +65,11 @@ class settings_form(FlaskForm):
     header_color = StringField()
     background_color = StringField()
     submit = SubmitField('Change Settings')
+
+
+
+
+
+class collaborate_form(FlaskForm):
+    email = StringField()
+    submit = SubmitField()

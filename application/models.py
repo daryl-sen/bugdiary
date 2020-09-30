@@ -10,6 +10,11 @@ def load_user(user_id):
 
 
 
+users_to_projects = db.Table(
+    'users_to_projects',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('proj_id', db.Integer, db.ForeignKey('projects.id')),
+)
 
 
 class Users(db.Model, UserMixin):
@@ -24,7 +29,7 @@ class Users(db.Model, UserMixin):
     owned_projects = db.relationship('Projects', backref="project_owner")
     comments = db.relationship('Bug_comments', backref="comment_author")
     blog_posts = db.relationship('Blog_posts', backref="post_author")
-    # collab_projects = db.relationship()
+    collab_projects = db.relationship('Projects', secondary = users_to_projects, backref = db.backref("collaborators"))
 
     def __init__(self, email, password, display_name, bio):
         self.email = email

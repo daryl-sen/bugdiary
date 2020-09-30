@@ -12,21 +12,33 @@
 <h1>{{ project.name }}</h1>
 <div class="main-aside">
     <main>
-        <div class="block lined rounded text-centered">
+        <div class="block lined rounded text-centered bg-white">
             <h3>Diary Stats</h3>
             <div class="block-comparison-3">
-                <div class="comp1 text-centered lined bg-white shadowed">
+                <div class="comp1 text-centered lined bg-white">
                     <h4>Since Last Login</h4>
                     <span class="bignum">X</span>
                 </div>
-                <div class="comp2 text-centered lined bg-white shadowed">
+                <div class="comp2 text-centered lined bg-white">
                     <h4>Resolved</h4>
                     <span class="bignum">X</span>
                 </div>
-                <div class="comp3 text-centered lined bg-white shadowed">
+                <div class="comp3 text-centered lined bg-white">
                     <h4>Total Unresolved</h4>
                     <span class="bignum">X</span>
                 </div>
+            </div>
+
+            <div style="text-align: left">
+                <h3>Reporting Link</h3>
+                <p>
+                    Your testers or users can report bugs through the following link:
+                    <input type="text" readonly value="https://www.bugdiary.com/r/{{ project.url }}">
+                    (Visit: <a href="{{ url_for('core.redirect_to', project_url = project.url )}}">Report a Bug</a> | <a onclick="toggleElement('change_url')">Click to change URL</a>)
+                    <p id="change_url" class="hidden">
+                        All links are generated randomly. We can change your URL for you if it contains an offensive word. Contact an admin to have your URL changed.
+                    </p>
+                </p>
             </div>
         </div>
 
@@ -52,6 +64,7 @@
             <a href="{{ url_for('projects.settings', project_url = project.url) }}" class="navigation">Project Settings</a>
             <a href="{{ url_for('projects.location_and_type', project_url = project.url) }}" class="navigation">Bug locations and types</a>
             <a href="{{ url_for('projects.blog', project_url = project.url) }}" class="navigation">My Dev Blog</a>
+            <a href="{{ url_for('projects.collaborators', project_url = project.url) }}" class="navigation">Collaborators</a>
         </div>
         {{ macros.ad(medium) }}
     </aside>
