@@ -6,33 +6,63 @@
     BugDiary - {{project.name}} Blog
 {% endblock %}
 
+{% block custom_nav %}
+<a href="{{ url_for('projects.report', project_url = project.url) }}">REPORT</a>
+{% if project.settings.ext_url != "" %}
+<a href="{{ project.settings.ext_url }}">BACK TO {{ project.name }}</a>
+{% endif %}
+{% endblock %}
+
 {% import 'macros.html' as macros %}
 
 {% block main %}
 <h1>{{project.name}} Development Blog</h1>
 <div class="main-aside">
     <main>
-        {% for post in blog_posts %}
-        <div class="bg-white rounded shadowed block">
-            <h3>{{ post.title }}</h3>
-            {{post.content|safe}}
-            <div>
-                <hr>
-                Posted by {{post.post_author.display_name}} on {{post.date}}
-                <br>
-                <a href="{{url_for('projects.edit_post', post_url = post.permalink)}}">Edit</a>
+        {% if blog_posts != None %}
+            {% for post in blog_posts %}
+            <div class="bg-white rounded shadowed block">
+                <h3>{{ post.title }}</h3>
+                {{post.content|safe}}
+                <div>
+                    <hr>
+                    Posted by {{post.post_author.display_name}} on {{post.date}}
+                    <br>
+                    {% if current_user.is_authenticated and current_user in project.collaborators %}
+                    <a href="{{url_for('projects.edit_post', post_url = post.permalink)}}" class="rounded shadowed button-secondary">Edit</a>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <div class="bg-white rounded shadowed block">
+                <h3>No blog posts</h3>
+                <p>
+                    The owner of this Bug Diary has not posted any publicly-available blog posts.
+                </p>
+            </div>
+        {% endif %}
     </main>
     <aside>
         <div class="sidebar-block bg-gray">
             <h3>About this Project</h3>
             <p>
+                {% if project.description != "" %}
                 {{ project.description }}
+                {% else %}
+                No description provided.
+                {% endif %}
             </p>
+            <p>
+                <b>Created by:</b> {{project.project_owner.display_name}}
+            </p>
+        </div>
+        {% if current_user.is_authenticated and current_user in project.collaborators %}
+        <div class="sidebar-block bg-gray">
+            <h3>Manage Blog</h3>
             <a class="navigation" href="{{ url_for('projects.new_post', project_url = project.url) }}">New Post</a>
         </div>
+        {% endif %}
     </aside>
 </div>
 {% endblock %}

@@ -128,11 +128,16 @@ def report(project_url):
 
 
 @projects.route('/blog/<string:project_url>')
-@login_required
 def blog(project_url):
     target_project = Projects.query.filter_by(url = project_url).first()
-    blog_posts = Blog_posts.query.filter_by(project = target_project.id)
-    return render_template('blog.html', blog_posts = blog_posts, project = target_project)
+
+    if current_user.is_authenticated and (current_user in target_project.collaborators):
+        blog_posts = Blog_posts.query.filter_by(project = target_project.id).order_by(Blog_posts.id.desc())
+    else:
+        blog_posts = Blog_posts.query.filter_by(project = target_project.id).filter_by(visibility = 1).order_by(Blog_posts.id.desc())
+    
+    
+    return render_template('blog.html', blog_posts = blog_posts if blog_posts.count() != 0 else None, project = target_project)
 
 
 
