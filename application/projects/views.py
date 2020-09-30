@@ -107,8 +107,9 @@ def report(project_url):
         form = report_form()
     
     if form.validate_on_submit():
-        new_bug = Bugs(form.details.data, form.author.data, form.author_email.data, "PENDING", target_project.settings.current_version, target_project.id, form.bug_location.data, form.bug_type.data)
+        new_bug = Bugs(form.details.data, form.author.data, form.author_email.data, "PENDING", target_project.settings.current_version, target_project.id, form.bug_location.data, form.bug_type.data, Bugs.generate_id(target_project.id))
         db.session.add(new_bug)
+        target_project.refresh_last_activity()
         db.session.commit()
         flash('Thank you for reporting this bug, your report has been submitted!')
         if target_project.settings.ext_url != "":

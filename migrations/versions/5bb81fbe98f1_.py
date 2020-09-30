@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 9e254c7fba53
+Revision ID: 5bb81fbe98f1
 Revises: 
-Create Date: 2020-09-29 19:42:26.738164
+Create Date: 2020-09-29 22:00:21.114181
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '9e254c7fba53'
+revision = '5bb81fbe98f1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -37,6 +37,7 @@ def upgrade():
     sa.Column('expiry_date', sa.DateTime(), nullable=False),
     sa.Column('status', sa.String(length=10), nullable=False),
     sa.Column('access_code', sa.String(length=50), nullable=True),
+    sa.Column('last_activity', sa.DateTime(), nullable=True),
     sa.Column('owner', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['owner'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -97,7 +98,7 @@ def upgrade():
     )
     op.create_table('bugs',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('ref_id', sa.String(length=100), nullable=True),
+    sa.Column('ref_id', sa.Integer(), nullable=True),
     sa.Column('details', sa.Text(), nullable=True),
     sa.Column('author', sa.String(length=100), nullable=True),
     sa.Column('author_email', sa.String(length=100), nullable=True),
@@ -113,7 +114,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['project'], ['projects.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_bugs_ref_id'), 'bugs', ['ref_id'], unique=True)
+    op.create_index(op.f('ix_bugs_ref_id'), 'bugs', ['ref_id'], unique=False)
     op.create_index(op.f('ix_bugs_report_date'), 'bugs', ['report_date'], unique=False)
     op.create_index(op.f('ix_bugs_version'), 'bugs', ['version'], unique=False)
     op.create_table('bug_comments',

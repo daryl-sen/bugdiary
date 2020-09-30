@@ -15,7 +15,6 @@ def dashboard():
     # since_last_login = Bugs.query.filter(Bugs.containing_project in current_user.collab_projects).filter_by(status = "PENDING").filter(Bugs.report_date > current_user.last_login).count()
     # since_last_login = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.owned_projects]))).filter_by(status = "PENDING").filter(Bugs.report_date > current_user.last_login).count()
     since_last_login = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.owned_projects]))).filter_by(status = "PENDING").filter(Bugs.report_date > current_user.last_login).count()
-    print(since_last_login)
     resolved = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.owned_projects]))).filter_by(status = "RESOLVED").count()
     unresolved = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.owned_projects]))).filter_by(status = "PENDING").count()
 

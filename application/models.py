@@ -53,6 +53,7 @@ class Projects(db.Model):
     expiry_date = db.Column(db.DateTime, index = True, nullable = False)
     status = db.Column(db.String(10), nullable = False)
     access_code = db.Column(db.String(50), nullable = True)
+    last_activity = db.Column(db.DateTime(), default = dt.datetime.now())
     # AS CHILD
     owner = db.Column(db.Integer, db.ForeignKey('users.id')) #linked
     # AS PARENT
@@ -73,6 +74,9 @@ class Projects(db.Model):
         self.status = "ACTIVE"
         self.access_code = access_code
         self.owner = owner
+    
+    def refresh_last_activity(self):
+        self.last_activity = dt.datetime.now()
 
 
 
@@ -135,7 +139,7 @@ class Project_bug_types(db.Model):
 
 class Bugs(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    ref_id = db.Column(db.String(100), index = True, unique = True)
+    ref_id = db.Column(db.Integer, index = True)
     details = db.Column(db.Text)
     author = db.Column(db.String(100))
     author_email = db.Column(db.String(100))
@@ -150,8 +154,8 @@ class Bugs(db.Model):
     # AS PARENT
     comments = db.relationship('Bug_comments', backref = "comment_target")
 
-    def __init__(self, details, author, author_email, status, version, project, bug_location, bug_type):
-        self.ref_id = shortuuid.uuid()
+    def __init__(self, details, author, author_email, status, version, project, bug_location, bug_type, ref_id):
+        self.ref_id = ref_id
         self.details = details
         self.author = author
         self.author_email = author_email
@@ -160,6 +164,13 @@ class Bugs(db.Model):
         self.project = project
         self.bug_location = bug_location
         self.bug_type = bug_type
+    
+    def generate_id(project):
+        target = db.session.query(Bugs.id).filter_by(project = 1).order_by(Bugs.id.desc()).first()
+        if target == None:
+            return 1
+        else:
+            return target[0] + 1
 
 
 
