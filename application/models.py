@@ -170,8 +170,8 @@ class Bugs(db.Model):
         self.bug_location = bug_location
         self.bug_type = bug_type
     
-    def generate_id(project):
-        target = db.session.query(Bugs.id).filter_by(project = 1).order_by(Bugs.id.desc()).first()
+    def generate_id(project_id):
+        target = db.session.query(Bugs.id).filter_by(project = project_id).order_by(Bugs.id.desc()).first()
         if target == None:
             return 1
         else:
