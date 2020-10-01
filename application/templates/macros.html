@@ -41,3 +41,33 @@ aside {
     <input type="submit" value="Search" class="button-secondary">
 </form>
 {% endmacro %}
+
+
+
+{% macro bugcard(ref_id, details, author, author_email, status, version, report_date, resolve_date, location, type, color_code = {"PENDING": "bg-yellow", "RESOLVED": "bg-green"}) %}
+<div class="card">
+    <div>
+        <span class="tag-mini bg-darkgray">{{ version }}</span>
+        <span class="tag-mini {{ color_code[status] }}">{{ status }}</span>
+        
+        <span class="tag-mini bg-gray">Loc: {{ location }}</span>
+        <span class="tag-mini bg-gray">Type: {{ type }}</span>
+    </div>
+    <h3>Description</h3>
+    <p>
+        {{ details }}
+    </p>
+    <div class="author">
+        {% if author != "" or author_email != "" %}
+        <b>Reported by:</b> {{ author }} (Email: {{ author_email }})
+        {% endif %} <br>
+        <b>Reported on:</b> {{ report_date.strftime('%Y-%m-%d') }}
+        <br>
+        {% if status == "RESOLVED" %}
+        <b>Resolved on:</b> {{ resolve_date }}
+        {% endif %}
+    </div>
+
+    
+</div>
+{% endmacro %}

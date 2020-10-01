@@ -55,10 +55,7 @@
             The following issues have been reported since your last login. You can see a full list of your reports in <a href="">cards form</a> or <a href="">table form</a>.
         </p>
         {% for bug in project.bugs %}
-            <div class="bg-white lined shadowed block">
-                A{{ bug.ref_id }} <br>
-                {{ bug.details }}
-            </div>
+            {{ macros.bugcard(bug.ref_id, bug.details, bug.author, bug.author_email, bug.status, bug.version, bug.report_date, None, bug.bug_location, bug.bug_type) }}
         {% endfor %}
     </main>
     <aside>
