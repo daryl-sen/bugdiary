@@ -12,8 +12,19 @@
 header {
     background-color: {{ header_color }};
 }
+nav, #nav:link, #logo {
+    color: {{ header_text_color }} !important;
+}
+
 body {
     background-color: {{ background_color }};
+    color: {{ text_color }};
+}
+.card {
+    background-color: {{ card_color }};
+}
+aside {
+    background-color: {{ aside_color }};
 }
 </style>
 {% endmacro %}

@@ -208,6 +208,11 @@ def settings(project_url):
         target_project.settings.allow_suggestions = form.allow_suggestions.data
         target_project.settings.header_color = form.header_color.data
         target_project.settings.background_color = form.background_color.data
+        target_project.settings.header_text_color = form.header_text_color.data
+        target_project.settings.card_color = form.card_color.data
+        target_project.settings.aside_color = form.aside_color.data
+        target_project.settings.text_color = form.text_color.data
+        target_project.settings.link_color = form.link_color.data
         db.session.commit()
         flash('Your settings have been updated!')
         return redirect(url_for('projects.settings', project_url = project_url))

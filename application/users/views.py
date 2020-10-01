@@ -28,13 +28,8 @@ def dashboard():
     
     def get_dates(p):
         return p['last_activity']
-    
-    for project in project_summaries:
-        print(project['last_activity'])
-    print('next')
+
     project_summaries.sort(key=get_dates, reverse=True)
-    for project in project_summaries:
-        print(project['last_activity'])
     return render_template('user_dash.html', user = current_user, since_last_login = since_last_login, resolved = resolved, unresolved = unresolved, project_summaries = project_summaries[:5])
 
 
