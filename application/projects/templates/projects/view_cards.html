@@ -1,0 +1,28 @@
+{% extends 'confined.html' %}
+
+{% block addons %}
+{% endblock %}
+
+{% import 'macros.html' as macros %}
+
+{% block title %}
+  BugDiary - {{project.name}} - All Bugs
+{% endblock %}
+
+{% block custom_nav %}
+<a href="{{ url_for('users.dashboard') }}">All projects</a>
+<a href="{{ url_for('projects.dashboard', project_url = project.url) }}">{{project.name}}</a>
+<a href="{{ url_for('projects.settings', project_url = project.url) }}">Settings</a>
+<a href="{{ url_for('users.logout') }}">Logout</a>
+{% endblock %}
+
+
+{% block main %}
+<h1>{{ project.name }} - Cards View</h1>
+<div class="cards-flex">
+    {% for bug in bug_list %}
+    {{ macros.bugcard(bug.ref_id, bug.details, bug.author, bug.author_email, bug.status, bug.version, bug.report_date, None, bug.bug_location, bug.bug_type, loop.index) }}
+    {% endfor %}
+</div>
+{{ macros.ad("medium")}}
+{% endblock %}

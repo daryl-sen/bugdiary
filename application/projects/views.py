@@ -258,4 +258,19 @@ def delete(project_url):
         db.session.commit()
         flash(f'Your Bug Diary for "{target_project.name}" has been deleted.')
         return redirect(url_for('users.dashboard'))
-    
+
+
+
+
+
+
+@projects.route('/view_cards/<string:project_url>', methods = ['get', 'post'])
+@login_required
+def cards_view(project_url):
+    target_project = Projects.query.filter_by(url = project_url).first()
+
+    all_bugs = target_project.bugs
+
+    if request.args.get('filter'):
+        pass
+    return render_template('view_cards.html', project = target_project, bug_list = all_bugs)

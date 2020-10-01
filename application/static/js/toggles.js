@@ -15,3 +15,7 @@ function dismissNotif(id) {
   target = document.getElementById(id);
   target.classList.toggle('hidden');
 }
+
+function showControls(id) {
+  document.getElementById(id).classList.toggle('hidden');
+}

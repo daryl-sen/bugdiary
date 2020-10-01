@@ -173,8 +173,8 @@ tr:nth-child(even) td {
 .card {
   background-color: #fff;
   padding: 1.5em;
-  margin-bottom: 1.5em;
   border-bottom: 8px solid #e4e4e4;
+  position: relative;
 }
 
 .tag-mini {
@@ -189,6 +189,62 @@ tr:nth-child(even) td {
 
 .author {
   font-size: 0.8em;
+}
+
+.cards-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1em;
+  align-items: baseline;
+  margin-bottom: 2em;
+}
+
+.cards-flex > div {
+  width: 29%;
+  padding: 1em;
+  background-color: #fff;
+}
+
+p.linebreak {
+  white-space: pre-line;
+}
+
+.cardcontrolstoggle {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  /* border: 1px solid gray; */
+  padding: 0.5em;
+  z-index: 7;
+  font-size: 1.2em;
+}
+
+.cardcontrols {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  border: 1px solid #e4e4e4;
+  z-index: 7;
+  font-size: 0.8em;
+  -webkit-box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 20px 0px 20px 20px;
+  -moz-border-radius: 20px 0px 20px 20px;
+  -webkit-border-radius: 20px 0px 20px 20px;
+  background-color: #fff;
+}
+
+.cardcontrols div {
+  font-size: 1.2em;
+  text-align: right;
+  padding: 1em;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.cardcontrols div:last-child {
+  border-bottom: 0;
 }
 
 /*# sourceMappingURL=custom.css.map */
