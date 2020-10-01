@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 883b3e189d36
+Revision ID: 347604f704ed
 Revises: 
-Create Date: 2020-09-30 01:00:56.156505
+Create Date: 2020-09-30 20:57:16.157332
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '883b3e189d36'
+revision = '347604f704ed'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -52,6 +52,7 @@ def upgrade():
     sa.Column('title', sa.String(length=100), nullable=False),
     sa.Column('content', sa.Text(), nullable=False),
     sa.Column('visibility', sa.Integer(), nullable=False),
+    sa.Column('pinned', sa.Integer(), nullable=False),
     sa.Column('project', sa.Integer(), nullable=False),
     sa.Column('author', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['author'], ['users.id'], ),
@@ -80,11 +81,16 @@ def upgrade():
     sa.Column('ext_url', sa.String(length=100), nullable=True),
     sa.Column('current_version', sa.String(length=20), nullable=True),
     sa.Column('header_color', sa.String(length=7), nullable=True),
+    sa.Column('header_text_color', sa.String(length=7), nullable=True),
     sa.Column('background_color', sa.String(length=7), nullable=True),
+    sa.Column('card_color', sa.String(length=7), nullable=True),
+    sa.Column('aside_color', sa.String(length=7), nullable=True),
+    sa.Column('text_color', sa.String(length=7), nullable=True),
     sa.Column('link_color', sa.String(length=7), nullable=True),
     sa.Column('per_page', sa.Integer(), nullable=True),
     sa.Column('visibility', sa.Integer(), nullable=True),
     sa.Column('allow_suggestions', sa.Integer(), nullable=True),
+    sa.Column('guest_view', sa.Integer(), nullable=True),
     sa.Column('project', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['project'], ['projects.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -114,7 +120,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['project'], ['projects.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_bugs_ref_id'), 'bugs', ['ref_id'], unique=False)
     op.create_index(op.f('ix_bugs_report_date'), 'bugs', ['report_date'], unique=False)
     op.create_index(op.f('ix_bugs_version'), 'bugs', ['version'], unique=False)
     op.create_table('bug_comments',
@@ -135,7 +140,6 @@ def downgrade():
     op.drop_table('bug_comments')
     op.drop_index(op.f('ix_bugs_version'), table_name='bugs')
     op.drop_index(op.f('ix_bugs_report_date'), table_name='bugs')
-    op.drop_index(op.f('ix_bugs_ref_id'), table_name='bugs')
     op.drop_table('bugs')
     op.drop_table('users_to_projects')
     op.drop_index(op.f('ix_project_settings_current_version'), table_name='project_settings')

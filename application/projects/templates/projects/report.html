@@ -35,11 +35,11 @@
           
         {% if form_type == "suggest" %}
           {{ form.bug_type.label }}{{ form.bug_type(list = 'types_list')}}
-          {% for bug_type in bug_types %}
           <datalist id="types_list">
+            {% for bug_type in bug_types %}
             <option value="{{ bug_type }}">{{ bug_type }}</option>
+            {% endfor %}
           </datalist>
-          {% endfor %}
 
           {{ form.bug_location.label }} {{ form.bug_location(list = 'locations_list') }}
           <datalist id="locations_list">

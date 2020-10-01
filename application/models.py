@@ -90,13 +90,18 @@ class Project_settings(db.Model):
     
     # CUSTOMIZATION
     header_color = db.Column(db.String(7), default="#cf6b6e")
+    header_text_color = db.Column(db.String(7), default="#ffffff")
     background_color = db.Column(db.String(7), default="#f0f0f0")
+    card_color = db.Column(db.String(7), default="#ffffff")
+    aside_color = db.Column(db.String(7), default="#393939")
+    text_color = db.Column(db.String(7), default="#000000")
     link_color = db.Column(db.String(7), default="#ff3939")
 
     # PREFERENCES
     per_page = db.Column(db.Integer, default=10)
     visibility = db.Column(db.Integer, default=1)
     allow_suggestions = db.Column(db.Integer, default=0)
+    guest_view = db.Column(db.Integer, default=0)
     
     # AS CHILD
     project = db.Column(db.Integer, db.ForeignKey('projects.id')) #linked
@@ -139,7 +144,7 @@ class Project_bug_types(db.Model):
 
 class Bugs(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    ref_id = db.Column(db.Integer, index = True)
+    ref_id = db.Column(db.Integer)
     details = db.Column(db.Text)
     author = db.Column(db.String(100))
     author_email = db.Column(db.String(100))
@@ -195,6 +200,8 @@ class Blog_posts(db.Model):
     title = db.Column(db.String(100), nullable = False)
     content = db.Column(db.Text, nullable = False)
     visibility = db.Column(db.Integer, nullable = False, default = 0)
+    pinned = db.Column(db.Integer, nullable = False, default = 0)
+    # tags = db.relationship('Blog_tags', backref = "tagged_posts")
     # AS CHILD
     project = db.Column(db.Integer, db.ForeignKey('projects.id'), index = True, nullable = False) #linked
     author = db.Column(db.Integer, db.ForeignKey('users.id'), index = True, nullable = False) #linked

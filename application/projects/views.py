@@ -77,11 +77,15 @@ def report(project_url):
 
     location_list = []
     for location in target_project.locations:
-        location_list.append(location.location)
+        location_list.append((location.location, location.location))
+    if len(location_list) == 0:
+        location_list.append(("none", "None"))
 
     type_list = []
     for bug_type in target_project.types:
-        type_list.append(bug_type.bug_type)
+        type_list.append((bug_type.bug_type, bug_type.bug_type))
+    if len(type_list) == 0:
+        type_list.append(("none", "None"))
     
     if target_project.settings.allow_suggestions == 0:
         form_type = "select"
