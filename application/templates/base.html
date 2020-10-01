@@ -11,7 +11,7 @@
     <script src="{{ url_for('static', filename='js/toggles.js')}}?v={{version}}" charset="utf-8"></script>
     {% block addons %}{% endblock %}
   </head>
-  <body class="unilay5">
+  <body>
     <header>
         <div id="logo"><a href="{{ url_for('core.index') }}">
             {% block custom_logo %}BugDiary{% endblock %}
