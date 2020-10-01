@@ -106,10 +106,11 @@ def report(project_url):
         target_project.refresh_last_activity()
         db.session.commit()
         flash('Thank you for reporting this bug, your report has been submitted!')
-        if target_project.settings.ext_url != "":
-            return redirect('http://' + target_project.settings.ext_url)
-        else:
-            return redirect(url_for('projects.report', project_url = project_url))
+        # if target_project.settings.ext_url != "":
+        #     return redirect('http://' + target_project.settings.ext_url)
+        # else:
+        #     return redirect(url_for('projects.report', project_url = project_url))
+        return redirect(url_for('projects.report', project_url = project_url))
     else:
         for field, error in form.errors.items():
             flash('{} ({} error)'.format(error[0], field))
