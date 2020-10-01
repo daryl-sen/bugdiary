@@ -20,8 +20,13 @@
 {% block main %}
 <h1>{{ project.name }} - Cards View</h1>
 <div class="cards-flex">
+    <div class="card">
+        <h2>Filters</h2>
+        <input type="text">
+        <a href="{{ url_for('projects.dashboard', project_url = project.url) }}" class="button-primary shadowed rounded">Go Back</a>
+    </div>
     {% for bug in bug_list %}
-    {{ macros.bugcard(bug.ref_id, bug.details, bug.author, bug.author_email, bug.status, bug.version, bug.report_date, None, bug.bug_location, bug.bug_type, loop.index) }}
+    {{ macros.bugcard(bug.ref_id, bug.details, bug.author, bug.author_email, bug.status, bug.version, bug.report_date, None, bug.bug_location, bug.bug_type) }}
     {% endfor %}
 </div>
 {{ macros.ad("medium")}}

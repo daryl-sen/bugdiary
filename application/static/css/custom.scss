@@ -174,6 +174,7 @@ tr:nth-child(even) td {
   padding: 1.5em;
   border-bottom: 8px solid #e4e4e4;
   position: relative;
+  margin-bottom: 1em;
 }
 
 .tag-mini {
@@ -195,19 +196,16 @@ tr:nth-child(even) td {
 }
 
 .cards-flex {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 1em;
-    align-items: baseline;
+    column-count: 3;
+    column-gap: 1em;
     margin-bottom: 2em;
-
 }
-.cards-flex>div {
-    width: 29%;
-    padding: 1em;
-    background-color: #fff;
-    // margin-bottom: 1em;
+.cards-flex>button {
+    display: inline-block;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 p.linebreak {
@@ -239,11 +237,18 @@ p.linebreak {
     -webkit-border-radius: 20px 0px 20px 20px;
     background-color: #fff;
 }
-.cardcontrols div {
+.cardcontrols button {
     font-size: 1.2em;
     text-align: right;
     padding: 1em;
     border-bottom: 1px solid #e4e4e4;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: block;
+    border: 0;
+    background-color: transparent;
+    width: 100%;
 }
 .cardcontrols div:last-child {
     border-bottom: 0;

@@ -44,8 +44,9 @@ aside {
 
 
 
-{% macro bugcard(ref_id, details, author, author_email, status, version, report_date, resolve_date, location, type, index, color_code = {"PENDING": "bg-yellow", "RESOLVED": "bg-green"}) %}
+{% macro bugcard(ref_id, details, author, author_email, status, version, report_date, resolve_date, location, type, color_code = {"PENDING": "bg-yellow", "RESOLVED": "bg-green"}) %}
 <div class="card">
+    <h2>#{{ref_id}}</h2>
     <div>
         <span class="tag-mini bg-darkgray">{{ version }}</span>
         <span class="tag-mini {{ color_code[status] }}">{{ status }}</span>
@@ -55,9 +56,12 @@ aside {
     </div>
     <h3>Description</h3>
     <p class="linebreak">
-        {{ details[:100] }}{% if details|length > 100 %}<a onclick="toggleElement('bug-{{index}}'); toggleElement('bug-{{index}}-toggle')" id="bug-{{index}}-toggle"> (show more)</a><span class="hidden" id="bug-{{index}}">{{ details[100:] }}</span>
-        {% endif %}
+        {{ details }}
     </p>
+    <!-- <p class="linebreak">
+        {{ details[:100] }}{% if details|length > 100 %}<a onclick="toggleElement('bug-{{ref_id}}'); toggleElement('bug-{{ref_id}}-toggle')" id="bug-{{ref_id}}-toggle"> (show more)</a><span class="hidden" id="bug-{{ref_id}}">{{ details[100:] }}</span>
+        {% endif %}
+    </p> -->
     <div class="author">
         {% if author != "" or author_email != "" %}
         <b>Reported by:</b> {{ author }} (Email: {{ author_email }})
@@ -70,13 +74,14 @@ aside {
     </div>
 
 
-    <div class="cardcontrolstoggle" onClick="showControls('card-{{index}}-controls')">
+    <div class="cardcontrolstoggle" onClick="showControls('card-{{ref_id}}-controls')">
         &circledcirc;
     </div>
-    <div class="hidden cardcontrols" id='card-{{index}}-controls'>
-        <div>RESOLVE</div>
-        <div>DELETE &#128465;</div>
-        <div onClick="showControls('card-{{index}}-controls')" style="color: #ff3939">CANCEL &rarrhk;</div>
+    <div class="hidden cardcontrols" id='card-{{ref_id}}-controls'>
+        <button>RESOLVE</button>
+        <button>PIN &#x02606;</button>
+        <button>DELETE &#128465;</button>
+        <button onClick="showControls('card-{{ref_id}}-controls')" style="color: #ff3939">CANCEL &rarrhk;</button>
     </div>
 
     
