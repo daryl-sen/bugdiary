@@ -81,6 +81,8 @@ aside {
             {% endif %}
             {% if bug.status != "DELETED" %}
             <button onclick="fill_card_form('{{bug.id}}', 'delete')">DELETE &#128465;</button>
+            {% else %}
+            <button onclick="fill_card_form('{{bug.id}}', 'undelete')">UNDELETE &#128465;</button>
             {% endif %}
             <button onClick="showControls('card-{{bug.id}}-controls')" style="color: #ff3939">CANCEL &rarrhk;</button>
         </div>

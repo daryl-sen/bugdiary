@@ -302,6 +302,9 @@ def manage_card():
     elif received['action'] == "resolve":
         target_bug.status = "RESOLVED"
         db.session.commit()
+    elif received['action'] == "undelete":
+        target_bug.status = "PENDING"
+        db.session.commit()
     
     resp = make_response(jsonify({'result': 'Action sucessful'}),200)
     return resp
