@@ -325,6 +325,7 @@ BLOCK LEVEL ELEMENTS
 @media screen and (max-width: 850px) {
   .block-comparison-3 {
     display: block;
+    max-width: 630px;
   }
 }
 .block-comparison-2 {
@@ -376,11 +377,13 @@ BLOCK LEVEL ELEMENTS
   grid-template-columns: 400px auto;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
   .main-aside, .aside-main {
     grid-template-areas: "main" "aside";
     grid-template-columns: auto;
     grid-template-rows: auto auto;
+    max-width: 800px;
+    margin: auto;
   }
 }
 .spacer-small {

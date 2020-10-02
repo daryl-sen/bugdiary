@@ -49,6 +49,9 @@
     #splash h1 {
       font-size: 2em;
     }
+    // #splash .padded {
+    //   padding: 0;
+    // }
   }
 
 
@@ -202,6 +205,15 @@ tr:nth-child(even) td {
     column-gap: 1em;
     margin-bottom: 2em;
 }
+
+@media screen and (max-width: 1000px) {
+  .cards-flex {
+    column-count: 1;
+    max-width: 800px;
+    margin: auto;
+  }
+}
+
 .cards-flex>button {
     display: inline-block;
     width: 100%;

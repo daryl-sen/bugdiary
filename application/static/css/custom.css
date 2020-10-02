@@ -200,6 +200,13 @@ tr:nth-child(even) td {
   margin-bottom: 2em;
 }
 
+@media screen and (max-width: 1000px) {
+  .cards-flex {
+    column-count: 1;
+    max-width: 800px;
+    margin: auto;
+  }
+}
 .cards-flex > button {
   display: inline-block;
   width: 100%;
