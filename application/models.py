@@ -29,7 +29,7 @@ class Users(db.Model, UserMixin):
     owned_projects = db.relationship('Projects', backref="project_owner")
     comments = db.relationship('Bug_comments', backref="comment_author")
     blog_posts = db.relationship('Blog_posts', backref="post_author")
-    collab_projects = db.relationship('Projects', secondary = users_to_projects, backref = db.backref("collaborators"))
+    collab_projects = db.relationship('Projects', secondary = users_to_projects, backref = db.backref("collaborators", lazy = 'dynamic'), lazy='dynamic')
 
     def __init__(self, email, password, display_name, bio):
         self.email = email

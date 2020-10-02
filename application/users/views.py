@@ -39,25 +39,29 @@ def dashboard():
 @users.route('/all_projects')
 @login_required
 def all_projects():
-    all_projects = current_user.collab_projects
 
-    selected = []
+    page = request.args.get('page', default = 1, type = int)
+    order = request.args.get('order', default = "recency")
+    per_page = request.args.get('per_page', default = 5, type = int)
     
     if request.args.get('order'):
         if request.args.get('order') == "alphabetical":
-            pass
+            all_projects = current_user.collab_projects.order_by(Projects.name.asc()).paginate(page, per_page, False)
         elif request.args.get('order') == "recency":
-            pass
+            all_projects = current_user.collab_projects.order_by(Projects.last_activity.asc()).paginate(page, per_page, False)
         elif request.args.get('order') == "creation":
-            pass
-        elif request.args.get('order') == "alphabetical":
-            pass
-
+            all_projects = current_user.collab_projects.order_by(Projects.id.asc()).paginate(page, per_page, False)
     else:
-        selected = all_projects
+        all_projects = current_user.collab_projects.order_by(Projects.id.desc()).paginate(page, per_page, False)
+    
+    result_count = current_user.collab_projects.order_by(Projects.id.desc()).count()
+
+    next_url = url_for('users.all_projects', page = all_projects.next_num) if all_projects.has_next else None
+    prev_url = url_for('users.all_projects', page = all_projects.prev_num) if all_projects.has_prev else None
 
 
-    return render_template('all_projects.html', user = current_user, projects = selected, all_projects = all_projects)
+
+    return render_template('all_projects.html', user = current_user, projects = all_projects, prev_url = prev_url, next_url = next_url)
 
 
 
