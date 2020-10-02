@@ -467,6 +467,11 @@ ADDON CHARACTERISTICS
   background-color: #393939;
 }
 
+.bg-black {
+  color: #dbdbdb;
+  background: #000;
+}
+
 .border-left-accent {
   border-left: 5px solid #cf6b6e;
   padding: 0.5em 1em;

@@ -29,5 +29,14 @@
     {{ macros.bugcard(bug.ref_id, bug.details, bug.author, bug.author_email, bug.status, bug.version, bug.report_date, None, bug.bug_location, bug.bug_type) }}
     {% endfor %}
 </div>
+
+<div class="hidden">
+  <form method="post">
+    {{ form.hidden_tag() }}
+    {{ form.submit() }}
+  </form>
+</div>
 {{ macros.ad("medium")}}
+{{ macros.fetchapi() }}
+
 {% endblock %}

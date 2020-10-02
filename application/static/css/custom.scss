@@ -175,6 +175,7 @@ tr:nth-child(even) td {
   border-bottom: 8px solid #e4e4e4;
   position: relative;
   margin-bottom: 1em;
+  break-inside: avoid-column;
 }
 
 .tag-mini {

@@ -78,3 +78,12 @@ class settings_form(FlaskForm):
 class collaborate_form(FlaskForm):
     email = StringField()
     submit = SubmitField()
+
+
+
+
+
+class manage_card_form(FlaskForm):
+    target_card = HiddenField()
+    target_action = HiddenField()
+    submit = SubmitField()

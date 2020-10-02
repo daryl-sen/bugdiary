@@ -1,5 +1,5 @@
-from flask import render_template, Blueprint, redirect, url_for, flash, request
-from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form, report_form, collaborate_form
+from flask import render_template, Blueprint, redirect, url_for, flash, request, jsonify, make_response
+from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form, report_form, collaborate_form, manage_card_form
 from application.models import Users, Projects, Project_settings, Project_bug_locations, Project_bug_types, Blog_posts, Bugs
 from flask_login import login_required, current_user
 from application import db
@@ -271,8 +271,36 @@ def delete(project_url):
 def cards_view(project_url):
     target_project = Projects.query.filter_by(url = project_url).first()
 
+    form = manage_card_form()
+
     all_bugs = target_project.bugs
 
     if request.args.get('filter'):
         pass
-    return render_template('view_cards.html', project = target_project, bug_list = all_bugs)
+    return render_template('view_cards.html', project = target_project, bug_list = all_bugs, form = form)
+
+
+
+
+
+@projects.route('/manage_card', methods = ['post'])
+@login_required
+def manage_card():
+    received = request.get_json()
+    target_bug = Bugs.query.get(received['card'])
+
+    if target_bug.containing_project not in current_user.collab_projects:
+        flash("Sorry, the bug you were trying to edit does not belong to a project managed by you.")
+        return redirect(url_for('core.index'))
+
+    if received['action'] == "delete":
+        target_bug.status = "DELETED"
+        db.session.commit()
+    elif received['action'] == "pin":
+        target_bug.status = "PINNED"
+        db.session.commit()
+    elif received['action'] == "resolve":
+        target_bug.status = "RESOLVED"
+        db.session.commit()
+    resp = make_response(jsonify({'result': 'Action sucessful'}),200)
+    return resp

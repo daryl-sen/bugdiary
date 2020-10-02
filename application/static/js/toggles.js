@@ -19,3 +19,10 @@ function dismissNotif(id) {
 function showControls(id) {
   document.getElementById(id).classList.toggle('hidden');
 }
+
+// function fill_card_form(button_id, action) {
+//   console.log(button_id);
+//   console.log(action);
+//   target_card = document.getElementById('card-' + button_id);
+//   target_card.innerHTML = "#" + button_id + " has been processed. Please refresh the page to see the change.";
+// }
