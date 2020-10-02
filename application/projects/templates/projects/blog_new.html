@@ -1,4 +1,5 @@
 {% extends 'confined.html' %}
+{% import 'macros.html' as macros %}
 
 {% block addons %}
 <link rel="stylesheet" href="{{ url_for('static', filename = 'css/quill-snow.css') }}">
@@ -11,8 +12,6 @@
 {% block custom_nav %}
 {{ macros.project_nav(project) }}
 {% endblock %}
-
-{% import 'macros.html' as macros %}
 
 {% block main %}
 <h1>{{project.name}} Development Blog</h1>
