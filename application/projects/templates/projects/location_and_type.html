@@ -8,10 +8,7 @@
 {% endblock %}
 
 {% block custom_nav %}
-<a href="{{ url_for('users.dashboard') }}">All projects</a>
-<a href="{{ url_for('projects.dashboard', project_url = project.url) }}">{{project.name}}</a>
-<a href="{{ url_for('projects.settings', project_url = project.url) }}">Settings</a>
-<a href="{{ url_for('users.logout') }}">Logout</a>
+{{ macros.project_nav(project) }}
 {% endblock %}
 
 {% import 'macros.html' as macros %}

@@ -11,10 +11,7 @@
 
 {% block custom_nav %}
 {% if current_user.is_authenticated and current_user in project.collaborators %}
-    <a href="{{ url_for('users.dashboard') }}">All projects</a>
-    <a href="{{ url_for('projects.dashboard', project_url = project.url) }}">{{project.name}}</a>
-    <a href="{{ url_for('projects.settings', project_url = project.url) }}">Settings</a>
-    <a href="{{ url_for('users.logout') }}">Logout</a>
+{{ macros.project_nav(project) }}
 {% else %}
     <a href="{{ url_for('projects.blog', project_url = project.url) }}">BLOG</a>
     {% if project.settings.ext_url != "" %}

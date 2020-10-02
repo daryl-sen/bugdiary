@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
-from application.users.forms import login_form, registration_form, change_preferences_form
+from application.users.forms import login_form, registration_form, change_password_form, change_preferences_form
 from application import db
 from application.models import Users, Bugs, Projects
 from flask_login import login_user, login_required, logout_user, current_user
@@ -118,6 +118,25 @@ def preferences():
         current_user.email = form.email.data
         current_user.bio = form.bio.data
         db.session.commit()
-        flash('Your preferences have been changed!')
+        flash('Your account information have been changed!')
         return redirect(url_for('users.preferences'))
     return render_template('preferences.html', form = form)
+
+
+
+
+
+@users.route('/settings', methods=['get', 'post'])
+@login_required
+def settings():
+    form = change_password_form()
+    if form.validate_on_submit():
+        if current_user.check_password(form.current_password.data):
+            current_user.password = generate_password_hash(form.new_password.data)
+            db.session.commit()
+            flash('Your password has been changed!')
+            return redirect(url_for('users.settings'))
+        else:
+            flash('Your current password is incorrect.')
+            return redirect(url_for('users.settings'))
+    return render_template('user_settings.html', form = form)

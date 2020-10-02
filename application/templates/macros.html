@@ -91,3 +91,11 @@ aside {
     <div style="position: fixed; top: 0; left: 0;" class="hidden" id="card-{{bug.id}}-process"></div>
 </div>
 {% endmacro %}
+
+
+{% macro project_nav(project) %}
+<a href="{{ url_for('users.dashboard') }}">My BugDiaries</a>
+<a href="{{ url_for('projects.dashboard', project_url = project.url) }}">{{project.name}}</a>
+<a href="{{ url_for('projects.settings', project_url = project.url) }}">Settings</a>
+<a href="{{ url_for('users.logout') }}">Logout</a>
+{% endmacro %}
