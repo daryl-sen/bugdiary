@@ -36,6 +36,33 @@ def dashboard():
 
 
 
+@users.route('/all_projects')
+@login_required
+def all_projects():
+    all_projects = current_user.collab_projects
+
+    selected = []
+    
+    if request.args.get('order'):
+        if request.args.get('order') == "alphabetical":
+            pass
+        elif request.args.get('order') == "recency":
+            pass
+        elif request.args.get('order') == "creation":
+            pass
+        elif request.args.get('order') == "alphabetical":
+            pass
+
+    else:
+        selected = all_projects
+
+
+    return render_template('all_projects.html', user = current_user, projects = selected, all_projects = all_projects)
+
+
+
+
+
 
 @users.route('/login', methods=['post', 'get'])
 def login():

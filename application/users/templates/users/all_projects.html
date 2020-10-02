@@ -1,0 +1,32 @@
+{% extends 'confined.html' %}
+{% import 'macros.html' as macros %}
+
+{% block addons %}
+{% endblock %}
+
+{% block title %}
+    BugDiary - Title
+{% endblock %}
+
+{% block custom_nav %}{% endblock %}
+
+
+{% block main %}
+<h1>All Bug Diaries</h1>
+<div class="main-aside">
+    <main>
+        {{ macros.search(all_projects) }}
+        {% for project in projects %}
+            {{project.name}}
+        {% endfor %}
+    </main>
+    <aside>
+        <div class="sidebar-block bg-gray">
+            <h3>Projects Limit</h3>
+            <p>
+                The maximum number of projects you can have is 20 (both created and collaborating). You can still collaborate on new projects with other users, but you will not be able to create any new ones.
+            </p>
+        </div>
+    </aside>
+</div>
+{% endblock %}

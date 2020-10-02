@@ -40,32 +40,11 @@
 
             <h2>Recent Activity</h2>
             <p>
-                The following five Bug Diaries have recent activity like new reports or resolutions. You can see all your Bug Diaries <a href="">here</a> or search for a specific one below.
+                The following five Bug Diaries have recent activity like new reports or resolutions. You can see <a href="{{ url_for('users.all_projects') }}">all your Bug Diaries</a> or search for a specific one below.
             </p>
             
             {% for project in project_summaries %}
-            <div class="project-summary">
-                <div class="name shadowed">
-                    <a href="{{ url_for('projects.dashboard', project_url = project['url']) }}">open</a><span onclick="toggleElement('sum-{{loop.index}}')">{{ project['name'] }}</span>
-                    <p class="hidden" id="sum-{{loop.index}}">
-                        {% if project['description'] != "" %}
-                        {{ project['description'] }}
-                        {% else %}
-                        No Description Provided
-                        {% endif %}
-                    </p>
-                </div>
-                <div class="stats text-centered shadowed bg-yellow">
-                    {{ project['since_last_login'] }}
-                </div>
-                <div class="stats text-centered shadowed bg-green">
-                    {{ project['resolved'] }}
-                </div>
-                <div class="stats text-centered shadowed bg-red">
-                    {{ project['unresolved'] }}
-                </div>
-            </div>
-            
+            {{ macros.summary_with_stats(project) }}            
             {% endfor %}
             <div class="spacer-small"></div>
             {{ macros.search(current_user.collab_projects) }}

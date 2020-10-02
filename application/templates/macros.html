@@ -31,7 +31,7 @@ aside {
 
 
 {% macro search(suggestions) %}
-<form action="{{ url_for('users.search') }}" method="get" class="lined block">
+<form action="{{ url_for('users.search') }}" method="get" class="lined bg-white block">
     <input name="search_term" type="text" list="project_names" placeholder="Enter a project name">
     <datalist id="project_names">
         {% for suggestion in suggestions %}
@@ -98,4 +98,31 @@ aside {
 <a href="{{ url_for('projects.dashboard', project_url = project.url) }}">{{project.name}}</a>
 <a href="{{ url_for('projects.settings', project_url = project.url) }}">Settings</a>
 <a href="{{ url_for('users.logout') }}">Logout</a>
+{% endmacro %}
+
+
+
+
+{% macro summary_with_stats(project) %}
+<div class="project-summary">
+    <div class="name shadowed">
+        <a href="{{ url_for('projects.dashboard', project_url = project['url']) }}">open</a><span onclick="toggleElement('sum-{{project.id}}')">{{ project['name'] }}</span>
+        <p class="hidden" id="sum-{{ project.id}}">
+            {% if project['description'] != "" %}
+            {{ project['description'] }}
+            {% else %}
+            No Description Provided
+            {% endif %}
+        </p>
+    </div>
+    <div class="stats text-centered shadowed bg-yellow">
+        {{ project['since_last_login'] }}
+    </div>
+    <div class="stats text-centered shadowed bg-green">
+        {{ project['resolved'] }}
+    </div>
+    <div class="stats text-centered shadowed bg-red">
+        {{ project['unresolved'] }}
+    </div>
+</div>
 {% endmacro %}
