@@ -24,6 +24,7 @@ class Users(db.Model, UserMixin):
     password = db.Column(db.String(200), nullable = False)
     bio = db.Column(db.Text, nullable = False)
     last_login = db.Column(db.DateTime, nullable = False)
+    account_type = db.Column(db.Integer, db.ForeignKey('account_types.id'), default = 1)
 
     # AS PARENT
     owned_projects = db.relationship('Projects', backref="project_owner")
@@ -42,6 +43,11 @@ class Users(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
 
+class Account_types(db.Model):
+    id = db.Column(db.Integer, primary_key = True, nullable = False)
+    name = db.Column(db.String(30), nullable = False)
+    description = db.Column(db.Text, nullable = False)
+
 
 
 class Projects(db.Model):
@@ -54,6 +60,7 @@ class Projects(db.Model):
     status = db.Column(db.String(10), nullable = False)
     access_code = db.Column(db.String(50), nullable = True)
     last_activity = db.Column(db.DateTime(), default = dt.datetime.now())
+    memo = db.Column(db.String(500), default = "Post a memo here!")
     # AS CHILD
     owner = db.Column(db.Integer, db.ForeignKey('users.id')) #linked
     # AS PARENT

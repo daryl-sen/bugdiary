@@ -61,9 +61,54 @@
     <aside>
         <div class="sidebar-block bg-gray">
             <h3>Memo</h3>
-            Ajax this shit
-            <br>
-            <a class="button-secondary rounded shadowed">Edit</a>
+            <p class="linebreak" id="memo-content">{{ project.memo }}</p>
+            <div id="memo-editor" class="hidden">
+                <textarea id="memo-new-content">{{ project.memo }}</textarea>
+            </div>
+            <button id="memo-edit-button" type="button" class="button-secondary rounded shadowed button-styled" onclick="edit_memo()">Edit</button type="button">
+            <button id="memo-save-button" type="button" class="button-primary rounded shadowed button-styled hidden" onclick="save_memo('{{project.id}}');edit_memo()">Save</button type="button">
+            
+            <script>
+                function edit_memo() {
+                    toggleElement('memo-content');
+                    toggleElement('memo-editor');
+                    toggleElement('memo-edit-button');
+                    toggleElement('memo-save-button');
+                }
+
+                
+
+                function save_memo(project_id) {
+                    var instructions = {
+                        project: project_id,
+                        content: document.getElementById('memo-new-content').value
+                    };
+                    // console.log(instructions);
+                
+                
+                    fetch(`{{ url_for('projects.memo') }}`, {
+                        method: "POST",
+                        credentials: "include",
+                        body: JSON.stringify(instructions),
+                        cache: "no-cache",
+                        headers: new Headers({
+                            "content-type": "application/json"
+                        })
+                    })
+                    .then(function(response) {
+                    if (response.status !== 200) {
+                        alert(`Looks like there was a problem. Status code: ${response.status}`);
+                        return;
+                    }
+                    response.json().then(function(data) {
+                        document.getElementById('memo-content').innerHTML = data['result'];
+                    });
+                    })
+                    .catch(function(error) {
+                        alert("Fetch error: " + error);
+                    });
+                }
+            </script>
         </div>
 
         <div class="sidebar-block bg-gray">

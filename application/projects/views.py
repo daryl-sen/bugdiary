@@ -260,6 +260,9 @@ def delete(project_url):
         db.session.commit()
         flash(f'Your Bug Diary for "{target_project.name}" has been deleted.')
         return redirect(url_for('users.dashboard'))
+    else:
+        flash('Only the owner of this Bug Diary can delete it.')
+        return redirect(url_for('users.dashboard'))
 
 
 
@@ -308,3 +311,21 @@ def manage_card():
     
     resp = make_response(jsonify({'result': 'Action sucessful'}),200)
     return resp
+
+
+@projects.route('/memo', methods = ['post'])
+@login_required
+def memo():
+    received = request.get_json()
+    print(received)
+    target_project = Projects.query.get(received['project'])
+
+    target_project.memo = received['content']
+    db.session.commit()
+    
+    resp = make_response(jsonify({'result': target_project.memo}), 200)
+    return resp
+
+
+
+
