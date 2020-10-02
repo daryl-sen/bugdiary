@@ -29,3 +29,11 @@ def redirect_id(project_id):
         flash("Sorry, a project with that ID does not exist. There might have been a typo, or the project has expired.")
         return redirect(url_for('core.index'))
     return redirect(url_for('projects.report', project_url = target_project.url))
+
+
+
+
+
+@core.route('/about')
+def about():
+    return render_template('about.html')

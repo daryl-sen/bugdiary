@@ -13,7 +13,7 @@
 <h1>{{ current_user.display_name}}'s Account Settings</h1>
 <div class="main-aside">
     <main class="bg-white rounded shadowed block">
-        <form method="post">
+        <form method="post" autocomplete="off">
             {{ form.hidden_tag() }}
             {{ form.current_password.label }}{{ form.current_password }}
             {{ form.new_password.label }}{{ form.new_password }}

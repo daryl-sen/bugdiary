@@ -13,7 +13,7 @@
 <h1>User Registration</h1>
 <div class="main-aside">
     <main class="bg-white rounded shadowed block">
-        <form method="post">
+        <form method="post" autocomplete="off">
             <h3>For Logging In</h3>
             {{ form.hidden_tag() }}
             {{ form.email.label }} {{ form.email }}

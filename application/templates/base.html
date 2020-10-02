@@ -19,7 +19,7 @@
         <nav id="navigation">
           {% block custom_nav %}
           <a href="{{ url_for('users.dashboard') }}">MY BUGDIARIES</a>
-          <a href="">ABOUT</a>
+          <a href="{{ url_for('core.about') }}">ABOUT</a>
           {% if current_user.is_authenticated %}
           <a href="{{ url_for('users.logout') }}">LOGOUT</a>
           {% endif %}

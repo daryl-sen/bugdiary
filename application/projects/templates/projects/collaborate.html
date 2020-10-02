@@ -25,7 +25,7 @@
                 </div>
             {% endfor %}
             <h3>Invite</h3>
-            <form method="post">
+            <form method="post" autocomplete="off">
                 {{ form.hidden_tag() }}
                 {{ form.email.label }}{{ form.email }}
                 {{ form.submit(class_="button-primary") }}
