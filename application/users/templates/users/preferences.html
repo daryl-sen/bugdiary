@@ -1,0 +1,32 @@
+{% extends 'confined.html' %}
+
+{% block addons %}
+{% endblock %}
+
+{% block title %}
+    BugDiary - Preferences
+{% endblock %}
+
+{% import 'macros.html' as macros %}
+{% block main %}
+
+<h1>User Registration</h1>
+<div class="main-aside">
+    <main class="bg-white rounded shadowed block">
+        <form method="post">
+            {{ form.hidden_tag() }}
+            {{ form.display_name.label }}{{ form.display_name }}
+            {{ form.email.label }}{{ form.email }}
+            {{ form.bio.label }}{{ form.bio }}
+            {{ form.change(class_="button-primary") }}
+        </form>
+    </main>
+    <aside>
+        <div class="bg-gray sidebar-block">
+            <h3>Terms and Privacy Policy</h3>
+            <p>We <b><u>do not</u></b> want your personal data. Do not enter any personally-identifiable information anywhere on BugDiary.com. You must agree to our privacy policy and terms and conditions in order to use this service.</p>
+        </div>
+    </aside>
+</div>
+
+{% endblock %}

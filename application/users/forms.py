@@ -33,3 +33,13 @@ class change_password_form(FlaskForm):
     new_password = PasswordField('New Password', validators = [DataRequired("You can't leave your password blank, how will you log in?"), Length(min = 8, max = 50, message="Your password must be between 8-50 characters"), EqualTo('cfm_password', message = "The passwords entered below must match. Let's not get you locked out of your account for a typo!")])
     cfm_password = PasswordField('Confirm New Password', validators = [DataRequired('You must confirm your password below. Sometimes people make a typo and get locked out of their account.')])
     change = SubmitField("Change Password")
+
+
+
+
+
+class change_preferences_form(FlaskForm):
+    display_name = StringField()
+    email = StringField()
+    bio = TextAreaField()
+    change = SubmitField()

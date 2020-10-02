@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
-from application.users.forms import login_form, registration_form
+from application.users.forms import login_form, registration_form, change_preferences_form
 from application import db
 from application.models import Users, Bugs, Projects
 from flask_login import login_user, login_required, logout_user, current_user
@@ -74,6 +74,8 @@ def logout():
 
 @users.route('/register', methods=['post', 'get'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('users.dashboard'))
     form = registration_form()
     if form.validate_on_submit():
         new_user = Users(form.email.data, form.password.data, form.name.data, form.bio.data)
@@ -93,6 +95,7 @@ def register():
 
 
 @users.route('/search', methods=['get'])
+@login_required
 def search():
     if request.args.get('search_term'):
         results = Projects.query.filter(Projects.name.like(f"%{request.args.get('search_term')}%"))
@@ -100,3 +103,21 @@ def search():
         results = None
     
     return render_template('search.html', results = results)
+
+
+
+
+
+
+@users.route('/preferences', methods=['get', 'post'])
+@login_required
+def preferences():
+    form = change_preferences_form(obj = current_user)
+    if form.validate_on_submit():
+        current_user.display_name = form.display_name.data
+        current_user.email = form.email.data
+        current_user.bio = form.bio.data
+        db.session.commit()
+        flash('Your preferences have been changed!')
+        return redirect(url_for('users.preferences'))
+    return render_template('preferences.html', form = form)
