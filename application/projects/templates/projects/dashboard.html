@@ -56,7 +56,7 @@
         </p>
         {% if new_reports != None %}
             {% for bug in new_reports %}
-            {{ macros.bugcard(bug.ref_id, bug.details, bug.author, bug.author_email, bug.status, bug.version, bug.report_date, None, bug.bug_location, bug.bug_type) }}
+            {{ macros.bugcard(bug, False) }}
             {% endfor %}
         {% else %}
             <b>- No new reports since your last login. - </b>

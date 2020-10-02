@@ -34,23 +34,24 @@
         {{ form.hidden_tag() }}
           
         {% if form_type == "suggest" %}
-          {{ form.bug_type.label }}{{ form.bug_type(list = 'types_list')}}
-          <datalist id="types_list">
-            {% for bug_type in bug_types %}
-            <option value="{{ bug_type }}">{{ bug_type }}</option>
-            {% endfor %}
-          </datalist>
+        {{ form.bug_location.label }} {{ form.bug_location(list = 'locations_list') }}
+        <datalist id="locations_list">
+          {% for bug_location in bug_locations %}
+          <option value="{{ bug_location[1] }}">{{ bug_location[1] }}</option>
+          {% endfor %}
+        </datalist>
 
-          {{ form.bug_location.label }} {{ form.bug_location(list = 'locations_list') }}
-          <datalist id="locations_list">
-            {% for bug_location in bug_locations %}
-            <option value="{{ bug_location }}">{{ bug_location }}</option>
-            {% endfor %}
-          </datalist>
+        {{ form.bug_type.label }}{{ form.bug_type(list = 'types_list')}}
+        <datalist id="types_list">
+          {% for bug_type in bug_types %}
+          <option value="{{ bug_type[1] }}">{{ bug_type[1] }}</option>
+          {% endfor %}
+        </datalist>
+
 
         {% elif form_type == "select" %}
-          {{ form.bug_type.label }} {{ form.bug_type }}
           {{ form.bug_location.label }} {{ form.bug_location }}
+          {{ form.bug_type.label }} {{ form.bug_type }}
         {% endif %}
         
         {{ form.details.label }}{{ form.details }}
@@ -61,7 +62,7 @@
           {{ form.author.label }}{{ form.author }}
           {{ form.author_email.label }}{{ form.author_email }}
         </div>
-        {{ form.submit() }}
+        {{ form.submit(class_="button-primary") }}
       </form>
     </div>
   </main>

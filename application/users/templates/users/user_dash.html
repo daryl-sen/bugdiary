@@ -30,6 +30,10 @@
                     <span class="bignum">{{ unresolved }}</span>
                 </div>
             </div>
+            <p>
+                Your last login was on <b>{{ current_user.last_login.strftime('%Y-%m-%d') }}</b>.
+            </p>
+            
         </div>
 
         <div class="bg-white rounded shadowed block">
@@ -80,10 +84,6 @@
         </div>
     </main>
     <aside>
-        <div class="sidebar-block bg-gray">
-            <h3>Welcome Back!</h3>
-            <p>Hi {{ current_user.display_name }}, your last login was on {{ current_user.last_login.strftime('%Y-%m-%d') }}.</p>
-        </div>
         <div class="sidebar-block bg-gray">
             <h3>Useful Links</h3>
             <a href="" class="navigation">My Preferences</a>

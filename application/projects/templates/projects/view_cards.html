@@ -26,7 +26,7 @@
         <a href="{{ url_for('projects.dashboard', project_url = project.url) }}" class="button-primary shadowed rounded">Go Back</a>
     </div>
     {% for bug in bug_list %}
-    {{ macros.bugcard(bug.ref_id, bug.details, bug.author, bug.author_email, bug.status, bug.version, bug.report_date, None, bug.bug_location, bug.bug_type) }}
+      {{ macros.bugcard(bug, True) }}
     {% endfor %}
 </div>
 
@@ -37,6 +37,42 @@
   </form>
 </div>
 {{ macros.ad("medium")}}
-{{ macros.fetchapi() }}
+<script>
+
+
+  function fill_card_form(button_id, action) {
+      var instructions = {
+          card: button_id,
+          action: action
+      };
+  
+  
+      fetch(`{{ url_for('projects.manage_card') }}`, {
+          method: "POST",
+          credentials: "include",
+          body: JSON.stringify(instructions),
+          cache: "no-cache",
+          headers: new Headers({
+              "content-type": "application/json"
+          })
+      })
+      .then(function(response) {
+      if (response.status !== 200) {
+          alert(`Looks like there was a problem. Status code: ${response.status}`);
+          return;
+      }
+      response.json().then(function(data) {
+          target_card = document.getElementById('card-' + button_id);
+          
+          target_card.style.visibility = "hidden";
+          // target_card.innerHTML = "#" + button_id + " has been processed. Please refresh the page to see the change.";
+      });
+      })
+      .catch(function(error) {
+          alert("Fetch error: " + error);
+      });
+  }
+  
+  </script>
 
 {% endblock %}

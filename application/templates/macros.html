@@ -1,10 +1,10 @@
 {% macro ad(size) %}
-<div class="sidebar-block bg-gray">
+<!-- <div class="sidebar-block bg-gray">
     <h3>Advertisement</h3>
     <p>
         No ads, yay!!
     </p>
-</div>
+</div> -->
 {% endmacro %}
 
 {% macro custom_style(header_color, background_color) %}
@@ -44,88 +44,48 @@ aside {
 
 
 
-{% macro bugcard(ref_id, details, author, author_email, status, version, report_date, resolve_date, location, type, color_code = {"PENDING": "bg-yellow", "RESOLVED": "bg-green", "DELETED": 'bg-black', "PINNED": 'bg-red'}) %}
-<div id="card-{{ref_id}}">
+{% macro bugcard(bug, show_controls, color_code = {"PENDING": "bg-yellow", "RESOLVED": "bg-green", "DELETED": 'bg-black', "PINNED": 'bg-red'}) %}
+<div id="card-{{bug.id}}" style="position: relative;">
     <div class="card">
-        <h2>#{{ref_id}}</h2>
+        <h2>#{{ bug.ref_id }}</h2>
         <div>
-            <span class="tag-mini {{ color_code[status] }}">{{ status }}</span>
+            <span class="tag-mini {{ color_code[bug.status] }}">{{ bug.status }}</span>
             
-            <span class="tag-mini bg-gray">Loc: {{ location }}</span>
-            <span class="tag-mini bg-gray">Type: {{ type }}</span>
-            <span class="tag-mini">{{ version }}</span>
+            <span class="tag-mini bg-gray">Loc: {{ bug.bug_location }}</span>
+            <span class="tag-mini bg-gray">Type: {{ bug.bug_type }}</span>
+            <span class="tag-mini">{{ bug.version }}</span>
         </div>
         <h4>Description</h4>
-        <p class="linebreak">{{ details }}</p>
+        <p class="linebreak">{{ bug.details }}</p>
         <div class="author">
-            {% if author != "" or author_email != "" %}
-            <b>Reported by:</b> {{ author }} (Email: {{ author_email }})
+            {% if bug.author != "" or bug.author_email != "" %}
+            <b>Reported by:</b> {{ bug.author }} (Email: {{ bug.author_email }})
             {% endif %} <br>
-            <b>Reported on:</b> {{ report_date.strftime('%Y-%m-%d') }}
+            <b>Reported on:</b> {{ bug.report_date.strftime('%Y-%m-%d') }}
             <br>
             {% if status == "RESOLVED" %}
-            <b>Resolved on:</b> {{ resolve_date }}
+            <b>Resolved on:</b> {{ bug.resolve_date }}
             {% endif %}
         </div>
     
-        
-        <div class="cardcontrolstoggle" onClick="showControls('card-{{ref_id}}-controls')">
+        {% if show_controls == True %}
+        <div class="cardcontrolstoggle" onClick="showControls('card-{{bug.id}}-controls')">
             &circledcirc;
         </div>
-        <div class="hidden cardcontrols" id='card-{{ref_id}}-controls'>
-            {% if status != "RESOLVED" %}
-            <button onclick="fill_card_form('{{ref_id}}', 'resolve')">RESOLVE</button>
+        <div class="hidden cardcontrols" id='card-{{bug.id}}-controls'>
+            {% if bug.status != "RESOLVED" %}
+            <button onclick="fill_card_form('{{bug.id}}', 'resolve')">RESOLVE</button>
             {% endif %}
-            {% if status != "PINNED" %}
-            <button onclick="fill_card_form('{{ref_id}}', 'pin')">PIN &#x02606;</button>
+            {% if bug.status != "PINNED" %}
+            <button onclick="fill_card_form('{{bug.id}}', 'pin')">PIN &#x02606;</button>
             {% endif %}
-            {% if status != "DELETED" %}
-            <button onclick="fill_card_form('{{ref_id}}', 'delete')">DELETE &#128465;</button>
+            {% if bug.status != "DELETED" %}
+            <button onclick="fill_card_form('{{bug.id}}', 'delete')">DELETE &#128465;</button>
             {% endif %}
-            <button onClick="showControls('card-{{ref_id}}-controls')" style="color: #ff3939">CANCEL &rarrhk;</button>
-        </div>    
+            <button onClick="showControls('card-{{bug.id}}-controls')" style="color: #ff3939">CANCEL &rarrhk;</button>
+        </div>
+        {% endif %}
     </div>
+    <div style="position: fixed; top: 0; left: 0;" class="hidden" id="card-{{bug.id}}-process"></div>
 </div>
-{% endmacro %}
-
-
-
-
-{% macro fetchapi() %}
-<script>
-
-
-function fill_card_form(button_id, action) {
-    var instructions = {
-        card: button_id,
-        action: action
-    };
-
-
-    fetch(`{{ url_for('projects.manage_card') }}`, {
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify(instructions),
-        cache: "no-cache",
-        headers: new Headers({
-            "content-type": "application/json"
-        })
-    })
-    .then(function(response) {
-    if (response.status !== 200) {
-        alert(`Looks like there was a problem. Status code: ${response.status}`);
-        return;
-    }
-    response.json().then(function(data) {
-        target_card = document.getElementById('card-' + button_id);
-        target_card.style.visibility = "hidden";
-        // target_card.innerHTML = "#" + button_id + " has been processed. Please refresh the page to see the change.";
-    });
-    })
-    .catch(function(error) {
-        alert("Fetch error: " + error);
-    });
-}
-
-</script>
 {% endmacro %}
