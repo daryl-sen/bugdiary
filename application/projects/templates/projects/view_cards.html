@@ -20,7 +20,7 @@
 {% if request.args.get('searchtype') %}
 <div class="bg-yellow rounded block">
   Issues labelled with the <b>{{ request.args.get('searchtype') }}</b> label of <b>{{ request.args.get('searchterm') }}</b>, 
-including those with the <b>pending</b> status{% if request.args.get('showDeleted') %}, and those which have been deleted{% endif %}{% if request.args.get('showResolved') %}, and those which have been resolved{% endif %}.
+including those with the <b>pending</b> status{% if request.args.get('showDeleted') %}, and those which have been <b>deleted</b>{% endif %}{% if request.args.get('showResolved') %}, and those which have been <b>resolved</b>{% endif %}.
 <a href="{{ url_for('projects.cards_view', project_url = project.url) }}">Reset Filters</a>
 </div>
 {% endif %}
@@ -32,9 +32,12 @@ including those with the <b>pending</b> status{% if request.args.get('showDelete
       </p> -->
       <form action="{{ url_for('projects.cards_view', project_url = project.url) }}" method = "get" autocomplete="off">
         <label for="searchterm">Search Term</label>
-        <input name="searchterm" id="searchterm" type="text" placeholder="Containing">
+        <input name="searchterm" id="searchterm" type="text" placeholder="Containing" required {% if request.args.get('searchterm') %}value="{{ request.args.get('searchterm') }}"{% endif %}>
         <label name="searchtype" id="searchtype" for="searchtype">Label Type</label>
         <select name="searchtype" id="searchtype">
+          {% if request.args.get('searchtype') %}
+          <option value="{{ request.args.get('searchtype') }}">{{ request.args.get('searchtype') }}</option>
+          {% endif %}
           <option value="version">Version Number</option>
           <option value="location">Location</option>
           <option value="type">Type</option>
@@ -45,9 +48,13 @@ including those with the <b>pending</b> status{% if request.args.get('showDelete
       </form>
       <a href="{{ url_for('projects.dashboard', project_url = project.url) }}" class="navigation">Go Back</a>
     </div>
+    {% if bug_list != None %}
     {% for bug in bug_list %}
       {{ macros.bugcard(bug, True) }}
     {% endfor %}
+    {% else %}
+      <div class="bg-white block rounded">No results.</div>
+    {% endif %}
 </div>
 
 <div class="hidden">

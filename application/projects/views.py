@@ -294,7 +294,7 @@ def cards_view(project_url):
         all_bugs = all_bugs.filter((Bugs.status == "PENDING") | (Bugs.status == "DELETED"))
 
 
-    return render_template('view_cards.html', project = target_project, bug_list = all_bugs, form = form)
+    return render_template('view_cards.html', project = target_project, bug_list = all_bugs if all_bugs.count() != 0 else None, form = form)
 
 
 
