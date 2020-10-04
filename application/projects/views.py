@@ -1,5 +1,5 @@
-from flask import render_template, Blueprint, redirect, url_for, flash, request, jsonify, make_response
-from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form, report_form, collaborate_form, manage_card_form
+from flask import render_template, Blueprint, redirect, url_for, flash, request, jsonify, make_response, get_template_attribute
+from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form, report_form, collaborate_form, manage_card_form, filter_card_form
 from application.models import Users, Projects, Project_settings, Project_bug_locations, Project_bug_types, Blog_posts, Bugs
 from flask_login import login_required, current_user
 from application import db
@@ -276,10 +276,27 @@ def cards_view(project_url):
 
     form = manage_card_form()
 
-    all_bugs = target_project.bugs
+    all_bugs = Bugs.query.filter_by(project = target_project.id)
 
-    if request.args.get('filter'):
-        pass
+    if request.args.get('searchtype') and request.args.get('searchterm'):
+        if request.args.get('searchtype') == "version":
+            all_bugs = all_bugs.filter_by(version = request.args.get('searchterm'))
+            print('Filtering by version')
+        elif request.args.get('searchtype') == "location":
+            all_bugs = all_bugs.filter_by(bug_location = request.args.get('searchterm'))
+            print('Filtering by location')
+        elif request.args.get('searchtype') == "type": 
+            all_bugs = all_bugs.filter_by(bug_type = request.args.get('searchterm'))
+            print('Filtering by type')
+    
+    if not request.args.get('showResolved') and not request.args.get('showDeleted'):
+        all_bugs = all_bugs.filter(Bugs.status == "PENDING")
+    elif request.args.get('showResolved') and not request.args.get('showDeleted'):
+        all_bugs = all_bugs.filter((Bugs.status == "PENDING") | (Bugs.status == "RESOLVED"))
+    elif not request.args.get('showResolved') and request.args.get('showDeleted'):
+        all_bugs = all_bugs.filter((Bugs.status == "PENDING") | (Bugs.status == "DELETED"))
+
+
     return render_template('view_cards.html', project = target_project, bug_list = all_bugs, form = form)
 
 
@@ -309,7 +326,8 @@ def manage_card():
         target_bug.status = "PENDING"
         db.session.commit()
     
-    resp = make_response(jsonify({'result': 'Action sucessful'}),200)
+    bugcard = get_template_attribute('macros.html', 'bugcard')
+    resp = make_response(jsonify({'result': bugcard(target_bug, True)}),200)
     return resp
 
 

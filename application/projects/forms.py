@@ -87,3 +87,15 @@ class manage_card_form(FlaskForm):
     target_card = HiddenField()
     target_action = HiddenField()
     submit = SubmitField()
+
+
+
+
+
+
+class filter_card_form(FlaskForm):
+    show_resolved = BooleanField()
+    show_deleted = BooleanField()
+    search_field = StringField()
+    search_type = SelectField()
+    submit = SubmitField()

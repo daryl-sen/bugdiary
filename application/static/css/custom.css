@@ -187,6 +187,18 @@ tr:nth-child(even) td {
   border-radius: 0.5em;
   -moz-border-radius: 0.5em;
   -webkit-border-radius: 0.5em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.tag-white {
+  border: 1px solid #393939;
+}
+
+.tag {
+  background-color: inherit;
 }
 
 .author {
