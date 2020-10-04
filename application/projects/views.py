@@ -280,14 +280,11 @@ def cards_view(project_url):
 
     if request.args.get('searchtype') and request.args.get('searchterm'):
         if request.args.get('searchtype') == "version":
-            all_bugs = all_bugs.filter_by(version = request.args.get('searchterm'))
-            print('Filtering by version')
+            all_bugs = all_bugs.filter(Bugs.version.like(request.args.get('searchterm')))
         elif request.args.get('searchtype') == "location":
-            all_bugs = all_bugs.filter_by(bug_location = request.args.get('searchterm'))
-            print('Filtering by location')
+            all_bugs = all_bugs.filter(Bugs.bug_location.like(request.args.get('searchterm')))
         elif request.args.get('searchtype') == "type": 
-            all_bugs = all_bugs.filter_by(bug_type = request.args.get('searchterm'))
-            print('Filtering by type')
+            all_bugs = all_bugs.filter(Bugs.bug_type.like(request.args.get('searchterm')))
     
     if not request.args.get('showResolved') and not request.args.get('showDeleted'):
         all_bugs = all_bugs.filter(Bugs.status == "PENDING")

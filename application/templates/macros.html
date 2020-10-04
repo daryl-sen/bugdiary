@@ -49,11 +49,23 @@ aside {
     <div class="card">
         <h2>#{{ bug.ref_id }}</h2>
         <div>
-            <span class="tag-mini {{ color_code[bug.status] }}">{{ bug.status }}</span>
+            <div class="tag-mini {{ color_code[bug.status] }}">{{ bug.status }}</div>
             
-            <span class="tag-mini bg-gray">Loc: {{ bug.bug_location }}</span>
-            <span class="tag-mini bg-gray">Type: {{ bug.bug_type }}</span>
-            <span class="tag-mini tag-white">{{ bug.version }}</span>
+            <div class="tag-mini bg-gray">
+                <a href="?searchtype=location&searchterm={{bug.bug_location}}">
+                    Loc: {{ bug.bug_location }}
+                </a>
+            </div>
+            <div class="tag-mini bg-gray">
+                <a href="?searchtype=type&searchterm={{bug.bug_type}}">
+                    Type: {{ bug.bug_type }}
+                </a>
+            </div>
+            <div class="tag-mini tag-white">
+                <a href="?searchtype=version&searchterm={{bug.version}}">
+                    {{ bug.version }}
+                </a>
+            </div>
         </div>
         <h4>Description</h4>
         <p class="linebreak">{{ bug.details }}</p>
