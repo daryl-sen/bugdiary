@@ -16,6 +16,11 @@
 <div class="main-aside">
     <main>
         <div class="block lined rounded text-centered bg-white">
+            <div>
+                <a href="{{ url_for('projects.view_bugs', project_url = project.url, view_type = 'cards') }}" class="button-secondary rounded shadowed">Cards view</a>
+                <a href="{{ url_for('projects.view_bugs', project_url = project.url, view_type = 'tables') }}" class="button-secondary rounded shadowed">Table view</a>
+                <a href="{{ url_for('core.redirect_to', project_url = project.url )}}" class="button-secondary rounded shadowed">Report</a>
+            </div>
             <h3>Diary Stats</h3>
             <div class="block-comparison-3">
                 <div class="comp1 text-centered lined bg-white">
@@ -32,30 +37,27 @@
                 </div>
             </div>
 
+            
+
             <div style="text-align: left">
                 <h3>Reporting Link</h3>
                 <p>
                     Your testers or users can report bugs through the following link:
                     <input type="text" readonly value="https://www.bugdiary.com/r/{{ project.url }}">
-                    (Visit: <a href="{{ url_for('core.redirect_to', project_url = project.url )}}">Report a Bug</a> | <a onclick="toggleElement('change_url')">Click to change URL</a>)
-                    <p id="change_url" class="hidden">
-                        All links are generated randomly. We can change your URL for you if it contains an offensive word. Contact an admin to have your URL changed.
-                    </p>
                 </p>
             </div>
         </div>
 
         <div class="spacer-small"></div>
         <h2>New Reports</h2>
-        <p>
-            The following issues have been reported since your last login. You can see a full list of your reports in <a href="{{ url_for('projects.cards_view', project_url = project.url) }}">cards form</a> or <a href="">table form</a>.
-        </p>
         {% if new_reports != None %}
             {% for bug in new_reports %}
             {{ macros.bugcard(bug, False) }}
             {% endfor %}
         {% else %}
-            <b>- No new reports since your last login. - </b>
+            <div class="bg-white rounded block">
+                <b>- No new reports since your last login. - </b>
+            </div>
         {% endif %}
     </main>
     <aside>

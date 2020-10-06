@@ -51,7 +51,7 @@ header nav a, header #navigation a {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 header nav a:hover, header #navigation a:hover {
-  color: #fff;
+  color: #c9c9c9;
 }
 header nav #closeMenu, header #navigation #closeMenu {
   display: none;
@@ -188,15 +188,15 @@ main a.button-secondary, main a.button-primary {
 }
 main a.button-primary {
   background-color: #cf6b6e;
-  color: #000;
+  color: #fff;
 }
 main a.button-secondary {
   background-color: #358bdc;
-  color: #000;
+  color: #fff;
 }
 main a.button-primary:hover,
 main a.button-secondary:hover {
-  color: #fff;
+  color: #c9c9c9;
 }
 
 a:link, a:visited {
@@ -534,12 +534,12 @@ input[type=checkbox] {
 
 .button-primary {
   background-color: #cf6b6e;
-  color: #000;
+  color: #fff;
 }
 
 .button-secondary {
   background-color: #358bdc;
-  color: #000;
+  color: #fff;
 }
 
 textarea {

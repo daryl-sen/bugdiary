@@ -44,6 +44,32 @@ aside {
 
 
 
+
+
+{% macro bug_controls(bug) %}
+{% if bug.status != "RESOLVED" %}
+<button onclick="fill_card_form('{{bug.id}}', 'resolve')">RESOLVE</button>
+{% endif %}
+<button onclick="fill_card_form('{{bug.id}}', 'pin')">
+    {% if bug.status != "PINNED" %}
+    PIN
+    {% else %}
+    UNPIN
+    {% endif %}
+</button>
+<button onclick="fill_card_form('{{bug.id}}', 'delete')">
+    {% if bug.status != "DELETED" %}
+    DELETE
+    {% else %}
+    UNDELETE
+    {% endif %}
+</button>
+{% endmacro %}
+
+
+
+
+
 {% macro bugcard(bug, show_controls, color_code = {"PENDING": "bg-yellow", "RESOLVED": "bg-green", "DELETED": 'bg-black', "PINNED": 'bg-red'}) %}
 <div id="card-{{bug.id}}" style="position: relative;">
     <div class="card">
@@ -85,17 +111,7 @@ aside {
             &circledcirc;
         </div>
         <div class="hidden cardcontrols" id='card-{{bug.id}}-controls'>
-            {% if bug.status != "RESOLVED" %}
-            <button onclick="fill_card_form('{{bug.id}}', 'resolve')">RESOLVE</button>
-            {% endif %}
-            {% if bug.status != "PINNED" %}
-            <button onclick="fill_card_form('{{bug.id}}', 'pin')">PIN &#x02606;</button>
-            {% endif %}
-            {% if bug.status != "DELETED" %}
-            <button onclick="fill_card_form('{{bug.id}}', 'delete')">DELETE &#128465;</button>
-            {% else %}
-            <button onclick="fill_card_form('{{bug.id}}', 'undelete')">UNDELETE &#128465;</button>
-            {% endif %}
+            {{ bug_controls(bug) }}
             <button onClick="showControls('card-{{bug.id}}-controls')" style="color: #ff3939">CANCEL &rarrhk;</button>
         </div>
         {% endif %}
@@ -137,4 +153,51 @@ aside {
         {{ project['unresolved'] }}
     </div>
 </div>
+{% endmacro %}
+
+
+{% macro bug_row(bug, show_controls, color_code = {"PENDING": "bg-yellow", "RESOLVED": "bg-green", "DELETED": 'bg-black', "PINNED": 'bg-red'}) %}
+<tr id="row-{{bug.id}}">
+    <td>{{bug.ref_id}}</td>
+    <td><div class="tag-mini {{ color_code[bug.status] }}">{{ bug.status }}</div></td>
+
+    <td>
+        <div class="tag-mini bg-gray">
+            <a href="?searchtype=location&searchterm={{bug.bug_location}}">
+                {{ bug.bug_location }}
+            </a>
+        </div>
+    </td>
+    <td>
+        <div class="tag-mini bg-gray">
+            <a href="?searchtype=type&searchterm={{bug.bug_type}}">
+                {{ bug.bug_type }}
+            </a>
+        </div>
+    </td>
+    <td>
+        <div class="tag-mini tag-white">
+            <a href="?searchtype=version&searchterm={{bug.version}}">
+                {{ bug.version }}
+            </a>
+        </div>
+    </td>
+    <td>
+        <div class="linebreak">
+            {{bug.details}}
+        </div>
+        <div class="author">
+            {% if bug.author != "" or bug.author_email != "" %}
+            <b>Reported by:</b> {{ bug.author }} (Email: {{ bug.author_email }})
+            {% endif %} <br>
+            <b>Reported on:</b> {{ bug.report_date.strftime('%Y-%m-%d') }}
+            <br>
+            {% if status == "RESOLVED" %}
+            <b>Resolved on:</b> {{ bug.resolve_date }}
+            {% endif %}
+    </td>
+    <td>
+      {{ bug_controls(bug) }}
+    </td>
+</tr>
 {% endmacro %}

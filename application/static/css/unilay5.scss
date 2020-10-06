@@ -2,18 +2,10 @@
 CONFIGURABLE COLORS
 ***************************************************************************** */
 
-@function contrast_text($color) {
-  @if (lightness($color) > 40) {
-    @return #000;
-  } @else {
-    @return #fff;
-  }
-}
-
 $primary_color: #cf6b6e; // color that will appear most
 $secondary_color: #358bdc; // a secondary color
-$primary_contrast_text: contrast_text($primary_color);
-$secondary_contrast_text: contrast_text($secondary_color);
+$primary_contrast_text: #fff;
+$secondary_contrast_text: #fff;
 
 
 
@@ -22,7 +14,7 @@ $font_color: #000; // general text color
 
 
 $navlink_color: #eeeeee; // color of links in the navigation menu
-$navlink_hover: #fff;
+$navlink_hover: #c9c9c9;
 $navlink_mobile_color: #393939; // color of links in the navigation menu on mobile devices
 $navlink_mobile_bg: #ffffff; // background color of links on mobile devices
 $navlink_mobile_button_color: #a72c30;

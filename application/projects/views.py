@@ -269,9 +269,9 @@ def delete(project_url):
 
 
 
-@projects.route('/view_cards/<string:project_url>', methods = ['get', 'post'])
+@projects.route('/view_<string:view_type>/<string:project_url>', methods = ['get', 'post'])
 @login_required
-def cards_view(project_url):
+def view_bugs(view_type, project_url):
     target_project = Projects.query.filter_by(url = project_url).first()
 
     form = manage_card_form()
@@ -294,7 +294,10 @@ def cards_view(project_url):
         all_bugs = all_bugs.filter((Bugs.status == "PENDING") | (Bugs.status == "DELETED"))
 
 
-    return render_template('view_cards.html', project = target_project, bug_list = all_bugs if all_bugs.count() != 0 else None, form = form)
+    if view_type == "tables":
+        return render_template('view_tables.html', project = target_project, bug_list = all_bugs if all_bugs.count() != 0 else None, form = form)
+    elif view_type == "cards":
+        return render_template('view_cards.html', project = target_project, bug_list = all_bugs if all_bugs.count() != 0 else None, form = form)
 
 
 
@@ -311,21 +314,33 @@ def manage_card():
         return redirect(url_for('core.index'))
 
     if received['action'] == "delete":
-        target_bug.status = "DELETED"
+        if target_bug.status != "DELETED":
+            target_bug.status = "DELETED"
+        else:
+            target_bug.status = "PENDING"
         db.session.commit()
     elif received['action'] == "pin":
-        target_bug.status = "PINNED"
+        if target_bug.status != "PINNED":
+            target_bug.status = "PINNED"
+        else:
+            target_bug.status = "PENDING"
         db.session.commit()
     elif received['action'] == "resolve":
-        target_bug.status = "RESOLVED"
-        db.session.commit()
-    elif received['action'] == "undelete":
-        target_bug.status = "PENDING"
+        if target_bug.status != "RESOLVED":
+            target_bug.status = "RESOLVED"
+        else: 
+            target_bug.status = "PENDING"
         db.session.commit()
     
-    bugcard = get_template_attribute('macros.html', 'bugcard')
-    resp = make_response(jsonify({'result': bugcard(target_bug, True)}),200)
-    return resp
+
+    if received['format'] == "card":
+        bugcard = get_template_attribute('macros.html', 'bugcard')
+        resp = make_response(jsonify({'result': bugcard(target_bug, True)}),200)
+        return resp
+    elif received['format'] == "table":
+        bugrow = get_template_attribute('macros.html', 'bug_row')
+        resp = make_response(jsonify({'result': bugrow(target_bug, True)}), 200)
+        return resp
 
 
 @projects.route('/memo', methods = ['post'])

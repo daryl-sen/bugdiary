@@ -17,11 +17,14 @@
 
 {% block main %}
 <h1>{{ project.name }} - Cards View</h1>
+<a href="{{ url_for('projects.report', project_url = project.url) }}" class="button-secondary rounded shadowed">Add new</a>
+  <a href="{{ url_for('projects.view_bugs', project_url = project.url, view_type = 'tables') }}" class="button-secondary rounded shadowed">Table view</a>
+  <a href="{{ url_for('projects.dashboard', project_url = project.url) }}" class="button-secondary rounded shadowed">Go back</a>
 {% if request.args.get('searchtype') %}
 <div class="bg-yellow rounded block">
   Issues labelled with the <b>{{ request.args.get('searchtype') }}</b> label of <b>{{ request.args.get('searchterm') }}</b>, 
 including those with the <b>pending</b> status{% if request.args.get('showDeleted') %}, and those which have been <b>deleted</b>{% endif %}{% if request.args.get('showResolved') %}, and those which have been <b>resolved</b>{% endif %}.
-<a href="{{ url_for('projects.cards_view', project_url = project.url) }}">Reset Filters</a>
+<a href="{{ url_for('projects.view_bugs', project_url = project.url, view_type='cards') }}">Reset filters</a>
 </div>
 {% endif %}
 <div class="cards-flex">
@@ -30,7 +33,7 @@ including those with the <b>pending</b> status{% if request.args.get('showDelete
       <!-- <p>
         Click on a label (little round rectangle) to show all issues with the same label, or enter a filter criterion below to filter.
       </p> -->
-      <form action="{{ url_for('projects.cards_view', project_url = project.url) }}" method = "get" autocomplete="off">
+      <form action="{{ url_for('projects.view_bugs', project_url = project.url, view_type='cards') }}" method = "get" autocomplete="off">
         <label for="searchterm">Search Term</label>
         <input name="searchterm" id="searchterm" type="text" placeholder="Containing" required {% if request.args.get('searchterm') %}value="{{ request.args.get('searchterm') }}"{% endif %}>
         <label name="searchtype" id="searchtype" for="searchtype">Label Type</label>
@@ -46,8 +49,8 @@ including those with the <b>pending</b> status{% if request.args.get('showDelete
         <input id="showDeleted" name="showDeleted" type="checkbox" {% if request.args.get('showDeleted') %}checked{%endif%}><label for="showDeleted">Show Deleted</label> <br>
         <input type="submit" value="Filter" class="button-primary">
       </form>
-      <a href="{{ url_for('projects.dashboard', project_url = project.url) }}" class="navigation">Go Back</a>
     </div>
+    
     {% if bug_list != None %}
     {% for bug in bug_list %}
       {{ macros.bugcard(bug, True) }}
@@ -70,7 +73,8 @@ including those with the <b>pending</b> status{% if request.args.get('showDelete
   function fill_card_form(button_id, action) {
       var instructions = {
           card: button_id,
-          action: action
+          action: action,
+          format: "card"
       };
   
   
