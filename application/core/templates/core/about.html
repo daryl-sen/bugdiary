@@ -2,6 +2,14 @@
 {% import 'macros.html' as macros %}
 
 {% block addons %}
+<style>
+    .screenshot {
+        display: block;
+        width: 90%;
+        border: 1px solid #393939;
+        margin: 1em auto;
+    }
+</style>
 {% endblock %}
 
 {% block title %}
@@ -17,14 +25,14 @@
             <p>
                 An online issue-tracking and reporting platform that doesn't have a steep learning curve and is free to use!
             </p>
-            <img src="{{ url_for('static', filename='images/scrnsht2.png') }}" alt="Screenshot of reporting page">
+            <img src="{{ url_for('static', filename='images/scrnsht2.png') }}" class="screenshot" alt="Screenshot of reporting page">
             <div class="spacer-medium"></div>
 
             <h2>Who is BugDiary for?</h2>
             <p>
                 It's for anyone who manages a project and wants a <i>simple</i> way to keep track of issues. It's especially useful if your project involves <b>pilot-testing</b> with a group of testers, because testers can report errors without signing up for an account!
             </p>
-            <img src="{{ url_for('static', filename='images/scrnsht1.png') }}" alt="Screenshot of reporting page">
+            <img src="{{ url_for('static', filename='images/scrnsht1.png') }}" class="screenshot" alt="Screenshot of reporting page">
             <p>
                 Advanced users can take advantage of the BugDiary API to allow for issue-reporting directly from your website.
             </p>
@@ -34,7 +42,7 @@
             <p>
                 BugDiary helps you manage several projects at once, helping you keep track of activities at a glance.
             </p>
-            <img src="{{ url_for('static', filename='images/scrnsht3.png') }}" alt="Screenshot of user dashboard">
+            <img src="{{ url_for('static', filename='images/scrnsht3.png') }}" class="screenshot" alt="Screenshot of user dashboard">
             <p>
                 One of the popular built-in features is the <b>development blog</b>, where you can document the creative ways you used to solve your problems! You can also use the blog to provide updates to your users, keeping everyone on the same page.
             </p>
