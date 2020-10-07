@@ -29,8 +29,7 @@
             <div class="bg-white rounded shadowed block">
                 <h3>{{ post.title }}</h3>
                 {{post.content|safe}}
-                <div>
-                    <hr>
+                <div class="author">
                     Posted by {{post.post_author.display_name}} on {{post.date}}
                     <br>
                     {% if current_user.is_authenticated and current_user in project.collaborators %}

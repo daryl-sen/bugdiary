@@ -39,7 +39,7 @@
                 ['code', 'code-block'],
                 ['clean'],
                 ];
-          
+
                 var quill = new Quill('#quillEditor', {
                   modules: {
                     toolbar: toolbarOptions
@@ -47,7 +47,7 @@
                   theme: 'snow', // default settings
                   scrollingContainer: 'body'
                 });
-          
+
                 // quill.root.innerHTML = document.querySelector('input[name=content]').value;
                 var form = document.querySelector('form');
                 form.onsubmit = function() {
@@ -56,9 +56,9 @@
                   var editorContent = quill.root.innerHTML;
                   about.value = editorContent;
                 };
-          
+
                 quill.root.innerHTML = document.querySelector('input[name=content]').value;
-          
+
                 document.querySelectorAll(".ql-picker").forEach(tool => {
                 tool.addEventListener("mousedown", function(event) {
                   event.preventDefault();
@@ -68,6 +68,17 @@
             </script>
         </div>
     </main>
+    <aside>
+        <div class="sidebar-block bg-gray">
+            <h3>Dev Blog Posts</h3>
+            <p>
+                You can make this post <b>public</b> or <b>private</b>. Public posts are aimed at your testers/users, keeping them up to date with the latest and greatest from your project without boring them with the technical details.
+            </p>
+            <p>
+                Private posts serve as documentation for your project. You can record the creative ways you used to solve the obstacles you encountered, so this information is always available to you!
+            </p>
+        </div>
+    </aside>
 </div>
 
 

@@ -132,8 +132,6 @@ class Project_bug_locations(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     project = db.Column(db.Integer, db.ForeignKey('projects.id')) # no link required, never need to backref
     location = db.Column(db.String(100))
-    # AS PARENT
-    associated_bugs = db.relationship('Bugs', backref = "interpreted_bug_location")
 
     def __init__(self, project, location):
         self.project = project
@@ -143,8 +141,6 @@ class Project_bug_types(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     project = db.Column(db.Integer, db.ForeignKey('projects.id')) # no link required, never need to backref
     bug_type = db.Column(db.String(50))
-    # AS PARENT
-    associated_bugs = db.relationship('Bugs', backref = "interpreted_bug_type")
 
     def __init__(self, project, bug_type):
         self.bug_type = bug_type
@@ -164,10 +160,11 @@ class Bugs(db.Model):
     version = db.Column(db.String(20), index = True)
     report_date = db.Column(db.DateTime, index = True, default = dt.datetime.now())
     resolve_date = db.Column(db.DateTime, default = None)
+    bug_location = db.Column(db.String(100), index = True)
+    bug_type = db.Column(db.String(100), index = True)
+    
     # AS CHILD
     project = db.Column(db.Integer, db.ForeignKey('projects.id')) #linked
-    bug_location = db.Column(db.Integer, db.ForeignKey('project_bug_locations.id')) #linked
-    bug_type = db.Column(db.Integer, db.ForeignKey('project_bug_types.id')) #linked
     # AS PARENT
     comments = db.relationship('Bug_comments', backref = "comment_target")
 
