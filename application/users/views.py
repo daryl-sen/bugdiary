@@ -146,11 +146,20 @@ def preferences():
     form = change_preferences_form(obj = current_user)
     if form.validate_on_submit():
         current_user.display_name = form.display_name.data
-        current_user.email = form.email.data
         current_user.bio = form.bio.data
+        if current_user.email != form.email.data:
+            check_email = Users.query.filter_by(email = form.email.data).first()
+            if check_email is not None:
+                flash("Oops, this email address is already taken.")
+                return redirect(url_for('users.preferences'))
+            else:
+                current_user.email = form.email.data
         db.session.commit()
-        flash('Your account information have been changed!')
+        flash('Your account information has been changed!')
         return redirect(url_for('users.preferences'))
+    else:
+        for field, error in form.errors.items():
+            flash(f'{error[0]}')
     return render_template('preferences.html', form = form)
 
 

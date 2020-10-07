@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request, jsonify, make_response, get_template_attribute
-from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form, report_form, collaborate_form, manage_card_form, filter_card_form
+from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form, report_form, collaborate_form, manage_card_form
 from application.models import Users, Projects, Project_settings, Project_bug_locations, Project_bug_types, Blog_posts, Bugs
 from flask_login import login_required, current_user
 from application import db
