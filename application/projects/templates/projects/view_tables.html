@@ -61,7 +61,7 @@ including those with the <b>pending</b> status{% if request.args.get('showDelete
     {% if pinned_bugs != None %}
       {% for bug in pinned_bugs %}
         {{ macros.bug_row(bug, True) }}
-      {% endif %}
+      {% endfor %}
     {% endif %}
     {% if bug_list != None %}
     {% for bug in bug_list %}
