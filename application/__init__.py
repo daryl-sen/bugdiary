@@ -27,3 +27,6 @@ app.register_blueprint(projects, url_prefix="/projects")
 
 from application.users.views import users
 app.register_blueprint(users, url_prefix="/users")
+
+from application.error_pages.handlers import error_pages
+app.register_blueprint(error_pages)
