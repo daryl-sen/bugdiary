@@ -129,12 +129,14 @@ def blog(project_url):
     target_project = Projects.query.filter_by(url = project_url).first()
 
     if current_user.is_authenticated and (current_user in target_project.collaborators):
+        pinned_posts = Blog_posts.query.filter_by(project = target_project.id).filter_by(pinned = 1).order_by(Blog_posts.id.desc())
         blog_posts = Blog_posts.query.filter_by(project = target_project.id).order_by(Blog_posts.id.desc())
     else:
+        pinned_posts = Blog_posts.query.filter_by(project = target_project.id).filter_by(pinned = 1).filter_by(visibility = 1).order_by(Blog_posts.id.desc())
         blog_posts = Blog_posts.query.filter_by(project = target_project.id).filter_by(visibility = 1).order_by(Blog_posts.id.desc())
     
     
-    return render_template('blog.html', blog_posts = blog_posts if blog_posts.count() != 0 else None, project = target_project)
+    return render_template('blog.html', pinned_posts = pinned_posts if pinned_posts.count() != 0 else None, blog_posts = blog_posts if blog_posts.count() != 0 else None, project = target_project)
 
 
 
@@ -168,6 +170,7 @@ def edit_post(post_url):
         target_post.title = form.title.data
         target_post.content = form.content.data
         target_post.visibility = form.visibility.data
+        target_post.pinned = form.pinned.data
         db.session.commit()
         flash('Your blog post has been editted.')
         return redirect(url_for('projects.blog', project_url = target_project.url))

@@ -59,6 +59,7 @@ class blog_post_form(FlaskForm):
     title = StringField()
     content = HiddenField()
     visibility = BooleanField('Visible to Public?')
+    pinned = BooleanField('Pin to the top')
     submit = SubmitField('Post')
 
 

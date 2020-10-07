@@ -28,6 +28,8 @@
                 <div id="quillEditor"></div><br>
                 {{ form.visibility }}
                 {{ form.visibility.label }}
+                {{ form.pinned }}
+                {{ form.pinned.label }}
                 {{ form.submit }}
             </form>
             <script src="{{ url_for('static', filename='js/quill.js') }}?v={{version}}"></script>
