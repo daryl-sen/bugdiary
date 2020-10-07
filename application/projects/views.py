@@ -279,6 +279,7 @@ def view_bugs(view_type, project_url):
     form = manage_card_form()
 
     all_bugs = Bugs.query.filter_by(project = target_project.id)
+    pinned_bugs = Bugs.query.filter_by(project = target_project.id).filter_by(status = "PINNED")
 
     if request.args.get('searchtype') and request.args.get('searchterm'):
         if request.args.get('searchtype') == "version":
@@ -297,9 +298,9 @@ def view_bugs(view_type, project_url):
 
 
     if view_type == "tables":
-        return render_template('view_tables.html', project = target_project, bug_list = all_bugs if all_bugs.count() != 0 else None, form = form)
+        return render_template('view_tables.html', project = target_project, pinned_bugs = pinned_bugs if pinned_bugs.count() != 0 else None, bug_list = all_bugs if all_bugs.count() != 0 else None, form = form)
     elif view_type == "cards":
-        return render_template('view_cards.html', project = target_project, bug_list = all_bugs if all_bugs.count() != 0 else None, form = form)
+        return render_template('view_cards.html', project = target_project, pinned_bugs = pinned_bugs if pinned_bugs.count() != 0 else None, bug_list = all_bugs if all_bugs.count() != 0 else None, form = form)
 
 
 
