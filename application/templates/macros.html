@@ -7,24 +7,36 @@
 </div> -->
 {% endmacro %}
 
-{% macro custom_style(header_color, background_color) %}
+{% macro custom_style(settings) %}
 <style>
 header {
-    background-color: {{ header_color }};
+    background-color: {{ settings.header_color }};
 }
-nav, #nav:link, #logo {
-    color: {{ header_text_color }} !important;
+header #navigation a:link,
+header #logo a:link, 
+header #logo a:hover
+{
+    color: {{ settings.header_text_color }} !important;
+}
+
+#openMenu {
+    background-color: {{ settings.menu_color }};
 }
 
 body {
-    background-color: {{ background_color }};
-    color: {{ text_color }};
+    background-color: {{ settings.background_color }};
+    color: {{ settings.text_color }};
 }
-.card {
-    background-color: {{ card_color }};
+
+#openMenu {
+    background-color: {{ settings.menu_color }} !important;
 }
-aside {
-    background-color: {{ aside_color }};
+.sidebar-block {
+    background-color: {{ settings.aside_color }};
+}
+
+a {
+    color: {{ settings.link_color }};
 }
 </style>
 {% endmacro %}

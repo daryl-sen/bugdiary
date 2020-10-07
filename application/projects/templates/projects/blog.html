@@ -1,7 +1,9 @@
 {% extends 'confined.html' %}
 {% import 'macros.html' as macros %}
 
-{% block addons %}{% endblock %}
+{% block addons %}
+{{ macros.custom_style(project.settings) }}
+{% endblock %}
 
 {% block title %}
     BugDiary - {{project.name}} Blog

@@ -215,6 +215,7 @@ def settings(project_url):
         target_project.settings.aside_color = form.aside_color.data
         target_project.settings.text_color = form.text_color.data
         target_project.settings.link_color = form.link_color.data
+        target_project.settings.menu_color = form.menu_color.data
         db.session.commit()
         flash('Your settings have been updated!')
         return redirect(url_for('projects.settings', project_url = project_url))

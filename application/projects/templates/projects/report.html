@@ -2,7 +2,7 @@
 {% import 'macros.html' as macros %}
 
 {% block addons %}
-{{ macros.custom_style(project.settings.header_color, project.settings.background_color) }}
+{{ macros.custom_style(project.settings) }}
 {% endblock %}
 
 {% block title %}
@@ -53,7 +53,7 @@
         
         {{ form.details.label }}{{ form.details }}
         <p>
-          <a onClick="toggleElement('form-contact')">(Optional) Click to Provide Contact Details</a>
+          <a onClick="toggleElement('form-contact')">Click to Provide Contact Details</a>
         </p>
         <div id="form-contact" class="hidden block bg-gray rounded">
           {{ form.author.label }}{{ form.author }}

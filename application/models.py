@@ -93,16 +93,17 @@ class Projects(db.Model):
 class Project_settings(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     ext_url = db.Column(db.String(100), default="")
-    current_version = db.Column(db.String(20), index = True, default="V 1.0")
+    current_version = db.Column(db.String(20), index = True, default="v1")
     
     # CUSTOMIZATION
     header_color = db.Column(db.String(7), default="#cf6b6e")
     header_text_color = db.Column(db.String(7), default="#ffffff")
     background_color = db.Column(db.String(7), default="#f0f0f0")
     card_color = db.Column(db.String(7), default="#ffffff")
-    aside_color = db.Column(db.String(7), default="#393939")
+    aside_color = db.Column(db.String(7), default="#cacaca")
     text_color = db.Column(db.String(7), default="#000000")
     link_color = db.Column(db.String(7), default="#ff3939")
+    menu_color = db.Column(db.String(7), default="#a72c30")
 
     # PREFERENCES
     per_page = db.Column(db.Integer, default=10)
