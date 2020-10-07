@@ -9,7 +9,7 @@
 
 {% macro custom_style(settings) %}
 <style>
-header {
+header, .notification {
     background-color: {{ settings.header_color }};
 }
 header #navigation a:link,
@@ -28,9 +28,6 @@ body {
     color: {{ settings.text_color }};
 }
 
-#openMenu {
-    background-color: {{ settings.menu_color }} !important;
-}
 .sidebar-block {
     background-color: {{ settings.aside_color }};
 }

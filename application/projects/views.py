@@ -207,6 +207,7 @@ def settings(project_url):
         target_project.settings.current_version = form.current_version.data
         target_project.settings.per_page = form.per_page.data
         target_project.settings.visibility = form.visibility.data
+        target_project.settings.ext_url = form.ext_url.data
         target_project.settings.allow_suggestions = form.allow_suggestions.data
         target_project.settings.header_color = form.header_color.data
         target_project.settings.background_color = form.background_color.data

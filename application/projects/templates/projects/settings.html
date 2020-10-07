@@ -30,21 +30,23 @@
                 </div>
 
                 <div class="lined rounded block">
-                    <h5>Customization</h5>
-                    {{ form.header_color.label }}{{ form.header_color }}
-                    {{ form.background_color.label }}{{ form.background_color }}
-                    {{ form.header_text_color.label }}
-                    {{ form.header_text_color }}
-                    {{ form.menu_color.label }}
-                    {{ form.menu_color }}
-                    <!-- {{ form.card_color.label }}{{ form.card_color }} -->
-                    {{ form.aside_color.label }}{{ form.aside_color }}
-                    {{ form.text_color.label }}{{ form.text_color }}
-                    {{ form.link_color.label }}{{ form.link_color }}
+                    <h5 onclick="toggleElement('custom-options')">Customization (expand)</h5>
+                    <div id="custom-options" class="hidden">
+                        {{ form.header_color.label }}{{ form.header_color }}
+                        {{ form.background_color.label }}{{ form.background_color }}
+                        {{ form.header_text_color.label }}
+                        {{ form.header_text_color }}
+                        {{ form.menu_color.label }}
+                        {{ form.menu_color }}
+                        <!-- {{ form.card_color.label }}{{ form.card_color }} -->
+                        {{ form.aside_color.label }}{{ form.aside_color }}
+                        {{ form.text_color.label }}{{ form.text_color }}
+                        {{ form.link_color.label }}{{ form.link_color }}
+                    </div>
                 </div>
 
                 
-                {{ form.submit }}
+                {{ form.submit(class_="button-primary") }}
             </form>
         </div>
     </main>
