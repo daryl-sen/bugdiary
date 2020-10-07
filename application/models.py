@@ -48,6 +48,10 @@ class Account_types(db.Model):
     name = db.Column(db.String(30), nullable = False)
     description = db.Column(db.Text, nullable = False)
 
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
 
 
 class Projects(db.Model):

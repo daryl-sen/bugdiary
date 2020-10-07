@@ -1,5 +1,6 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
-from application.models import Projects
+from application.models import Projects, Account_types
+from application import db
 
 core = Blueprint('core', __name__, template_folder = 'templates/core')
 
@@ -37,3 +38,19 @@ def redirect_id(project_id):
 @core.route('/about')
 def about():
     return render_template('about.html')
+
+
+
+
+@core.route('/init')
+def initialize():
+    types = Account_types.query.get(1)
+    if types is None:
+        regular = Account_types('Regular', 'Regular user')
+        db.session.add(regular)
+        db.session.commit()
+        flash('Initiated')
+    else:
+        flash('Initiation is already complete.')
+    
+    return redirect(url_for('core.index'))
