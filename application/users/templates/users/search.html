@@ -25,7 +25,7 @@
                     No description provided.
                     {% endif %}
                 </p>
-                <a href="{{ url_for('projects.dashboard', project_url = result.url) }}" class="button-primary shadowed roundedg">Go to '{{ result.name }}'</a>
+                <a href="{{ url_for('projects.dashboard', project_url = result.url) }}" class="button-primary shadowed rounded">Go to '{{ result.name }}'</a>
             </div>
             {% endfor %}
         {% else %}

@@ -3,7 +3,7 @@ import time
 from application import app
 from flask import request
 
-os.environ["TZ"] = "America/New_York"
+os.environ["TZ"] = "America/Vancouver"
 time.tzset()
 
 if __name__ == "__main__":
