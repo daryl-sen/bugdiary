@@ -1,13 +1,20 @@
 from application import *
 from application.models import *
 
-cu = Users.query.get(1)
+import datetime as dt
 
-projects = cu.collab_projects.filter_by(id=2).all()
+# cu = Users.query.get(1)
 
-
-tp = Projects.query.get(2)
-tp.bugs
+# projects = cu.collab_projects.filter_by(id=2).all()
 
 
-print(tp.bugs.filter_by(id=3).all())
+# tp = Projects.query.get(2)
+# tp.bugs
+
+
+# print(tp.bugs.filter_by(id=3).all())
+
+
+p = Projects.query.get(1)
+
+p.get_counters(dt.datetime.now())

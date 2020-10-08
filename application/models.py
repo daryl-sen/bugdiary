@@ -90,6 +90,13 @@ class Projects(db.Model):
     def refresh_last_activity(self):
         self.last_activity = dt.datetime.now()
 
+    def get_counters(self, last_login):
+        all_bugs = Bugs.query.filter_by(project = self.id)
+        since_last = all_bugs.filter(Bugs.report_date > last_login).filter_by(status = "PENDING").count()
+        resolved = all_bugs.filter_by(status = "RESOLVED").count()
+        unresolved = all_bugs.filter((Bugs.status == "PENDING") | (Bugs.status == "PINNED")).count()
+        results = {'since_last_login': since_last, 'resolved': resolved, 'unresolved': unresolved}
+        return results
 
 
 

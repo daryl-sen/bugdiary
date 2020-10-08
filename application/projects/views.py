@@ -10,18 +10,13 @@ projects = Blueprint('projects', __name__, template_folder = 'templates/projects
 @login_required
 def dashboard(project_url):
     target_project = Projects.query.filter_by(url = project_url).first()
-
-    # STATS
-    since_last_login = Bugs.query.filter_by(project = target_project.id).filter(Bugs.report_date > current_user.last_login).filter_by(status = "PENDING").count()
-    resolved = Bugs.query.filter_by(project = target_project.id).filter_by(status = "RESOLVED").count()
-    unresolved = Bugs.query.filter_by(project = target_project.id).filter_by(status = "PENDING").count()
-
-    new_reports = Bugs.query.filter_by(project = target_project.id).filter(Bugs.report_date > current_user.last_login).filter_by(status = "PENDING")
-
     if target_project == None:
         flash("Sorry, the Bug Diary you were trying to access could not be found. It might have expired or you might have entered a typo.")
         return redirect(url_for('users.dashboard'))
-    return render_template('dashboard.html', project = target_project, since_last_login = since_last_login, resolved = resolved, unresolved = unresolved, new_reports = new_reports if since_last_login != 0 else None)
+
+    new_reports = Bugs.query.filter_by(project = target_project.id).filter(Bugs.report_date > current_user.last_login).filter_by(status = "PENDING")
+
+    return render_template('dashboard.html', project = target_project, new_reports = new_reports if new_reports.count() != 0 else None)
 
 
 

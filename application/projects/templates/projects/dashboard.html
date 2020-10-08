@@ -22,18 +22,19 @@
                 <a href="{{ url_for('core.redirect_to', project_url = project.url )}}" class="button-secondary rounded shadowed">Report</a>
             </div>
             <h3>Diary Stats</h3>
+            {% set proj_stats = project.get_counters(current_user.last_login) %}
             <div class="block-comparison-3">
                 <div class="comp1 text-centered lined bg-white">
                     <h4>Since Last Login</h4>
-                    <span class="bignum">{{ since_last_login }}</span>
+                    <span class="bignum">{{ proj_stats['since_last_login'] }}</span>
                 </div>
                 <div class="comp2 text-centered lined bg-white">
                     <h4>Total Resolved</h4>
-                    <span class="bignum">{{ resolved }}</span>
+                    <span class="bignum">{{ proj_stats['resolved'] }}</span>
                 </div>
                 <div class="comp3 text-centered lined bg-white">
                     <h4>Total Unresolved</h4>
-                    <span class="bignum">{{ unresolved }}</span>
+                    <span class="bignum">{{ proj_stats['unresolved'] }}</span>
                 </div>
             </div>
 
