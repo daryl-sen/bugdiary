@@ -28,9 +28,10 @@ class Users(db.Model, UserMixin):
 
     # AS PARENT
     owned_projects = db.relationship('Projects', backref="project_owner")
-    comments = db.relationship('Bug_comments', backref="comment_author")
+    bug_comments = db.relationship('Bug_comments', backref="comment_author")
     blog_posts = db.relationship('Blog_posts', backref="post_author")
     collab_projects = db.relationship('Projects', secondary = users_to_projects, backref = db.backref("collaborators", lazy = 'dynamic'), lazy='dynamic')
+    blog_comments = db.relationship('Blog_comments', backref="blog_comment_author")
 
     def __init__(self, email, password, display_name, bio):
         self.email = email
@@ -215,6 +216,9 @@ class Blog_posts(db.Model):
     project = db.Column(db.Integer, db.ForeignKey('projects.id'), index = True, nullable = False) #linked
     author = db.Column(db.Integer, db.ForeignKey('users.id'), index = True, nullable = False) #linked
 
+    # AS PARENT
+    comments = db.relationship('Blog_comments', backref = "attached_post") 
+
     def __init__(self, title, content, visibility, project, author, pinned):
         self.permalink = shortuuid.uuid()
         self.title = title
@@ -223,3 +227,20 @@ class Blog_posts(db.Model):
         self.project = project
         self.author = author
         self.pinned = pinned
+
+
+
+
+
+class Blog_comments(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    date = db.Column(db.DateTime, default = dt.datetime.now())
+    content = db.Column(db.Text)
+    # AS CHILD
+    author = db.Column(db.Integer, db.ForeignKey('users.id'), index = True, nullable = False) #linked
+    post_id = db.Column(db.Integer, db.ForeignKey('blog_posts.id'), index = True, nullable = False) #linked
+
+    def __init__(self, content, author, post_id):
+        self.content = content
+        self.author = author
+        self.post_id = post_id

@@ -211,10 +211,11 @@ a {
 </tr>
 {% endmacro %}
 
-
+<!-- MUST IMPORT WITH CONTEXT !! -->
 {% macro blog_post(post) %}
 <div class="bg-white rounded shadowed block">
     <h3>{{ post.title }}</h3>
+    <!-- <div class="tag-mini tag-white">{{ post.post_author.display_name }}</div> -->
     {% if post.pinned == 1 %}
         <div class="tag-mini bg-gray">pinned</div>
     {% endif %}
@@ -228,7 +229,13 @@ a {
         Posted by {{post.post_author.display_name}} on {{post.date}}
         <br>
         {% if current_user.is_authenticated and current_user in project.collaborators %}
-        <a href="{{url_for('projects.edit_post', post_url = post.permalink)}}" class="rounded shadowed button-secondary">Edit</a>
+            {% if current_user.id == post.author %}
+            <a href="{{url_for('projects.edit_post', post_url = post.permalink)}}" class="rounded shadowed button-secondary">Edit</a>
+            {% endif %}
+            <a href="{{ url_for('projects.view_post', post_url = post.permalink) }}" class="rounded shadowed button-secondary">Comment</a>
+            {% if current_user.id == post.author or current_user.id == project.owner %}
+                <a href="" class="rounded shadowed button-primary">Delete</a>
+            {% endif %}
         {% endif %}
     </div>
 </div>

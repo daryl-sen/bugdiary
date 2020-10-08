@@ -67,6 +67,15 @@ class blog_post_form(FlaskForm):
 
 
 
+
+class blog_comment_form(FlaskForm):
+    content = TextAreaField(validators=[DataRequired('Please enter a comment')])
+    submit = SubmitField('Add Comment')
+
+
+
+
+
 class settings_form(FlaskForm):
     current_version = StringField(label="Current version", validators=[DataRequired("The version number must not be blank.")])
     per_page = per_page = SelectField(

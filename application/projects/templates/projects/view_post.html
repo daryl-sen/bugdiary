@@ -1,0 +1,93 @@
+{% extends 'confined.html' %}
+{% import 'macros.html' as macros with context %}
+
+{% block addons %}
+{% endblock %}
+
+{% block title %}
+    BugDiary - Blog - {{post.title}}
+{% endblock %}
+
+{% block custom_nav %}
+<a href="{{ url_for('projects.blog', project_url = project.url) }}">Back to blog</a>
+<a href="">Report</a>
+{% endblock %}
+
+
+{% block main %}
+<h1>{% if post.title != "" %}{{post.title}}{%else%}Post{% endif %}</h1>
+<div class="main-aside">
+    <main>
+        <div class="bg-white rounded shadowed block">
+            {% if post.pinned == 1 %} <div class="tag-mini bg-gray">pinned</div> {% endif %}
+            {% if post.visibility == 1 %}
+                <div class="tag-mini bg-green">public</div>
+            {% else %}
+                <div class="tag-mini bg-red">private</div>
+            {% endif %}
+            {{post.content|safe}}
+            <div class="spacer-medium"></div>
+            <a class="" onclick="toggleElement('commentBox'); toggleElement('commentToggle')" id="commentToggle">(Add Comment)</a>
+            <form class="hidden" id="commentBox" method="post">
+                {{ form.hidden_tag() }}
+                {{ form.content }}
+                {{ form.submit() }}
+            </form>
+        </div>
+        <div class="comments">
+            {% for comment in post.comments %}
+            <div id = "comment-{{ comment.id }}">
+                <span class="commenter">{{comment.blog_comment_author.display_name}}: </span>
+                <p class="linebreak">{{comment.content}}{% if current_user.id == post.author %} (<a onclick="delete_comment('{{ comment.id }}')">Delete</a>){% endif %}</p>
+                
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+    <aside>
+        <div class="sidebar-block bg-gray">
+            <h3>Post Info</h3>
+            <p>
+                Posted by <b>{{post.post_author.display_name}}</b> on <b>{{post.date}}</b>
+            </p>
+            <a href="{{ url_for('projects.blog', project_url = project.url) }}" class="button-secondary shadowed rounded block">Back to blog</a>
+            
+        </div>
+    </aside>
+</div>
+
+<script>
+
+
+    function delete_comment(comment_id) {
+        var instructions = {
+            comment_id: comment_id
+        };
+    
+    
+        fetch(`{{ url_for('projects.delete_comment') }}`, {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(instructions),
+            cache: "no-cache",
+            headers: new Headers({
+                "content-type": "application/json"
+            })
+        })
+        .then(function(response) {
+        if (response.status !== 200) {
+            alert(`Looks like there was a problem. Status code: ${response.status}`);
+            return;
+        }
+        response.json().then(function(data) {
+            target_comment = document.getElementById('comment-' + comment_id);
+            target_comment.style.display = "none";
+        });
+        })
+        .catch(function(error) {
+            alert("Fetch error: " + error);
+        });
+    }
+    
+    </script>
+{% endblock %}

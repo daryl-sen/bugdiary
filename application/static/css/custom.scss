@@ -280,3 +280,22 @@ p.linebreak {
 .cardcontrols div:last-child {
     border-bottom: 0;
 }
+
+
+
+.comments div {
+  background-color: #cacaca;
+  padding: 1em;
+  border-radius: 1em 1em 1em 1em;
+  -moz-border-radius: 1em 1em 1em 1em;
+  -webkit-border-radius: 1em 1em 1em 1em;
+  margin-bottom: 1em;
+}
+
+.comments .commenter {
+  font-weight: bold;
+}
+
+.comments .authoring {
+
+}

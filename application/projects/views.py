@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request, jsonify, make_response, get_template_attribute
-from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form, report_form, collaborate_form, manage_card_form
-from application.models import Users, Projects, Project_settings, Project_bug_locations, Project_bug_types, Blog_posts, Bugs
+from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form, report_form, collaborate_form, manage_card_form, blog_comment_form
+from application.models import Users, Projects, Project_settings, Project_bug_locations, Project_bug_types, Blog_posts, Bugs, Blog_comments
 from flask_login import login_required, current_user
 from application import db
 
@@ -176,6 +176,38 @@ def edit_post(post_url):
         return redirect(url_for('projects.blog', project_url = target_project.url))
     return render_template('blog_edit.html', form = form, project = target_project)
 
+
+
+
+
+@projects.route('/blog/view_post/<string:post_url>', methods=['get','post'])
+@login_required
+def view_post(post_url):
+    target_post = Blog_posts.query.filter_by(permalink = post_url).first()
+    target_project = Projects.query.get(target_post.project)
+
+    form = blog_comment_form()
+    if form.validate_on_submit():
+        new_comment = Blog_comments(form.content.data, current_user.id, target_post.id)
+        db.session.add(new_comment)
+        db.session.commit()
+        flash("Your new comment has been added.")
+        return redirect(url_for('projects.view_post', post_url = target_post.permalink))
+    return render_template('view_post.html', post = target_post, project = target_project, form = form)
+
+
+
+
+
+@projects.route('/blog/delete_comment', methods=['get','post'])
+@login_required
+def delete_comment():
+    received = request.get_json()
+    target_comment = Blog_comments.query.get(received['comment_id'])
+    db.session.delete(target_comment)
+    db.session.commit()
+    resp = make_response(jsonify({'result': 'Done'}),200)
+    return resp
 
 
 
