@@ -140,7 +140,7 @@ a {
 
 
 
-{% macro summary_with_stats(project) %}
+{% macro summary_with_stats(project, last_login) %}
 <div class="project-summary">
     <div class="name shadowed">
         <a href="{{ url_for('projects.dashboard', project_url = project['url']) }}">open</a><span onclick="toggleElement('sum-{{project.id}}')">{{ project['name'] }}</span>
@@ -152,14 +152,15 @@ a {
             {% endif %}
         </p>
     </div>
+    {% set proj_stats = project.get_counters(last_login) %}
     <div class="stats text-centered shadowed bg-yellow">
-        {{ project['since_last_login'] }}
+        {{ proj_stats['since_last_login'] }}
     </div>
     <div class="stats text-centered shadowed bg-green">
-        {{ project['resolved'] }}
+        {{ proj_stats['resolved'] }}
     </div>
     <div class="stats text-centered shadowed bg-red">
-        {{ project['unresolved'] }}
+        {{ proj_stats['unresolved'] }}
     </div>
 </div>
 {% endmacro %}

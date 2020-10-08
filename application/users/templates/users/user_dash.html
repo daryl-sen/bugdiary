@@ -31,7 +31,7 @@
                 </div>
             </div>
             <p>
-                Your last login was on <b>{{ current_user.last_login.strftime('%Y-%m-%d') }}</b>.
+                Your last login was on <b>{{ current_user.last_login.strftime('%Y-%m-%d, TIME') }}</b>.
             </p>
             
         </div>
@@ -44,7 +44,7 @@
             </p>
             
             {% for project in project_summaries %}
-            {{ macros.summary_with_stats(project) }}            
+            {{ macros.summary_with_stats(project, current_user.last_login) }}            
             {% endfor %}
             <div class="spacer-small"></div>
             {{ macros.search(current_user.collab_projects) }}
