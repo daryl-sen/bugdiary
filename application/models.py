@@ -215,10 +215,11 @@ class Blog_posts(db.Model):
     project = db.Column(db.Integer, db.ForeignKey('projects.id'), index = True, nullable = False) #linked
     author = db.Column(db.Integer, db.ForeignKey('users.id'), index = True, nullable = False) #linked
 
-    def __init__(self, title, content, visibility, project, author):
+    def __init__(self, title, content, visibility, project, author, pinned):
         self.permalink = shortuuid.uuid()
         self.title = title
         self.content = content
         self.visibility = visibility
         self.project = project
         self.author = author
+        self.pinned = pinned

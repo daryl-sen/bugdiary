@@ -130,10 +130,10 @@ def blog(project_url):
 
     if current_user.is_authenticated and (current_user in target_project.collaborators):
         pinned_posts = Blog_posts.query.filter_by(project = target_project.id).filter_by(pinned = 1).order_by(Blog_posts.id.desc())
-        blog_posts = Blog_posts.query.filter_by(project = target_project.id).order_by(Blog_posts.id.desc())
+        blog_posts = Blog_posts.query.filter_by(project = target_project.id).filter_by(pinned = 0).order_by(Blog_posts.id.desc())
     else:
         pinned_posts = Blog_posts.query.filter_by(project = target_project.id).filter_by(pinned = 1).filter_by(visibility = 1).order_by(Blog_posts.id.desc())
-        blog_posts = Blog_posts.query.filter_by(project = target_project.id).filter_by(visibility = 1).order_by(Blog_posts.id.desc())
+        blog_posts = Blog_posts.query.filter_by(project = target_project.id).filter_by(visibility = 1).filter_by(pinned = 0).order_by(Blog_posts.id.desc())
     
     
     return render_template('blog.html', pinned_posts = pinned_posts if pinned_posts.count() != 0 else None, blog_posts = blog_posts if blog_posts.count() != 0 else None, project = target_project)
@@ -148,7 +148,7 @@ def new_post(project_url):
     target_project = Projects.query.filter_by(url = project_url).first()
     form = blog_post_form()
     if form.validate_on_submit():
-        new_post = Blog_posts(form.title.data, form.content.data, form.visibility.data, target_project.id, current_user.id)
+        new_post = Blog_posts(form.title.data, form.content.data, form.visibility.data, target_project.id, current_user.id, form.pinned.data)
         db.session.add(new_post)
         db.session.commit()
         flash('Your new blog post has been added')
