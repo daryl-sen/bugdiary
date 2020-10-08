@@ -234,9 +234,6 @@ a {
             <a href="{{url_for('projects.edit_post', post_url = post.permalink)}}" class="rounded shadowed button-secondary">Edit</a>
             {% endif %}
             <a href="{{ url_for('projects.view_post', post_url = post.permalink) }}" class="rounded shadowed button-secondary">Comment</a>
-            {% if current_user.id == post.author or current_user.id == project.owner %}
-                <a href="" class="rounded shadowed button-primary">Delete</a>
-            {% endif %}
         {% endif %}
     </div>
 </div>
