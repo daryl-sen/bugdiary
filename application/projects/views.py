@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request, jsonify, make_response, get_template_attribute
-from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form, report_form, collaborate_form, manage_card_form, blog_comment_form
+from application.projects.forms import project_form, location_and_type_form, blog_post_form, settings_form, report_form, collaborate_form, manage_card_form, blog_comment_form, about_project_form, customization_form, settings_form
 from application.models import Users, Projects, Project_settings, Project_bug_locations, Project_bug_types, Blog_posts, Bugs, Blog_comments
 from flask_login import login_required, current_user
 from application import db
@@ -54,15 +54,6 @@ def location_and_type(project_url):
         flash(f"Type ({request.form['new_type']}) has been added")
         return redirect(url_for('projects.location_and_type', project_url = target_project.url))
     return render_template('location_and_type.html', form_type = form_type, bug_locations = location_list, bug_types = type_list, url = project_url, title = target_project.name, project = target_project)
-
-
-
-
-
-@projects.route('/edit/<string:project_url>', methods=['post', 'get'])
-@login_required
-def edit(project_url):
-    return render_template('dashboard.html')
 
 
 
@@ -232,25 +223,45 @@ def create():
 @login_required
 def settings(project_url):
     target_project = Projects.query.filter_by(url = project_url).first()
-    form = settings_form(obj = target_project.settings)
-    if form.validate_on_submit():
-        target_project.settings.current_version = form.current_version.data
-        target_project.settings.per_page = form.per_page.data
-        target_project.settings.visibility = form.visibility.data
-        target_project.settings.ext_url = form.ext_url.data
-        target_project.settings.allow_suggestions = form.allow_suggestions.data
-        target_project.settings.header_color = form.header_color.data
-        target_project.settings.background_color = form.background_color.data
-        target_project.settings.header_text_color = form.header_text_color.data
-        target_project.settings.card_color = form.card_color.data
-        target_project.settings.aside_color = form.aside_color.data
-        target_project.settings.text_color = form.text_color.data
-        target_project.settings.link_color = form.link_color.data
-        target_project.settings.menu_color = form.menu_color.data
+    form1 = settings_form(obj = target_project.settings)
+    form2 = customization_form(obj = target_project.settings)
+    form3 = about_project_form(obj = target_project)
+
+    if form1.submit1.data and form1.validate():
+        print('form1 ran')
+        target_project.settings.current_version = form1.current_version.data
+        target_project.settings.per_page = form1.per_page.data
+        target_project.settings.visibility = form1.visibility.data
+        target_project.settings.ext_url = form1.ext_url.data
+        target_project.settings.allow_suggestions = form1.allow_suggestions.data
         db.session.commit()
-        flash('Your settings have been updated!')
+        flash('Your project settings have been updated!')
         return redirect(url_for('projects.settings', project_url = project_url))
-    return render_template('settings.html', form = form, project = target_project)
+
+    if form2.submit2.data and form2.validate():
+        print('form2 ran')
+        target_project.settings.header_color = form2.header_color.data
+        target_project.settings.background_color = form2.background_color.data
+        target_project.settings.header_text_color = form2.header_text_color.data
+        target_project.settings.card_color = form2.card_color.data
+        target_project.settings.aside_color = form2.aside_color.data
+        target_project.settings.text_color = form2.text_color.data
+        target_project.settings.link_color = form2.link_color.data
+        target_project.settings.menu_color = form2.menu_color.data
+        db.session.commit()
+        flash('Your customization settings have been updated!')
+        return redirect(url_for('projects.settings', project_url = project_url))
+
+    if form3.submit3.data and form3.validate():
+        print('form3 ran')
+        target_project.name = form3.name.data
+        target_project.description = form3.description.data
+        db.session.commit()
+        flash('Your project information has been updated!')
+        return redirect(url_for('projects.settings', project_url = project_url))
+
+
+    return render_template('settings.html', form1 = form1, form2 = form2, form3 = form3, project = target_project)
 
 
 

@@ -19,34 +19,47 @@
             <form method="post" autocomplete="off">
 
                 <div class="lined rounded block">
-                    <h5>Configuration</h5>
-                    {{ form.hidden_tag() }}
-                    {{ form.current_version.label }}{{ form.current_version }}
-                    {{ form.per_page.label }}{{ form.per_page }}
-                    {{ form.ext_url.label }}{{ form.ext_url }}
-                    {{ form.visibility }}{{ form.visibility.label }} <br>
-                    {{ form.allow_suggestions }}
-                    {{ form.allow_suggestions.label }}
+                    <h5 onclick="toggleElement('configuration-options')">Configuration (expand)</h5>
+                    <div id="configuration-options" class="hidden">
+                        {{ form1.hidden_tag() }}
+                        {{ form1.current_version.label }}{{ form1.current_version }}
+                        {{ form1.per_page.label }}{{ form1.per_page }}
+                        {{ form1.ext_url.label }}{{ form1.ext_url }}
+                        {{ form1.visibility }}{{ form1.visibility.label }} <br>
+                        {{ form1.allow_suggestions }}
+                        {{ form1.allow_suggestions.label }}
+                        {{ form1.submit1(class_="button-primary") }}
+                    </div>
+                </div>
+
+                <div class="lined rounded block">
+                    <h5 onclick="toggleElement('info-options')">Project Information (expand)</h5>
+                    <div id="info-options" class="hidden">
+                        {{ form3.hidden_tag() }}
+                        {{ form3.name.label }}{{ form3.name }}
+                        {{ form3.description.label }}{{ form3.description }}
+                        {{ form3.submit3(class_="button-primary") }}
+                    </div>
                 </div>
 
                 <div class="lined rounded block">
                     <h5 onclick="toggleElement('custom-options')">Customization (expand)</h5>
                     <div id="custom-options" class="hidden">
-                        {{ form.header_color.label }}{{ form.header_color }}
-                        {{ form.background_color.label }}{{ form.background_color }}
-                        {{ form.header_text_color.label }}
-                        {{ form.header_text_color }}
-                        {{ form.menu_color.label }}
-                        {{ form.menu_color }}
-                        <!-- {{ form.card_color.label }}{{ form.card_color }} -->
-                        {{ form.aside_color.label }}{{ form.aside_color }}
-                        {{ form.text_color.label }}{{ form.text_color }}
-                        {{ form.link_color.label }}{{ form.link_color }}
+                        {{ form2.hidden_tag() }}
+                        {{ form2.header_color.label }}{{ form2.header_color }}
+                        {{ form2.background_color.label }}{{ form2.background_color }}
+                        {{ form2.header_text_color.label }}
+                        {{ form2.header_text_color }}
+                        {{ form2.menu_color.label }}
+                        {{ form2.menu_color }}
+                        {{ form2.aside_color.label }}{{ form2.aside_color }}
+                        {{ form2.text_color.label }}{{ form2.text_color }}
+                        {{ form2.link_color.label }}{{ form2.link_color }}
+                        {{ form2.submit2(class_="button-primary") }}
                     </div>
                 </div>
 
                 
-                {{ form.submit(class_="button-primary") }}
             </form>
         </div>
     </main>

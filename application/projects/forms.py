@@ -76,6 +76,22 @@ class blog_comment_form(FlaskForm):
 
 
 
+class about_project_form(FlaskForm):
+    name = StringField('Project Name')
+    description = TextAreaField('Project Description')
+    submit3 = SubmitField('Update Project Info')
+
+class customization_form(FlaskForm):
+    header_color = StringField("Header bar color")
+    header_text_color = StringField("Color of text in the header")
+    background_color = StringField("Background color")
+    card_color = StringField("Card color")
+    aside_color = StringField("Sidebar cards color")
+    text_color = StringField("Text color")
+    link_color = StringField("Link color")
+    menu_color = StringField("Mobile menu color")
+    submit2 = SubmitField('Change Settings')
+
 class settings_form(FlaskForm):
     current_version = StringField(label="Current version", validators=[DataRequired("The version number must not be blank.")])
     per_page = per_page = SelectField(
@@ -91,16 +107,7 @@ class settings_form(FlaskForm):
     allow_suggestions = BooleanField(label="Allow users to freely enter Location and Type data.")
     ext_url = StringField(label="External link to your project.")
 
-    header_color = StringField("Header bar color")
-    header_text_color = StringField("Color of text in the header")
-    background_color = StringField("Background color")
-    card_color = StringField("Card color")
-    aside_color = StringField("Sidebar cards color")
-    text_color = StringField("Text color")
-    link_color = StringField("Link color")
-    menu_color = StringField("Mobile menu color")
-
-    submit = SubmitField('Change Settings')
+    submit1 = SubmitField('Change Settings')
 
 
 
