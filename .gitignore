@@ -8,3 +8,5 @@ migrations/versions/819922bdcd73_.py
 application/__pycache__/__init__.cpython-37.pyc
 application/__pycache__/secrets.cpython-37.pyc
 application/core/__pycache__/views.cpython-37.pyc
+secrets.py
+application/secrets.py
