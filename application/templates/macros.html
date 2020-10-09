@@ -12,11 +12,10 @@
 header, .notification {
     background-color: {{ settings.header_color }};
 }
-header #navigation a:link,
 header #logo a:link, 
 header #logo a:hover
 {
-    color: {{ settings.header_text_color }} !important;
+    color: {{ settings.header_text_color }};
 }
 
 #openMenu {
@@ -135,6 +134,7 @@ a {
 <a href="{{ url_for('projects.dashboard', project_url = project.url) }}">{{project.name}}</a>
 <a href="{{ url_for('projects.settings', project_url = project.url) }}">Settings</a>
 <a href="{{ url_for('users.logout') }}">Logout</a>
+<a id="closeMenu" onClick="toggleMenu()">CLOSE</a>
 {% endmacro %}
 
 

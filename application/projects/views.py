@@ -56,26 +56,47 @@ def location_and_type(project_url):
     
     return render_template('location_and_type.html', form_type = form_type, bug_locations = location_list, bug_types = type_list, url = project_url, title = target_project.name, project = target_project)
 
-# @projects.route('/loc_and_type_processor')
-# @login_required
-# def process_loc_and_type():
+@projects.route('/loc_and_type_processor', methods=['get', 'post'])
+@login_required
+def process_loc_and_type():
 
-#     # type: location, id: 1, action: delete
-#     received = request.get_json()
-#     rec_type = received['type']
+    # type: location, id: 1, action: delete, new_content: none
+    received = request.get_json()
+    rec_type = received['type']
+    rec_action = received['action']
 
-#     if rec_type == "location":
-#         target_location = Bug_
-#         pass
-#     elif rec_type == "type":
-#         pass
+    if rec_action == "delete" and rec_type == "location":
+        target_location = Project_bug_locations.query.get(received['id'])
+        db.session.delete(target_location)
+        db.session.commit()
+        resp = make_response(jsonify({'result': 'Deleted'}), 200)
+        return resp
+            
+    elif rec_action == "delete" and rec_type == "type":
+        target_type = Project_bug_types.query.get(received['id'])
+        db.session.delete(target_type)
+        db.session.commit()
+        resp = make_response(jsonify({'result': 'Deleted'}), 200)
+        return resp
+    
+    elif rec_action == "create" and rec_type == "location":
+        new_location = Project_bug_locations(received['id'], received['new_content'])
+        db.session.add(new_location)
+        db.session.commit()
+        resp = make_response(jsonify({'result': f"{received['new_content']} <span>Delete</span>"}), 200)
+        return resp
+    
+    elif rec_action == "create" and rec_type == "type":
+        new_type = Project_bug_types(received['id'], received['new_content'])
+        db.session.add(new_type)
+        db.session.commit()
+        resp = make_response(jsonify({'result': f"{received['new_content']} <span>Delete</span>"}), 200)
+        return resp
 
 
-#     target_comment = Blog_comments.query.get(received['action'])
-#     db.session.delete(target_comment)
-#     db.session.commit()
-#     resp = make_response(jsonify({'result': 'Done'}),200)
-#     return resp
+    else:
+        flash('An error has occurred while processing your loc or type request.')
+        return redirect(url_for('core.index'))
 
 
 

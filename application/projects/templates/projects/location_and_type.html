@@ -29,7 +29,7 @@
         <h3>Locations</h3>
         <div class="loc_and_type_container">
             {% for loc in bug_locations %}
-            <div id="loc-{{loc.id}}">{{ loc['location'] }} {% if loc['location'] != "None" %}<span>Delete</span>{% endif %}</div>
+            <div id="location-{{loc.id}}">{{ loc['location'] }} {% if loc['location'] != "None" %}<span onclick="process_entry('location', {{ loc.id }}, 'delete', 'None')">Delete</span>{% endif %}</div>
             {% endfor %}
         </div>
         <div class="spacer-small"></div>
@@ -43,7 +43,7 @@
         <h3>Types</h3>
         <div class="loc_and_type_container">
             {% for bug_type in bug_types %}
-            <div id="type-{{ bug_type['id']}}">{{bug_type['type']}} {% if bug_type['type'] != "None" %}<span>Delete</span>{% endif %}</div>
+            <div id="type-{{ bug_type['id']}}">{{bug_type['type']}} {% if bug_type['type'] != "None" %}<span onclick="process_entry('type', {{ bug_type.id }}, 'delete', 'None')">Delete</span>{% endif %}</div>
             {% endfor %}
         </div>
         <div class="spacer-small"></div>
@@ -111,15 +111,16 @@
 <script>
 
 
-    function fill_card_form(button_id, action) {
+    function process_entry(rec_type, rec_id, rec_action, rec_new_content) {
         var instructions = {
-            card: button_id,
-            action: action,
-            format: "card"
+            type: rec_type,
+            id: rec_id,
+            action: rec_action,
+            new_content: rec_new_content
         };
     
     
-        fetch(`{{ url_for('projects.manage_card') }}`, {
+        fetch(`{{ url_for('projects.process_loc_and_type') }}`, {
             method: "POST",
             credentials: "include",
             body: JSON.stringify(instructions),
@@ -134,10 +135,9 @@
             return;
         }
         response.json().then(function(data) {
-            target_card = document.getElementById('card-' + button_id);
-            
-            target_card.innerHTML = data['result'];
-            // target_card.innerHTML = "#" + button_id + " has been processed. Please refresh the page to see the change.";
+            target_entry_id = rec_type + "-" + rec_id;
+            target_entry = document.getElementById(target_entry_id);
+            target_entry.innerHTML = data['result'];
         });
         })
         .catch(function(error) {
