@@ -299,3 +299,24 @@ p.linebreak {
 .comments .authoring {
 
 }
+
+
+.loc_and_type_container {
+  border: 1px solid #cacaca;
+}
+.loc_and_type_container>div {
+  padding: 1em;
+  border-bottom: 1px solid #cacaca;
+}
+
+.loc_and_type_container>div>span {
+  float: right;
+  font-size: 0.8em;
+  padding: 0.2em 0.5em;
+  // outline: 1px solid #cacaca;
+  background-color: #ff3939;
+  color: #fff;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}

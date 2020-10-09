@@ -28,13 +28,13 @@ def dashboard(project_url):
 def location_and_type(project_url):
     target_project = Projects.query.filter_by(url = project_url).first()
 
-    location_list = []
-    for location in target_project.locations:
-        location_list.append(location.location)
+    location_list = [{'id': loc.id, 'location': loc.location} for loc in target_project.locations]
+    if len(location_list) == 0:
+        location_list.append({'id': 0, 'location': 'None'})
 
-    type_list = []
-    for bug_type in target_project.types:
-        type_list.append(bug_type.bug_type)
+    type_list = [{'id': bug_type.id, 'type': bug_type.bug_type} for bug_type in target_project.types]
+    if len(type_list) == 0:
+        type_list.append({'id': 0, 'type': 'None'})
 
     if target_project.settings.allow_suggestions == 0:
         form_type = "select"
@@ -53,9 +53,29 @@ def location_and_type(project_url):
         db.session.commit()
         flash(f"Type ({request.form['new_type']}) has been added")
         return redirect(url_for('projects.location_and_type', project_url = target_project.url))
+    
     return render_template('location_and_type.html', form_type = form_type, bug_locations = location_list, bug_types = type_list, url = project_url, title = target_project.name, project = target_project)
 
+# @projects.route('/loc_and_type_processor')
+# @login_required
+# def process_loc_and_type():
 
+#     # type: location, id: 1, action: delete
+#     received = request.get_json()
+#     rec_type = received['type']
+
+#     if rec_type == "location":
+#         target_location = Bug_
+#         pass
+#     elif rec_type == "type":
+#         pass
+
+
+#     target_comment = Blog_comments.query.get(received['action'])
+#     db.session.delete(target_comment)
+#     db.session.commit()
+#     resp = make_response(jsonify({'result': 'Done'}),200)
+#     return resp
 
 
 
