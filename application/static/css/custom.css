@@ -294,7 +294,8 @@ p.linebreak {
 }
 
 .loc_and_type_container {
-  border: 1px solid #cacaca;
+  border-left: 1px solid #cacaca;
+  border-right: 1px solid #cacaca;
 }
 
 .loc_and_type_container > div {

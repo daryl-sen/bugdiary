@@ -54,3 +54,11 @@ def initialize():
         flash('Initiation is already complete.')
     
     return redirect(url_for('core.index'))
+
+
+
+
+
+@core.route('/author')
+def author():
+    return render_template('author.html')

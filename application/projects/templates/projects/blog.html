@@ -14,10 +14,10 @@
 {{ macros.project_nav(project) }}
 {% else %}
     <a href="{{ url_for('projects.report', project_url = project.url) }}">REPORT</a>
-    <a id="closeMenu" onClick="toggleMenu()">CLOSE</a>
     {% if project.settings.ext_url != "" %}
     <a href="{{ project.settings.ext_url }}">BACK TO {{ project.name }}</a>
     {% endif %}
+    <a id="closeMenu" onClick="toggleMenu()">CLOSE</a>
 {% endif %}
 {% endblock %}
 

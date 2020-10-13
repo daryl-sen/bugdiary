@@ -12,9 +12,9 @@ users = Blueprint('users', __name__, template_folder = 'templates/users')
 @login_required
 def dashboard():
     # GLOBAL STATS
-    since_last_login = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.owned_projects]))).filter_by(status = "PENDING").filter(Bugs.report_date > current_user.last_login).count()
-    resolved = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.owned_projects]))).filter_by(status = "RESOLVED").count()
-    unresolved = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.owned_projects]))).filter((Bugs.status == "PENDING") | (Bugs.status == "PINNED")).count()
+    since_last_login = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.collab_projects]))).filter_by(status = "PENDING").filter(Bugs.report_date > current_user.last_login).count()
+    resolved = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.collab_projects]))).filter_by(status = "RESOLVED").count()
+    unresolved = Bugs.query.filter(Bugs.containing_project.has(Projects.id.in_([ proj.id for proj in current_user.collab_projects]))).filter((Bugs.status == "PENDING") | (Bugs.status == "PINNED")).count()
 
     project_list = current_user.collab_projects.order_by(Projects.last_activity.desc()).all()
 
