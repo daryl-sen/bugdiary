@@ -267,7 +267,7 @@ def settings(project_url):
     
     if current_user.id != target_project.owner:
         flash(f"Sorry, you cannot change the settings on a project which you do not own. Please contact the project owner ({target_project.project_owner.display_name}) to make these changes.")
-        return redirect('projects.dashboard', project_url=target_project.url)
+        return redirect(url_for('projects.dashboard', project_url=target_project.url))
     
     form1 = settings_form(obj = target_project.settings)
     form2 = customization_form(obj = target_project.settings)
