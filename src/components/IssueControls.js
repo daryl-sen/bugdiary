@@ -23,9 +23,7 @@ export default function IssueControls(props) {
 
   return (
     <div className="controls">
-      <button className="controls-toggle" onClick={toggleControls}>
-        Menu
-      </button>
+      <button className="controls-toggle" onClick={toggleControls}></button>
       {renderControlMenu(openStatus)}
     </div>
   );
