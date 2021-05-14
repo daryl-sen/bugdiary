@@ -1,6 +1,7 @@
 import "./IssueContainer.scss";
 import IssueTag from "./IssueTag";
 import IssueFooter from "./IssueFooter";
+import IssueControls from "./IssueControls";
 
 export default function IssueContainer(props) {
   const renderTags = (tags) => {
@@ -13,7 +14,7 @@ export default function IssueContainer(props) {
 
   return (
     <div className="issue-container">
-      <div className="controls">H</div>
+      <IssueControls />
       <main>
         <h1>Hello</h1>
         <div className="tags">
