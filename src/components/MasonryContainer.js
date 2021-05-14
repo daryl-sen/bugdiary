@@ -2,12 +2,19 @@ import "./MasonryContainer.scss";
 import Masonry from "react-masonry-css";
 import IssueContainer from "./IssueContainer";
 
+import useSampleData from "../hooks/useSampleData";
+
 export default function MasonryContainer(props) {
   const renderIssueContainers = (issues) => {
+    if (!Array.isArray(issues)) {
+      return "none";
+    }
     return issues.map((issue) => {
-      return <IssueContainer key={issue.id} />;
+      return <IssueContainer key={issue.id} {...issue} />;
     });
   };
+
+  const { sampleIssues } = useSampleData();
 
   return (
     <Masonry
@@ -15,7 +22,7 @@ export default function MasonryContainer(props) {
       className="my-masonry-grid"
       columnClassName="my-masonry-grid_column"
     >
-      {renderIssueContainers([1, 2, 3])}
+      {renderIssueContainers(sampleIssues)}
     </Masonry>
   );
 }
