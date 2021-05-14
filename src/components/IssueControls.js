@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./IssueControls.scss";
+import { CgMenuMotion } from "react-icons/cg";
 
 export default function IssueControls(props) {
   const [openStatus, setOpenStatus] = useState(false);
@@ -23,7 +24,9 @@ export default function IssueControls(props) {
 
   return (
     <div className="controls">
-      <button className="controls-toggle" onClick={toggleControls}></button>
+      <button className="controls-toggle" onClick={toggleControls}>
+        <CgMenuMotion size={30} />
+      </button>
       {renderControlMenu(openStatus)}
     </div>
   );
