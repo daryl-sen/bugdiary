@@ -5,19 +5,17 @@ export default function IssueControls(props) {
   const [openStatus, setOpenStatus] = useState(false);
 
   const toggleControls = () => {
-    console.log(openStatus);
     openStatus ? setOpenStatus(false) : setOpenStatus(true);
   };
 
   const renderControlMenu = (openStatus) => {
-    console.log("rendering", openStatus);
     if (openStatus) {
       return (
         <div className="controls-menu">
           <button>Resolve</button>
           <button>Pin</button>
           <button>Delete</button>
-          <button>Cancel</button>
+          <button onClick={toggleControls}>Cancel</button>
         </div>
       );
     }
