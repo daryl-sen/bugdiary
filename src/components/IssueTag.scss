@@ -1,0 +1,23 @@
+.tags > div {
+  font-size: 0.7em;
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+  display: inline-block;
+  border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.bg-yellow {
+  background-color: #f0cf65;
+}
+.bg-green {
+  background-color: #ddedaa;
+}
+.bg-red {
+  background-color: #cf6b6e;
+}
