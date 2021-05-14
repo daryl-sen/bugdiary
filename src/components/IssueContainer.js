@@ -1,5 +1,6 @@
 import "./IssueContainer.scss";
 import IssueTag from "./IssueTag";
+import IssueFooter from "./IssueFooter";
 
 export default function IssueContainer(props) {
   const renderTags = (tags) => {
@@ -16,13 +17,14 @@ export default function IssueContainer(props) {
       <div className="controls">H</div>
       <main>
         <h1>Hello</h1>
-        <div className="tags">{renderTags()}</div>
+        <div className="tags">{renderTags(props.tags)}</div>
         <p>Content</p>
       </main>
-      <footer>
-        <div>Date</div>
-        <div>Author</div>
-      </footer>
+      <IssueFooter
+        reportDate={Date.now()}
+        reporterName={props.reporter_name}
+        reporterEmail={props.reporter_email}
+      />
     </div>
   );
 }
