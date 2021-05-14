@@ -9,7 +9,6 @@ export default function IssueContainer(props) {
         return <IssueTag>{tag}</IssueTag>;
       });
     }
-    return <IssueTag>Error loading tags...</IssueTag>;
   };
 
   return (
@@ -17,7 +16,13 @@ export default function IssueContainer(props) {
       <div className="controls">H</div>
       <main>
         <h1>Hello</h1>
-        <div className="tags">{renderTags(props.tags)}</div>
+        <div className="tags">
+          <IssueTag type="pending">PENDING</IssueTag>
+          <IssueTag type="permanent">Type: {props.type || "null"}</IssueTag>
+          <IssueTag type="permanent">Loc: {props.location || "null"}</IssueTag>
+          {renderTags(props.tags)}
+          {/* {renderTags([1,2,3])} */}
+        </div>
         <p>Content</p>
       </main>
       <IssueFooter

@@ -10,18 +10,8 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   display: inline-block;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
   &:last-child {
     margin-right: 0;
   }
-}
-
-.bg-yellow {
-  background-color: #f0cf65;
-}
-.bg-green {
-  background-color: #ddedaa;
-}
-.bg-red {
-  background-color: #cf6b6e;
 }
