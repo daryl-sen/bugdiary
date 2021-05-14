@@ -16,18 +16,19 @@ export default function IssueContainer(props) {
     <div className="issue-container">
       <IssueControls />
       <main>
-        <h1>Hello</h1>
+        <h1>{props.reference || "Loading"}</h1>
         <div className="tags">
-          <IssueTag type="pending">PENDING</IssueTag>
-          <IssueTag type="permanent">Type: {props.type || "null"}</IssueTag>
-          <IssueTag type="permanent">Loc: {props.location || "null"}</IssueTag>
+          <IssueTag type="pending">{props.status || "Loading"}</IssueTag>
+          <IssueTag type="permanent">Type: {props.type || "Loading"}</IssueTag>
+          <IssueTag type="permanent">
+            Loc: {props.location || "Loading"}
+          </IssueTag>
           {renderTags(props.tags)}
-          {/* {renderTags([1,2,3])} */}
         </div>
-        <p>Content</p>
+        <p>{props.details || "Loading"}</p>
       </main>
       <IssueFooter
-        reportDate={Date.now()}
+        reportDate={props.report_date}
         reporterName={props.reporter_name}
         reporterEmail={props.reporter_email}
       />
