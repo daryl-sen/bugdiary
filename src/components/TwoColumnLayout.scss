@@ -1,0 +1,23 @@
+.two-column-layout {
+  display: flex;
+  flex-direction: row;
+  & > main {
+    flex-grow: 2;
+    // background-color: green;
+  }
+  & > aside {
+    flex-grow: 1;
+    // background-color: red;
+    padding-left: 2rem;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .two-column-layout {
+    flex-direction: column;
+    & > main,
+    & > aside {
+      flex-grow: 1;
+    }
+  }
+}
