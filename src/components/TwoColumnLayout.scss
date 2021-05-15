@@ -9,14 +9,15 @@
   & > aside {
     flex-grow: 1;
     padding-left: 2rem;
+    max-width: 300px;
   }
 
   .lined-block {
-    border: 1px solid #393939;
-    padding: 1rem;
+    border: 1px solid #969696;
+    padding: 0.5rem 1rem;
     border-radius: 1rem;
-    -moz-border-radius: 1rem;
-    -webkit-border-radius: 1rem;
+    -moz-border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
     margin-bottom: 1rem;
   }
 
@@ -33,10 +34,12 @@
 @media screen and (max-width: 750px) {
   .two-column-layout {
     flex-direction: column;
+    padding: 1rem;
     & > main,
     & > aside {
       flex-grow: 1;
       padding-left: 0;
+      max-width: 100%;
     }
   }
 }
