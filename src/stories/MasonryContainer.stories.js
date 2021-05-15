@@ -1,5 +1,5 @@
 import { React } from "react";
-import MasonryLayout from "../components/MasonryLayout";
+import MasonryLayout from "../components/layout/MasonryLayout";
 
 export default { title: "Masonry Layout" };
 
