@@ -1,6 +1,6 @@
 import { React } from "react";
-import MasonryContainer from "../components/MasonryContainer";
+import MasonryLayout from "../components/MasonryLayout";
 
-export default { title: "Masonry container" };
+export default { title: "Masonry Layout" };
 
-export const EmptyMasonryContainer = () => <MasonryContainer />;
+export const PrefilledMasonryLayout = () => <MasonryLayout />;

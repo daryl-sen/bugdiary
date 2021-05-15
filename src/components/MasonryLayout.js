@@ -1,10 +1,10 @@
-import "./MasonryContainer.scss";
+import "./MasonryLayout.scss";
 import Masonry from "react-masonry-css";
 import IssueContainer from "./IssueContainer";
 
 import useSampleData from "../hooks/useSampleData";
 
-export default function MasonryContainer(props) {
+export default function MasonryLayout(props) {
   const renderIssueContainers = (issues) => {
     if (!Array.isArray(issues)) {
       return "none";
