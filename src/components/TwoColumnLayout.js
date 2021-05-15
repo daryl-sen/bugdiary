@@ -4,9 +4,11 @@ export default function TwoColumnLayout(props) {
   return (
     <div className="two-column-layout">
       <main>
-        <h1>Hello</h1>
+        <div className="bg-white-block"></div>
       </main>
-      <aside>Hi</aside>
+      <aside>
+        <div className="lined-block"></div>
+      </aside>
     </div>
   );
 }
