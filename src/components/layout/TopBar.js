@@ -7,7 +7,7 @@ export default function TopBar(props) {
       <button id="side-nav-toggle">
         <CgMenu />
       </button>
-      <div id="title">BugDiary</div>
+      <div id="title">BugDiary.com</div>
     </header>
   );
 }
