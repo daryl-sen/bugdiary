@@ -7,6 +7,8 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  z-index: 40;
+  width: 300px;
 
   & > div:first-child {
     padding-top: 4rem;
