@@ -1,70 +1,24 @@
-# Getting Started with Create React App
+# BugDiary
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+BugDiary is an online bug-tracking and issue-reporting platform that's easy to pick up and use. Please visit www.bugdiary.com/about to learn more about this project. Version 2 is currently in the works with major UI and performance improvements.
 
-## Available Scripts
+## What's BugDiary?
+An online issue-tracking and reporting platform that doesn't have a steep learning curve and is free to use!
 
-In the project directory, you can run:
+![Screenshot of reporting page](https://www.bugdiary.com/static/images/scrnsht2.png)
 
-### `npm start`
+## Who is BugDiary for?
+It's for anyone who manages a project and wants a simple way to keep track of issues. It's especially useful if your project involves pilot-testing with a group of testers, because testers can report errors without signing up for an account!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![Screenshot of reporting page](https://www.bugdiary.com/static/images/scrnsht1.png)
+Advanced users can take advantage of the BugDiary API to allow for issue-reporting directly from your website.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Why BugDiary?
+BugDiary helps you manage several projects at once, helping you keep track of activities at a glance.
 
-### `npm test`
+![Screenshot of user dashboard](https://www.bugdiary.com/static/images/scrnsht3.png)
+One of the popular built-in features is the development blog, where you can document the creative ways you used to solve your problems! You can also use the blog to provide updates to your users, keeping everyone on the same page.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+A coming update will use ReactJS as the front-end technology, along with user experience improvements.
