@@ -11,9 +11,9 @@ export default function SideNav(props) {
 
   return (
     <nav style={transformInfo}>
-      <div>Logo</div>
-      <div>{props.children}</div>
-      <div>footer</div>
+      <section id="about-info">Logo</section>
+      <section id="links">{props.children}</section>
+      <section id="footer">footer</section>
     </nav>
   );
 }
