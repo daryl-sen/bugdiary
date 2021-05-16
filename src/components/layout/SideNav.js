@@ -11,7 +11,8 @@ export default function SideNav(props) {
 
   return (
     <nav style={transformInfo}>
-      <div>Hello</div>
+      <div>Logo</div>
+      <div>{props.children}</div>
       <div>footer</div>
     </nav>
   );
