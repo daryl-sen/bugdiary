@@ -24,11 +24,11 @@ app.get("/", async (req, res) => {
 
 app.listen(PORT, async () => {
   try {
+    await sequelize.sync({ force: true });
+    console.log(`Running on port: ${PORT}`);
     await sequelize.authenticate();
     console.log("Connected to database");
   } catch (error) {
     return console.log(error);
   }
-  // await sequelize.sync({ force: true });
-  console.log(`Running on port: ${PORT}`);
 });
