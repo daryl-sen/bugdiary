@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Tag.init(
     {
-      diary_id: DataTypes.INTEGER,
       name: DataTypes.STRING,
     },
     {

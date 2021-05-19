@@ -14,16 +14,12 @@ module.exports = (sequelize, DataTypes) => {
   Issue.init(
     {
       reference: DataTypes.STRING,
-      diary_id: DataTypes.INTEGER,
       details: DataTypes.TEXT,
       status: DataTypes.STRING,
       reporter_name: DataTypes.STRING,
       reporter_email: DataTypes.STRING,
       report_date: DataTypes.DATE,
       resolve_date: DataTypes.DATE,
-      version_id: DataTypes.INTEGER,
-      location_id: DataTypes.INTEGER,
-      type_id: DataTypes.INTEGER,
       priority: DataTypes.INTEGER,
     },
     {

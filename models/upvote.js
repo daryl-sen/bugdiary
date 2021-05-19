@@ -12,10 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Upvote.init(
-    {
-      issue_id: DataTypes.INTEGER,
-      user_id: DataTypes.INTEGER,
-    },
+    {},
     {
       sequelize,
       modelName: "Upvote",
