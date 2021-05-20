@@ -30,19 +30,33 @@ module.exports = (sequelize, DataTypes) => {
       display_name: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [1, 100],
+        },
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        validate: {
+          notEmpty: true,
+          isEmail: true,
+        },
       },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
       },
       bio: {
         type: DataTypes.STRING,
         allowNull: true,
+        validate: {
+          len: [0, 1000],
+        },
       },
     },
     {
