@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "User",
-      tableName: "user",
+      tableName: "app_user", // 'user' is reserved in postgres
     }
   );
   return User;
