@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate({ User, Issue, Version, Type, Tag, Location }) {
-      this.belongsTo(User, { foreignKey: "user_id", onDelete: "cascade" });
+      this.belongsTo(User, { foreignKey: "user_id", allowNull: true });
       this.hasMany(Issue, { foreignKey: "diary_id" });
       this.hasMany(Version, { foreignKey: "diary_id" });
       this.hasMany(Type, { foreignKey: "diary_id" });
@@ -18,9 +18,26 @@ module.exports = (sequelize, DataTypes) => {
   }
   Diary.init(
     {
-      name: DataTypes.STRING,
-      description: DataTypes.TEXT,
-      passcode: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [1, 100],
+        },
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [1, 500],
+        },
+      },
+      passcode: {
+        type: DataTypes.STRING,
+        allowNull: true, // only required for diaries with no user_id
+      },
     },
     {
       sequelize,
