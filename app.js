@@ -10,21 +10,22 @@ app.get("/", async (req, res) => {
   return res.send("Hello");
 });
 
-// app.post("/create-user", async (req, res) => {
-//   const { name, email, role } = req.body;
+const users = require("./routes/users");
+const comments = require("./routes/comments");
+const diaries = require("./routes/diaries");
+const issues = require("./routes/issues");
+const upvotes = require("./routes/upvotes");
+const db = require("./models");
 
-//   try {
-//     const user = await User.create({ name, email, role });
-//     return res.json(user);
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(500).json(error);
-//   }
-// });
+app.use("/api/users", users(db));
+app.use("/api/comments", comments(db));
+app.use("/api/diaries", diaries(db));
+app.use("/api/issues", issues(db));
+app.use("/api/upvotes", upvotes(db));
 
 app.listen(PORT, async () => {
   try {
-    await sequelize.sync({ force: true });
+    // await sequelize.sync({ force: true });
     console.log(`Running on port: ${PORT}`);
     await sequelize.authenticate();
     console.log("Connected to database");
