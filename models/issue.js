@@ -8,10 +8,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate({ Diary, Comment, Upvote, Location, Type, Version, Tag }) {
-      this.belongsTo(Diary, { foreignKey: "diary_id" });
-      this.belongsTo(Location, { foreignKey: "location_id" });
-      this.belongsTo(Type, { foreignKey: "type_id" });
-      this.belongsTo(Version, { foreignKey: "version_id" });
+      this.belongsTo(Diary, { foreignKey: "diary_id", onDelete: "cascade" });
+      this.belongsTo(Location, {
+        foreignKey: "location_id",
+        onDelete: "cascade",
+      });
+      this.belongsTo(Type, { foreignKey: "type_id", onDelete: "cascade" });
+      this.belongsTo(Version, {
+        foreignKey: "version_id",
+        onDelete: "cascade",
+      });
       this.hasMany(Comment, { foreignKey: "issue_id" });
       this.hasMany(Upvote, { foreignKey: "issue_id" });
       this.belongsToMany(Tag, { through: "issue_tags", as: "tags" });
