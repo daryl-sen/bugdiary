@@ -14,7 +14,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   Location.init(
     {
-      name: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [1, 30],
+          notEmpty: true,
+        },
+      },
     },
     {
       sequelize,
