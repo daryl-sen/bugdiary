@@ -1,5 +1,8 @@
 "use strict";
 const { Model } = require("sequelize");
+// use a shorter uuid than what uuidv4 generates for users
+const { nanoid } = require("../helpers/nanoid-custom");
+
 module.exports = (sequelize, DataTypes) => {
   class Diary extends Model {
     /**
@@ -18,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   Diary.init(
     {
+      uuid: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: nanoid,
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
