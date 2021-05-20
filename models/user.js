@@ -1,5 +1,8 @@
 "use strict";
 const { Model } = require("sequelize");
+// use a shorter uuid than what uuidv4 generates for users
+const { nanoid } = require("../helpers/nanoid-custom");
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -19,15 +22,39 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
-      display_name: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      bio: DataTypes.TEXT,
+      uuid: {
+        type: DataTypes.STRING,
+        unique: true,
+        defaultValue: nanoid,
+      },
+      display_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      bio: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       sequelize,
       modelName: "User",
       tableName: "app_user", // 'user' is reserved in postgres
+      indexes: [
+        {
+          unique: true,
+          fields: ["uuid"],
+        },
+      ],
     }
   );
   return User;
