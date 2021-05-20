@@ -15,7 +15,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Comment.init(
     {
-      content: DataTypes.TEXT,
+      content: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: true,
+        },
+      },
     },
     {
       sequelize,
