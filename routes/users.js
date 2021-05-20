@@ -4,17 +4,27 @@ const router = express.Router();
 module.exports = (models) => {
   const { User, UserType, Comment, Upvote } = models;
 
-  router.get("/", (req, res) => {
-    res.end("users route");
-  });
-
-  router.post("/create-role", async (req, res) => {
+  router.post("/user-role", async (req, res) => {
     try {
       const newUserType = await UserType.create({ ...req.body });
       return res.json(JSON.stringify(newUserType));
     } catch (error) {
       console.log(error);
     }
+  });
+
+  router.delete("/user-role", async (req, res) => {
+    const { roleId } = req.body;
+    try {
+      const targetRole = await UserType.findOne({
+        where: { id: roleId },
+      });
+      targetRole.destroy();
+      return res.end("Deleted");
+    } catch (error) {
+      console.log(error);
+    }
+    res.end("Error");
   });
 
   router.post("/create", async (req, res) => {
