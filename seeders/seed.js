@@ -5,24 +5,30 @@ const getContent = (path) => {
   return JSON.parse(fs.readFileSync(path));
 };
 
-const jsonData = {
-  User: getContent("./seeders/JSONseeds/users.json"),
-  Comment: getContent("./seeders/JSONseeds/comments.json"),
-  Diary: getContent("./seeders/JSONseeds/diaries.json"),
-  Issue: getContent("./seeders/JSONseeds/issues.json"),
-  Location: getContent("./seeders/JSONseeds/locations.json"),
-  Tag: getContent("./seeders/JSONseeds/tags.json"),
-  Type: getContent("./seeders/JSONseeds/types.json"),
-  Upvote: getContent("./seeders/JSONseeds/upvotes.json"),
-  UserType: getContent("./seeders/JSONseeds/userTypes.json"),
-  Version: getContent("./seeders/JSONseeds/versions.json"),
+const createEntries = async (modelName, instance) => {
+  try {
+    await models[modelName].create({ ...instance });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-for (const modelName in models) {
-  if (modelName !== "Sequelize" && modelName !== "sequelize") {
-    for (const instance of jsonData[modelName]) {
-      models[modelName].create({ ...instance });
-    }
-    console.log(`Created entries for "${modelName}" model.`);
+const jsonData = {
+  UserType: getContent("./seeders/JSONseeds/userTypes.json"),
+  User: getContent("./seeders/JSONseeds/users.json"),
+  Diary: getContent("./seeders/JSONseeds/diaries.json"),
+  Version: getContent("./seeders/JSONseeds/versions.json"),
+  Location: getContent("./seeders/JSONseeds/locations.json"),
+  Issue: getContent("./seeders/JSONseeds/issues.json"),
+  Type: getContent("./seeders/JSONseeds/types.json"),
+  Tag: getContent("./seeders/JSONseeds/tags.json"),
+  Comment: getContent("./seeders/JSONseeds/comments.json"),
+  Upvote: getContent("./seeders/JSONseeds/upvotes.json"),
+};
+
+for (const modelName in jsonData) {
+  for (const instance of jsonData[modelName]) {
+    createEntries(modelName, instance);
   }
 }
+console.log("Creating seeds...");
