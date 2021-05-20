@@ -25,14 +25,58 @@ module.exports = (sequelize, DataTypes) => {
   }
   Issue.init(
     {
-      reference: DataTypes.STRING,
-      details: DataTypes.TEXT,
-      status: DataTypes.STRING,
-      reporter_name: DataTypes.STRING,
-      reporter_email: DataTypes.STRING,
-      report_date: DataTypes.DATE,
-      resolve_date: DataTypes.DATE,
-      priority: DataTypes.INTEGER,
+      uuid: {
+        type: DataTypes.UUID,
+        unique: true,
+        defaultValue: DataTypes.UUIDV4,
+      },
+      details: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: { len: [1, 500] },
+        notEmpty: true,
+      },
+      status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          isIn: ["RESOLVED", "PENDING", "DELETED", "PRIORITIZED"],
+        },
+      },
+      reporter_name: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+          len: [1, 50],
+          notEmpty: true,
+        },
+      },
+      reporter_email: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+          isEmail: true,
+        },
+      },
+      resolve_date: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        validate: {
+          isDate: true,
+        },
+      },
+      priority: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
+        validate: {
+          notEmpty: true,
+          isInt: true,
+          min: 0,
+          max: 10,
+        },
+      },
     },
     {
       sequelize,
