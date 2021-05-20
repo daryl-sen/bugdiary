@@ -7,7 +7,8 @@ const getContent = (path) => {
 
 const createEntries = async (modelName, instance) => {
   try {
-    await models[modelName].create({ ...instance });
+    const newEntry = await models[modelName].create({ ...instance });
+    console.log(`Created #${newEntry.id} in '${modelName}'`);
   } catch (error) {
     console.log(error);
   }
