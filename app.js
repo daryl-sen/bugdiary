@@ -43,7 +43,7 @@ app.use("/api/upvotes", upvotes({ Upvote, Issue, User }));
 
 app.listen(PORT, async () => {
   try {
-    // await sequelize.sync({ force: true });
+    await sequelize.sync({ force: true });
     console.log(`Running on port: ${PORT}`);
     await sequelize.authenticate();
     console.log("Connected to database");
