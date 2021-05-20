@@ -2,7 +2,19 @@ require("dotenv").config();
 
 const express = require("express");
 const PORT = process.env.PORT || 3000;
-const { sequelize, User } = require("./models");
+const {
+  sequelize,
+  User,
+  Comment,
+  Diary,
+  Issue,
+  Location,
+  Tag,
+  Type,
+  Upvote,
+  UserType,
+  Version,
+} = require("./models");
 const app = express();
 app.use(express.json());
 
@@ -17,11 +29,17 @@ const issues = require("./routes/issues");
 const upvotes = require("./routes/upvotes");
 const db = require("./models");
 
-app.use("/api/users", users(db));
-app.use("/api/comments", comments(db));
-app.use("/api/diaries", diaries(db));
-app.use("/api/issues", issues(db));
-app.use("/api/upvotes", upvotes(db));
+app.use("/api/users", users({ User, UserType, Comment, Upvote }));
+app.use("/api/comments", comments({ Comment, Issue, User }));
+app.use(
+  "/api/diaries",
+  diaries({ Diary, User, Issue, Version, Type, Tag, Location })
+);
+app.use(
+  "/api/issues",
+  issues({ Issue, Diary, Comment, Upvote, Location, Type, Version, Tag })
+);
+app.use("/api/upvotes", upvotes({ Upvote, Issue, User }));
 
 app.listen(PORT, async () => {
   try {
