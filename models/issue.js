@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notEmpty: true,
-          isIn: ["RESOLVED", "PENDING", "DELETED", "PRIORITIZED"],
+          isIn: [["RESOLVED", "PENDING", "DELETED", "PRIORITIZED"]],
         },
       },
       reporter_name: {
