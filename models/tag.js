@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ Diary, Issue, IssueTags }) {
       this.belongsTo(Diary, { foreignKey: "diary_id", onDelete: "cascade" });
-      this.belongsToMany(Issue, { through: IssueTags, as: "tags" });
+      this.belongsToMany(Issue, { through: IssueTags, as: "issue" });
     }
   }
   Tag.init(

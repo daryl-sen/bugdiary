@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.hasMany(Comment, { foreignKey: "issue_id" });
       this.hasMany(Upvote, { foreignKey: "issue_id" });
-      this.belongsToMany(Tag, { through: IssueTags, as: "issues" });
+      this.belongsToMany(Tag, { through: IssueTags, as: "tag" });
     }
   }
   Issue.init(
