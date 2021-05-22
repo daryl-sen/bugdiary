@@ -7,9 +7,14 @@ module.exports = (models) => {
   // create user
   router.post("/user", async (req, res) => {
     try {
-      //
+      const newUser = await User.create({ ...req.body });
+      return res.status(201).json(newUser);
     } catch (error) {
-      //
+      for (const errorObj of error.errors) {
+        const { message, type, value } = errorObj;
+        console.log(`ERROR: ${type}\n${message}\nValue received:${value}`);
+      }
+      return res.status(200).json({ errors: error.errors });
     }
   });
 
