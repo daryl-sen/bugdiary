@@ -10,11 +10,7 @@ module.exports = (models) => {
       const newUser = await User.create({ ...req.body });
       return res.status(201).json(newUser);
     } catch (error) {
-      for (const errorObj of error.errors) {
-        const { message, type, value } = errorObj;
-        console.log(`ERROR: ${type}\n${message}\nValue received:${value}`);
-      }
-      return res.status(200).json({ errors: error.errors });
+      return res.status(200).json({ error: error.errors });
     }
   });
 
@@ -38,10 +34,25 @@ module.exports = (models) => {
 
   // update user
   router.patch("/user", async (req, res) => {
+    const { uuid } = req.body;
+    // return res.json(uuid);
     try {
-      //
+      const targetUser = await User.findOne({
+        where: {
+          uuid,
+        },
+      });
+      if (!targetUser) {
+        return res.json({ error: "User not found" });
+      }
+      // dynamically update all keys provided in req.body
+      for (const attribute in req.body) {
+        targetUser[attribute] = req.body[attribute];
+      }
+      await targetUser.save();
+      return res.json(targetUser);
     } catch (error) {
-      //
+      return res.json({ error: error.errors });
     }
   });
 
