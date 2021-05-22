@@ -27,9 +27,20 @@ const jsonData = {
   Upvote: getContent("./seeders/JSONseeds/upvotes.json"),
 };
 
-for (const modelName in jsonData) {
-  for (const instance of jsonData[modelName]) {
-    createEntries(modelName, instance);
+const targetModel = process.argv.slice(2)[0];
+
+if (!targetModel) {
+  for (const modelName in jsonData) {
+    for (const instance of jsonData[modelName]) {
+      createEntries(modelName, instance);
+    }
+  }
+} else {
+  if (targetModel in models) {
+    for (const instance of jsonData[targetModel]) {
+      createEntries(targetModel, instance);
+    }
+  } else {
+    console.log(`The model you specified does not exist. ("${targetModel}")`);
   }
 }
-console.log("Creating seeds...");

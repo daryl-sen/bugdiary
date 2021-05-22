@@ -43,10 +43,13 @@ app.use("/api/upvotes", upvotes({ Upvote, Issue, User }));
 
 app.listen(PORT, async () => {
   try {
-    // await sequelize.sync({ force: true });
     console.log(`Running on port: ${PORT}`);
     await sequelize.authenticate();
     console.log("Connected to database");
+    if (process.env.RESETDB === "true") {
+      await sequelize.sync({ force: true });
+      console.log("Synced all models. All data have been deleted.");
+    }
   } catch (error) {
     return console.log(error);
   }
