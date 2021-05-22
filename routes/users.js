@@ -35,7 +35,6 @@ module.exports = (models) => {
   // update user
   router.patch("/user", async (req, res) => {
     const { uuid } = req.body;
-    // return res.json(uuid);
     try {
       const targetUser = await User.findOne({
         where: {
@@ -58,10 +57,21 @@ module.exports = (models) => {
 
   // delete user
   router.delete("/user", async (req, res) => {
+    const { uuid } = req.body;
     try {
-      //
+      const targetUser = await User.findOne({
+        where: {
+          uuid,
+        },
+      });
+      if (!targetUser) {
+        return res.json({ error: "User not found" });
+      }
+      // dynamically update all keys provided in req.body
+      await targetUser.destroy();
+      return res.json({ success: "User deleted." });
     } catch (error) {
-      //
+      return res.json({ error: error.errors });
     }
   });
 
