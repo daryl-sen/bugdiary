@@ -18,8 +18,9 @@ const {
 } = require("./models");
 const app = express();
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "build")));
 
-app.get("/", async (req, res) => {
+app.get("/", (req, res) => {
   return res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
