@@ -42,6 +42,9 @@ function App() {
 
   const logout = () => {
     console.log("Logging out");
+    axios.post("/api/users/logout").then((resp) => {
+      console.log(resp.data);
+    });
   };
 
   const checkToken = () => {
