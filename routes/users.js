@@ -13,6 +13,14 @@ module.exports = (models) => {
     .post("/user", async (req, res) => {
       try {
         const newUser = await User.create({ ...req.body });
+        const accessToken = jwt.sign(
+          {
+            name: newUser.display_name,
+            uuid: newUser.uuid,
+          },
+          process.env.ACCESS_TOKEN_SECRET
+        );
+        req.session.jwt = accessToken;
         return res.status(201).json(newUser);
       } catch (error) {
         return res.status(200).json({ error: error.errors });
