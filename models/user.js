@@ -2,6 +2,7 @@
 const { Model } = require("sequelize");
 // use a shorter uuid than what uuidv4 generates for users
 const { nanoid } = require("../helpers/nanoid-custom");
+const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -18,6 +19,19 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(Comment, { foreignKey: "user_id" });
       this.hasMany(Upvote, { foreignKey: "user_id" });
       this.hasMany(Diary, { foreignKey: "user_id" });
+    }
+
+    static generateHash(password) {
+      const saltRounds = 10;
+      return new Promise((resolve, reject) => {
+        bcrypt.hash(password, saltRounds, function (error, hash) {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(hash);
+          }
+        });
+      });
     }
   }
   User.init(
@@ -71,5 +85,15 @@ module.exports = (sequelize, DataTypes) => {
       ],
     }
   );
+
+  User.prototype.checkPassword = async function (password) {
+    return await bcrypt.compare(password, this.password);
+  };
+
+  User.beforeCreate(async function (user, options) {
+    const hash = await User.generateHash(user.password);
+    user.password = hash;
+  });
+
   return User;
 };
