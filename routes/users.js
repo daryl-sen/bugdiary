@@ -45,6 +45,7 @@ module.exports = (models) => {
           },
           process.env.ACCESS_TOKEN_SECRET
         );
+        req.session.jwt = accessToken;
         res.json({ accessToken });
       } catch (error) {
         console.log(error);
