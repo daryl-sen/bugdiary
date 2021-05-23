@@ -21,6 +21,11 @@ module.exports = (models) => {
           process.env.ACCESS_TOKEN_SECRET
         );
         req.session.jwt = accessToken;
+        res.cookie("jwt", accessToken, {
+          httpOnly: true,
+          maxAge: process.env.MAX_COOKIE_AGE,
+          secure: false, // !!! set to true in production
+        });
         return res.status(201).json(newUser);
       } catch (error) {
         return res.status(200).json({ error: error.errors });
@@ -28,11 +33,8 @@ module.exports = (models) => {
     })
 
     // check for token
-    .post("/check-login", (req, res) => {
-      if (req.session.jwt) {
-        return res.json({ tokenFound: true });
-      }
-      return res.json({ tokenFound: false });
+    .post("/check-token", authenticateToken, (req, res) => {
+      return res.json({ user: req.decodedUser });
     })
 
     // login user - no authentication required
@@ -62,7 +64,11 @@ module.exports = (models) => {
           process.env.ACCESS_TOKEN_SECRET
         );
         // req.session.jwt = accessToken;
-        res.cookie("jwt", accessToken);
+        res.cookie("jwt", accessToken, {
+          httpOnly: true,
+          maxAge: process.env.MAX_COOKIE_AGE,
+          secure: false, // !!! set to true in production
+        });
         res.json({ accessToken });
       } catch (error) {
         console.log(error);
