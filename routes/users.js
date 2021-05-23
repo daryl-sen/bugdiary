@@ -27,6 +27,14 @@ module.exports = (models) => {
       }
     })
 
+    // check for token
+    .post("/check-login", (req, res) => {
+      if (req.session.jwt) {
+        return res.json({ tokenFound: true });
+      }
+      return res.json({ tokenFound: false });
+    })
+
     // login user - no authentication required
     .post("/login", async (req, res) => {
       const { email, password } = req.body;
@@ -53,7 +61,8 @@ module.exports = (models) => {
           },
           process.env.ACCESS_TOKEN_SECRET
         );
-        req.session.jwt = accessToken;
+        // req.session.jwt = accessToken;
+        res.cookie("jwt", accessToken);
         res.json({ accessToken });
       } catch (error) {
         console.log(error);
