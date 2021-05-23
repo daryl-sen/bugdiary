@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const PORT = process.env.PORT || 3000;
+const path = require("path");
 const {
   sequelize,
   User,
@@ -19,7 +20,7 @@ const app = express();
 app.use(express.json());
 
 app.get("/", async (req, res) => {
-  return res.send("Hello");
+  return res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 const users = require("./routes/users");
