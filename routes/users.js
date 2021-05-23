@@ -64,7 +64,13 @@ module.exports = (models) => {
     // update user - authentication required
     .patch("/user", authenticateToken, async (req, res) => {
       const { uuid } = req.body;
-      console.log(req.decodedUser);
+
+      if (req.decodedUser.uuid !== uuid) {
+        return res
+          .status(401)
+          .json({ error: "You can only update your own account details." });
+      }
+
       try {
         const targetUser = await User.findOne({
           where: {
