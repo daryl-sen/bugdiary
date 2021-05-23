@@ -11,6 +11,7 @@ const authenticateToken = (req, res, next) => {
     if (error) {
       return res.status(403).json({ error: "Invalid JWT" });
     }
+    req.decodedUser = user;
   });
   next();
 };

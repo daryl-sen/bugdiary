@@ -64,6 +64,7 @@ module.exports = (models) => {
     // update user - authentication required
     .patch("/user", authenticateToken, async (req, res) => {
       const { uuid } = req.body;
+      console.log(req.decodedUser);
       try {
         const targetUser = await User.findOne({
           where: {
