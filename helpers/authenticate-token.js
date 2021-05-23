@@ -5,9 +5,11 @@ const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   let token;
   if (!authHeader) {
-    req.session.jwt
-      ? (token = req.session.jwt)
-      : res.status(401).json({ error: "JWT not received" });
+    if (req.session.jwt) {
+      token = req.session.jwt;
+    } else {
+      return res.status(401).json({ error: "JWT not received" });
+    }
   } else {
     token = authHeader.split(" ")[1];
   }
