@@ -4,9 +4,11 @@ const jwt = require("jsonwebtoken");
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   let token;
+  console.log("cookies", req.cookies.jwt);
+
   if (!authHeader) {
-    if (req.session.jwt) {
-      token = req.session.jwt;
+    if (req.cookies.jwt) {
+      token = req.cookies.jwt;
     } else {
       return res.status(401).json({ error: "JWT not received" });
     }

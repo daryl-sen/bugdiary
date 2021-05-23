@@ -4,7 +4,7 @@ const express = require("express");
 const PORT = process.env.PORT || 3000;
 const path = require("path");
 const cors = require("cors");
-const cookieSession = require("cookie-session");
+const cookieParser = require("cookie-parser");
 
 const {
   sequelize,
@@ -24,13 +24,7 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "build")));
 app.use(cors());
-app.use(
-  cookieSession({
-    name: "session",
-    keys: ["dfjskoapigdfopajgi9389q834ufidoajgdkagl"],
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  })
-);
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   return res.sendFile(path.join(__dirname, "build", "index.html"));
