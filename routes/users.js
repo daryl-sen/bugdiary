@@ -11,7 +11,7 @@ const authenticateToken = (req, res, next) => {
     return res.status(401).json({ error: "JWT not received." });
   }
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, user) => {
-    if (err) {
+    if (error) {
       return res.status(403).json({ error: "Invalid JWT" });
     }
   });
@@ -68,7 +68,7 @@ module.exports = (models) => {
   });
 
   // update user
-  router.patch("/user", async (req, res) => {
+  router.patch("/user", authenticateToken, async (req, res) => {
     const { uuid } = req.body;
     try {
       const targetUser = await User.findOne({
