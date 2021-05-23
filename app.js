@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const PORT = process.env.PORT || 3000;
 const path = require("path");
+const cors = require("cors");
 const {
   sequelize,
   User,
@@ -19,6 +20,7 @@ const {
 const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "build")));
+app.use(cors());
 
 app.get("/", (req, res) => {
   return res.sendFile(path.join(__dirname, "build", "index.html"));
