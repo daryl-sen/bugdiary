@@ -36,10 +36,6 @@ function App() {
       });
   };
 
-  const showCookieInfo = () => {
-    console.log("Fetching cookie info");
-  };
-
   const logout = () => {
     console.log("Logging out");
     axios.post("/api/users/logout").then((resp) => {
@@ -64,7 +60,6 @@ function App() {
       <MainRouter />
       <button onClick={getCookie}>Log in and get cookie</button>
       <button onClick={doAction}>Attempt login-required action</button>
-      <button onClick={showCookieInfo}>Show cookie info</button>
       <button onClick={logout}>Logout</button>
       <button onClick={checkToken}>Check token</button>
       <p>{jwt}</p>
