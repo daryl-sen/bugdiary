@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const { authenticateToken } = require("../helpers/authenticate-token");
+const jwt = require("jsonwebtoken");
 
 module.exports = (models) => {
   const { User, UserType, Comment, Upvote } = models;
@@ -28,9 +29,15 @@ module.exports = (models) => {
             email,
           },
         });
+
         if (!targetUser) {
           return res.json({ error: "User does not exist." });
         }
+
+        if (!(await targetUser.checkPassword(password))) {
+          return res.json({ error: "You have entered an incorrect password." });
+        }
+
         const accessToken = jwt.sign(
           {
             name: targetUser.display_name,
@@ -40,7 +47,7 @@ module.exports = (models) => {
         );
         res.json({ accessToken });
       } catch (error) {
-        console.log(error.errors);
+        console.log(error);
         res.json({ error: error.errors });
       }
     })
