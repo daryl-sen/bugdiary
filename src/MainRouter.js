@@ -6,12 +6,12 @@ import TopBar from "./components/layout/TopBar";
 import SideNav from "./components/layout/SideNav";
 
 import AccountSettings from "./pages/AccountSettings";
-import Diary from "./pages/Diary";
+// import Diary from "./pages/Diary";
 import Diaries from "./pages/Diaries";
-import DiarySettings from "./pages/DiarySettings";
+// import DiarySettings from "./pages/DiarySettings";
 import DiarySetup from "./pages/DiarySetup";
 import Homepage from "./pages/Homepage";
-import Report from "./pages/Report";
+// import Report from "./pages/Report";
 
 export default function MainRouter(props) {
   const [menuState, setMenuToggle] = useState(false);
@@ -37,7 +37,6 @@ export default function MainRouter(props) {
           My Account
         </Link>
         <h2>Favorites</h2>
-        <a href="#">Hello</a>
       </SideNav>
 
       <Switch>
