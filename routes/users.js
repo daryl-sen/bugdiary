@@ -32,9 +32,18 @@ module.exports = (models) => {
       }
     })
 
-    // check for token
-    .post("/check-token", authenticateToken, (req, res) => {
-      return res.json({ user: req.decodedUser });
+    .get("/check-unique", async (req, res) => {
+      const email = req.query.email;
+      const existingEmail = await User.count({
+        where: {
+          email,
+        },
+      });
+      console.log(email);
+      if (existingEmail) {
+        return res.status(200).json({ unique: false });
+      }
+      return res.status(200).json({ unique: true });
     })
 
     // login user - no authentication required
