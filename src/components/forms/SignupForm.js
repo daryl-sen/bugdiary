@@ -41,13 +41,13 @@ export default function SignupForm(props) {
         {...formik.getFieldProps("displayName")}
       />
       {formik.touched.displayName && formik.errors.displayName ? (
-        <div class="form-error">{formik.errors.displayName}</div>
+        <div className="form-error">{formik.errors.displayName}</div>
       ) : null}
 
       <label htmlFor="email">Email</label>
       <input id="email" type="email" {...formik.getFieldProps("email")} />
       {formik.touched.email && formik.errors.email ? (
-        <div class="form-error">{formik.errors.email}</div>
+        <div className="form-error">{formik.errors.email}</div>
       ) : null}
 
       <label htmlFor="password">Password</label>
@@ -57,14 +57,16 @@ export default function SignupForm(props) {
         {...formik.getFieldProps("password")}
       />
       {formik.touched.password && formik.errors.password ? (
-        <div class="form-error">{formik.errors.password}</div>
+        <div className="form-error">{formik.errors.password}</div>
       ) : null}
 
       <label htmlFor="bio">Short Bio</label>
       <textarea id="bio" {...formik.getFieldProps("bio")}></textarea>
       {formik.touched.bio && formik.errors.bio ? (
-        <div class="form-error">{formik.errors.bio}</div>
+        <div className="form-error">{formik.errors.bio}</div>
       ) : null}
+
+      <button type="submit">Submit</button>
     </StylizedForm>
   );
 }
