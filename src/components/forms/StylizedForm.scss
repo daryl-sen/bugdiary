@@ -3,6 +3,7 @@ form {
 }
 
 input[type="text"],
+input[type="email"],
 input[type="number"],
 input[type="submit"],
 input[type="password"],
@@ -18,7 +19,7 @@ button.custom {
   border: 1px solid;
   font-family: inherit;
   margin-bottom: 1em;
-  border-color: $line-color;
+  border-color: #e6e6e6;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -33,12 +34,12 @@ input[type="checkbox"] {
 }
 
 .button-primary {
-  background-color: $primary_color;
+  background-color: #358bdc;
   color: #fff;
 }
 
 .button-secondary {
-  background-color: $secondary_color;
+  background-color: #ff3939;
   color: #fff;
 }
 
@@ -48,4 +49,13 @@ textarea {
   min-height: 100px;
   margin-bottom: 1em;
   resize: vertical;
+}
+
+.form-error {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  background-color: #ffd3d3;
+  border-radius: 0.5em 0.5em 0.5em 0.5em;
+  -moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
+  -webkit-border-radius: 0.5em 0.5em 0.5em 0.5em;
 }

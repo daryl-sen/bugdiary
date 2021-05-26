@@ -1,5 +1,3 @@
-import { useFormik } from "formik";
-// import * as Yup from "yup";
 import "./StylizedForm.scss";
 
 export default function StylizedForm(props) {
@@ -11,6 +9,6 @@ export default function StylizedForm(props) {
     );
   }
 
-  const formik = useFormik(props.formikConfig);
+  const formik = props.formik;
   return <form onSubmit={formik.handleSubmit}>{props.children}</form>;
 }
