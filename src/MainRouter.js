@@ -5,6 +5,8 @@ import "./MainRouter.scss";
 import TopBar from "./components/layout/TopBar";
 import SideNav from "./components/layout/SideNav";
 
+import ProtectedRoute from "./ProtectedRoute";
+
 // import Diary from "./pages/Diary";
 // import DiarySettings from "./pages/DiarySettings";
 // import Report from "./pages/Report";
@@ -45,10 +47,14 @@ export default function MainRouter(props) {
           <Homepage />
         </Route>
         <Route exact path="/account">
-          <AccountSettings />
+          <ProtectedRoute target="account">
+            <AccountSettings />
+          </ProtectedRoute>
         </Route>
         <Route exact path="/diaries">
-          <Diaries />
+          <ProtectedRoute target="diaries">
+            <Diaries />
+          </ProtectedRoute>
         </Route>
         <Route exact path="/login">
           <LoginPage />
