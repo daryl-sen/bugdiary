@@ -5,13 +5,14 @@ import "./MainRouter.scss";
 import TopBar from "./components/layout/TopBar";
 import SideNav from "./components/layout/SideNav";
 
-import AccountSettings from "./pages/AccountSettings";
 // import Diary from "./pages/Diary";
-import Diaries from "./pages/Diaries";
 // import DiarySettings from "./pages/DiarySettings";
+// import Report from "./pages/Report";
+import LoginPage from "./pages/LoginPage";
+import AccountSettings from "./pages/AccountSettings";
+import Diaries from "./pages/Diaries";
 import DiarySetup from "./pages/DiarySetup";
 import Homepage from "./pages/Homepage";
-// import Report from "./pages/Report";
 
 export default function MainRouter(props) {
   const [menuState, setMenuToggle] = useState(false);
@@ -48,6 +49,9 @@ export default function MainRouter(props) {
         </Route>
         <Route exact path="/diaries">
           <Diaries />
+        </Route>
+        <Route exact path="/login">
+          <LoginPage />
         </Route>
         <Route exact path="/new">
           <DiarySetup />

@@ -1,9 +1,11 @@
 .two-column-layout {
+  padding-top: 2rem;
   display: flex;
   flex-direction: row;
 
   & > main {
     flex-grow: 2;
+    text-align: left;
   }
 
   & > aside {
