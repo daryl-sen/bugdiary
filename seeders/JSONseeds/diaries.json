@@ -1,17 +1,20 @@
 [
   {
+    "uuid": "testdiary1",
     "name": "My First Bug Diary",
     "description": "disintermediate plug-and-play paradigms",
     "passcode": "mypasscode",
     "user_id": 1
   },
   {
+    "uuid": "testdiary2",
     "name": "Second",
     "description": "disintermediate plug-and-play paradigms",
     "passcode": "anotherpasscode",
     "user_id": 1
   },
   {
+    "uuid": "testdiary3",
     "name": "Two's Bug Diary",
     "description": "disintermediate plug-and-play paradigms",
     "passcode": "thirdpasscode",

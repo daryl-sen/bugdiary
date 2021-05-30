@@ -30,23 +30,20 @@ export default function SideNav(props) {
       <nav style={transformInfo}>
         <section id="about-info">Logo</section>
         <section id="links">
-          <Link onClick={props.toggleMenu} to="/">
-            Home
+          <Link onClick={props.toggleMenu} to="/about">
+            About Us
           </Link>
-          <Link onClick={props.toggleMenu} to="/">
-            About
-          </Link>
-          <Link onClick={props.toggleMenu} to="/">
+          <Link onClick={props.toggleMenu} to="/diaries">
             My Diaries
           </Link>
-          <Link onClick={props.toggleMenu} to="/">
+          <Link onClick={props.toggleMenu} to="/account">
             Settings
           </Link>
           <hr />
-          <Link onClick={props.toggleMenu} to="/">
+          <Link onClick={props.toggleMenu} to="/diary/testdiary1">
             My First Diary
           </Link>
-          <Link onClick={props.toggleMenu} to="/">
+          <Link onClick={props.toggleMenu} to="/diary/testdiary2">
             Diary #2
           </Link>
         </section>
