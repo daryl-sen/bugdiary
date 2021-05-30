@@ -1,7 +1,9 @@
+import SingleColumnLayout from "../components/layout/SingleColumnLayout";
+
 export default function DiarySetup() {
   return (
-    <main>
+    <SingleColumnLayout>
       <h1>Diary Setup</h1>
-    </main>
+    </SingleColumnLayout>
   );
 }

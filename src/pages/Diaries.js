@@ -1,7 +1,9 @@
+import SingleColumnLayout from "../components/layout/SingleColumnLayout";
+
 export default function Diaries() {
   return (
-    <main>
+    <SingleColumnLayout>
       <h1>My Bug Diaries</h1>
-    </main>
+    </SingleColumnLayout>
   );
 }

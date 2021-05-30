@@ -1,3 +1,6 @@
+import { useState } from "react";
+import LoadingIndicator from "../LoadingIndicator";
+
 import StylizedForm from "./StylizedForm";
 import { useFormik } from "formik";
 import { useContext } from "react";
@@ -7,6 +10,8 @@ import { useHistory } from "react-router-dom";
 import { NotificationManager } from "react-notifications";
 
 export default function LoginForm(props) {
+  const [loadingStatus, setLoadingStatus] = useState(false);
+
   const history = useHistory();
 
   const uinfo = useContext(UserContext);
@@ -27,7 +32,7 @@ export default function LoginForm(props) {
 
     if (accessToken) {
       uinfo.setUserSession((prev) => {
-        return { ...prev, jwt: "test" };
+        return { ...prev, jwt: accessToken };
       });
       return true;
     } else {
@@ -41,12 +46,14 @@ export default function LoginForm(props) {
       password: "",
     },
     onSubmit: async (values) => {
+      setLoadingStatus(true);
       const { email, password } = values;
       const authenticated = await loginUser(email, password);
       if (authenticated) {
         NotificationManager.success("Welcome back!", "Logged In");
         history.push("/");
       } else {
+        setLoadingStatus(false);
         NotificationManager.error(
           "User or password is incorrect.",
           "Login Failed"
@@ -57,6 +64,7 @@ export default function LoginForm(props) {
 
   return (
     <StylizedForm formik={formik}>
+      {loadingStatus && <LoadingIndicator />}
       <label htmlFor="email">Email</label>
       <input id="email" type="email" {...formik.getFieldProps("email")} />
       <label htmlFor="password">Password</label>

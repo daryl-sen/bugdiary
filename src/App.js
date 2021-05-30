@@ -31,7 +31,9 @@ function App() {
         });
       })
       .catch((err) => {
-        console.log(err.response.data);
+        setUserSession((prev) => {
+          return { ...prev, jwt: null };
+        });
       });
   }, [userSession.jwt]);
 
