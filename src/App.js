@@ -1,8 +1,7 @@
 import "./App.scss";
 import MainRouter from "./MainRouter";
 import React, { useState, useEffect } from "react";
-
-import useJwt from "./hooks/useJwt";
+import axios from "axios";
 
 import "react-notifications/lib/notifications.css";
 import {
@@ -21,15 +20,19 @@ function App() {
     notifications: [],
   });
 
-  const jwt = useJwt();
-
+  // check for existing cookie containing jwt
   useEffect(() => {
-    if (jwt) {
-      setUserSession((prev) => {
-        return { ...prev, jwt };
+    axios
+      .get("/api/users/check-token")
+      .then((resp) => {
+        setUserSession((prev) => {
+          return { ...prev, jwt: resp.data.jwt };
+        });
+      })
+      .catch((err) => {
+        console.log(err.response.data);
       });
-    }
-  }, [jwt]);
+  }, [userSession.jwt]);
 
   const testNotification = () => {
     NotificationManager.info("Test notif");
