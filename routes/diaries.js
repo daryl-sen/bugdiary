@@ -5,12 +5,14 @@ const { authenticateToken } = require("../helpers/authenticate-token");
 module.exports = (models) => {
   const { Diary, User, Issue, Version, Type, Tag, Location } = models;
   router
-    .get("/", (req, res) => {
-      res.end("diaries route");
+    .get("/", authenticateToken, async (req, res) => {
+      const targetUuid = req.decodedUser.uuid;
+      console.log(req.decodedUser.id);
+      res.json(["helo"]);
     })
 
-    .get("/diaries", authenticateToken, (req, res) => {
-      res.json(["helo"]);
+    .get("/top", (req, res) => {
+      res.end("diaries route");
     });
 
   return router;

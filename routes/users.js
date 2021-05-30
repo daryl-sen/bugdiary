@@ -15,6 +15,7 @@ module.exports = (models) => {
         const newUser = await User.create({ ...req.body });
         const accessToken = jwt.sign(
           {
+            id: newUser.id,
             name: newUser.display_name,
             uuid: newUser.uuid,
           },
@@ -73,6 +74,7 @@ module.exports = (models) => {
 
         const accessToken = jwt.sign(
           {
+            id: targetUser.id,
             name: targetUser.display_name,
             uuid: targetUser.uuid,
           },
