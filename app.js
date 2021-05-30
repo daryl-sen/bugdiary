@@ -4,7 +4,7 @@ const express = require("express");
 const PORT = process.env.PORT || 3000;
 const path = require("path");
 const cors = require("cors");
-const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
 
 const {
   sequelize,
@@ -24,10 +24,23 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "build")));
 app.use(cors());
-app.use(cookieParser());
+app.use(
+  cookieSession({
+    name: "session",
+    keys: [process.env.COOKIE_SESSION_SECRET],
+    maxAge: process.env.MAX_COOKIE_AGE,
+  })
+);
 
+console.log(process.env.COOKIE_SESSION_SECRET, process.env.MAX_COOKIE_AGE);
 app.get("/", (req, res) => {
   return res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
+app.get("/trial", (req, res) => {
+  req.session.testcookie = 1;
+  console.log("built cookie");
+  res.end("done");
 });
 
 const users = require("./routes/users");

@@ -29,7 +29,7 @@ function App() {
         <MainRouter />
       </UserContext.Provider>
       JWT:{userSession.jwt}
-      <button onClick={testNotification}>test notification</button>
+      {/* <button onClick={testNotification}>test notification</button> */}
     </div>
   );
 }

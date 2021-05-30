@@ -21,11 +21,6 @@ module.exports = (models) => {
           process.env.ACCESS_TOKEN_SECRET
         );
         req.session.jwt = accessToken;
-        res.cookie("jwt", accessToken, {
-          httpOnly: true,
-          maxAge: process.env.MAX_COOKIE_AGE,
-          secure: false, // !!! set to true in production
-        });
         return res.status(201).json(newUser);
       } catch (error) {
         return res.status(200).json({ error: error.errors });
@@ -77,12 +72,8 @@ module.exports = (models) => {
           },
           process.env.ACCESS_TOKEN_SECRET
         );
-        // req.session.jwt = accessToken;
-        res.cookie("jwt", accessToken, {
-          httpOnly: true,
-          maxAge: process.env.MAX_COOKIE_AGE,
-          secure: false, // !!! set to true in production
-        });
+
+        req.session.jwt = accessToken;
         res.json({ accessToken });
       } catch (error) {
         console.log(error);
