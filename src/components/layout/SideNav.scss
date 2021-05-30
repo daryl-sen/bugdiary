@@ -11,10 +11,10 @@ nav {
   justify-content: space-between;
   z-index: 40;
   width: 300px;
-  transition: 0.5s ease-in-out;
-  -webkit-transition: 0.5s ease-in-out;
-  -moz-transition: 0.5s ease-in-out;
-  -o-transition: 0.5s ease-in-out;
+  transition: 0.25s ease-in-out;
+  -webkit-transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -o-transition: 0.25s ease-in-out;
 
   & > section:first-child {
     padding-top: 4rem;
@@ -29,6 +29,7 @@ nav {
     text-decoration: none;
     color: #5f5f5f;
     text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
   }
   section > a:hover {
     color: #000000;
