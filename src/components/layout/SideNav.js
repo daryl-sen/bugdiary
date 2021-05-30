@@ -29,7 +29,27 @@ export default function SideNav(props) {
       {renderShade()}
       <nav style={transformInfo}>
         <section id="about-info">Logo</section>
-        <section id="links">{props.children}</section>
+        <section id="links">
+          <Link onClick={props.toggleMenu} to="/">
+            Home
+          </Link>
+          <Link onClick={props.toggleMenu} to="/">
+            About
+          </Link>
+          <Link onClick={props.toggleMenu} to="/">
+            My Diaries
+          </Link>
+          <Link onClick={props.toggleMenu} to="/">
+            Settings
+          </Link>
+          <hr />
+          <Link onClick={props.toggleMenu} to="/">
+            My First Diary
+          </Link>
+          <Link onClick={props.toggleMenu} to="/">
+            Diary #2
+          </Link>
+        </section>
         <section id="footer">
           <Link onClick={props.toggleMenu} to="/new">
             <BiBookAdd />

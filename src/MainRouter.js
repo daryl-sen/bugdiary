@@ -26,11 +26,7 @@ export default function MainRouter(props) {
   return (
     <Router>
       <TopBar toggleMenu={toggleMenu} menuState={menuState} />
-      <SideNav menuState={menuState} toggleMenu={toggleMenu}>
-        <Link onClick={toggleMenu} to="/">
-          Homepage
-        </Link>
-      </SideNav>
+      <SideNav menuState={menuState} toggleMenu={toggleMenu} />
 
       <Switch>
         <Route exact path="/">

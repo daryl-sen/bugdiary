@@ -47,6 +47,7 @@ nav {
     padding: $standard-spacing * 2;
     flex-direction: row;
     justify-content: space-between;
+    border-top: 1px solid $line-color;
   }
 
   #footer > a {
