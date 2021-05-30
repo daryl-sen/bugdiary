@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useContext } from "react";
 import { UserContext } from "../../App";
 import axios from "axios";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { NotificationManager } from "react-notifications";
 
 export default function LoginForm(props) {

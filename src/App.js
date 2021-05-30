@@ -8,8 +8,6 @@ import {
   NotificationManager,
 } from "react-notifications";
 
-const BASE_URL = process.env.REACT_APP_API_URL;
-
 export const UserContext = React.createContext();
 
 function App() {
