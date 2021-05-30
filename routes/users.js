@@ -89,9 +89,8 @@ module.exports = (models) => {
 
     // logout user - no authentication required
     .post("/logout", async (req, res) => {
-      console.log(req.cookies);
-      if (req.cookies.jwt) {
-        res.clearCookie("jwt");
+      if (req.session.jwt) {
+        req.session = null;
         return res.json({ success: "Logged out" });
       }
       return res.json({ error: "Not logged in." });
