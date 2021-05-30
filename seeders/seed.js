@@ -6,10 +6,12 @@ const getContent = (path) => {
 };
 
 const createEntries = async (modelName, instance) => {
+  // console.log(`processing ${JSON.stringify(instance)}\n\n`);
   try {
     const newEntry = await models[modelName].create({ ...instance });
     console.log(`Created #${newEntry.id} in '${modelName}'`);
   } catch (error) {
+    // throw new Error(error);
     console.log(error);
   }
 };
@@ -20,27 +22,33 @@ const jsonData = {
   Diary: getContent("./seeders/JSONseeds/diaries.json"),
   Version: getContent("./seeders/JSONseeds/versions.json"),
   Location: getContent("./seeders/JSONseeds/locations.json"),
-  Issue: getContent("./seeders/JSONseeds/issues.json"),
   Type: getContent("./seeders/JSONseeds/types.json"),
   Tag: getContent("./seeders/JSONseeds/tags.json"),
+  Issue: getContent("./seeders/JSONseeds/issues.json"),
   Comment: getContent("./seeders/JSONseeds/comments.json"),
   Upvote: getContent("./seeders/JSONseeds/upvotes.json"),
 };
 
 const targetModel = process.argv.slice(2)[0];
 
-if (!targetModel) {
-  for (const modelName in jsonData) {
-    for (const instance of jsonData[modelName]) {
-      createEntries(modelName, instance);
-    }
-  }
-} else {
-  if (targetModel in models) {
-    for (const instance of jsonData[targetModel]) {
-      createEntries(targetModel, instance);
+async function run() {
+  await models.sequelize.sync({ force: true });
+
+  if (!targetModel) {
+    for (const modelName in jsonData) {
+      for (const instance of jsonData[modelName]) {
+        await createEntries(modelName, instance);
+      }
     }
   } else {
-    console.log(`The model you specified does not exist. ("${targetModel}")`);
+    if (targetModel in models) {
+      for (const instance of jsonData[targetModel]) {
+        await createEntries(targetModel, instance);
+      }
+    } else {
+      console.log(`The model you specified does not exist. ("${targetModel}")`);
+    }
   }
 }
+
+run();
