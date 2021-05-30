@@ -8,3 +8,9 @@
     flex: 1;
   }
 }
+
+@media screen and (max-width: 750px) {
+  .two-column-equal {
+    flex-direction: column;
+  }
+}
