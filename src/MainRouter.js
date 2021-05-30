@@ -26,7 +26,7 @@ export default function MainRouter(props) {
   return (
     <Router>
       <TopBar toggleMenu={toggleMenu} menuState={menuState} />
-      <SideNav menuState={menuState}>
+      <SideNav menuState={menuState} setMenuToggle={toggleMenu}>
         <Link onClick={toggleMenu} to="/">
           Homepage
         </Link>
