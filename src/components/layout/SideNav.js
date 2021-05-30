@@ -1,6 +1,5 @@
 import "./SideNav.scss";
 import FullScreenShade from "../FullScreenShade";
-import { render } from "@testing-library/react";
 
 export default function SideNav(props) {
   const transformInfo = {};
