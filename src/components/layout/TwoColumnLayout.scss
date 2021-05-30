@@ -1,5 +1,7 @@
+@import "../../scss-variables.scss";
+
 .two-column-layout {
-  padding-top: 2rem;
+  padding-top: $standard-spacing;
   display: flex;
   flex-direction: row;
 
@@ -15,7 +17,7 @@
   }
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: $cutoff-1) {
   .two-column-layout {
     flex-direction: column;
     padding: 1rem;

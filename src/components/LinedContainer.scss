@@ -1,8 +1,10 @@
+@import "../../scss-variables.scss";
+
 .lined-container {
-  border: 1px solid #969696;
+  border: 1px solid $line-color;
   padding: 0.5rem 1rem;
-  border-radius: 1rem;
-  -moz-border-radius: 0.5rem;
-  -webkit-border-radius: 0.5rem;
-  margin-bottom: 1rem;
+  border-radius: $standard-spacing;
+  -moz-border-radius: $standard-spacing;
+  -webkit-border-radius: $standard-spacing;
+  margin-bottom: $standard-spacing;
 }

@@ -1,15 +1,17 @@
+@import "../../scss-variables.scss";
+
 .two-column-equal {
-  padding: 2rem;
+  padding: $standard-spacing;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: $standard-spacing;
   & > div {
     flex: 1;
   }
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: $cutoff-1) {
   .two-column-equal {
     flex-direction: column;
   }

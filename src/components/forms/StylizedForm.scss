@@ -1,3 +1,5 @@
+@import "../../scss-variables.scss";
+
 form {
   font-size: 1em;
 }
@@ -11,16 +13,16 @@ button[type="submit"],
 select,
 textarea,
 button.custom {
-  font-size: 1em;
-  padding: 0.5em;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  font-size: 1em;
+  padding: $standard-spacing/2;
   width: 100%;
-  border: 1px solid;
+  border: 1px solid $line-color;
   font-family: inherit;
-  margin-bottom: 1em;
-  border-color: #e6e6e6;
+  margin-bottom: $standard-spacing;
+  border-color: $line-color;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -35,20 +37,20 @@ input[type="checkbox"] {
 }
 
 .button-primary {
-  background-color: #358bdc;
-  color: #fff;
+  background-color: $primary-color;
+  color: $primary-color-text;
 }
 
 .button-secondary {
-  background-color: #ff3939;
-  color: #fff;
+  background-color: $secondary-color;
+  color: $secondary-color-text;
 }
 
 textarea {
   max-width: 100%;
   min-width: 100%;
   min-height: 100px;
-  margin-bottom: 1em;
+  margin-bottom: $standard-spacing;
   resize: vertical;
 }
 
