@@ -10,21 +10,30 @@ export default function Diaries() {
   const uinfo = useContext(UserContext);
 
   useEffect(() => {
-    const data = {};
     const authorization = { headers: { authorization: `Bearer ${uinfo.jwt}` } };
     axios
       .get("/api/diaries/", authorization)
       .then((resp) => {
-        console.log(resp.data);
+        // console.log(resp.data);
+        setDiaries(resp.data);
       })
       .catch((err) => {
         console.log(err.response.data);
       });
-  }, []);
+  }, [uinfo.jwt]);
+
+  const renderDiaries = () => {
+    if (diaries) {
+      return diaries.map((diary) => {
+        return <div key={diary.id}>{diary.description}</div>;
+      });
+    }
+  };
 
   return (
     <SingleColumnLayout>
       <h1>My Bug Diaries</h1>
+      {renderDiaries()}
     </SingleColumnLayout>
   );
 }
