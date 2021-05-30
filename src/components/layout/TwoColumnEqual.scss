@@ -1,0 +1,10 @@
+.two-column-equal {
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  & > div {
+    flex: 1;
+  }
+}
