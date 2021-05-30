@@ -1,0 +1,14 @@
+[
+  {
+    "type": "regular",
+    "description": "Regular user without special privileges."
+  },
+  {
+    "type": "special",
+    "description": "A special user who enjoys some privileges."
+  },
+  {
+    "type": "admin",
+    "description": "A user who helps manage the project."
+  }
+]
