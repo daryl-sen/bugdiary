@@ -7,7 +7,7 @@ import SideNav from "./components/layout/SideNav";
 
 import ProtectedRoute from "./ProtectedRoute";
 
-// import Diary from "./pages/Diary";
+import Diary from "./pages/Diary";
 // import DiarySettings from "./pages/DiarySettings";
 // import Report from "./pages/Report";
 import LoginPage from "./pages/LoginPage";
@@ -55,6 +55,9 @@ export default function MainRouter(props) {
           <ProtectedRoute target="diaries">
             <Diaries />
           </ProtectedRoute>
+        </Route>
+        <Route exact path="/diary/:uuid">
+          <Diary />
         </Route>
         <Route exact path="/login">
           <LoginPage />
