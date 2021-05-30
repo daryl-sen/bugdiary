@@ -1,7 +1,12 @@
+import SingleColumnLayout from "../components/layout/SingleColumnLayout";
+
 export default function AccountSettings() {
   return (
     <main>
-      <h1>My Account</h1>
+      <SingleColumnLayout>
+        <h1>My Account</h1>
+        Hello
+      </SingleColumnLayout>
     </main>
   );
 }
