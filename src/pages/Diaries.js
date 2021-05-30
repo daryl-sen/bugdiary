@@ -39,7 +39,11 @@ export default function Diaries() {
   };
 
   return (
-    <SingleColumnLayout>
+    <SingleColumnLayout
+      styleOverride={{
+        textAlign: "center",
+      }}
+    >
       <h1>My Bug Diaries</h1>
       <div className="diaries-container">{renderDiaries()}</div>
     </SingleColumnLayout>
