@@ -5,6 +5,10 @@ import SingleColumnLayout from "../components/layout/SingleColumnLayout";
 import { useContext } from "react";
 import { UserContext } from "../App";
 
+import DiaryContainer from "../components/DiaryContainer";
+
+import "./Diaries.scss";
+
 export default function Diaries() {
   const [diaries, setDiaries] = useState(null);
   const uinfo = useContext(UserContext);
@@ -25,7 +29,11 @@ export default function Diaries() {
   const renderDiaries = () => {
     if (diaries) {
       return diaries.map((diary) => {
-        return <div key={diary.id}>{diary.description}</div>;
+        return (
+          <DiaryContainer key={diary.id} {...diary}>
+            {diary.description}
+          </DiaryContainer>
+        );
       });
     }
   };
@@ -33,7 +41,7 @@ export default function Diaries() {
   return (
     <SingleColumnLayout>
       <h1>My Bug Diaries</h1>
-      {renderDiaries()}
+      <div className="diaries-container">{renderDiaries()}</div>
     </SingleColumnLayout>
   );
 }
