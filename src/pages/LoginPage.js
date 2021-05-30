@@ -1,16 +1,17 @@
 import LoginForm from "../components/forms/LoginForm";
-import TwoColumnLayout from "../components/layout/TwoColumnLayout";
 import WhiteBgContainer from "../components/WhiteBgContainer";
+import TwoColumnEqual from "../components/layout/TwoColumnEqual";
 
 export default function LoginPage(props) {
   return (
     <main>
-      <TwoColumnLayout>
+      <TwoColumnEqual>
         <WhiteBgContainer>
           <h1>Welcome Back!</h1>
           <LoginForm />
         </WhiteBgContainer>
-      </TwoColumnLayout>
+        <div>Hello</div>
+      </TwoColumnEqual>
     </main>
   );
 }
