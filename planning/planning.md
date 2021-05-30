@@ -30,3 +30,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-po
 ## Space-saving and data management
 
 - Diaries with no activities for over 3 months will be deleted.
+
+## Notes
+
+- Cannot use React to read cookie because cookies are set to httpOnly. The backend API will read the cookie and send back any necessary responses.

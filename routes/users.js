@@ -32,6 +32,11 @@ module.exports = (models) => {
       }
     })
 
+    .get("/check-token", authenticateToken, async (req, res) => {
+      // const jwt =
+      res.end("Coming soon");
+    })
+
     // .get("/check-unique", async (req, res) => {
     //   const email = req.query.email;
     //   const existingEmail = await User.count({
