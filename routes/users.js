@@ -27,9 +27,15 @@ module.exports = (models) => {
       }
     })
 
-    .get("/check-token", authenticateToken, async (req, res) => {
-      // const jwt =
-      res.end("Coming soon");
+    .get("/check-token", async (req, res) => {
+      if (!req.session.jwt) {
+        return res.status(401).json({
+          error: "Not logged in",
+        });
+      }
+      return res.json({
+        jwt: req.session.jwt,
+      });
     })
 
     // .get("/check-unique", async (req, res) => {
