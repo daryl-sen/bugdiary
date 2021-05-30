@@ -8,6 +8,7 @@ import {
   BiBookAlt,
 } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import useLogout from "../../hooks/useLogout";
 
 export default function SideNav(props) {
   const transformInfo = {};
@@ -23,6 +24,8 @@ export default function SideNav(props) {
       return <FullScreenShade clickEvent={props.toggleMenu} />;
     }
   };
+
+  const logout = useLogout();
 
   return (
     <>
@@ -57,10 +60,10 @@ export default function SideNav(props) {
           <Link onClick={props.toggleMenu} to="/account">
             <BiUser />
           </Link>
-          <Link onClick={props.toggleMenu} to="">
+          <Link onClick={logout} to="/">
             <BiLogOut />
           </Link>
-          {/* <BiLogIn /> */}
+          {false ? <BiLogIn /> : null}
         </section>
       </nav>
     </>

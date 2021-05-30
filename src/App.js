@@ -4,10 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import "react-notifications/lib/notifications.css";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
+import { NotificationContainer } from "react-notifications";
 
 import LoadingIndicator from "./components/LoadingIndicator";
 
@@ -41,18 +38,12 @@ function App() {
     return <LoadingIndicator />;
   }
 
-  const testNotification = () => {
-    NotificationManager.info("Test notif");
-  };
-
   return (
     <div className="App">
       <UserContext.Provider value={{ ...userSession, setUserSession }}>
         <NotificationContainer />
         <MainRouter />
       </UserContext.Provider>
-      {/* JWT:{userSession.jwt} */}
-      <button onClick={testNotification}>test notification</button>
     </div>
   );
 }
