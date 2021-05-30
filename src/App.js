@@ -12,7 +12,6 @@ import {
 export const UserContext = React.createContext();
 
 function App() {
-  console.log("rendered App.js");
   const [userSession, setUserSession] = useState({
     jwt: null,
     name: null,
