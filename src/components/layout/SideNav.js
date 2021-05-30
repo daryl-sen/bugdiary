@@ -1,5 +1,13 @@
 import "./SideNav.scss";
 import FullScreenShade from "../FullScreenShade";
+import {
+  BiLogOut,
+  BiLogIn,
+  BiUser,
+  BiBookAdd,
+  BiBookAlt,
+} from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 export default function SideNav(props) {
   const transformInfo = {};
@@ -12,7 +20,7 @@ export default function SideNav(props) {
 
   const renderShade = () => {
     if (props.menuState) {
-      return <FullScreenShade clickEvent={props.setMenuToggle} />;
+      return <FullScreenShade clickEvent={props.toggleMenu} />;
     }
   };
 
@@ -22,7 +30,21 @@ export default function SideNav(props) {
       <nav style={transformInfo}>
         <section id="about-info">Logo</section>
         <section id="links">{props.children}</section>
-        <section id="footer">footer</section>
+        <section id="footer">
+          <Link onClick={props.toggleMenu} to="/new">
+            <BiBookAdd />
+          </Link>
+          <Link onClick={props.toggleMenu} to="/diaries">
+            <BiBookAlt />
+          </Link>
+          <Link onClick={props.toggleMenu} to="/account">
+            <BiUser />
+          </Link>
+          <Link onClick={props.toggleMenu} to="">
+            <BiLogOut />
+          </Link>
+          {/* <BiLogIn /> */}
+        </section>
       </nav>
     </>
   );

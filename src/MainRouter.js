@@ -26,20 +26,10 @@ export default function MainRouter(props) {
   return (
     <Router>
       <TopBar toggleMenu={toggleMenu} menuState={menuState} />
-      <SideNav menuState={menuState} setMenuToggle={toggleMenu}>
+      <SideNav menuState={menuState} toggleMenu={toggleMenu}>
         <Link onClick={toggleMenu} to="/">
           Homepage
         </Link>
-        <Link onClick={toggleMenu} to="/diaries">
-          My Diaries
-        </Link>
-        <Link onClick={toggleMenu} to="/new">
-          New Diary
-        </Link>
-        <Link onClick={toggleMenu} to="/account">
-          My Account
-        </Link>
-        <h2>Favorites</h2>
       </SideNav>
 
       <Switch>

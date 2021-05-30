@@ -40,4 +40,18 @@ nav {
     text-align: right;
     padding: 1rem 2rem 0 1rem;
   }
+
+  #footer {
+    display: flex;
+    padding: $standard-spacing * 2;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  #footer > a {
+    padding: 0;
+    text-align: center;
+    display: block;
+    font-size: 2rem;
+  }
 }
