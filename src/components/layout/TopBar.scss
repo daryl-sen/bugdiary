@@ -14,6 +14,12 @@ header {
     font-size: 1.2rem;
   }
 
+  #title > a:link,
+  #title > a:visited {
+    text-decoration: none;
+    color: inherit;
+  }
+
   #side-nav-toggle {
     position: absolute;
     left: 1rem;

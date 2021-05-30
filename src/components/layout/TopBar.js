@@ -1,5 +1,6 @@
 import "./TopBar.scss";
 import { CgMenu, CgClose } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
 export default function TopBar(props) {
   return (
@@ -11,7 +12,9 @@ export default function TopBar(props) {
           <CgMenu onClick={props.toggleMenu} />
         )}
       </button>
-      <div id="title">BugDiary.com</div>
+      <div id="title">
+        <Link to="/">BugDiary.com</Link>
+      </div>
     </header>
   );
 }
