@@ -32,15 +32,8 @@ app.use(
   })
 );
 
-console.log(process.env.COOKIE_SESSION_SECRET, process.env.MAX_COOKIE_AGE);
 app.get("/", (req, res) => {
   return res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-
-app.get("/trial", (req, res) => {
-  req.session.testcookie = 1;
-  console.log("built cookie");
-  res.end("done");
 });
 
 const users = require("./routes/users");
