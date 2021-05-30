@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { UserContext } from "../../App";
 import axios from "axios";
 import { Redirect, useHistory } from "react-router-dom";
+import { NotificationManager } from "react-notifications";
 
 export default function LoginForm(props) {
   const history = useHistory();
@@ -18,7 +19,6 @@ export default function LoginForm(props) {
         password,
       })
       .then((resp) => {
-        console.log(resp);
         if (resp.data.accessToken) {
           return resp.data.accessToken;
         }
@@ -44,10 +44,13 @@ export default function LoginForm(props) {
       const { email, password } = values;
       const authenticated = await loginUser(email, password);
       if (authenticated) {
-        console.log("authenticated!");
+        NotificationManager.success("Welcome back!", "Logged In");
         history.push("/");
       } else {
-        console.log("No.");
+        NotificationManager.error(
+          "User or password is incorrect.",
+          "Login Failed"
+        );
       }
     },
   });
