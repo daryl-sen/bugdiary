@@ -9,12 +9,14 @@ import {
   NotificationManager,
 } from "react-notifications";
 
+import LoadingIndicator from "./components/LoadingIndicator";
+
 export const UserContext = React.createContext();
 
 function App() {
   const [userSession, setUserSession] = useState({
-    jwt: null,
-    name: null,
+    jwt: undefined,
+    name: undefined,
     theme: "light",
     notifications: [],
   });
@@ -33,6 +35,10 @@ function App() {
       });
   }, [userSession.jwt]);
 
+  if (userSession.jwt === undefined) {
+    return <LoadingIndicator />;
+  }
+
   const testNotification = () => {
     NotificationManager.info("Test notif");
   };
@@ -43,7 +49,7 @@ function App() {
         <NotificationContainer />
         <MainRouter />
       </UserContext.Provider>
-      JWT:{userSession.jwt}
+      {/* JWT:{userSession.jwt} */}
       <button onClick={testNotification}>test notification</button>
     </div>
   );

@@ -7,6 +7,7 @@ export default function ProtectedRoute(props) {
 
   if (!uinfo.jwt) {
     return <Redirect to={"/login?next=" + props.target} />;
+  } else {
+    return <>{props.children}</>;
   }
-  return <>{props.children}</>;
 }
