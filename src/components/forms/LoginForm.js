@@ -51,7 +51,7 @@ export default function LoginForm(props) {
       const authenticated = await loginUser(email, password);
       if (authenticated) {
         NotificationManager.success("Welcome back!", "Logged In");
-        history.push("/");
+        history.push("/" + props.next);
       } else {
         setLoadingStatus(false);
         NotificationManager.error(
