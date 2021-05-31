@@ -1,5 +1,6 @@
 import "./DiaryContainer.scss";
-import { BiBug } from "react-icons/bi";
+import { BiBug, BiLink } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 export default function DiaryContainer(props) {
   return (
@@ -13,7 +14,11 @@ export default function DiaryContainer(props) {
       className="diary-container"
     >
       <main>
-        <h3>{props.name}</h3>
+        <h3>
+          <Link to={"/diaries/" + props.uuid}>
+            <BiLink /> {props.name}
+          </Link>
+        </h3>
         {props.description}
       </main>
       <aside>
