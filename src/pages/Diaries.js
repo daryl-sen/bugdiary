@@ -6,8 +6,10 @@ import { useContext } from "react";
 import { UserContext } from "../App";
 
 import DiaryContainer from "../components/DiaryContainer";
+import NewDiaryButton from "../components/NewDiaryButton";
 
 import "./Diaries.scss";
+import { Link } from "react-router-dom";
 
 export default function Diaries() {
   const [diaries, setDiaries] = useState(null);
@@ -45,7 +47,10 @@ export default function Diaries() {
       }}
     >
       <h1>My Bug Diaries</h1>
-      <div className="diaries-container">{renderDiaries()}</div>
+      <div className="diaries-container">
+        {renderDiaries()}
+        <NewDiaryButton />
+      </div>
     </SingleColumnLayout>
   );
 }
