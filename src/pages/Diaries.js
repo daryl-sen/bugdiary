@@ -9,7 +9,6 @@ import DiaryContainer from "../components/DiaryContainer";
 import NewDiaryButton from "../components/NewDiaryButton";
 
 import "./Diaries.scss";
-import { Link } from "react-router-dom";
 
 export default function Diaries() {
   const [diaries, setDiaries] = useState(null);
