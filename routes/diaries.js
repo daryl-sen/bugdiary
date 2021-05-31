@@ -20,8 +20,24 @@ module.exports = (models) => {
       return res.json({ error: err.errors });
     })
 
-    .get("/top", (req, res) => {
-      res.end("diaries route");
+    .get("/:uuid", async (req, res) => {
+      const targetUuid = req.params.uuid;
+      try {
+        const targetDiary = await Diary.findOne({
+          where: {
+            uuid: targetUuid,
+          },
+        });
+
+        const issues = await targetDiary.getIssues();
+        return res.json({
+          targetDiary,
+          issues,
+        });
+      } catch (err) {
+        console.log(err.errors);
+      }
+      return res.end("diaries route");
     });
 
   return router;
