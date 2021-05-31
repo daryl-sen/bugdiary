@@ -18,7 +18,7 @@ export default function DiaryContainer(props) {
       </main>
       <aside>
         <BiBug />
-        &nbsp; 0/5
+        &nbsp; 0 / 5
       </aside>
     </div>
   );
