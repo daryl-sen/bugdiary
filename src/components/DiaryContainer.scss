@@ -1,6 +1,7 @@
 @import "../scss-variables.scss";
 
 .diary-container {
+  position: relative;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -17,12 +18,25 @@
   main {
     padding: 1rem;
     background-color: #393939;
-    color: rgb(221, 221, 221);
+    color: #dddddd;
     h3 {
       font-family: "Quicksand", sans-serif;
       padding: 0;
       margin: 0 0 0.5em 0;
       color: #fff;
     }
+  }
+  aside {
+    font-size: 0.8rem;
+    line-height: 1rem;
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    background-color: #000;
+    color: #dddddd;
+    padding: 0.5rem;
+    border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    -webkit-border-radius: 0.5em;
   }
 }

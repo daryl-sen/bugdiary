@@ -1,4 +1,5 @@
 import "./DiaryContainer.scss";
+import { BiBug } from "react-icons/bi";
 
 export default function DiaryContainer(props) {
   return (
@@ -15,6 +16,10 @@ export default function DiaryContainer(props) {
         <h3>{props.name}</h3>
         {props.description}
       </main>
+      <aside>
+        <BiBug />
+        &nbsp; 0/5
+      </aside>
     </div>
   );
 }
