@@ -1,0 +1,15 @@
+@import "../scss-variables.scss";
+
+.issues-container {
+  display: flex;
+  gap: $standard-spacing;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 555px) {
+  // .diaries-container {
+  //   flex-direction: column;
+  //   align-items: center;
+  // }
+}

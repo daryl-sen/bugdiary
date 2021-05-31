@@ -1,6 +1,7 @@
-@import "../../scss-variables.scss";
+@import "../scss-variables.scss";
 
 .issue-container {
+  text-align: left;
   position: relative;
   background-color: #fff;
   -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.05);
