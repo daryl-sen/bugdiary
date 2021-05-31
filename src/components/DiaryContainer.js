@@ -15,7 +15,7 @@ export default function DiaryContainer(props) {
     >
       <main>
         <h3>
-          <Link to={"/diaries/" + props.uuid}>
+          <Link to={"/diary/" + props.uuid}>
             <BiLink /> {props.name}
           </Link>
         </h3>
