@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./IssueControls.scss";
 import { CgMenuMotion } from "react-icons/cg";
+import FullScreenShade from "./FullScreenShade";
 
 export default function IssueControls(props) {
   const [openStatus, setOpenStatus] = useState(false);
@@ -12,12 +13,20 @@ export default function IssueControls(props) {
   const renderControlMenu = (openStatus) => {
     if (openStatus) {
       return (
-        <div className="controls-menu">
-          <button>Resolve</button>
-          <button>Pin</button>
-          <button>Delete</button>
-          <button onClick={toggleControls}>Cancel</button>
-        </div>
+        <>
+          <div className="controls-menu">
+            <button>Resolve</button>
+            <button>Pin</button>
+            <button>Delete</button>
+            <button onClick={toggleControls}>Cancel</button>
+          </div>
+          <FullScreenShade
+            styleOverride={{
+              backgroundColor: "rgba(0,0,0,0.05)",
+            }}
+            clickEvent={toggleControls}
+          />
+        </>
       );
     }
   };
