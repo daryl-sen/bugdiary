@@ -7,7 +7,7 @@ module.exports = (models) => {
   router
 
     // create new location
-    .post("/l", authenticateToken, (req, res) => {
+    .post("/", authenticateToken, (req, res) => {
       try {
         //
       } catch (err) {
@@ -16,7 +16,7 @@ module.exports = (models) => {
     })
 
     // read location
-    .get("/l", authenticateToken, (req, res) => {
+    .get("/", authenticateToken, (req, res) => {
       try {
         //
       } catch (err) {
@@ -25,7 +25,7 @@ module.exports = (models) => {
     })
 
     // read all locations
-    .get("/l", authenticateToken, (req, res) => {
+    .get("/", authenticateToken, (req, res) => {
       try {
         //
       } catch (err) {
@@ -34,7 +34,7 @@ module.exports = (models) => {
     })
 
     // update location
-    .patch("/l", authenticateToken, (req, res) => {
+    .patch("/", authenticateToken, (req, res) => {
       try {
         //
       } catch (err) {
