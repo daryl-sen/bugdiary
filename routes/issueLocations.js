@@ -57,6 +57,9 @@ module.exports = (models) => {
             id: req.body.id,
           },
         });
+        targetLocation.name = req.body.name;
+        targetLocation.save();
+        return res.json(targetLocation);
       } catch (err) {
         console.log(err);
         return res.json(err);
