@@ -59,9 +59,9 @@ app.use(
 );
 app.use("/api/upvotes", upvotes({ Upvote, Issue, User }));
 app.use("/api/types", types({ Issue, Diary, Type, User }));
-// app.use("/api/locations", locations({ Issue, Diary, Location, User }));
-// app.use("/api/tags", tags({ Issue, Diary, Tag, User }));
-// app.use("/api/versions", versions({ Issue, Diary, Version, User }));
+app.use("/api/locations", locations({ Issue, Diary, Location, User }));
+app.use("/api/tags", tags({ Issue, Diary, Tag, User }));
+app.use("/api/versions", versions({ Issue, Diary, Version, User }));
 
 app.listen(PORT, async () => {
   try {
