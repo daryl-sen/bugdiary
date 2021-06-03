@@ -34,7 +34,7 @@ module.exports = (models) => {
     })
 
     // read all locations
-    .get("/:diaryUuid", async (req, res) => {
+    .get("/:diaryUuid", authenticateToken, async (req, res) => {
       try {
         const targetDiary = await Diary.findOne({
           where: {
