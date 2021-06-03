@@ -102,5 +102,29 @@ describe("/api/users/user", () => {
       });
 
     expect(response.error).not.toBe(undefined);
+    expect(response.bio).toBe(undefined);
+  });
+
+  test("PATCH /user: users who are logged in cannot edit another user's details", async () => {
+    const newDetails = {
+      uuid: "uuid1", // user #1's uuid
+      bio: "This is my updated bio.",
+    };
+
+    const config = {
+      headers: {
+        authorization: `Bearer ${jwt[0]}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios
+      .patch(BASE_URL + "/api/users/user", newDetails, config)
+      .then((resp) => {
+        return resp.data;
+      });
+
+    expect(response.error).not.toBe(undefined);
+    expect(response.bio).toBe(undefined);
   });
 });

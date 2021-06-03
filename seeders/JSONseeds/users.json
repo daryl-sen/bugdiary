@@ -1,5 +1,6 @@
 [
   {
+    "uuid": "uuid1",
     "display_name": "Test User One",
     "email": "tu1@fakeemail.com",
     "password": "password",
