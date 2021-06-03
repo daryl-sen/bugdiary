@@ -103,9 +103,9 @@ module.exports = (models) => {
       const { uuid } = req.body;
 
       if (req.decodedUser.uuid !== uuid) {
-        return res
-          .status(401)
-          .json({ error: "You can only update your own account details." });
+        return res.json({
+          error: "You can only update your own account details.",
+        });
       }
 
       try {

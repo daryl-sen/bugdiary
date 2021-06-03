@@ -93,4 +93,14 @@ describe("/api/users/user", () => {
 
     expect(response.bio).toBe(newDetails.bio);
   });
+
+  test("PATCH /user: users who are not logged in cannot edit account details", async () => {
+    const response = await axios
+      .patch(BASE_URL + "/api/users/user")
+      .then((resp) => {
+        return resp.data;
+      });
+
+    expect(response.error).not.toBe(undefined);
+  });
 });
