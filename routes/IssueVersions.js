@@ -3,10 +3,10 @@ const router = express.Router();
 const { authenticateToken } = require("../helpers/authenticate-token");
 
 module.exports = (models) => {
-  const { Issue, Diary, Tag, User } = models;
+  const { Issue, Diary, Version, User } = models;
   router
 
-    // create new tag
+    // create new version
     .post("/", authenticateToken, (req, res) => {
       try {
         //
@@ -15,7 +15,7 @@ module.exports = (models) => {
       }
     })
 
-    // read tag
+    // read version
     .get("/", authenticateToken, (req, res) => {
       try {
         //
@@ -24,7 +24,7 @@ module.exports = (models) => {
       }
     })
 
-    // read all tags
+    // read all versions
     .get("/", authenticateToken, (req, res) => {
       try {
         //
@@ -33,7 +33,7 @@ module.exports = (models) => {
       }
     })
 
-    // update tag
+    // update version
     .patch("/", authenticateToken, (req, res) => {
       try {
         //
@@ -42,7 +42,7 @@ module.exports = (models) => {
       }
     })
 
-    // delete tag
+    // delete version
     .delete("/", authenticateToken, (req, res) => {
       try {
         //

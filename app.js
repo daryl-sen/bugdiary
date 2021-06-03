@@ -41,7 +41,11 @@ const comments = require("./routes/comments");
 const diaries = require("./routes/diaries");
 const issues = require("./routes/issues");
 const upvotes = require("./routes/upvotes");
-const db = require("./models");
+const types = require("./routes/issueTypes");
+const locations = require("./routes/issueLocations");
+const tags = require("./routes/issueTags");
+const versions = require("./routes/IssueVersions");
+// const db = require("./models");
 
 app.use("/api/users", users({ User, UserType, Comment, Upvote }));
 app.use("/api/comments", comments({ Comment, Issue, User }));
@@ -55,8 +59,9 @@ app.use(
 );
 app.use("/api/upvotes", upvotes({ Upvote, Issue, User }));
 app.use("/api/types", types({ Issue, Diary, Type, User }));
-app.use("/api/locations", locations({ Issue, Diary, Location, User }));
-app.use("/api/tags", tags({ Issue, Diary, Tag, User }));
+// app.use("/api/locations", locations({ Issue, Diary, Location, User }));
+// app.use("/api/tags", tags({ Issue, Diary, Tag, User }));
+// app.use("/api/versions", versions({ Issue, Diary, Version, User }));
 
 app.listen(PORT, async () => {
   try {
