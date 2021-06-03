@@ -54,7 +54,7 @@ module.exports = (models) => {
     })
 
     // update diary
-    .patch("diary", async (req, res) => {
+    .patch("/diary", async (req, res) => {
       const uuid = req.body.uuid;
       try {
         const targetDiary = await Diary.findOne({
@@ -70,6 +70,23 @@ module.exports = (models) => {
       } catch (err) {
         console.log(err);
         return res.status(500).json(err);
+      }
+    })
+
+    // delete diary
+    .delete("/diary", async (req, res) => {
+      const uuid = req.body.uuid;
+      try {
+        const targetDiary = await Diary.findOne({
+          where: {
+            uuid,
+          },
+        });
+        targetDiary.destroy();
+        return res.json({ success: true });
+      } catch (err) {
+        console.log(err);
+        return res.json(err);
       }
     });
 
