@@ -48,4 +48,31 @@ describe("/api/users/user", () => {
 
     expect(jwt[0]).not.toBe(null);
   });
+
+  test("POST /login: users should get an error message if email or password is wrong", async () => {
+    const loginCreds1 = {
+      email: "jester@wrongemail.com",
+      password: "password",
+    };
+
+    const loginCreds2 = {
+      email: "jester@fakeemail.com",
+      password: "wrongPassword",
+    };
+
+    const response1 = await axios
+      .post(BASE_URL + "/api/users/login", loginCreds1)
+      .then((resp) => {
+        return resp.data;
+      });
+
+    const response2 = await axios
+      .post(BASE_URL + "/api/users/login", loginCreds2)
+      .then((resp) => {
+        return resp.data;
+      });
+
+    expect(response1.error).not.toBe(undefined);
+    expect(response2.error).not.toBe(undefined);
+  });
 });
