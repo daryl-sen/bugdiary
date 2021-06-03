@@ -22,7 +22,7 @@ module.exports = (models) => {
     })
 
     // specific diary
-    .get("/:uuid", async (req, res) => {
+    .get("/:uuid", authenticateToken, async (req, res) => {
       const targetUuid = req.params.uuid;
       try {
         const targetDiary = await Diary.findOne({
@@ -43,18 +43,18 @@ module.exports = (models) => {
     })
 
     // create diary
-    .post("/diary", async (req, res) => {
+    .post("/diary", authenticateToken, async (req, res) => {
       try {
         const newDiary = await Diary.create({ ...req.body });
         return res.json(newDiary);
       } catch (err) {
-        console.log(error);
-        return res.status(500).json(error);
+        console.log(err);
+        return res.status(500).json(err);
       }
     })
 
     // update diary
-    .patch("/diary", async (req, res) => {
+    .patch("/diary", authenticateToken, async (req, res) => {
       const uuid = req.body.uuid;
       try {
         const targetDiary = await Diary.findOne({
@@ -74,7 +74,7 @@ module.exports = (models) => {
     })
 
     // delete diary
-    .delete("/diary", async (req, res) => {
+    .delete("/diary", authenticateToken, async (req, res) => {
       const uuid = req.body.uuid;
       try {
         const targetDiary = await Diary.findOne({
