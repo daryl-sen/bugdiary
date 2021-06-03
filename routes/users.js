@@ -124,6 +124,7 @@ module.exports = (models) => {
         await targetUser.save();
         return res.json(targetUser);
       } catch (error) {
+        console.log(error);
         return res.json({ error: error.errors });
       }
     })
