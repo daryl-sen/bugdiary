@@ -41,7 +41,6 @@ module.exports = (models) => {
             uuid: req.params.diaryUuid,
           },
         });
-        console.log(await targetDiary.getLocations());
         return res.json(await targetDiary.getLocations());
       } catch (err) {
         console.log(err);
@@ -52,13 +51,13 @@ module.exports = (models) => {
     // update location
     .patch("/", authenticateToken, async (req, res) => {
       try {
-        const targetLocation = Location.findOne({
+        const targetLocation = await Location.findOne({
           where: {
             id: req.body.id,
           },
         });
         targetLocation.name = req.body.name;
-        targetLocation.save();
+        await targetLocation.save();
         return res.json(targetLocation);
       } catch (err) {
         console.log(err);
@@ -67,9 +66,15 @@ module.exports = (models) => {
     })
 
     // delete location
-    .delete("/", authenticateToken, (req, res) => {
+    .delete("/", authenticateToken, async (req, res) => {
       try {
-        //
+        const targetLocation = await Location.findOne({
+          where: {
+            uuid: req.body.uuid,
+          },
+        });
+        targetLocation.destroy();
+        return res.json({ success: true });
       } catch (err) {
         console.log(err);
         return res.json(err);
