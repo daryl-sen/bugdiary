@@ -3,7 +3,7 @@ const router = express.Router();
 const { authenticateToken } = require("../helpers/authenticate-token");
 
 module.exports = (models) => {
-  const { Diary, User, Issue, Location } = models;
+  const { Issue, Diary, Location, User } = models;
   router
 
     // create new location
