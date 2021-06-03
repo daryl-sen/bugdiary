@@ -130,8 +130,8 @@ module.exports = (models) => {
     })
 
     // delete user - authentication required
-    .delete("/user", authenticateToken, async (req, res) => {
-      const { uuid } = req.body;
+    .delete("/user/:uuid", authenticateToken, async (req, res) => {
+      const uuid = req.params.uuid;
       try {
         const targetUser = await User.findOne({
           where: {
@@ -140,6 +140,9 @@ module.exports = (models) => {
         });
         if (!targetUser) {
           return res.json({ error: "User not found" });
+        }
+        if (req.decodedUser.uuid !== uuid) {
+          return res.json({ error: "You cannot delete another user" });
         }
         // dynamically update all keys provided in req.body
         await targetUser.destroy();

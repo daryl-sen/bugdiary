@@ -6,7 +6,7 @@ const BASE_URL = "http://localhost:3000";
 const jwt = [];
 
 describe("/api/users/user", () => {
-  test.skip("GET /user: creates a new user, gets user info as response", async () => {
+  test("GET /user: creates a new user, gets user info as response", async () => {
     const newUser = {
       uuid: "jestuuid",
       display_name: "Jester",
@@ -126,5 +126,41 @@ describe("/api/users/user", () => {
 
     expect(response.error).not.toBe(undefined);
     expect(response.bio).toBe(undefined);
+  });
+
+  test("DELETE /user: users cannot delete other users.", async () => {
+    const config = {
+      headers: {
+        authorization: `Bearer ${jwt[0]}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios
+      .delete(BASE_URL + "/api/users/user/uuid1", config)
+      .then((resp) => {
+        return resp.data;
+      });
+
+    expect(response.error).not.toBe(undefined);
+    expect(response.success).toBe(undefined);
+  });
+
+  test("DELETE /user: Logged-in users can delete their own account", async () => {
+    const config = {
+      headers: {
+        authorization: `Bearer ${jwt[0]}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios
+      .delete(BASE_URL + "/api/users/user/jestuuid", config)
+      .then((resp) => {
+        return resp.data;
+      });
+
+    expect(response.error).toBe(undefined);
+    expect(response.success).not.toBe(undefined);
   });
 });
