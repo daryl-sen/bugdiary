@@ -65,4 +65,18 @@ describe("/api/locations", () => {
     expect(response[0].id).not.toBe(undefined);
     expect(response[0].diary_id).toBe(1);
   });
+
+  test("PATCH / the diary's owner can edit any specific location", async () => {
+    const response = await axios
+      .patch(BASE_URL + "/api/locations/", { id: 1, name: "updated" }, config)
+      .then((resp) => {
+        return resp.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    expect(response.error).toBe(undefined);
+    expect(response.name).toBe("updated");
+  });
 });
