@@ -47,4 +47,14 @@ describe("/api/diaries/ for guest users", () => {
     expect(response.error).not.toBe(undefined);
     expect(response.id).toBe(undefined);
   });
+
+  test("DELETE /diary", async () => {
+    const response = await axios
+      .delete(BASE_URL + "/api/diaries/diary")
+      .then((resp) => {
+        return resp.data;
+      });
+    expect(response.error).not.toBe(undefined);
+    expect(response.success).toBe(undefined);
+  });
 });
