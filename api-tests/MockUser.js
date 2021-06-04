@@ -97,14 +97,14 @@ class MockUser {
   }
 }
 
-const user1 = new mockUser(
-  "jestuuid",
-  "Jester",
-  "jester@fakeemail.com",
-  "password",
-  "User created by Jest testing. If this user still exists, something wrong has happened.",
-  1
-);
+// const user1 = new mockUser(
+//   "jestuuid",
+//   "Jester",
+//   "jester@fakeemail.com",
+//   "password",
+//   "User created by Jest testing. If this user still exists, something wrong has happened.",
+//   1
+// );
 
 // (async () => {
 //   await mockUser.clearDb(true);
