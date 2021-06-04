@@ -3,14 +3,7 @@ const { MockUser } = require("./MockUser");
 
 const BASE_URL = "http://localhost:3000";
 
-const newUser = new MockUser(
-  "jestuuid",
-  "Jester",
-  "jester@fakeemail.com",
-  "password",
-  "User created by Jest testing. If this user still exists, something wrong has happened.",
-  1
-);
+const newUser = new MockUser();
 
 let config = {};
 

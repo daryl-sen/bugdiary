@@ -9,14 +9,7 @@ describe("/api/users/", () => {
     done();
   }, 40000);
 
-  const newUser = new MockUser(
-    "jestuuid",
-    "Jester",
-    "jester@fakeemail.com",
-    "password",
-    "User created by Jest testing. If this user still exists, something wrong has happened.",
-    1
-  );
+  const newUser = new MockUser();
 
   test("GET /user: creates a new user, gets user info as response", async () => {
     const response = await newUser.create();
