@@ -79,4 +79,18 @@ describe("/api/locations", () => {
     expect(response.error).toBe(undefined);
     expect(response.name).toBe("updated");
   });
+
+  test("PATCH / the diary's owner can delete any specific location", async () => {
+    const response = await axios
+      .delete(BASE_URL + "/api/locations/1", config)
+      .then((resp) => {
+        return resp.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    expect(response.error).toBe(undefined);
+    expect(response.success).toBe(true);
+  });
 });

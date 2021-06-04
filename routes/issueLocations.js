@@ -66,11 +66,11 @@ module.exports = (models) => {
     })
 
     // delete location
-    .delete("/", authenticateToken, async (req, res) => {
+    .delete("/:id", authenticateToken, async (req, res) => {
       try {
         const targetLocation = await Location.findOne({
           where: {
-            uuid: req.body.uuid,
+            id: req.params.id,
           },
         });
         targetLocation.destroy();
