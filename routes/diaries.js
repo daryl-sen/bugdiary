@@ -31,15 +31,19 @@ module.exports = (models) => {
           },
         });
 
+        if (targetDiary.user_id !== req.decodedUser.id) {
+          return res.json({ error: "You cannot see another user's diaries." });
+        }
+
         const issues = await targetDiary.getIssues();
         return res.json({
           targetDiary,
           issues,
         });
       } catch (err) {
-        console.log(err.errors);
+        console.log(err);
+        return res.end("diaries route");
       }
-      return res.end("diaries route");
     })
 
     // create diary
@@ -86,7 +90,7 @@ module.exports = (models) => {
         return res.json({ success: true });
       } catch (err) {
         console.log(err);
-        return res.json(err);
+        return res.json({ error: err.error });
       }
     });
 
