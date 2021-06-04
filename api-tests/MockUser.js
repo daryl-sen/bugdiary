@@ -15,7 +15,6 @@ class MockUser {
 
   static async clearDb(seedUserTypes) {
     await models.sequelize.sync({ force: true });
-    console.log("The database has been cleared");
 
     if (seedUserTypes) {
       const mockUserTypes = [
@@ -34,7 +33,6 @@ class MockUser {
       ];
       for (const type of mockUserTypes) {
         await models.UserType.create(type);
-        console.log(`Created user type: ${type.type}`);
       }
     }
     models.sequelize.close();

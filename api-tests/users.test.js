@@ -21,11 +21,7 @@ describe("/api/users/", () => {
       1
     );
 
-    const response = await axios
-      .post(BASE_URL + "/api/users/user", newUser.details)
-      .then((resp) => {
-        return resp.data;
-      });
+    const response = await newUser.create();
 
     expect(response.uuid).toBe(newUser.details.uuid);
     expect(response.display_name).toBe(newUser.details.display_name);
