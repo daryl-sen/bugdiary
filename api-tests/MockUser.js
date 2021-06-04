@@ -35,7 +35,7 @@ class MockUser {
         await models.UserType.create(type);
       }
     }
-    models.sequelize.close();
+    await models.sequelize.close();
   }
 
   get details() {
@@ -61,20 +61,25 @@ class MockUser {
       });
   }
 
-  async login() {
+  async login(email, password) {
     const loginCreds = {
-      email: "jester@fakeemail.com",
-      password: "password",
+      email: email || "jester@fakeemail.com",
+      password: password || "password",
     };
-    this.jwt = await axios
+    const response = await axios
       .post(BASE_URL + "/api/users/login", loginCreds)
       .then((resp) => {
-        return resp.data.accessToken;
+        return resp.data;
       })
       .catch((err) => {
         throw new Error(err);
       });
-    return true;
+
+    if (response.accessToken) {
+      this.jwt = response.accessToken;
+    }
+
+    return response;
   }
 
   async destroy() {
@@ -93,24 +98,8 @@ class MockUser {
       .catch((err) => {
         throw new Error(err);
       });
+    return response;
   }
 }
-
-// const user1 = new MockUser(
-//   "jestuuid",
-//   "Jester",
-//   "jester@fakeemail.com",
-//   "password",
-//   "User created by Jest testing. If this user still exists, something wrong has happened.",
-//   1
-// );
-
-// (async () => {
-//   await MockUser.clearDb(true);
-//   await user1.create();
-//   await user1.login();
-//   await user1.destroy();
-//   await user1.login();
-// })();
 
 module.exports = { MockUser };
