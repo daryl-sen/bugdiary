@@ -51,4 +51,18 @@ describe("/api/locations", () => {
     expect(response.diary_id).toBe(1);
     expect(response.error).toBe(undefined);
   });
+
+  test("GET /:uuid a logged-in user can see all the locations associated with the diary", async () => {
+    const response = await axios
+      .get(BASE_URL + "/api/locations/testdiary1", config)
+      .then((resp) => {
+        return resp.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    expect(Array.isArray(response)).toBe(true);
+    expect(response[0].id).not.toBe(undefined);
+    expect(response[0].diary_id).toBe(1);
+  });
 });
