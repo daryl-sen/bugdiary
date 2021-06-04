@@ -24,6 +24,7 @@ module.exports = (models) => {
         req.session.jwt = accessToken;
         return res.status(201).json(newUser);
       } catch (error) {
+        console.log(error);
         return res.status(200).json({ error: error.errors });
       }
     })

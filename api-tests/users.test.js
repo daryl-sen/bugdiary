@@ -1,33 +1,36 @@
 // IMPORTANT: Please run these tests AFTER seeding the database
 
 const axios = require("axios");
+const { MockUser } = require("./MockUser");
 
 const BASE_URL = "http://localhost:3000";
 
-const jwt = [];
+describe("/api/users/", () => {
+  beforeAll(async (done) => {
+    await MockUser.clearDb(true);
+    done();
+  }, 20000);
 
-describe.skip("/api/users/", () => {
-  test("GET /user: creates a new user, gets user info as response", async () => {
-    const newUser = {
-      uuid: "jestuuid",
-      display_name: "Jester",
-      email: "jester@fakeemail.com",
-      password: "password",
-      bio:
-        "User created by Jest testing. If this user still exists, something wrong has happened.",
-      user_type_id: 1,
-    };
+  test.only("GET /user: creates a new user, gets user info as response", async () => {
+    const newUser = new MockUser(
+      "jestuuid",
+      "Jester",
+      "jester@fakeemail.com",
+      "password",
+      "User created by Jest testing. If this user still exists, something wrong has happened.",
+      1
+    );
 
     const response = await axios
-      .post(BASE_URL + "/api/users/user", newUser)
+      .post(BASE_URL + "/api/users/user", newUser.details)
       .then((resp) => {
         return resp.data;
       });
 
-    expect(response.uuid).toBe(newUser.uuid);
-    expect(response.display_name).toBe(newUser.display_name);
-    expect(response.email).toBe(newUser.email);
-    expect(response.bio).toBe(newUser.bio);
+    expect(response.uuid).toBe(newUser.details.uuid);
+    expect(response.display_name).toBe(newUser.details.display_name);
+    expect(response.email).toBe(newUser.details.email);
+    expect(response.bio).toBe(newUser.details.bio);
   });
 
   test("POST /login: users can log in and get a jwt response", async () => {
