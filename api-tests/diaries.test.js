@@ -24,6 +24,17 @@ describe("/api/diaries/ for guest users", () => {
         return resp.data;
       });
     expect(response.error).not.toBe(undefined);
-    expect(Array.isArray(response)).not.toBe(true);
+    expect(response.targetDiary).toBe(undefined);
+    expect(response.issues).toBe(undefined);
+  });
+
+  test("POST /diary", async () => {
+    const response = await axios
+      .get(BASE_URL + "/api/diaries/diary")
+      .then((resp) => {
+        return resp.data;
+      });
+    expect(response.error).not.toBe(undefined);
+    expect(response.id).toBe(undefined);
   });
 });

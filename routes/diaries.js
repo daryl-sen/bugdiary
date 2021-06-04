@@ -53,7 +53,7 @@ module.exports = (models) => {
         return res.json(newDiary);
       } catch (err) {
         console.log(err);
-        return res.status(500).json(err);
+        return res.json({ error: err });
       }
     })
 
