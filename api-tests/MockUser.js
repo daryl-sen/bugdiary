@@ -4,12 +4,12 @@ const models = require("../models");
 
 class MockUser {
   constructor(uuid, displayName, email, password, bio, userTypeId) {
-    this.uuid = uuid;
-    this.displayName = displayName;
-    this.email = email;
-    this.password = password;
-    this.bio = bio;
-    this.userTypeId = userTypeId;
+    this.uuid = uuid || "jesteruuid";
+    this.displayName = displayName || "Jester";
+    this.email = email || "jester@fakeemail.com";
+    this.password = password || "password";
+    this.bio = bio || "This is a fake user created for unit testing.";
+    this.userTypeId = userTypeId || 1;
     this.jwt = undefined;
   }
 
