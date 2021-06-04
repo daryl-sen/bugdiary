@@ -1,3 +1,5 @@
+// IMPORTANT: Please run these tests AFTER seeding the database
+
 const axios = require("axios");
 
 const BASE_URL = "http://localhost:3000";
