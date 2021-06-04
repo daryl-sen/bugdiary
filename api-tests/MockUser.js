@@ -37,6 +37,7 @@ class MockUser {
         console.log(`Created user type: ${type.type}`);
       }
     }
+    models.sequelize.close();
   }
 
   get details() {
@@ -97,7 +98,7 @@ class MockUser {
   }
 }
 
-// const user1 = new mockUser(
+// const user1 = new MockUser(
 //   "jestuuid",
 //   "Jester",
 //   "jester@fakeemail.com",
@@ -107,7 +108,7 @@ class MockUser {
 // );
 
 // (async () => {
-//   await mockUser.clearDb(true);
+//   await MockUser.clearDb(true);
 //   await user1.create();
 //   await user1.login();
 //   await user1.destroy();
