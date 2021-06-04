@@ -17,12 +17,25 @@ describe("/api/locations", () => {
         "Content-Type": "application/json",
       },
     };
+    // create a new diary for the test user
+    await axios.post(
+      BASE_URL + "/api/diaries/diary",
+      {
+        uuid: "testdiary1",
+        name: "My First Bug Diary",
+        description: "disintermediate plug-and-play paradigms",
+        passcode: "mypasscode",
+        user_id: 1,
+      },
+      config
+    );
     done();
   });
 
   test("POST / a logged-in user can post a new location to their diary", async () => {
     const newLocation = {
       name: "name",
+      diary_id: 1,
     };
 
     const response = await axios
@@ -35,6 +48,7 @@ describe("/api/locations", () => {
       });
 
     expect(response.id).not.toBe(undefined);
+    expect(response.diary_id).toBe(1);
     expect(response.error).toBe(undefined);
   });
 });
