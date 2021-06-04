@@ -78,14 +78,19 @@ module.exports = (models) => {
     })
 
     // delete diary
-    .delete("/diary", authenticateToken, async (req, res) => {
-      const uuid = req.body.uuid;
+    .delete("/diary/:uuid", authenticateToken, async (req, res) => {
+      const uuid = req.params.uuid;
       try {
         const targetDiary = await Diary.findOne({
           where: {
             uuid,
           },
         });
+        if (targetDiary.user_id !== req.decodedUser.id) {
+          return res.json({
+            error: "You cannot delete a diary that belongs to someone else.",
+          });
+        }
         targetDiary.destroy();
         return res.json({ success: true });
       } catch (err) {
