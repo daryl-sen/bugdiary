@@ -30,7 +30,17 @@ describe("/api/diaries/ for guest users", () => {
 
   test("POST /diary", async () => {
     const response = await axios
-      .get(BASE_URL + "/api/diaries/diary")
+      .post(BASE_URL + "/api/diaries/diary")
+      .then((resp) => {
+        return resp.data;
+      });
+    expect(response.error).not.toBe(undefined);
+    expect(response.id).toBe(undefined);
+  });
+
+  test("PATCH /diary", async () => {
+    const response = await axios
+      .patch(BASE_URL + "/api/diaries/diary")
       .then((resp) => {
         return resp.data;
       });
