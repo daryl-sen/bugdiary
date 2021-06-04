@@ -1,11 +1,10 @@
 const axios = require("axios");
-const models = require("../models");
 
 const BASE_URL = "http://localhost:3000";
 
 const jwt = [];
 
-describe("/api/users/user", () => {
+describe.skip("/api/users/", () => {
   test("GET /user: creates a new user, gets user info as response", async () => {
     const newUser = {
       uuid: "jestuuid",
