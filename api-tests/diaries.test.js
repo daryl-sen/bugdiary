@@ -1,10 +1,7 @@
-// IMPORTANT: Please run these tests AFTER seeding the database
-
 const axios = require("axios");
+const { MockUser } = require("./MockUser");
 
 const BASE_URL = "http://localhost:3000";
-
-const jwt = [];
 
 describe("/api/diaries/ for guest users", () => {
   test("GET /", async () => {

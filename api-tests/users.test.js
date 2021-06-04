@@ -1,5 +1,3 @@
-// IMPORTANT: Please run these tests AFTER seeding the database
-
 const axios = require("axios");
 const { MockUser } = require("./MockUser");
 
