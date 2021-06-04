@@ -1,5 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
+const { nanoidNum } = require("../helpers/nanoid-custom");
+
 module.exports = (sequelize, DataTypes) => {
   class Issue extends Model {
     /**
@@ -38,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         unique: true,
         defaultValue: DataTypes.UUIDV4,
+      },
+      reference: {
+        type: DataTypes.STRING,
+        defaultValue: nanoidNum,
       },
       details: {
         type: DataTypes.TEXT,
