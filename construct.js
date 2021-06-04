@@ -12,6 +12,9 @@ const newData = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
+    define: {
+      underscored: true,
+    },
   },
   test: {
     username: process.env.DB_USERNAME,
@@ -19,6 +22,9 @@ const newData = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
+    define: {
+      underscored: true,
+    },
   },
   production: {
     username: process.env.DB_USERNAME,
@@ -26,6 +32,9 @@ const newData = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
+    define: {
+      underscored: true,
+    },
   },
 };
 
