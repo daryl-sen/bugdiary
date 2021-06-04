@@ -58,7 +58,7 @@ describe("/api/diaries/ for guest users", () => {
 
   test("DELETE /diary", async () => {
     const response = await axios
-      .delete(BASE_URL + "/api/diaries/diary")
+      .delete(BASE_URL + "/api/diaries/diary/uuid")
       .then((resp) => {
         return resp.data;
       });
@@ -67,7 +67,7 @@ describe("/api/diaries/ for guest users", () => {
   });
 });
 
-describe("/api/diaries/ for guest users", () => {
+describe("/api/diaries/ for logged-in users", () => {
   beforeAll(async (done) => {
     await MockUser.clearDb(true);
     await newUser.create();
@@ -79,7 +79,7 @@ describe("/api/diaries/ for guest users", () => {
       },
     };
     done();
-  }, 20000);
+  }, 40000);
 
   test("POST /diary", async () => {
     const response = await axios

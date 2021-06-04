@@ -7,7 +7,7 @@ describe("/api/users/", () => {
   beforeAll(async (done) => {
     await MockUser.clearDb(true);
     done();
-  }, 20000);
+  }, 40000);
 
   const newUser = new MockUser(
     "jestuuid",
