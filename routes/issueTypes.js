@@ -17,22 +17,6 @@ module.exports = (models) => {
       }
     })
 
-    // read type
-    .get("/", authenticateToken, async (req, res) => {
-      const uuid = req.body.uuid;
-      try {
-        const targetType = await Type.findOne({
-          where: {
-            uuid,
-          },
-        });
-        return res.json(targetType);
-      } catch (err) {
-        console.log(err);
-        return res.json(err);
-      }
-    })
-
     // read all types
     .get("/:diaryUuid", authenticateToken, async (req, res) => {
       try {
