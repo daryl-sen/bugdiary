@@ -19,6 +19,7 @@ export default function SignupForm(props) {
       displayName: "",
       email: "",
       password: "",
+      confirmPassword: "",
       bio: "",
     },
 
@@ -34,6 +35,9 @@ export default function SignupForm(props) {
       password: Yup.string()
         .min(8, "Your password must be at least 8 characters.")
         .required("Your password is required for loggin in."),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Passwords must match!")
+        .required(),
       bio: Yup.string().max(
         200,
         "Your bio is too long, please keep it under 200 characters."
@@ -104,6 +108,16 @@ export default function SignupForm(props) {
       />
       {formik.touched.password && formik.errors.password ? (
         <div className="form-error">{formik.errors.password}</div>
+      ) : null}
+
+      <label htmlFor="confirmPassword">Confirm Password</label>
+      <input
+        id="confirmPassword"
+        type="password"
+        {...formik.getFieldProps("confirmPassword")}
+      />
+      {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+        <div className="form-error">{formik.errors.confirmPassword}</div>
       ) : null}
 
       <label htmlFor="bio">Short Bio</label>
