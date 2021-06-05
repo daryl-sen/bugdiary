@@ -1,11 +1,18 @@
+import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
+import LoadingIndicator from "../LoadingIndicator";
+
+// context
+import { useContext, useState } from "react";
+import { UserContext } from "../../App";
+
+// notifications
+import { NotificationManager } from "react-notifications";
+
+// form
 import StylizedForm from "./StylizedForm";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import axios from "axios";
-import { Link, useHistory } from "react-router-dom";
-import { NotificationManager } from "react-notifications";
-import { useContext, useState } from "react";
-import { UserContext } from "../../App";
 
 export default function SignupForm(props) {
   const [loadingStatus, setLoadingStatus] = useState(false);
