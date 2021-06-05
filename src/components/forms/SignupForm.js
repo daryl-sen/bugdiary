@@ -1,7 +1,9 @@
 import StylizedForm from "./StylizedForm";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
+import { NotificationManager } from "react-notifications";
 
 export default function SignupForm(props) {
   const formik = useFormik({
@@ -11,6 +13,7 @@ export default function SignupForm(props) {
       password: "",
       bio: "",
     },
+
     validationSchema: Yup.object({
       displayName: Yup.string()
         .max(30, "Please keep your display name less than 30 characters.")
@@ -28,8 +31,34 @@ export default function SignupForm(props) {
         "Your bio is too long, please keep it under 200 characters."
       ),
     }),
-    onSubmit: (values) => {
-      console.log(values);
+
+    onSubmit: async (values) => {
+      const unique = await axios
+        .get(`/api/users/check-unique?email=${values.email}`)
+        .then((resp) => {
+          return resp.data.unique;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      if (unique) {
+        await axios
+          .post("/api/users/user", {
+            ...values,
+            display_name: values.displayName,
+          })
+          .then((resp) => {
+            if (resp.data.error) {
+              NotificationManager.error(
+                "An error has occurred, we're figuring out what!"
+              );
+              return;
+            }
+          });
+      } else {
+        NotificationManager.error("This email is already in use.");
+      }
     },
   });
 

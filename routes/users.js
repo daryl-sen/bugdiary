@@ -40,19 +40,18 @@ module.exports = (models) => {
       });
     })
 
-    // .get("/check-unique", async (req, res) => {
-    //   const email = req.query.email;
-    //   const existingEmail = await User.count({
-    //     where: {
-    //       email,
-    //     },
-    //   });
-    //   console.log(email);
-    //   if (existingEmail) {
-    //     return res.status(200).json({ unique: false });
-    //   }
-    //   return res.status(200).json({ unique: true });
-    // })
+    .get("/check-unique", async (req, res) => {
+      const email = req.query.email;
+      const existingEmail = await User.count({
+        where: {
+          email,
+        },
+      });
+      if (existingEmail) {
+        return res.status(200).json({ unique: false });
+      }
+      return res.status(200).json({ unique: true });
+    })
 
     // login user - no authentication required
     .post("/login", async (req, res) => {
