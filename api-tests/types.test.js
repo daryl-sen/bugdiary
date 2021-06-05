@@ -6,7 +6,7 @@ const BASE_URL = "http://localhost:3000";
 const newUser = new MockUser();
 let config = {};
 
-describe("/api/locations", () => {
+describe("/api/types", () => {
   beforeAll(async (done) => {
     await MockUser.clearDb(true);
     await newUser.create();
@@ -32,14 +32,14 @@ describe("/api/locations", () => {
     done();
   });
 
-  test("POST / a logged-in user can post a new location to their diary", async () => {
-    const newLocation = {
+  test("POST / a logged-in user can post a new type to their diary", async () => {
+    const newType = {
       name: "name",
       diary_id: 1,
     };
 
     const response = await axios
-      .post(BASE_URL + "/api/locations/", newLocation, config)
+      .post(BASE_URL + "/api/types/", newType, config)
       .then((resp) => {
         return resp.data;
       })
@@ -52,9 +52,9 @@ describe("/api/locations", () => {
     expect(response.error).toBe(undefined);
   });
 
-  test("GET /:uuid a logged-in user can see all the locations associated with the diary", async () => {
+  test("GET /:uuid a logged-in user can see all the types associated with the diary", async () => {
     const response = await axios
-      .get(BASE_URL + "/api/locations/testdiary1", config)
+      .get(BASE_URL + "/api/types/testdiary1", config)
       .then((resp) => {
         return resp.data;
       })
@@ -66,9 +66,9 @@ describe("/api/locations", () => {
     expect(response[0].diary_id).toBe(1);
   });
 
-  test("PATCH / the diary's owner can edit any specific location", async () => {
+  test("PATCH / the diary's owner can edit any specific type", async () => {
     const response = await axios
-      .patch(BASE_URL + "/api/locations/", { id: 1, name: "updated" }, config)
+      .patch(BASE_URL + "/api/types/", { id: 1, name: "updated" }, config)
       .then((resp) => {
         return resp.data;
       })
@@ -80,9 +80,9 @@ describe("/api/locations", () => {
     expect(response.name).toBe("updated");
   });
 
-  test("DELETE / the diary's owner can delete any specific location", async () => {
+  test("DELETE / the diary's owner can delete any specific type", async () => {
     const response = await axios
-      .delete(BASE_URL + "/api/locations/1", config)
+      .delete(BASE_URL + "/api/types/1", config)
       .then((resp) => {
         return resp.data;
       })
