@@ -23,14 +23,17 @@ function App() {
     axios
       .get("/api/users/check-token")
       .then((resp) => {
-        setUserSession((prev) => {
+        if (resp.data.error) {
+          return setUserSession((prev) => {
+            return { ...prev, jwt: null };
+          });
+        }
+        return setUserSession((prev) => {
           return { ...prev, jwt: resp.data.jwt };
         });
       })
       .catch((err) => {
-        setUserSession((prev) => {
-          return { ...prev, jwt: null };
-        });
+        console.log(err);
       });
   }, [userSession.jwt]);
 

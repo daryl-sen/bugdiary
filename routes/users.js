@@ -31,7 +31,7 @@ module.exports = (models) => {
 
     .get("/check-token", async (req, res) => {
       if (!req.session.jwt) {
-        return res.status(401).json({
+        return res.json({
           error: "Not logged in",
         });
       }

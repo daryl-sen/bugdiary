@@ -70,6 +70,7 @@ export default function SignupForm(props) {
       <input
         id="password"
         type="password"
+        autoComplete="off"
         {...formik.getFieldProps("password")}
       />
       {formik.touched.password && formik.errors.password ? (
@@ -80,6 +81,7 @@ export default function SignupForm(props) {
       <input
         id="confirmPassword"
         type="password"
+        autoComplete="off"
         {...formik.getFieldProps("confirmPassword")}
       />
       {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
@@ -92,11 +94,11 @@ export default function SignupForm(props) {
         <div className="form-error">{formik.errors.bio}</div>
       ) : null}
 
-      <button type="submit" class="button-primary">
+      <button type="submit" className="button-primary">
         Sign Up
       </button>
       <Link to="/login">
-        <button type="button" class="custom">
+        <button type="button" className="custom">
           Login
         </button>
       </Link>

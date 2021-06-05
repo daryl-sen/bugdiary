@@ -30,13 +30,14 @@ export default function LoginForm(props) {
       <input
         id="password"
         type="password"
+        autoComplete="off"
         {...formik.getFieldProps("password")}
       />
-      <button type="submit" class="button-primary">
+      <button type="submit" className="button-primary">
         Log In
       </button>
       <Link to="/signup">
-        <button type="button" class="custom">
+        <button type="button" className="custom">
           Sign up
         </button>
       </Link>
