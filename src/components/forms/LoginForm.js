@@ -13,33 +13,11 @@ import { NotificationManager } from "react-notifications";
 import StylizedForm from "./StylizedForm";
 import { useFormik } from "formik";
 
+// custom hooks
+import useUserFunctions from "../../hooks/useUserFunctions";
+
 export default function LoginForm(props) {
-  const [loadingStatus, setLoadingStatus] = useState(false);
-  const history = useHistory();
-  const uinfo = useContext(UserContext);
-
-  const loginUser = async (email, password) => {
-    const accessToken = await axios
-      .post("/api/users/login", {
-        email,
-        password,
-      })
-      .then((resp) => {
-        if (resp.data.accessToken) {
-          return resp.data.accessToken;
-        }
-        return null;
-      });
-
-    if (accessToken) {
-      uinfo.setUserSession((prev) => {
-        return { ...prev, jwt: accessToken };
-      });
-      return true;
-    } else {
-      return false;
-    }
-  };
+  const { loginUser, loadingStatus } = useUserFunctions();
 
   const formik = useFormik({
     initialValues: {
@@ -47,19 +25,8 @@ export default function LoginForm(props) {
       password: "",
     },
     onSubmit: async (values) => {
-      setLoadingStatus(true);
       const { email, password } = values;
-      const authenticated = await loginUser(email, password);
-      if (authenticated) {
-        NotificationManager.success("Welcome back!", "Logged In");
-        history.push("/" + props.next);
-      } else {
-        setLoadingStatus(false);
-        NotificationManager.error(
-          "User or password is incorrect.",
-          "Login Failed"
-        );
-      }
+      loginUser(email, password);
     },
   });
 
