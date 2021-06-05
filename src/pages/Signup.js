@@ -12,7 +12,7 @@ export default function Signup(props) {
       styleOverride={{
         maxWidth: "500px",
         margin: "auto",
-        height: "80vh",
+        minHeight: "80vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-around",
