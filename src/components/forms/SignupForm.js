@@ -4,8 +4,16 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import { NotificationManager } from "react-notifications";
+import { useContext, useState } from "react";
+import { UserContext } from "../../App";
 
 export default function SignupForm(props) {
+  const [loadingStatus, setLoadingStatus] = useState(false);
+
+  const uinfo = useContext(UserContext);
+
+  const history = useHistory();
+
   const formik = useFormik({
     initialValues: {
       displayName: "",
@@ -43,6 +51,7 @@ export default function SignupForm(props) {
         });
 
       if (unique) {
+        // create the user
         await axios
           .post("/api/users/user", {
             ...values,
@@ -55,6 +64,13 @@ export default function SignupForm(props) {
               );
               return;
             }
+
+            // automatically log the user in
+            uinfo.setUserSession((prev) => {
+              return { ...prev, jwt: resp.data.accessToken };
+            });
+
+            history.push("/diaries");
           });
       } else {
         NotificationManager.error("This email is already in use.");

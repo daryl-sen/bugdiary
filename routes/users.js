@@ -22,7 +22,7 @@ module.exports = (models) => {
           process.env.ACCESS_TOKEN_SECRET
         );
         req.session.jwt = accessToken;
-        return res.status(201).json(newUser);
+        return res.status(201).json({ newUser, accessToken });
       } catch (error) {
         console.log(error);
         return res.status(200).json({ error: error.errors });
