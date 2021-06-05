@@ -1,6 +1,7 @@
 import StylizedForm from "./StylizedForm";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { Link } from "react-router-dom";
 
 export default function SignupForm(props) {
   const formik = useFormik({
@@ -66,7 +67,14 @@ export default function SignupForm(props) {
         <div className="form-error">{formik.errors.bio}</div>
       ) : null}
 
-      <button type="submit">Submit</button>
+      <button type="submit" class="button-primary">
+        Sign Up
+      </button>
+      <Link to="/login">
+        <button type="button" class="custom">
+          Login
+        </button>
+      </Link>
     </StylizedForm>
   );
 }

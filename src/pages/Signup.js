@@ -1,4 +1,4 @@
-import LoginForm from "../components/forms/LoginForm";
+import SignupForm from "../components/forms/SignupForm";
 import WhiteBgContainer from "../components/WhiteBgContainer";
 import { useLocation } from "react-router-dom";
 import SingleColumnLayout from "../components/layout/SingleColumnLayout";
@@ -20,7 +20,7 @@ export default function Signup(props) {
     >
       <WhiteBgContainer>
         <h1>Glad to have you!</h1>
-        <LoginForm next={next} />
+        <SignupForm next={next} />
       </WhiteBgContainer>
     </SingleColumnLayout>
   );
