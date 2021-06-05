@@ -1,4 +1,3 @@
-import LoadingIndicator from "../components/LoadingIndicator";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 // context
@@ -42,8 +41,43 @@ export default function useUserFunctions(next) {
     }
   };
 
+  const createUser = async (values) => {
+    setLoadingStatus(true);
+    const unique = await axios
+      .get(`/api/users/check-unique?email=${values.email}`)
+      .then((resp) => {
+        return resp.data.unique;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    if (unique) {
+      await axios
+        .post("/api/users/user", {
+          ...values,
+          display_name: values.displayName,
+        })
+        .then((resp) => {
+          if (resp.data.error) {
+            NotificationManager.error(
+              "An error has occurred, we're figuring out what!"
+            );
+            return;
+          }
+          // automatically log the user in
+          uInfo.setUserSession((prev) => {
+            return { ...prev, jwt: resp.data.accessToken };
+          });
+
+          history.push("/" + (next || "diaries"));
+        });
+    } else {
+      setLoadingStatus(false);
+      NotificationManager.error("This email is already in use.");
+    }
+  };
   const logoutUser = () => {};
-  const createUser = () => {};
   const updateUser = () => {};
   const deleteUser = () => {};
 

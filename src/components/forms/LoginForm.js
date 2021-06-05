@@ -17,8 +17,7 @@ export default function LoginForm(props) {
       password: "",
     },
     onSubmit: async (values) => {
-      const { email, password } = values;
-      loginUser(email, password);
+      loginUser(values.email, values.password); // validate and create
     },
   });
 

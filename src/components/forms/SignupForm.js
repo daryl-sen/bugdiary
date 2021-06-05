@@ -1,25 +1,16 @@
-import axios from "axios";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LoadingIndicator from "../LoadingIndicator";
-
-// context
-import { useContext, useState } from "react";
-import { UserContext } from "../../App";
-
-// notifications
-import { NotificationManager } from "react-notifications";
 
 // form
 import StylizedForm from "./StylizedForm";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
+// custom hooks
+import useUserFunctions from "../../hooks/useUserFunctions";
+
 export default function SignupForm(props) {
-  const [loadingStatus, setLoadingStatus] = useState(false);
-
-  const uinfo = useContext(UserContext);
-
-  const history = useHistory();
+  const { createUser, loadingStatus } = useUserFunctions();
 
   const formik = useFormik({
     initialValues: {
@@ -52,45 +43,13 @@ export default function SignupForm(props) {
     }),
 
     onSubmit: async (values) => {
-      const unique = await axios
-        .get(`/api/users/check-unique?email=${values.email}`)
-        .then((resp) => {
-          return resp.data.unique;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      if (unique) {
-        // create the user
-        await axios
-          .post("/api/users/user", {
-            ...values,
-            display_name: values.displayName,
-          })
-          .then((resp) => {
-            if (resp.data.error) {
-              NotificationManager.error(
-                "An error has occurred, we're figuring out what!"
-              );
-              return;
-            }
-
-            // automatically log the user in
-            uinfo.setUserSession((prev) => {
-              return { ...prev, jwt: resp.data.accessToken };
-            });
-
-            history.push("/diaries");
-          });
-      } else {
-        NotificationManager.error("This email is already in use.");
-      }
+      await createUser(values); // validates and creates
     },
   });
 
   return (
     <StylizedForm formik={formik}>
+      {loadingStatus && <LoadingIndicator />}
       <label htmlFor="displayName">Display Name</label>
       <input
         id="displayName"
