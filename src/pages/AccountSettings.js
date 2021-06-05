@@ -1,13 +1,13 @@
 import SingleColumnLayout from "../components/layout/SingleColumnLayout";
-import useLogout from "../hooks/useLogout";
+import useUserFunctions from "../hooks/useUserFunctions";
 
 export default function AccountSettings() {
-  const logout = useLogout();
+  const { logoutUser } = useUserFunctions();
 
   return (
     <SingleColumnLayout>
       <h1>My Account</h1>
-      <button onClick={logout}>Logout</button>
+      <button onClick={logoutUser}>Logout</button>
     </SingleColumnLayout>
   );
 }

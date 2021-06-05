@@ -70,6 +70,7 @@ export default function useUserFunctions(next) {
             return { ...prev, jwt: resp.data.accessToken };
           });
 
+          NotificationManager.success("Welcome to BugDiary.com!");
           history.push("/" + (next || "diaries"));
         });
     } else {
@@ -77,7 +78,16 @@ export default function useUserFunctions(next) {
       NotificationManager.error("This email is already in use.");
     }
   };
-  const logoutUser = () => {};
+  const logoutUser = () => {
+    axios.post("/api/users/logout").then((resp) => {
+      NotificationManager.success("Logged out!");
+      uInfo.setUserSession((prev) => {
+        return { ...prev, jwt: null };
+      });
+      history.push("/");
+    });
+  };
+
   const updateUser = () => {};
   const deleteUser = () => {};
 
