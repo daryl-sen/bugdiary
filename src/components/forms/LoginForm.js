@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import { useContext } from "react";
 import { UserContext } from "../../App";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { NotificationManager } from "react-notifications";
 
 export default function LoginForm(props) {
@@ -73,7 +73,14 @@ export default function LoginForm(props) {
         type="password"
         {...formik.getFieldProps("password")}
       />
-      <button type="submit">Log In</button>
+      <button type="submit" class="button-primary">
+        Log In
+      </button>
+      <Link to="/signup">
+        <button type="button" class="custom">
+          Sign up
+        </button>
+      </Link>
     </StylizedForm>
   );
 }
