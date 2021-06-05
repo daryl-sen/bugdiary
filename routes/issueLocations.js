@@ -3,7 +3,7 @@ const router = express.Router();
 const { authenticateToken } = require("../helpers/authenticate-token");
 
 module.exports = (models) => {
-  const { Issue, Diary, Location, User } = models;
+  const { Diary, Location } = models;
   router
 
     // create new location
@@ -14,22 +14,6 @@ module.exports = (models) => {
       } catch (err) {
         console.log(err);
         return res.status(500).json(err);
-      }
-    })
-
-    // read location
-    .get("/", authenticateToken, async (req, res) => {
-      const uuid = req.body.uuid;
-      try {
-        const targetLocation = await Location.findOne({
-          where: {
-            uuid,
-          },
-        });
-        return res.json(targetLocation);
-      } catch (err) {
-        console.log(err);
-        return res.json(err);
       }
     })
 
