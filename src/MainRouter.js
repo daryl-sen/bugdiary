@@ -16,6 +16,7 @@ import Diaries from "./pages/Diaries";
 import DiarySetup from "./pages/DiarySetup";
 import Homepage from "./pages/Homepage";
 import AboutUs from "./pages/AboutUs";
+import Signup from "./pages/Signup";
 
 export default function MainRouter(props) {
   const [menuState, setMenuToggle] = useState(false);
@@ -54,6 +55,9 @@ export default function MainRouter(props) {
         </Route>
         <Route exact path="/about">
           <AboutUs />
+        </Route>
+        <Route exact path="/signup">
+          <Signup />
         </Route>
       </Switch>
     </Router>
