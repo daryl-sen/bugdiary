@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 
 // custom hooks
 import useUserFunctions from "../../hooks/useUserFunctions";
+import { render } from "@testing-library/react";
 
 export default function SignupForm(props) {
   const { createUser, loadingStatus } = useUserFunctions();
@@ -47,6 +48,12 @@ export default function SignupForm(props) {
     },
   });
 
+  const renderFieldError = (fieldName) => {
+    if (formik.touched[fieldName] && formik.errors[fieldName]) {
+      return <div className="form-error">{formik.errors[fieldName]}</div>;
+    }
+  };
+
   return (
     <StylizedForm formik={formik}>
       {loadingStatus && <LoadingIndicator />}
@@ -56,15 +63,11 @@ export default function SignupForm(props) {
         type="text"
         {...formik.getFieldProps("displayName")}
       />
-      {formik.touched.displayName && formik.errors.displayName ? (
-        <div className="form-error">{formik.errors.displayName}</div>
-      ) : null}
+      {renderFieldError("displayName")}
 
       <label htmlFor="email">Email</label>
       <input id="email" type="email" {...formik.getFieldProps("email")} />
-      {formik.touched.email && formik.errors.email ? (
-        <div className="form-error">{formik.errors.email}</div>
-      ) : null}
+      {renderFieldError("email")}
 
       <label htmlFor="password">Password</label>
       <input
@@ -73,9 +76,7 @@ export default function SignupForm(props) {
         autoComplete="off"
         {...formik.getFieldProps("password")}
       />
-      {formik.touched.password && formik.errors.password ? (
-        <div className="form-error">{formik.errors.password}</div>
-      ) : null}
+      {renderFieldError("password")}
 
       <label htmlFor="confirmPassword">Confirm Password</label>
       <input
@@ -84,15 +85,11 @@ export default function SignupForm(props) {
         autoComplete="off"
         {...formik.getFieldProps("confirmPassword")}
       />
-      {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-        <div className="form-error">{formik.errors.confirmPassword}</div>
-      ) : null}
+      {renderFieldError("confirmPassword")}
 
       <label htmlFor="bio">Short Bio</label>
       <textarea id="bio" {...formik.getFieldProps("bio")}></textarea>
-      {formik.touched.bio && formik.errors.bio ? (
-        <div className="form-error">{formik.errors.bio}</div>
-      ) : null}
+      {renderFieldError("bio")}
 
       <button type="submit" className="button-primary">
         Sign Up
