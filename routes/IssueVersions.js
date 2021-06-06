@@ -8,12 +8,21 @@ module.exports = (models) => {
 
     // create new version
     .post("/", authenticateToken, async (req, res) => {
+      const uuid = req.body.uuid;
       try {
-        const newVersion = await Version.create({ ...req.body });
+        const targetDiary = await Diary.findOne({
+          where: {
+            uuid,
+          },
+        });
+        const newVersion = await Version.create({
+          ...req.body,
+          diary_id: targetDiary.id,
+        });
         return res.json(newVersion);
       } catch (err) {
         console.log(err);
-        return res.json(err);
+        return res.json({ error: err });
       }
     })
 

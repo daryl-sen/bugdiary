@@ -7,8 +7,6 @@ import NotificationManager from "react-notifications/lib/NotificationManager";
 
 import IssueTag from "../components/elements/IssueTag";
 
-const BASE_URL = "http://localhost:3000";
-
 export default function useDiaryFunctions() {
   const [diaryConfig, setDiaryConfig] = useState(null);
 
@@ -25,6 +23,27 @@ export default function useDiaryFunctions() {
       .get(process.env.REACT_APP_API_URL + "/api/versions/" + uuid, headers)
       .then((resp) => {
         setDiaryConfig(resp.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const createVersion = (values) => {
+    const headers = {
+      headers: {
+        authorization: `Bearer ${uInfo.jwt}`,
+        "Content-Type": "application/json",
+      },
+    };
+    axios
+      .post(process.env.REACT_APP_API_URL + "/api/versions/", values, headers)
+      .then((resp) => {
+        if (!resp.data.error) {
+          NotificationManager.success("New version created!");
+        } else {
+          console.log(resp.data.error);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -78,6 +97,7 @@ export default function useDiaryFunctions() {
     uInfo,
     diaryConfig,
     getVersions,
+    createVersion,
     getLocations,
     getTypes,
     renderTags,

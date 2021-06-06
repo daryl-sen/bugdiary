@@ -12,7 +12,12 @@ import useDiarySetupFunctions from "../../hooks/useDiarySetupFunctions";
 export default function DiaryVersionSetup(props) {
   const uuid = useParams().uuid;
 
-  const { diaryConfig, getVersions, renderTags } = useDiarySetupFunctions();
+  const {
+    diaryConfig,
+    getVersions,
+    createVersion,
+    renderTags,
+  } = useDiarySetupFunctions();
 
   useEffect(() => {
     getVersions(uuid);
@@ -20,18 +25,19 @@ export default function DiaryVersionSetup(props) {
 
   const formik = useFormik({
     initialValues: {
-      version: "",
+      name: "",
     },
 
     validationSchema: Yup.object({
-      version: Yup.string()
+      name: Yup.string()
         .max(10, "Version name must be less than 10 characters.")
         .required("The version name is required."),
     }),
 
     onSubmit: (values) => {
+      // console.log({ ...values, uuid });
+      createVersion({ ...values, uuid }); // validates and creates
       props.nextStep();
-      console.log(values); // validates and creates
     },
   });
 
@@ -49,8 +55,8 @@ export default function DiaryVersionSetup(props) {
         Your project's issues can be organized and filtered by version names.
       </p>
 
-      <input type="text" id="version" {...formik.getFieldProps("version")} />
-      {renderFieldError("version")}
+      <input type="text" id="name" {...formik.getFieldProps("name")} />
+      {renderFieldError("name")}
       <button type="submit" className="custom button-primary">
         Create Version
       </button>
