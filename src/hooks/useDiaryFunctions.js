@@ -9,12 +9,11 @@ export default function useDiaryFunctions() {
   const [diaryContent, setDiaryContent] = useState(null);
   const uInfo = useContext(UserContext);
 
-  const createDiary = () => {};
+  const createDiary = (diaryDetails) => {};
 
-  const getDiaryContent = async (uuid) => {
-    console.log("ran");
+  const getDiaryContent = (uuid) => {
     const authorization = { headers: { authorization: `Bearer ${uInfo.jwt}` } };
-    await axios
+    axios
       .get("/api/diaries/" + uuid, authorization)
       .then((resp) => {
         setDiaryContent(resp.data);
