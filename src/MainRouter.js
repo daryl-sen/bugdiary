@@ -14,6 +14,7 @@ import LoginPage from "./pages/LoginPage";
 import AccountSettings from "./pages/AccountSettings";
 import Diaries from "./pages/Diaries";
 import DiarySetup from "./pages/DiarySetup";
+import DiaryNew from "./pages/DiaryNew";
 import Homepage from "./pages/Homepage";
 import AboutUs from "./pages/AboutUs";
 import Signup from "./pages/Signup";
@@ -51,6 +52,9 @@ export default function MainRouter(props) {
           <LoginPage />
         </Route>
         <Route exact path="/new">
+          <DiaryNew />
+        </Route>
+        <Route exact path="/setup/:uuid">
           <DiarySetup />
         </Route>
         <Route exact path="/about">

@@ -32,7 +32,7 @@ export default function useDiaryFunctions() {
       .then((resp) => {
         if (!resp.data.error) {
           NotificationManager.success("New diary created!");
-          return history.push("/diary/" + resp.data.uuid);
+          return history.push("/setup/" + resp.data.uuid);
         }
         console.log(resp.data.error);
         return resp.data;
