@@ -7,10 +7,10 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 // custom hooks
-import useUserFunctions from "../../hooks/useUserFunctions";
+import useDiaryFunctions from "../../hooks/useDiaryFunctions";
 
 export default function NewDiaryForm(props) {
-  const { loadingStatus } = useUserFunctions();
+  const { loadingStatus, createDiary } = useDiaryFunctions();
 
   const formik = useFormik({
     initialValues: {
@@ -34,7 +34,7 @@ export default function NewDiaryForm(props) {
     }),
 
     onSubmit: (values) => {
-      console.log(values);
+      createDiary(values);
     },
   });
 

@@ -39,8 +39,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
-          notEmpty: true,
-          len: [1, 500],
+          len: [0, 500],
         },
       },
       passcode: {
