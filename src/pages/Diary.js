@@ -6,7 +6,7 @@ import LoadingIndicator from "../components/elements/LoadingIndicator";
 import useDiaryFunctions from "../hooks/useDiaryFunctions";
 import { useEffect, useState } from "react";
 
-import OverlayContainer from "../components/elements/OverlayContainer";
+import FullScreenShade from "../components/elements/FullScreenShade";
 import NewIssue from "../components/elements/NewIssue";
 
 import {
@@ -45,9 +45,9 @@ export default function Diary(props) {
   return (
     <>
       {overlayStatus === "add" && (
-        <OverlayContainer toggle={toggleOverlay}>
+        <FullScreenShade clickEvent={toggleOverlay}>
           <NewIssue />
-        </OverlayContainer>
+        </FullScreenShade>
       )}
 
       <SingleColumnLayout

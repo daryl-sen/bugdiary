@@ -1,14 +1,7 @@
 import "./NewIssue.scss";
 
+import WhiteBgContainer from "../elements/WhiteBgContainer";
+
 export default function NewIssue(props) {
-  return (
-    <div
-      style={{
-        padding: "1rem",
-        backgroundColor: "red",
-      }}
-    >
-      Hello
-    </div>
-  );
+  return <WhiteBgContainer>Hello</WhiteBgContainer>;
 }
