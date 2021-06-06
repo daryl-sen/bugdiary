@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 import SingleColumnLayout from "../components/layout/SingleColumnLayout";
 import MasonryContainer from "../components/layout/MasonryLayout";
-
+import NavigationButton from "../components/elements/NavigationButton";
 import LoadingIndicator from "../components/elements/LoadingIndicator";
 import useDiaryFunctions from "../hooks/useDiaryFunctions";
 import { useEffect } from "react";
@@ -28,7 +28,7 @@ export default function Diary(props) {
       }}
     >
       <h1>{targetDiary.name}</h1>
-      Diary uuid: {uuid}
+      <NavigationButton>Share Link</NavigationButton>
       <MasonryContainer issues={issues} />
     </SingleColumnLayout>
   );
