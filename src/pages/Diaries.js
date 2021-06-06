@@ -8,6 +8,8 @@ import { UserContext } from "../App";
 import DiaryContainer from "../components/elements/DiaryContainer";
 import NewDiaryButton from "../components/elements/NewDiaryButton";
 
+import LoadingIndicator from "../components/elements/LoadingIndicator";
+
 import "./Diaries.scss";
 
 export default function Diaries() {
@@ -38,6 +40,10 @@ export default function Diaries() {
       });
     }
   };
+
+  if (diaries === null) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <SingleColumnLayout
