@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import LoadingIndicator from "../elements/LoadingIndicator";
+import { useParams } from "react-router";
 
 // form
 import StylizedForm from "./StylizedForm";
@@ -10,6 +11,8 @@ import { useFormik } from "formik";
 import useUserFunctions from "../../hooks/useUserFunctions";
 
 export default function DiaryTypesSetup(props) {
+  const { uuid } = useParams();
+
   const formik = useFormik({
     initialValues: {
       type: "",
@@ -47,9 +50,11 @@ export default function DiaryTypesSetup(props) {
       </button>
       <hr />
       <p>That's it!</p>
-      <button type="button" className="custom button-primary">
-        Go to Diary
-      </button>
+      <Link to={"/diary/" + uuid}>
+        <button type="button" className="custom button-primary">
+          Go to Diary
+        </button>
+      </Link>
     </StylizedForm>
   );
 }
