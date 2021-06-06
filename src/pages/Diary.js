@@ -45,8 +45,8 @@ export default function Diary(props) {
   return (
     <>
       {overlayStatus === "add" && (
-        <FullScreenShade clickEvent={toggleOverlay}>
-          <NewIssue />
+        <FullScreenShade>
+          <NewIssue exit={toggleOverlay} />
         </FullScreenShade>
       )}
 
