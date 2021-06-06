@@ -1,15 +1,23 @@
-import { Link } from "react-router-dom";
-import LoadingIndicator from "../elements/LoadingIndicator";
-
 // form
 import StylizedForm from "./StylizedForm";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+import useDiaryFunctions from "../../hooks/useDiaryFunctions";
 
 // custom hooks
-import useUserFunctions from "../../hooks/useUserFunctions";
 
 export default function DiaryVersionSetup(props) {
+  const uuid = useParams().uuid;
+
+  const { diaryConfig, getVersions, renderTags } = useDiaryFunctions();
+
+  useEffect(() => {
+    getVersions(uuid);
+  }, []);
+
   const formik = useFormik({
     initialValues: {
       version: "",
@@ -36,6 +44,7 @@ export default function DiaryVersionSetup(props) {
   return (
     <StylizedForm formik={formik}>
       <h2>Version</h2>
+      {renderTags(diaryConfig)}
       <p>
         Your project's issues can be organized and filtered by version names.
       </p>
