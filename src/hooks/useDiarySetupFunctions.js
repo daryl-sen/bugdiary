@@ -12,14 +12,14 @@ export default function useDiaryFunctions() {
 
   const uInfo = useContext(UserContext);
 
-  const getVersions = (uuid) => {
+  const getVersions = async (uuid) => {
     const headers = {
       headers: {
         authorization: `Bearer ${uInfo.jwt}`,
         "Content-Type": "application/json",
       },
     };
-    axios
+    await axios
       .get(process.env.REACT_APP_API_URL + "/api/versions/" + uuid, headers)
       .then((resp) => {
         setDiaryConfig(resp.data);
@@ -29,14 +29,49 @@ export default function useDiaryFunctions() {
       });
   };
 
-  const createVersion = (values) => {
+  const getLocations = async (uuid) => {
     const headers = {
       headers: {
         authorization: `Bearer ${uInfo.jwt}`,
         "Content-Type": "application/json",
       },
     };
-    axios
+    await axios
+      .get(process.env.REACT_APP_API_URL + "/api/locations/" + uuid, headers)
+      .then((resp) => {
+        setDiaryConfig(resp.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getTypes = async (uuid) => {
+    const headers = {
+      headers: {
+        authorization: `Bearer ${uInfo.jwt}`,
+        "Content-Type": "application/json",
+      },
+    };
+    await axios
+      .get(process.env.REACT_APP_API_URL + "/api/types/" + uuid, headers)
+      .then((resp) => {
+        setDiaryConfig(resp.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const createVersion = async (values) => {
+    console.log("creating");
+    const headers = {
+      headers: {
+        authorization: `Bearer ${uInfo.jwt}`,
+        "Content-Type": "application/json",
+      },
+    };
+    await axios
       .post(process.env.REACT_APP_API_URL + "/api/versions/", values, headers)
       .then((resp) => {
         if (!resp.data.error) {
@@ -50,31 +85,16 @@ export default function useDiaryFunctions() {
       });
   };
 
-  const getLocations = (uuid) => {
-    const headers = {
-      headers: {
-        authorization: `Bearer ${uInfo.jwt}`,
-        "Content-Type": "application/json",
-      },
-    };
-    axios
-      .get(process.env.REACT_APP_API_URL + "/api/locations/" + uuid, headers)
-      .then((resp) => {
-        setDiaryConfig(resp.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const createLocation = async (values) => {
+    console.log("creating");
 
-  const createLocation = (values) => {
     const headers = {
       headers: {
         authorization: `Bearer ${uInfo.jwt}`,
         "Content-Type": "application/json",
       },
     };
-    axios
+    await axios
       .post(process.env.REACT_APP_API_URL + "/api/locations/", values, headers)
       .then((resp) => {
         if (!resp.data.error) {
@@ -88,31 +108,16 @@ export default function useDiaryFunctions() {
       });
   };
 
-  const getTypes = (uuid) => {
-    const headers = {
-      headers: {
-        authorization: `Bearer ${uInfo.jwt}`,
-        "Content-Type": "application/json",
-      },
-    };
-    axios
-      .get(process.env.REACT_APP_API_URL + "/api/types/" + uuid, headers)
-      .then((resp) => {
-        setDiaryConfig(resp.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const createType = async (values) => {
+    console.log("creating");
 
-  const createType = (values) => {
     const headers = {
       headers: {
         authorization: `Bearer ${uInfo.jwt}`,
         "Content-Type": "application/json",
       },
     };
-    axios
+    await axios
       .post(process.env.REACT_APP_API_URL + "/api/types/", values, headers)
       .then((resp) => {
         if (!resp.data.error) {

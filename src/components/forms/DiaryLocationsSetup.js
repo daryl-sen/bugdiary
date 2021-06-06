@@ -32,8 +32,8 @@ export default function DiaryLocationSetup(props) {
       ),
     }),
 
-    onSubmit: (values) => {
-      createLocation({ ...values, uuid });
+    onSubmit: async (values) => {
+      await createLocation({ ...values, uuid });
     },
   });
 

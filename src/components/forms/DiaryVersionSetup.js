@@ -29,15 +29,15 @@ export default function DiaryVersionSetup(props) {
     },
 
     validationSchema: Yup.object({
-      name: Yup.string()
-        .max(10, "Version name must be less than 10 characters.")
-        .required("The version name is required."),
+      name: Yup.string().max(
+        10,
+        "Version name must be less than 10 characters."
+      ),
     }),
 
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       // console.log({ ...values, uuid });
-      createVersion({ ...values, uuid }); // validates and creates
-      props.nextStep();
+      await createVersion({ ...values, uuid }); // validates and creates
     },
   });
 
@@ -57,8 +57,17 @@ export default function DiaryVersionSetup(props) {
 
       <input type="text" id="name" {...formik.getFieldProps("name")} />
       {renderFieldError("name")}
-      <button type="submit" className="custom button-primary">
+      <button type="submit" className="custom">
         Create Version
+      </button>
+      <hr />
+      <p>'v1.0.0' will be created for you if you skip this step.</p>
+      <button
+        type="button"
+        onClick={props.nextStep}
+        className="custom button-primary"
+      >
+        Next Step
       </button>
     </StylizedForm>
   );

@@ -35,10 +35,10 @@ export default function DiaryTypesSetup(props) {
         .required("The type name is required."),
     }),
 
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       // console.log({ ...values, uuid });
 
-      createType({ ...values, uuid });
+      await createType({ ...values, uuid });
     },
   });
 
