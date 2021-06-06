@@ -6,6 +6,15 @@ import LoadingIndicator from "../components/elements/LoadingIndicator";
 import useDiaryFunctions from "../hooks/useDiaryFunctions";
 import { useEffect } from "react";
 
+import {
+  BiCopyAlt,
+  BiBorderAll,
+  BiBookAdd,
+  BiBarChartAlt,
+  BiSearch,
+  BiCog,
+} from "react-icons/bi";
+
 export default function Diary(props) {
   const { uuid } = useParams();
 
@@ -28,7 +37,30 @@ export default function Diary(props) {
       }}
     >
       <h1>{targetDiary.name}</h1>
-      <NavigationButton>Share Link</NavigationButton>
+      <NavigationButton>
+        <BiCopyAlt />
+        &nbsp; Share Link
+      </NavigationButton>
+      <NavigationButton>
+        <BiBorderAll />
+        &nbsp; Table View
+      </NavigationButton>
+      <NavigationButton>
+        <BiBookAdd />
+        &nbsp; Add New
+      </NavigationButton>
+      <NavigationButton>
+        <BiBarChartAlt />
+        &nbsp; Sort
+      </NavigationButton>
+      <NavigationButton>
+        <BiSearch />
+        &nbsp; Search
+      </NavigationButton>
+      <NavigationButton>
+        <BiCog />
+        &nbsp; Settings
+      </NavigationButton>
       <MasonryContainer issues={issues} />
     </SingleColumnLayout>
   );

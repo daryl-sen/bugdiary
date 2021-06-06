@@ -1,5 +1,5 @@
 import "./NavigationButton.scss";
 
 export default function NavigationButton(props) {
-  return <div class="navigation-button">{props.children}</div>;
+  return <button className="navigation-button">{props.children}</button>;
 }
