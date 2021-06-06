@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import SingleColumnLayout from "../components/layout/SingleColumnLayout";
 import WhiteBgContainer from "../components/elements/WhiteBgContainer";
 
@@ -6,6 +8,24 @@ import DiaryLocationsSetup from "../components/forms/DiaryLocationsSetup";
 import DiaryTypesSetup from "../components/forms/DiaryTypesSetup";
 
 export default function DiarySetup() {
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const nextStep = () => {
+    setCurrentStep((prev) => {
+      return prev + 1;
+    });
+  };
+
+  const steps = [
+    <DiaryVersionSetup nextStep={nextStep} />,
+    <DiaryLocationsSetup nextStep={nextStep} />,
+    <DiaryTypesSetup nextStep={nextStep} />,
+  ];
+
+  const renderStep = (step) => {
+    return steps[step];
+  };
+
   return (
     <SingleColumnLayout
       styleOverride={{
@@ -24,7 +44,8 @@ export default function DiarySetup() {
           organize your project's issues.
         </p>
         <hr />
-        <DiaryTypesSetup />
+        {renderStep(currentStep)}
+        {/* <DiaryTypesSetup /> */}
       </WhiteBgContainer>
     </SingleColumnLayout>
   );

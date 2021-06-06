@@ -9,7 +9,7 @@ import { useFormik } from "formik";
 // custom hooks
 import useUserFunctions from "../../hooks/useUserFunctions";
 
-export default function DiaryVersionSetup() {
+export default function DiaryVersionSetup(props) {
   const formik = useFormik({
     initialValues: {
       version: "",
@@ -22,6 +22,7 @@ export default function DiaryVersionSetup() {
     }),
 
     onSubmit: (values) => {
+      props.nextStep();
       console.log(values); // validates and creates
     },
   });

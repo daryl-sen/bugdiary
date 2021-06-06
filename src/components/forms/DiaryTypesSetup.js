@@ -9,7 +9,7 @@ import { useFormik } from "formik";
 // custom hooks
 import useUserFunctions from "../../hooks/useUserFunctions";
 
-export default function DiaryTypesSetup() {
+export default function DiaryTypesSetup(props) {
   const formik = useFormik({
     initialValues: {
       type: "",

@@ -9,7 +9,7 @@ import { useFormik } from "formik";
 // custom hooks
 import useUserFunctions from "../../hooks/useUserFunctions";
 
-export default function DiaryLocationSetup() {
+export default function DiaryLocationSetup(props) {
   const formik = useFormik({
     initialValues: {
       location: "",
@@ -48,11 +48,12 @@ export default function DiaryLocationSetup() {
       </button>
       <hr />
       <p>Almost there!</p>
-      <button type="button" className="custom button-primary">
+      <button
+        type="button"
+        onClick={props.nextStep}
+        className="custom button-primary"
+      >
         Next Step
-      </button>
-      <button type="button" className="custom button-secondary">
-        Skip
       </button>
     </StylizedForm>
   );
