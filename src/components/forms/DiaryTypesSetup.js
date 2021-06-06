@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import LoadingIndicator from "../elements/LoadingIndicator";
 import { useParams } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // form
 import StylizedForm from "./StylizedForm";
 import * as Yup from "yup";
@@ -12,6 +12,7 @@ import useDiarySetupFunctions from "../../hooks/useDiarySetupFunctions";
 
 export default function DiaryTypesSetup(props) {
   const uuid = useParams().uuid;
+  const [updated, setUpdated] = useState(false);
 
   const {
     diaryConfig,
@@ -22,7 +23,7 @@ export default function DiaryTypesSetup(props) {
 
   useEffect(() => {
     getTypes(uuid);
-  }, [diaryConfig]);
+  }, [updated]);
 
   const formik = useFormik({
     initialValues: {
@@ -37,8 +38,10 @@ export default function DiaryTypesSetup(props) {
 
     onSubmit: async (values) => {
       // console.log({ ...values, uuid });
-
       await createType({ ...values, uuid });
+      setUpdated((prev) => {
+        return prev + 1;
+      });
     },
   });
 

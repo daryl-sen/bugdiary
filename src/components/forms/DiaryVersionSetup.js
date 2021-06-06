@@ -2,7 +2,7 @@
 import StylizedForm from "./StylizedForm";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import useDiarySetupFunctions from "../../hooks/useDiarySetupFunctions";
@@ -10,6 +10,7 @@ import useDiarySetupFunctions from "../../hooks/useDiarySetupFunctions";
 // custom hooks
 
 export default function DiaryVersionSetup(props) {
+  const [updated, setUpdated] = useState(0);
   const uuid = useParams().uuid;
 
   const {
@@ -21,7 +22,7 @@ export default function DiaryVersionSetup(props) {
 
   useEffect(() => {
     getVersions(uuid);
-  }, [diaryConfig]);
+  }, [updated]);
 
   const formik = useFormik({
     initialValues: {
@@ -36,8 +37,10 @@ export default function DiaryVersionSetup(props) {
     }),
 
     onSubmit: async (values) => {
-      // console.log({ ...values, uuid });
       await createVersion({ ...values, uuid }); // validates and creates
+      setUpdated((prev) => {
+        return prev + 1;
+      });
     },
   });
 
@@ -48,7 +51,7 @@ export default function DiaryVersionSetup(props) {
   };
 
   const handleSkip = () => {
-    if (diaryConfig.length === 0) {
+    if (Array.isArray(diaryConfig) && diaryConfig.length === 0) {
       createVersion({ name: "v1.0.0", uuid });
     }
     props.nextStep();

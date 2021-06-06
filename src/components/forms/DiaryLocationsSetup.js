@@ -4,10 +4,12 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 import useDiarySetupFunctions from "../../hooks/useDiarySetupFunctions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 export default function DiaryLocationSetup(props) {
+  const [updated, setUpdated] = useState(false);
+
   const {
     diaryConfig,
     getLocations,
@@ -18,7 +20,7 @@ export default function DiaryLocationSetup(props) {
 
   useEffect(() => {
     getLocations(uuid);
-  }, [diaryConfig]);
+  }, [updated]);
 
   const formik = useFormik({
     initialValues: {
@@ -34,6 +36,9 @@ export default function DiaryLocationSetup(props) {
 
     onSubmit: async (values) => {
       await createLocation({ ...values, uuid });
+      setUpdated((prev) => {
+        return prev + 1;
+      });
     },
   });
 

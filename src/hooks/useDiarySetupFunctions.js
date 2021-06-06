@@ -13,6 +13,8 @@ export default function useDiaryFunctions() {
   const uInfo = useContext(UserContext);
 
   const getVersions = async (uuid) => {
+    console.log("getting");
+
     const headers = {
       headers: {
         authorization: `Bearer ${uInfo.jwt}`,
@@ -30,6 +32,8 @@ export default function useDiaryFunctions() {
   };
 
   const getLocations = async (uuid) => {
+    console.log("getting");
+
     const headers = {
       headers: {
         authorization: `Bearer ${uInfo.jwt}`,
@@ -47,6 +51,8 @@ export default function useDiaryFunctions() {
   };
 
   const getTypes = async (uuid) => {
+    console.log("getting");
+
     const headers = {
       headers: {
         authorization: `Bearer ${uInfo.jwt}`,
@@ -79,9 +85,11 @@ export default function useDiaryFunctions() {
         } else {
           console.log(resp.data.error);
         }
+        return true;
       })
       .catch((err) => {
         console.log(err);
+        return false;
       });
   };
 
