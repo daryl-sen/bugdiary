@@ -11,7 +11,10 @@ export default function NavigationButton(props) {
     <button
       className="navigation-button"
       onClick={() => {
-        redirect(props.target);
+        if (props.target) {
+          return redirect(props.target);
+        }
+        return props.onClick();
       }}
     >
       {props.children}

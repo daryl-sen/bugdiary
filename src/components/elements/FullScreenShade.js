@@ -6,6 +6,8 @@ export default function FullScreenShade(props) {
       id="fullscreen-shade"
       style={props.styleOverride}
       onClick={props.clickEvent}
-    ></div>
+    >
+      {props.children}
+    </div>
   );
 }

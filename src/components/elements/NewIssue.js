@@ -1,10 +1,14 @@
 import "./NewIssue.scss";
-import FullScreenShade from "../elements/FullScreenShade";
 
 export default function NewIssue(props) {
   return (
-    <>
-      <FullScreenShade />
-    </>
+    <div
+      style={{
+        padding: "1rem",
+        backgroundColor: "red",
+      }}
+    >
+      Hello
+    </div>
   );
 }
