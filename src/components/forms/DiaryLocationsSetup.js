@@ -8,27 +8,32 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export default function DiaryLocationSetup(props) {
-  const { diaryConfig, getLocations, renderTags } = useDiarySetupFunctions();
+  const {
+    diaryConfig,
+    getLocations,
+    createLocation,
+    renderTags,
+  } = useDiarySetupFunctions();
   const uuid = useParams().uuid;
 
   useEffect(() => {
     getLocations(uuid);
-  }, []);
+  }, [diaryConfig]);
 
   const formik = useFormik({
     initialValues: {
-      location: "",
+      name: "",
     },
 
     validationSchema: Yup.object({
-      location: Yup.string().max(
+      name: Yup.string().max(
         10,
         "Location name must be less than 10 characters."
       ),
     }),
 
     onSubmit: (values) => {
-      console.log(values); // validates and creates
+      createLocation({ ...values, uuid });
     },
   });
 
@@ -47,8 +52,8 @@ export default function DiaryLocationSetup(props) {
         (Optional)
       </p>
 
-      <input type="text" id="version" {...formik.getFieldProps("version")} />
-      {renderFieldError("version")}
+      <input type="text" id="name" {...formik.getFieldProps("name")} />
+      {renderFieldError("name")}
       <button type="submit" className="custom">
         Create Location
       </button>

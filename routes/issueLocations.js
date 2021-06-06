@@ -8,12 +8,21 @@ module.exports = (models) => {
 
     // create new location
     .post("/", authenticateToken, async (req, res) => {
+      const uuid = req.body.uuid;
       try {
-        const newLocation = await Location.create({ ...req.body });
+        const targetDiary = await Diary.findOne({
+          where: {
+            uuid,
+          },
+        });
+        const newLocation = await Location.create({
+          ...req.body,
+          diary_id: targetDiary.id,
+        });
         return res.json(newLocation);
       } catch (err) {
         console.log(err);
-        return res.status(500).json(err);
+        return res.json(err);
       }
     })
 

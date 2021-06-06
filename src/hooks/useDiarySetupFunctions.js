@@ -67,6 +67,27 @@ export default function useDiaryFunctions() {
       });
   };
 
+  const createLocation = (values) => {
+    const headers = {
+      headers: {
+        authorization: `Bearer ${uInfo.jwt}`,
+        "Content-Type": "application/json",
+      },
+    };
+    axios
+      .post(process.env.REACT_APP_API_URL + "/api/locations/", values, headers)
+      .then((resp) => {
+        if (!resp.data.error) {
+          NotificationManager.success("New location created!");
+        } else {
+          console.log(resp.data.error);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const getTypes = (uuid) => {
     const headers = {
       headers: {
@@ -99,6 +120,7 @@ export default function useDiaryFunctions() {
     getVersions,
     createVersion,
     getLocations,
+    createLocation,
     getTypes,
     renderTags,
   };

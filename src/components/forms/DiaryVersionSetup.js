@@ -21,7 +21,7 @@ export default function DiaryVersionSetup(props) {
 
   useEffect(() => {
     getVersions(uuid);
-  }, []);
+  }, [diaryConfig]);
 
   const formik = useFormik({
     initialValues: {
