@@ -47,6 +47,13 @@ export default function DiaryVersionSetup(props) {
     }
   };
 
+  const handleSkip = () => {
+    if (diaryConfig.length === 0) {
+      createVersion({ name: "v1.0.0", uuid });
+    }
+    props.nextStep();
+  };
+
   return (
     <StylizedForm formik={formik}>
       <h2>Version</h2>
@@ -61,10 +68,12 @@ export default function DiaryVersionSetup(props) {
         Create Version
       </button>
       <hr />
-      <p>'v1.0.0' will be created for you if you skip this step.</p>
+      <p>
+        'v1.0.0' will be created for you if you don't create any version tags.
+      </p>
       <button
         type="button"
-        onClick={props.nextStep}
+        onClick={handleSkip}
         className="custom button-primary"
       >
         Next Step

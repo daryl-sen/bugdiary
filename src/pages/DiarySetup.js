@@ -16,10 +16,16 @@ export default function DiarySetup() {
     });
   };
 
+  const prevStep = () => {
+    setCurrentStep((prev) => {
+      return prev - 1;
+    });
+  };
+
   const steps = [
-    <DiaryVersionSetup nextStep={nextStep} />,
-    <DiaryLocationsSetup nextStep={nextStep} />,
-    <DiaryTypesSetup nextStep={nextStep} />,
+    <DiaryVersionSetup nextStep={nextStep} prevStep={prevStep} />,
+    <DiaryLocationsSetup nextStep={nextStep} prevStep={prevStep} />,
+    <DiaryTypesSetup nextStep={nextStep} prevStep={prevStep} />,
   ];
 
   const renderStep = (step) => {

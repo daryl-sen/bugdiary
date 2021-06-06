@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 
 import useDiarySetupFunctions from "../../hooks/useDiarySetupFunctions";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function DiaryLocationSetup(props) {
   const {
@@ -65,6 +65,9 @@ export default function DiaryLocationSetup(props) {
         className="custom button-primary"
       >
         Next Step
+      </button>
+      <button type="button" onClick={props.prevStep} className="custom">
+        Previous
       </button>
     </StylizedForm>
   );

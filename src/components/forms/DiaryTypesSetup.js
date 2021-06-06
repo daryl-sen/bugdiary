@@ -69,6 +69,9 @@ export default function DiaryTypesSetup(props) {
           Go to Diary
         </button>
       </Link>
+      <button type="button" onClick={props.prevStep} className="custom">
+        Previous
+      </button>
     </StylizedForm>
   );
 }
