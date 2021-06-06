@@ -57,7 +57,7 @@ export default function Diary(props) {
         <BiCopyAlt />
         &nbsp; Share Link
       </NavigationButton>
-      <NavigationButton>
+      <NavigationButton target={"/setup/" + uuid}>
         <BiCog />
         &nbsp; Settings
       </NavigationButton>
