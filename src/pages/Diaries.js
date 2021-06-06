@@ -5,8 +5,8 @@ import SingleColumnLayout from "../components/layout/SingleColumnLayout";
 import { useContext } from "react";
 import { UserContext } from "../App";
 
-import DiaryContainer from "../components/DiaryContainer";
-import NewDiaryButton from "../components/NewDiaryButton";
+import DiaryContainer from "../components/elements/DiaryContainer";
+import NewDiaryButton from "../components/elements/NewDiaryButton";
 
 import "./Diaries.scss";
 

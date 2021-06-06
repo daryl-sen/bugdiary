@@ -1,6 +1,6 @@
 import "./MasonryLayout.scss";
 import Masonry from "react-masonry-css";
-import IssueContainer from "../IssueContainer";
+import IssueContainer from "../elements/IssueContainer";
 
 export default function MasonryLayout(props) {
   const renderIssueContainers = (issues) => {

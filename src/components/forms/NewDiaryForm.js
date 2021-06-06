@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import LoadingIndicator from "../LoadingIndicator";
+import LoadingIndicator from "../elements/LoadingIndicator";
 
 // context
 import { useContext, useState } from "react";

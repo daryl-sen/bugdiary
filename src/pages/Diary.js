@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 import SingleColumnLayout from "../components/layout/SingleColumnLayout";
 import useDiaryData from "../hooks/useDiaryData";
-import LoadingIndicator from "../components/LoadingIndicator";
+import LoadingIndicator from "../components/elements/LoadingIndicator";
 import MasonryContainer from "../components/layout/MasonryLayout";
 
 export default function Diary(props) {

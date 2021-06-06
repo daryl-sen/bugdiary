@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./IssueControls.scss";
 import { CgMenuMotion } from "react-icons/cg";
-import FullScreenShade from "./FullScreenShade";
+import FullScreenShade from "../elements/FullScreenShade";
 
 export default function IssueControls(props) {
   const [openStatus, setOpenStatus] = useState(false);

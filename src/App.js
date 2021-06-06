@@ -6,7 +6,7 @@ import axios from "axios";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
 
-import LoadingIndicator from "./components/LoadingIndicator";
+import LoadingIndicator from "./components/elements/LoadingIndicator";
 
 export const UserContext = React.createContext();
 

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import LoadingIndicator from "../LoadingIndicator";
+import LoadingIndicator from "../elements/LoadingIndicator";
 
 // form
 import StylizedForm from "./StylizedForm";
