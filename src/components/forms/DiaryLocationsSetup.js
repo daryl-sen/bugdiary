@@ -3,12 +3,12 @@ import StylizedForm from "./StylizedForm";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-import useDiaryFunctions from "../../hooks/useDiaryFunctions";
+import useDiarySetupFunctions from "../../hooks/useDiarySetupFunctions";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export default function DiaryLocationSetup(props) {
-  const { diaryConfig, getLocations, renderTags } = useDiaryFunctions();
+  const { diaryConfig, getLocations, renderTags } = useDiarySetupFunctions();
   const uuid = useParams().uuid;
 
   useEffect(() => {

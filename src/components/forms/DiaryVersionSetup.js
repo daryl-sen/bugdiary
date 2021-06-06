@@ -5,14 +5,14 @@ import { useFormik } from "formik";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import useDiaryFunctions from "../../hooks/useDiaryFunctions";
+import useDiarySetupFunctions from "../../hooks/useDiarySetupFunctions";
 
 // custom hooks
 
 export default function DiaryVersionSetup(props) {
   const uuid = useParams().uuid;
 
-  const { diaryConfig, getVersions, renderTags } = useDiaryFunctions();
+  const { diaryConfig, getVersions, renderTags } = useDiarySetupFunctions();
 
   useEffect(() => {
     getVersions(uuid);

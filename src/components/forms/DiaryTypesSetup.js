@@ -1,17 +1,22 @@
 import { Link } from "react-router-dom";
 import LoadingIndicator from "../elements/LoadingIndicator";
 import { useParams } from "react-router";
-
+import { useEffect } from "react";
 // form
 import StylizedForm from "./StylizedForm";
 import * as Yup from "yup";
-import { useFormik } from "formik";
+import { FormikProvider, useFormik } from "formik";
 
 // custom hooks
-import useUserFunctions from "../../hooks/useUserFunctions";
+import useDiarySetupFunctions from "../../hooks/useDiarySetupFunctions";
 
 export default function DiaryTypesSetup(props) {
-  const { uuid } = useParams();
+  const { diaryConfig, getTypes, renderTags } = useDiarySetupFunctions();
+  const uuid = useParams().uuid;
+
+  useEffect(() => {
+    getTypes(uuid);
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -38,6 +43,7 @@ export default function DiaryTypesSetup(props) {
   return (
     <StylizedForm formik={formik}>
       <h2>Types</h2>
+      {renderTags(diaryConfig)}
       <p>
         Your project might encounter different types of issues. Create some
         options for your users to choose from.
