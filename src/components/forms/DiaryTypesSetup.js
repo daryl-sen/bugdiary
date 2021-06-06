@@ -16,7 +16,7 @@ export default function DiaryTypesSetup(props) {
 
   useEffect(() => {
     getTypes(uuid);
-  });
+  }, []);
 
   const formik = useFormik({
     initialValues: {

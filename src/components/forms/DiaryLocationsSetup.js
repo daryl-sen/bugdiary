@@ -13,7 +13,7 @@ export default function DiaryLocationSetup(props) {
 
   useEffect(() => {
     getLocations(uuid);
-  });
+  }, []);
 
   const formik = useFormik({
     initialValues: {
