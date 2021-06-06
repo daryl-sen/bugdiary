@@ -99,5 +99,6 @@ export default function useUserFunctions(next) {
     createUser,
     updateUser,
     deleteUser,
+    uInfo,
   };
 }

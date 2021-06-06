@@ -8,7 +8,6 @@ import { useFormik } from "formik";
 
 // custom hooks
 import useUserFunctions from "../../hooks/useUserFunctions";
-import { render } from "@testing-library/react";
 
 export default function SignupForm(props) {
   const { createUser, loadingStatus } = useUserFunctions();
