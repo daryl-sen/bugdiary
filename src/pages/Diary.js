@@ -1,19 +1,22 @@
 import { useParams } from "react-router";
 import SingleColumnLayout from "../components/layout/SingleColumnLayout";
-import useDiaryData from "../hooks/useDiaryData";
-import LoadingIndicator from "../components/elements/LoadingIndicator";
 import MasonryContainer from "../components/layout/MasonryLayout";
+
+import LoadingIndicator from "../components/elements/LoadingIndicator";
+import useDiaryFunctions from "../hooks/useDiaryFunctions";
 
 export default function Diary(props) {
   const { uuid } = useParams();
 
-  const diaryData = useDiaryData(uuid);
+  const { diaryContent, getDiaryContent } = useDiaryFunctions();
 
-  if (!diaryData) {
+  getDiaryContent(uuid);
+
+  if (!diaryContent) {
     return <LoadingIndicator />;
   }
 
-  const { targetDiary, issues } = diaryData;
+  const { targetDiary, issues } = diaryContent;
 
   return (
     <SingleColumnLayout
