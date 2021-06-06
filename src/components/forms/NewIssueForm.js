@@ -70,52 +70,52 @@ export default function NewIssueForm(props) {
 
       <label htmlFor="reference">Heading</label>
       <input
-        id="displayName"
+        id="reference"
         type="text"
-        {...formik.getFieldProps("displayName")}
+        {...formik.getFieldProps("reference")}
         placeholder="(Optional)"
       />
-      {renderFieldError("displayName")}
+      {renderFieldError("reference")}
 
-      <label htmlFor="reference">Location</label>
+      <label htmlFor="location_id">Location</label>
       <input
-        id="displayName"
+        id="location_id"
         type="text"
-        {...formik.getFieldProps("displayName")}
+        {...formik.getFieldProps("location_id")}
         placeholder="Where did you find it?"
       />
-      {renderFieldError("displayName")}
+      {renderFieldError("location_id")}
 
-      <label htmlFor="reference">Type</label>
+      <label htmlFor="type_id">Type</label>
       <input
-        id="displayName"
+        id="type_id"
         type="text"
-        {...formik.getFieldProps("displayName")}
+        {...formik.getFieldProps("type_id")}
         placeholder="What kind of issue is it?"
       />
-      {renderFieldError("displayName")}
+      {renderFieldError("type_id")}
 
-      <label htmlFor="bio">Issue Details</label>
-      <textarea id="bio" {...formik.getFieldProps("bio")}></textarea>
-      {renderFieldError("bio")}
+      <label htmlFor="details">Issue Details</label>
+      <textarea id="details" {...formik.getFieldProps("details")}></textarea>
+      {renderFieldError("details")}
 
-      <label htmlFor="email">Contact Email</label>
+      <label htmlFor="reporter_email">Contact Email</label>
       <input
-        id="email"
+        id="reporter_email"
         type="email"
-        {...formik.getFieldProps("email")}
+        {...formik.getFieldProps("reporter_email")}
         placeholder="(Optional)"
       />
-      {renderFieldError("email")}
+      {renderFieldError("reporter_email")}
 
-      <label htmlFor="reference">Contact Name</label>
+      <label htmlFor="reporter_name">Contact Name</label>
       <input
-        id="displayName"
+        id="reporter_name"
         type="text"
-        {...formik.getFieldProps("displayName")}
+        {...formik.getFieldProps("reporter_name")}
         placeholder="(Optional)"
       />
-      {renderFieldError("displayName")}
+      {renderFieldError("reporter_name")}
 
       <button type="submit" className="button-primary">
         Report Issue
