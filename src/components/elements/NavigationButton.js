@@ -1,5 +1,20 @@
 import "./NavigationButton.scss";
+import { useHistory } from "react-router-dom";
 
 export default function NavigationButton(props) {
-  return <button className="navigation-button">{props.children}</button>;
+  const history = useHistory();
+
+  const redirect = (target) => {
+    history.push(target);
+  };
+  return (
+    <button
+      className="navigation-button"
+      onClick={() => {
+        redirect(props.target);
+      }}
+    >
+      {props.children}
+    </button>
+  );
 }
