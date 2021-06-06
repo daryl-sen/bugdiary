@@ -4,13 +4,16 @@ import MasonryContainer from "../components/layout/MasonryLayout";
 
 import LoadingIndicator from "../components/elements/LoadingIndicator";
 import useDiaryFunctions from "../hooks/useDiaryFunctions";
+import { useEffect } from "react";
 
 export default function Diary(props) {
   const { uuid } = useParams();
 
   const { diaryContent, getDiaryContent } = useDiaryFunctions();
 
-  getDiaryContent(uuid);
+  useEffect(() => {
+    getDiaryContent(uuid);
+  }, [uuid]);
 
   if (!diaryContent) {
     return <LoadingIndicator />;

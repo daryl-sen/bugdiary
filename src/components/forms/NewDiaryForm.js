@@ -67,6 +67,7 @@ export default function NewDiaryForm(props) {
         type="password"
         {...formik.getFieldProps("passcode")}
         placeholder="Optional"
+        autoComplete="off"
       />
       {renderFieldError("passcode")}
 
