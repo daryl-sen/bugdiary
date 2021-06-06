@@ -33,16 +33,7 @@ export default function DiarySetup() {
   };
 
   return (
-    <SingleColumnLayout
-      styleOverride={{
-        maxWidth: "500px",
-        margin: "auto",
-        minHeight: "80vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-around",
-      }}
-    >
+    <SingleColumnLayout preset="narrow-centered">
       <WhiteBgContainer>
         <h1>Diary Setup ({currentStep + 1}/3)</h1>
         <p>

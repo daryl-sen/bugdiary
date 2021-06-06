@@ -8,16 +8,7 @@ export default function LoginPage(props) {
   const next = new URLSearchParams(queryParams).get("next");
 
   return (
-    <SingleColumnLayout
-      styleOverride={{
-        maxWidth: "500px",
-        margin: "auto",
-        height: "80vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-around",
-      }}
-    >
+    <SingleColumnLayout preset="narrow-centered">
       <WhiteBgContainer>
         <h1>Welcome Back!</h1>
         <LoginForm next={next} />

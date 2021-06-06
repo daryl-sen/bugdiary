@@ -4,16 +4,7 @@ import WhiteBgContainer from "../components/elements/WhiteBgContainer";
 
 export default function DiarySetup() {
   return (
-    <SingleColumnLayout
-      styleOverride={{
-        maxWidth: "500px",
-        margin: "auto",
-        height: "80vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-around",
-      }}
-    >
+    <SingleColumnLayout preset="narrow-centered">
       <WhiteBgContainer>
         <h1>New Diary</h1>
         <NewDiaryForm />
