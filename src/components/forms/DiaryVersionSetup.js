@@ -41,11 +41,8 @@ export default function DiaryVersionSetup() {
 
       <input type="text" id="version" {...formik.getFieldProps("version")} />
       {renderFieldError("version")}
-      <button type="submit" className="custom">
+      <button type="submit" className="custom button-primary">
         Create Version
-      </button>
-      <button type="button" className="custom button-primary">
-        Next Step
       </button>
     </StylizedForm>
   );
