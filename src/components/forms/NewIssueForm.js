@@ -9,19 +9,6 @@ import { useFormik } from "formik";
 // custom hooks
 import useUserFunctions from "../../hooks/useUserFunctions";
 
-// {
-//   "details": "This #1",
-//   "status": "PENDING",
-//   "reporter_name": "Me",
-//   "reporter_email": "email@fakemail.com",
-//   "resolve_date": "2021-05-30T03:44:36.067Z",
-//   "priority": 1,
-//   "diary_id": 1,
-//   "type_id": 1,
-//   "location_id": 1,
-//   "version_id": 1
-// },
-
 export default function NewIssueForm(props) {
   const { createUser, loadingStatus } = useUserFunctions();
 
