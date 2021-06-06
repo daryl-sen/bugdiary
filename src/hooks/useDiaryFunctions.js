@@ -76,6 +76,40 @@ export default function useDiaryFunctions() {
       });
   };
 
+  const getLocations = (uuid) => {
+    const headers = {
+      headers: {
+        authorization: `Bearer ${uInfo.jwt}`,
+        "Content-Type": "application/json",
+      },
+    };
+    axios
+      .get(process.env.REACT_APP_API_URL + "/api/locations/" + uuid, headers)
+      .then((resp) => {
+        setDiaryConfig(resp.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getTypes = (uuid) => {
+    const headers = {
+      headers: {
+        authorization: `Bearer ${uInfo.jwt}`,
+        "Content-Type": "application/json",
+      },
+    };
+    axios
+      .get(process.env.REACT_APP_API_URL + "/api/types/" + uuid, headers)
+      .then((resp) => {
+        setDiaryConfig(resp.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   // helpers
   const renderTags = (tags) => {
     if (Array.isArray(tags)) {
@@ -97,6 +131,8 @@ export default function useDiaryFunctions() {
     updateDiary,
     deleteDiary,
     getVersions,
+    getLocations,
+    getTypes,
     renderTags,
   };
 }

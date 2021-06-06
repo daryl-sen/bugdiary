@@ -1,15 +1,20 @@
-import { Link } from "react-router-dom";
-import LoadingIndicator from "../elements/LoadingIndicator";
-
 // form
 import StylizedForm from "./StylizedForm";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-// custom hooks
-import useUserFunctions from "../../hooks/useUserFunctions";
+import useDiaryFunctions from "../../hooks/useDiaryFunctions";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 export default function DiaryLocationSetup(props) {
+  const { diaryConfig, getLocations, renderTags } = useDiaryFunctions();
+  const uuid = useParams().uuid;
+
+  useEffect(() => {
+    getLocations(uuid);
+  });
+
   const formik = useFormik({
     initialValues: {
       location: "",
@@ -35,7 +40,8 @@ export default function DiaryLocationSetup(props) {
 
   return (
     <StylizedForm formik={formik}>
-      <h2>Location</h2>
+      <h2>Locations</h2>
+      {renderTags(diaryConfig)}
       <p>
         Issues can occur at different locations. List a few for users to pick.
         (Optional)
