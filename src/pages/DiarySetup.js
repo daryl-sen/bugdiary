@@ -2,6 +2,8 @@ import SingleColumnLayout from "../components/layout/SingleColumnLayout";
 import WhiteBgContainer from "../components/elements/WhiteBgContainer";
 
 import DiaryVersionSetup from "../components/forms/DiaryVersionSetup";
+import DiaryLocationsSetup from "../components/forms/DiaryLocationsSetup";
+import DiaryTypesSetup from "../components/forms/DiaryTypesSetup";
 
 export default function DiarySetup() {
   return (
@@ -22,7 +24,7 @@ export default function DiarySetup() {
           organize your project's issues.
         </p>
         <hr />
-        <DiaryVersionSetup />
+        <DiaryTypesSetup />
       </WhiteBgContainer>
     </SingleColumnLayout>
   );
