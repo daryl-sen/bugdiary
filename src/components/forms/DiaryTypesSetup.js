@@ -11,26 +11,34 @@ import { FormikProvider, useFormik } from "formik";
 import useDiarySetupFunctions from "../../hooks/useDiarySetupFunctions";
 
 export default function DiaryTypesSetup(props) {
-  const { diaryConfig, getTypes, renderTags } = useDiarySetupFunctions();
   const uuid = useParams().uuid;
+
+  const {
+    diaryConfig,
+    getTypes,
+    createType,
+    renderTags,
+  } = useDiarySetupFunctions();
 
   useEffect(() => {
     getTypes(uuid);
-  }, []);
+  }, [diaryConfig]);
 
   const formik = useFormik({
     initialValues: {
-      type: "",
+      name: "",
     },
 
     validationSchema: Yup.object({
-      type: Yup.string()
+      name: Yup.string()
         .max(10, "Version name must be less than 10 characters.")
         .required("The type name is required."),
     }),
 
     onSubmit: (values) => {
-      console.log(values); // validates and creates
+      // console.log({ ...values, uuid });
+
+      createType({ ...values, uuid });
     },
   });
 
@@ -49,8 +57,8 @@ export default function DiaryTypesSetup(props) {
         options for your users to choose from.
       </p>
 
-      <input type="text" id="version" {...formik.getFieldProps("version")} />
-      {renderFieldError("version")}
+      <input type="text" id="name" {...formik.getFieldProps("name")} />
+      {renderFieldError("name")}
       <button type="submit" className="custom">
         Create Type
       </button>

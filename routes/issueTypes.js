@@ -8,8 +8,17 @@ module.exports = (models) => {
 
     // create new type
     .post("/", authenticateToken, async (req, res) => {
+      const uuid = req.body.uuid;
       try {
-        const newType = await Type.create({ ...req.body });
+        const targetDiary = await Diary.findOne({
+          where: {
+            uuid,
+          },
+        });
+        const newType = await Type.create({
+          ...req.body,
+          diary_id: targetDiary.id,
+        });
         return res.json(newType);
       } catch (err) {
         console.log(err);

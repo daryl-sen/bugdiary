@@ -105,6 +105,27 @@ export default function useDiaryFunctions() {
       });
   };
 
+  const createType = (values) => {
+    const headers = {
+      headers: {
+        authorization: `Bearer ${uInfo.jwt}`,
+        "Content-Type": "application/json",
+      },
+    };
+    axios
+      .post(process.env.REACT_APP_API_URL + "/api/types/", values, headers)
+      .then((resp) => {
+        if (!resp.data.error) {
+          NotificationManager.success("New type created!");
+        } else {
+          console.log(resp.data.error);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   // helpers
   const renderTags = (tags) => {
     if (Array.isArray(tags)) {
@@ -122,6 +143,7 @@ export default function useDiaryFunctions() {
     getLocations,
     createLocation,
     getTypes,
+    createType,
     renderTags,
   };
 }
