@@ -38,16 +38,12 @@ export default function Diary(props) {
     >
       <h1>{targetDiary.name}</h1>
       <NavigationButton>
-        <BiCopyAlt />
-        &nbsp; Share Link
+        <BiBookAdd />
+        &nbsp; Add New
       </NavigationButton>
       <NavigationButton>
         <BiBorderAll />
         &nbsp; Table View
-      </NavigationButton>
-      <NavigationButton>
-        <BiBookAdd />
-        &nbsp; Add New
       </NavigationButton>
       <NavigationButton>
         <BiBarChartAlt />
@@ -56,6 +52,10 @@ export default function Diary(props) {
       <NavigationButton>
         <BiSearch />
         &nbsp; Search
+      </NavigationButton>
+      <NavigationButton>
+        <BiCopyAlt />
+        &nbsp; Share Link
       </NavigationButton>
       <NavigationButton>
         <BiCog />
