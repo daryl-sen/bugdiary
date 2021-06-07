@@ -4,13 +4,33 @@ import axios from "axios";
 import { useContext } from "react";
 import { UserContext } from "../App";
 import NotificationManager from "react-notifications/lib/NotificationManager";
-
 import IssueTag from "../components/elements/IssueTag";
+
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function useDiaryFunctions() {
   const [diaryConfig, setDiaryConfig] = useState(null);
 
   const uInfo = useContext(UserContext);
+
+  const getIssueSetupDetails = (uuid) => {
+    const headers = {
+      headers: {
+        authorization: `Bearer ${uInfo.jwt}`,
+        "Content-Type": "application/json",
+      },
+    };
+    axios
+      .get(BASE_URL + "/api/diaries/issue-setup/" + uuid, headers)
+      .then((resp) => {
+        if (resp.data.error) {
+          console.log(resp.data.error);
+          return false;
+        }
+        setDiaryConfig(resp.data);
+        return true;
+      });
+  };
 
   const getVersions = async (uuid) => {
     console.log("getting");
@@ -22,7 +42,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .get(process.env.REACT_APP_API_URL + "/api/versions/" + uuid, headers)
+      .get(BASE_URL + "/api/versions/" + uuid, headers)
       .then((resp) => {
         setDiaryConfig(resp.data);
       })
@@ -41,7 +61,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .get(process.env.REACT_APP_API_URL + "/api/locations/" + uuid, headers)
+      .get(BASE_URL + "/api/locations/" + uuid, headers)
       .then((resp) => {
         setDiaryConfig(resp.data);
       })
@@ -60,7 +80,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .get(process.env.REACT_APP_API_URL + "/api/types/" + uuid, headers)
+      .get(BASE_URL + "/api/types/" + uuid, headers)
       .then((resp) => {
         setDiaryConfig(resp.data);
       })
@@ -78,7 +98,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .post(process.env.REACT_APP_API_URL + "/api/versions/", values, headers)
+      .post(BASE_URL + "/api/versions/", values, headers)
       .then((resp) => {
         if (!resp.data.error) {
           NotificationManager.success("New version created!");
@@ -103,7 +123,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .post(process.env.REACT_APP_API_URL + "/api/locations/", values, headers)
+      .post(BASE_URL + "/api/locations/", values, headers)
       .then((resp) => {
         if (!resp.data.error) {
           NotificationManager.success("New location created!");
@@ -126,7 +146,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .post(process.env.REACT_APP_API_URL + "/api/types/", values, headers)
+      .post(BASE_URL + "/api/types/", values, headers)
       .then((resp) => {
         if (!resp.data.error) {
           NotificationManager.success("New type created!");

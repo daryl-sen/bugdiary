@@ -3,8 +3,47 @@ const router = express.Router();
 const { authenticateToken } = require("../helpers/authenticate-token");
 
 module.exports = (models) => {
-  const { Diary, User, Issue, Version, Type, Tag, Location } = models;
+  const { Diary, Version, Type, Location } = models;
   router
+
+    // get information required for setting up new issues
+    .get("/issue-setup/:uuid", authenticateToken, async (req, res) => {
+      const uuid = req.params.uuid;
+      try {
+        const targetDiary = await Diary.findOne({
+          where: {
+            uuid,
+          },
+        });
+        const diaryLocations = await Location.findAll({
+          where: {
+            diary_id: targetDiary.id,
+          },
+        });
+        const diaryTypes = await Type.findAll({
+          where: {
+            diary_id: targetDiary.id,
+          },
+        });
+        const latestVersion = await Version.findAll({
+          limit: 1,
+          where: {
+            diary_id: targetDiary.id,
+          },
+          order: [["createdAt", "DESC"]],
+        });
+        return res.json({
+          targetDiary,
+          diaryLocations,
+          diaryTypes,
+          latestVersion,
+        });
+      } catch (err) {
+        console.log(err);
+        res.json({ error: err });
+      }
+    })
+
     // all diaries belonging to the current user
     .get("/", authenticateToken, async (req, res) => {
       const targetId = req.decodedUser.id;
