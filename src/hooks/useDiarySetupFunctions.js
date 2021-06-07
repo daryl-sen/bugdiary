@@ -178,5 +178,6 @@ export default function useDiaryFunctions() {
     getTypes,
     createType,
     renderTags,
+    getIssueSetupDetails,
   };
 }

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import LoadingIndicator from "../elements/LoadingIndicator";
 
 // form
@@ -7,10 +7,17 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 // custom hooks
-import useUserFunctions from "../../hooks/useUserFunctions";
+import useDiarySetupFunctions from "../../hooks/useDiarySetupFunctions";
+import { useEffect } from "react";
 
 export default function NewIssueForm(props) {
-  const { createUser, loadingStatus } = useUserFunctions();
+  const uuid = useParams().uuid;
+
+  const {
+    loadingStatus,
+    diaryConfig,
+    getIssueSetupDetails,
+  } = useDiarySetupFunctions();
 
   const formik = useFormik({
     initialValues: {
@@ -18,9 +25,8 @@ export default function NewIssueForm(props) {
       details: "",
       reporter_name: "",
       reporter_email: "",
-      type_id: "",
-      location_id: "",
-      version_id: "",
+      type_name: "",
+      location_name: "",
     },
 
     validationSchema: Yup.object({
@@ -41,14 +47,39 @@ export default function NewIssueForm(props) {
     }),
 
     onSubmit: async (values) => {
-      console.log(values);
+      console.log({
+        ...values,
+        diary_id: targetDiary.id,
+        version_id: latestVersion[0].id,
+      });
     },
   });
+
+  useEffect(() => {
+    getIssueSetupDetails(uuid);
+  }, []);
+
+  if (!diaryConfig) {
+    return <LoadingIndicator />;
+  }
+
+  const {
+    targetDiary,
+    diaryLocations,
+    diaryTypes,
+    latestVersion,
+  } = diaryConfig;
 
   const renderFieldError = (fieldName) => {
     if (formik.touched[fieldName] && formik.errors[fieldName]) {
       return <div className="form-error">{formik.errors[fieldName]}</div>;
     }
+  };
+
+  const renderSuggestions = (datalist) => {
+    return datalist.map((suggestion) => {
+      return <option key={suggestion.id} value={suggestion.name}></option>;
+    });
   };
 
   return (
@@ -66,9 +97,7 @@ export default function NewIssueForm(props) {
 
       <label htmlFor="location_id">Location</label>
       <datalist id="location_suggestions">
-        <option value="Option 1"></option>
-        <option value="Option 2"></option>
-        <option value="Option 3"></option>
+        {renderSuggestions(diaryLocations)}
       </datalist>
       <input
         id="location_id"
@@ -87,11 +116,7 @@ export default function NewIssueForm(props) {
         placeholder="What kind of issue is it?"
         list="type_suggestions"
       />
-      <datalist id="type_suggestions">
-        <option value="Option 1"></option>
-        <option value="Option 2"></option>
-        <option value="Option 3"></option>
-      </datalist>
+      <datalist id="type_suggestions">{renderSuggestions(diaryTypes)}</datalist>
       {renderFieldError("type_id")}
 
       <label htmlFor="details">Issue Details</label>
