@@ -28,7 +28,7 @@ export default function useDiaryFunctions() {
     axios
       .post(
         BASE_URL + "/api/diaries/diary",
-        { ...diaryDetails, user_id: uInfo.userId },
+        { ...diaryDetails, user_id: uInfo.id },
         config
       )
       .then((resp) => {

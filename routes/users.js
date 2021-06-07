@@ -30,14 +30,31 @@ module.exports = (models) => {
     })
 
     .get("/check-token", async (req, res) => {
+      console.log("checking token");
       if (!req.session.jwt) {
+        console.log("not logged in");
         return res.json({
           error: "Not logged in",
         });
       }
-      return res.json({
-        jwt: req.session.jwt,
-      });
+      console.log(req.session.jwt);
+      jwt.verify(
+        req.session.jwt,
+        process.env.ACCESS_TOKEN_SECRET,
+        (error, user) => {
+          if (error) {
+            return res.json({ error: "Invalid JWT" });
+          }
+
+          console.log(user);
+
+          return res.json({
+            jwt: req.session.jwt,
+            id: user.id,
+            name: user.name,
+          });
+        }
+      );
     })
 
     .get("/check-unique", async (req, res) => {

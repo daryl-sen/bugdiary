@@ -41,8 +41,6 @@ export default function Diary(props) {
     return <LoadingIndicator />;
   }
 
-  console.log(diaryContent);
-
   const { targetDiary, issues } = diaryContent;
 
   return (

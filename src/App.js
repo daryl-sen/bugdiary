@@ -18,19 +18,19 @@ function App() {
     notifications: [],
   });
 
-  console.log(userSession);
   // check for existing cookie containing jwt
   useEffect(() => {
     axios
       .get("/api/users/check-token")
       .then((resp) => {
         if (resp.data.error) {
+          console.log(resp.data.error);
           return setUserSession((prev) => {
             return { ...prev, jwt: null };
           });
         }
         return setUserSession((prev) => {
-          return { ...prev, jwt: resp.data.jwt };
+          return { ...prev, ...resp.data };
         });
       })
       .catch((err) => {
