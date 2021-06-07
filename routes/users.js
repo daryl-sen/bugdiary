@@ -30,14 +30,11 @@ module.exports = (models) => {
     })
 
     .get("/check-token", async (req, res) => {
-      console.log("checking token");
       if (!req.session.jwt) {
-        console.log("not logged in");
         return res.json({
           error: "Not logged in",
         });
       }
-      console.log(req.session.jwt);
       jwt.verify(
         req.session.jwt,
         process.env.ACCESS_TOKEN_SECRET,
