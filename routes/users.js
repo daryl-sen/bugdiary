@@ -45,9 +45,6 @@ module.exports = (models) => {
           if (error) {
             return res.json({ error: "Invalid JWT" });
           }
-
-          console.log(user);
-
           return res.json({
             jwt: req.session.jwt,
             id: user.id,
