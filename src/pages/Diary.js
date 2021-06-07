@@ -106,7 +106,7 @@ export default function Diary(props) {
           &nbsp; Settings
         </NavigationButton>
         {viewType === "cards" && <MasonryContainer issues={issues} />}
-        {viewType === "table" && <TableLayout />}
+        {viewType === "table" && <TableLayout issues={issues} />}
       </SingleColumnLayout>
     </>
   );

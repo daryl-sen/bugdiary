@@ -1,5 +1,3 @@
-import "./IssueFooter.scss";
-
 export default function IssueFooter(props) {
   return (
     <footer>

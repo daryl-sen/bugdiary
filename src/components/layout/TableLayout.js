@@ -1,23 +1,17 @@
 import "./TableLayout.scss";
+import IssueContainer from "../elements/IssueContainer";
 
-export default function TableLayout() {
+export default function TableLayout(props) {
+  const renderIssueContainers = (issues) => {
+    if (!Array.isArray(issues)) {
+      return "none";
+    }
+    return issues.map((issue) => {
+      return <IssueContainer key={issue.id} {...issue} />;
+    });
+  };
+
   return (
-    <div className="table-view">
-      <div>
-        <div>
-          <h3>37218</h3>
-          <p>Some issue about this thing blah blah blah</p>
-        </div>
-        <div>Controls</div>
-      </div>
-      <div>
-        <div>Issue Content</div>
-        <div>Controls</div>
-      </div>
-      <div>
-        <div>Issue Content</div>
-        <div>Controls</div>
-      </div>
-    </div>
+    <div className="table-view">{renderIssueContainers(props.issues)}</div>
   );
 }
