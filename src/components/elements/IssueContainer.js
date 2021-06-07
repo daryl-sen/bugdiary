@@ -19,9 +19,11 @@ export default function IssueContainer(props) {
         <h1>{props.reference || "Loading"}</h1>
         <div className="tags">
           <IssueTag type="pending">{props.status || "Loading"}</IssueTag>
-          <IssueTag type="permanent">Type: {props.type || "Loading"}</IssueTag>
           <IssueTag type="permanent">
-            Loc: {props.location || "Loading"}
+            Type: {props.Type.name || "Loading"}
+          </IssueTag>
+          <IssueTag type="permanent">
+            Loc: {props.Location.name || "Loading"}
           </IssueTag>
           {renderTags(props.tags)}
         </div>
