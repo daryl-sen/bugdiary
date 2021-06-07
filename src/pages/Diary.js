@@ -80,13 +80,13 @@ export default function Diary(props) {
         {viewType === "cards" && (
           <NavigationButton target={"/diary/" + uuid + "/table"}>
             <BiBorderAll />
-            &nbsp; Table View
+            &nbsp; Cards View
           </NavigationButton>
         )}
         {viewType === "table" && (
           <NavigationButton target={"/diary/" + uuid + "/cards"}>
             <BiBorderAll />
-            &nbsp; Cards View
+            &nbsp; Table View
           </NavigationButton>
         )}
         <NavigationButton>
