@@ -44,6 +44,10 @@ export default function NewIssueForm(props) {
       reporter_email: Yup.string().email(
         "The email address you provided is invalid."
       ),
+      type_name: Yup.string().required("Please type or select an issue type."),
+      location_name: Yup.string().required(
+        "Please type or select an issue location."
+      ),
     }),
 
     onSubmit: async (values) => {
@@ -95,29 +99,29 @@ export default function NewIssueForm(props) {
       />
       {renderFieldError("reference")}
 
-      <label htmlFor="location_id">Location</label>
+      <label htmlFor="location_name">Location</label>
       <datalist id="location_suggestions">
         {renderSuggestions(diaryLocations)}
       </datalist>
       <input
-        id="location_id"
+        id="location_name"
         type="text"
-        {...formik.getFieldProps("location_id")}
+        {...formik.getFieldProps("location_name")}
         placeholder="Where did you find it?"
         list="location_suggestions"
       />
-      {renderFieldError("location_id")}
+      {renderFieldError("location_name")}
 
-      <label htmlFor="type_id">Type</label>
+      <label htmlFor="type_name">Type</label>
       <input
-        id="type_id"
+        id="type_name"
         type="text"
-        {...formik.getFieldProps("type_id")}
+        {...formik.getFieldProps("type_name")}
         placeholder="What kind of issue is it?"
         list="type_suggestions"
       />
       <datalist id="type_suggestions">{renderSuggestions(diaryTypes)}</datalist>
-      {renderFieldError("type_id")}
+      {renderFieldError("type_name")}
 
       <label htmlFor="details">Issue Details</label>
       <textarea id="details" {...formik.getFieldProps("details")}></textarea>
