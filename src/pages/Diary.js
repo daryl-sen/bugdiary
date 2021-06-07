@@ -53,7 +53,7 @@ export default function Diary(props) {
             <button
               type="button"
               className="custom button-secondary"
-              onClick={props.exit}
+              onClick={toggleOverlay}
             >
               Cancel
             </button>
