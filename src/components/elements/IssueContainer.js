@@ -11,7 +11,7 @@ export default function IssueContainer(props) {
       });
     }
   };
-
+  console.log(props.createdAt);
   return (
     <div className="issue-container">
       <IssueControls />
@@ -30,7 +30,7 @@ export default function IssueContainer(props) {
         <p>{props.details || "Loading"}</p>
       </main>
       <IssueFooter
-        reportDate={props.report_date}
+        reportDate={props.createdAt || props.created_at}
         reporterName={props.reporter_name}
         reporterEmail={props.reporter_email}
       />
