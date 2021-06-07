@@ -15,10 +15,10 @@ export default function MasonryLayout(props) {
   return (
     <Masonry
       breakpointCols={{
-        default: 5,
+        default: 4,
         1500: 4,
         1350: 3,
-        1000: 2,
+        1100: 2,
         800: 1,
       }}
       className="my-masonry-grid"

@@ -4,8 +4,10 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-left: $standard-spacing; /* gutter size offset */
+  // margin-left: $standard-spacing; /* gutter size offset */
   width: auto;
+  max-width: 1400px;
+  margin: 1rem auto 0 auto;
 }
 .my-masonry-grid_column {
   padding-left: $standard-spacing; /* gutter size */
