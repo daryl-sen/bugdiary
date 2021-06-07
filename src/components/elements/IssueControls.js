@@ -1,6 +1,13 @@
 import { useState } from "react";
 import "./IssueControls.scss";
-import { CgMenuMotion } from "react-icons/cg";
+import {
+  CgMenuMotion,
+  CgExpand,
+  CgTrashEmpty,
+  CgCheckR,
+  CgPinAlt,
+  CgCloseR,
+} from "react-icons/cg";
 import FullScreenShade from "../elements/FullScreenShade";
 
 export default function IssueControls(props) {
@@ -15,10 +22,18 @@ export default function IssueControls(props) {
       return (
         <>
           <div className="controls-menu">
-            <button>Resolve</button>
-            <button>Pin</button>
-            <button>Delete</button>
-            <button onClick={toggleControls}>Cancel</button>
+            <button>
+              <CgCheckR size={20} />
+            </button>
+            <button>
+              <CgPinAlt size={20} />
+            </button>
+            <button>
+              <CgTrashEmpty size={20} />
+            </button>
+            <button onClick={toggleControls}>
+              <CgCloseR size={20} />
+            </button>
           </div>
           <FullScreenShade
             styleOverride={{
@@ -33,6 +48,9 @@ export default function IssueControls(props) {
 
   return (
     <div className="controls">
+      <button className="controls-toggle">
+        <CgExpand size={30} />
+      </button>
       <button className="controls-toggle" onClick={toggleControls}>
         <CgMenuMotion size={30} />
       </button>
