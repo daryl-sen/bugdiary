@@ -60,16 +60,18 @@ module.exports = (models) => {
     })
 
     // update issue
-    .patch("/:uuid", async (req, res) => {
-      const uuid = req.params.uuid;
+    .patch("/:id", async (req, res) => {
+      const id = req.params.id;
+      console.log(id, req.body.status);
       try {
         const targetIssue = await Issue.findOne({
           where: {
-            uuid,
+            id,
           },
         });
-        for (const attribute of targetIssue) {
+        for (const attribute in targetIssue.dataValues) {
           if (req.body[attribute]) {
+            console.log("update", attribute);
             targetIssue[attribute] = req.body[attribute];
           }
         }

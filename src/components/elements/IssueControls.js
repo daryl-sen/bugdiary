@@ -9,9 +9,12 @@ import {
   CgCloseR,
 } from "react-icons/cg";
 import FullScreenShade from "../elements/FullScreenShade";
+import useIssueFunctions from "../../hooks/useIssueFunctions";
 
 export default function IssueControls(props) {
   const [openStatus, setOpenStatus] = useState(false);
+
+  const { markIssue } = useIssueFunctions();
 
   const toggleControls = () => {
     openStatus ? setOpenStatus(false) : setOpenStatus(true);
@@ -22,13 +25,25 @@ export default function IssueControls(props) {
       return (
         <>
           <div className="controls-menu">
-            <button>
+            <button
+              onClick={() => {
+                markIssue("RESOLVED", props.issueId);
+              }}
+            >
               <CgCheckR size={20} />
             </button>
-            <button>
+            <button
+              onClick={() => {
+                markIssue("PRIORITIZED", props.issueId);
+              }}
+            >
               <CgPinAlt size={20} />
             </button>
-            <button>
+            <button
+              onClick={() => {
+                markIssue("DELETED", props.issueId);
+              }}
+            >
               <CgTrashEmpty size={20} />
             </button>
             <button onClick={toggleControls}>

@@ -13,7 +13,7 @@ export default function IssueContainer(props) {
   };
   return (
     <div className="issue-container">
-      <IssueControls />
+      <IssueControls issueId={props.id} />
       <main>
         <h1>{props.reference || "Loading"}</h1>
         <div className="tags">

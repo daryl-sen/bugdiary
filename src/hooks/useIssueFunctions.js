@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { useContext } from "react";
 import { UserContext } from "../App";
-// import NotificationManager from "react-notifications/lib/NotificationManager";
+import NotificationManager from "react-notifications/lib/NotificationManager";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
@@ -43,6 +43,7 @@ export default function useIssueFunctions() {
           return false;
         }
         setIssueData(resp.data);
+        NotificationManager.success("New issue added!");
         return true;
       })
       .catch((err) => {
@@ -55,8 +56,22 @@ export default function useIssueFunctions() {
     // read
   };
 
-  const markIssue = () => {
-    // update
+  const markIssue = async (status, issueId) => {
+    await axios
+      .patch(BASE_URL + "/api/issues/" + issueId, { status }, headers)
+      .then((resp) => {
+        if (resp.data.error) {
+          console.log(resp.data.error);
+          return false;
+        }
+        console.log(resp.data);
+        NotificationManager.success(`The issue is marked as '${status}'.`);
+        return true;
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
   };
 
   const deleteIssue = () => {
