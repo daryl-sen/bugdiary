@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import LoadingIndicator from "../elements/LoadingIndicator";
 
 // form
@@ -7,17 +7,19 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 // custom hooks
-import useDiarySetupFunctions from "../../hooks/useDiarySetupFunctions";
+import useIssueFunctions from "../../hooks/useIssueFunctions";
 import { useEffect } from "react";
 
 export default function NewIssueForm(props) {
+  const history = useHistory();
   const uuid = useParams().uuid;
 
   const {
     loadingStatus,
-    diaryConfig,
+    issueData,
     getIssueSetupDetails,
-  } = useDiarySetupFunctions();
+    createIssue,
+  } = useIssueFunctions();
 
   const formik = useFormik({
     initialValues: {
@@ -56,6 +58,12 @@ export default function NewIssueForm(props) {
         diary_id: targetDiary.id,
         version_id: latestVersion[0].id,
       });
+      await createIssue({
+        ...values,
+        diary_id: targetDiary.id,
+        version_id: latestVersion[0].id,
+      });
+      history.push("/diary/" + uuid);
     },
   });
 
@@ -63,16 +71,11 @@ export default function NewIssueForm(props) {
     getIssueSetupDetails(uuid);
   }, []);
 
-  if (!diaryConfig) {
+  if (!issueData) {
     return <LoadingIndicator />;
   }
 
-  const {
-    targetDiary,
-    diaryLocations,
-    diaryTypes,
-    latestVersion,
-  } = diaryConfig;
+  const { targetDiary, diaryLocations, diaryTypes, latestVersion } = issueData;
 
   const renderFieldError = (fieldName) => {
     if (formik.touched[fieldName] && formik.errors[fieldName]) {
@@ -81,9 +84,11 @@ export default function NewIssueForm(props) {
   };
 
   const renderSuggestions = (datalist) => {
-    return datalist.map((suggestion) => {
-      return <option key={suggestion.id} value={suggestion.name}></option>;
-    });
+    if (Array.isArray(datalist)) {
+      return datalist.map((suggestion) => {
+        return <option key={suggestion.id} value={suggestion.name}></option>;
+      });
+    }
   };
 
   return (

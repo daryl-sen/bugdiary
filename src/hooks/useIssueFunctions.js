@@ -9,19 +9,41 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function useIssueFunctions() {
   // const [selectedIssues, setSelectedIssues] = useState(null); // for selecting multiple issues
+  const [issueData, setIssueData] = useState(null);
+  const [loadingStatus, setLoadingStatus] = useState(false);
 
   const uInfo = useContext(UserContext);
+
+  const headers = {
+    headers: {
+      authorization: `Bearer ${uInfo.jwt}`,
+      "Content-Type": "application/json",
+    },
+  };
+  const getIssueSetupDetails = (uuid) => {
+    axios
+      .get(BASE_URL + "/api/diaries/issue-setup/" + uuid, headers)
+      .then((resp) => {
+        if (resp.data.error) {
+          console.log("useIssueFunction Error" + resp.data.error);
+          return false;
+        }
+        setIssueData(resp.data);
+        return true;
+      });
+  };
 
   const createIssue = (values) => {
     // create
     axios
-      .post(BASE_URL + "/api/issues/")
+      .post(BASE_URL + "/api/issues/", values, headers)
       .then((resp) => {
         if (resp.data.error) {
           console.log(resp.data);
           return false;
         }
-        return resp.data;
+        setIssueData(resp.data);
+        return true;
       })
       .catch((err) => {
         console.log(err);
@@ -47,9 +69,12 @@ export default function useIssueFunctions() {
 
   return {
     uInfo,
+    issueData,
+    createIssue,
     getIssueDetails,
     markIssue,
     deleteIssue,
     selectIssue,
+    getIssueSetupDetails,
   };
 }

@@ -13,25 +13,6 @@ export default function useDiaryFunctions() {
 
   const uInfo = useContext(UserContext);
 
-  const getIssueSetupDetails = (uuid) => {
-    const headers = {
-      headers: {
-        authorization: `Bearer ${uInfo.jwt}`,
-        "Content-Type": "application/json",
-      },
-    };
-    axios
-      .get(BASE_URL + "/api/diaries/issue-setup/" + uuid, headers)
-      .then((resp) => {
-        if (resp.data.error) {
-          console.log(resp.data.error);
-          return false;
-        }
-        setDiaryConfig(resp.data);
-        return true;
-      });
-  };
-
   const getVersions = async (uuid) => {
     console.log("getting");
 
@@ -178,6 +159,5 @@ export default function useDiaryFunctions() {
     getTypes,
     createType,
     renderTags,
-    getIssueSetupDetails,
   };
 }

@@ -2,13 +2,29 @@ const express = require("express");
 const router = express.Router();
 
 module.exports = (models) => {
-  const { Issue, Diary } = models;
+  const { Issue, Diary, Location, Type } = models;
   router
     // create new issue
     .post("/", async (req, res) => {
       try {
-        const newIssue = await Issue.create({ ...req.body });
-        return res.json(newIssue);
+        const refLocation = await Location.findOne({
+          where: {
+            name: req.body.location_name,
+          },
+        });
+        const refType = await Type.findOne({
+          where: {
+            name: req.body.type_name,
+          },
+        });
+
+        const newIssue = await Issue.create({
+          ...req.body,
+          type_id: refType.id,
+          location_id: refLocation.id,
+          reference: req.body.reference ? req.body.reference : undefined,
+        });
+        return res.json("newIssue");
       } catch (err) {
         console.log(err);
         res.json({ error: err });
