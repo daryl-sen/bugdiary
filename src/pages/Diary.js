@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import SingleColumnLayout from "../components/layout/SingleColumnLayout";
+import TableLayout from "../components/layout/TableLayout";
 import MasonryContainer from "../components/layout/MasonryLayout";
 import NavigationButton from "../components/elements/NavigationButton";
 import LoadingIndicator from "../components/elements/LoadingIndicator";
@@ -23,6 +24,7 @@ export default function Diary(props) {
   const { uuid } = useParams();
   const { diaryContent, getDiaryContent } = useDiaryFunctions();
   const [overlayStatus, setOverlayStatus] = useState(false);
+  const viewType = useParams().viewType || "cards";
 
   const toggleOverlay = (componentName) => {
     setOverlayStatus((prev) => {
@@ -75,10 +77,18 @@ export default function Diary(props) {
           <BiBookAdd />
           &nbsp; Add New
         </NavigationButton>
-        <NavigationButton>
-          <BiBorderAll />
-          &nbsp; Table View
-        </NavigationButton>
+        {viewType === "cards" && (
+          <NavigationButton target={"/diary/" + uuid + "/table"}>
+            <BiBorderAll />
+            &nbsp; Table View
+          </NavigationButton>
+        )}
+        {viewType === "table" && (
+          <NavigationButton target={"/diary/" + uuid + "/cards"}>
+            <BiBorderAll />
+            &nbsp; Cards View
+          </NavigationButton>
+        )}
         <NavigationButton>
           <BiBarChartAlt />
           &nbsp; Sort
@@ -95,7 +105,8 @@ export default function Diary(props) {
           <BiCog />
           &nbsp; Settings
         </NavigationButton>
-        <MasonryContainer issues={issues} />
+        {viewType === "cards" && <MasonryContainer issues={issues} />}
+        {viewType === "table" && <TableLayout />}
       </SingleColumnLayout>
     </>
   );
