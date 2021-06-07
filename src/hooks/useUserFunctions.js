@@ -14,31 +14,31 @@ export default function useUserFunctions(next) {
   const loginUser = async (email, password) => {
     setLoadingStatus(true);
 
-    const accessToken = await axios
+    await axios
       .post("/api/users/login", {
         email,
         password,
       })
       .then((resp) => {
         if (resp.data.accessToken) {
-          return resp.data.accessToken;
+          console.log(resp.data);
+          uInfo.setUserSession((prev) => {
+            return {
+              ...prev,
+              jwt: resp.data.accessToken,
+              userId: resp.data.targetUser.id,
+            };
+          });
+          NotificationManager.success("Welcome back!", "Logged In");
+          history.push("/" + (next || "diaries"));
+        } else {
+          setLoadingStatus(false);
+          NotificationManager.error(
+            "User or password is incorrect.",
+            "Login Failed"
+          );
         }
-        return null;
       });
-
-    if (accessToken) {
-      uInfo.setUserSession((prev) => {
-        return { ...prev, jwt: accessToken };
-      });
-      NotificationManager.success("Welcome back!", "Logged In");
-      history.push("/" + (next || "diaries"));
-    } else {
-      setLoadingStatus(false);
-      NotificationManager.error(
-        "User or password is incorrect.",
-        "Login Failed"
-      );
-    }
   };
 
   const createUser = async (values) => {

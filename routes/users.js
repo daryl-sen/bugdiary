@@ -82,7 +82,7 @@ module.exports = (models) => {
         );
 
         req.session.jwt = accessToken;
-        res.json({ accessToken });
+        res.json({ targetUser, accessToken });
       } catch (error) {
         console.log(error);
         res.json({ error: error.errors });

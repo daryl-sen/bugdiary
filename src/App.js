@@ -18,6 +18,7 @@ function App() {
     notifications: [],
   });
 
+  console.log(userSession);
   // check for existing cookie containing jwt
   useEffect(() => {
     axios
