@@ -7,7 +7,8 @@ import useDiaryFunctions from "../hooks/useDiaryFunctions";
 import { useEffect, useState } from "react";
 
 import FullScreenShade from "../components/elements/FullScreenShade";
-import NewIssue from "../components/elements/NewIssue";
+import WhiteBgContainer from "../components/elements/WhiteBgContainer";
+import NewIssueForm from "../components/forms/NewIssueForm";
 
 import {
   BiCopyAlt,
@@ -46,7 +47,17 @@ export default function Diary(props) {
     <>
       {overlayStatus === "add" && (
         <FullScreenShade>
-          <NewIssue exit={toggleOverlay} />
+          <WhiteBgContainer preset="narrow">
+            <h2>Report New Issue</h2>
+            <NewIssueForm exit={toggleOverlay} />
+            <button
+              type="button"
+              className="custom button-secondary"
+              onClick={props.exit}
+            >
+              Cancel
+            </button>
+          </WhiteBgContainer>
         </FullScreenShade>
       )}
 

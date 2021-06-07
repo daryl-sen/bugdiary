@@ -33,9 +33,9 @@ export default function useIssueFunctions() {
       });
   };
 
-  const createIssue = (values) => {
+  const createIssue = async (values) => {
     // create
-    axios
+    await axios
       .post(BASE_URL + "/api/issues/", values, headers)
       .then((resp) => {
         if (resp.data.error) {

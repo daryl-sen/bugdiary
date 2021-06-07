@@ -63,7 +63,7 @@ export default function NewIssueForm(props) {
         diary_id: targetDiary.id,
         version_id: latestVersion[0].id,
       });
-      history.push("/diary/" + uuid);
+      props.exit();
     },
   });
 
