@@ -21,7 +21,6 @@ export default function useUserFunctions(next) {
       })
       .then((resp) => {
         if (resp.data.accessToken) {
-          console.log(resp.data);
           uInfo.setUserSession((prev) => {
             return {
               ...prev,
