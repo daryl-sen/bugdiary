@@ -79,6 +79,7 @@ module.exports = (models) => {
           where: {
             diary_id: targetDiary.id,
           },
+          order: [["id", "DESC"]],
         });
         return res.json({
           targetDiary,
