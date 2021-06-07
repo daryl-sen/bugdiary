@@ -11,6 +11,9 @@ import FullScreenShade from "../components/elements/FullScreenShade";
 import WhiteBgContainer from "../components/elements/WhiteBgContainer";
 import NewIssueForm from "../components/forms/NewIssueForm";
 
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { NotificationManager } from "react-notifications";
+
 import {
   BiCopyAlt,
   BiBorderAll,
@@ -98,10 +101,16 @@ export default function Diary(props) {
           <BiSearch />
           &nbsp; Search
         </NavigationButton>
-        <NavigationButton>
-          <BiCopyAlt />
-          &nbsp; Share Link
-        </NavigationButton>
+        <CopyToClipboard text={"https://www.bugdiary.com/diary/" + uuid}>
+          <NavigationButton
+            onClick={() => {
+              NotificationManager.success("URL copied!");
+            }}
+          >
+            <BiCopyAlt />
+            &nbsp; Share Link
+          </NavigationButton>
+        </CopyToClipboard>
         <NavigationButton target={"/setup/" + uuid}>
           <BiCog />
           &nbsp; Settings
