@@ -65,11 +65,17 @@ export default function NewIssueForm(props) {
       {renderFieldError("reference")}
 
       <label htmlFor="location_id">Location</label>
+      <datalist id="location_suggestions">
+        <option value="Option 1"></option>
+        <option value="Option 2"></option>
+        <option value="Option 3"></option>
+      </datalist>
       <input
         id="location_id"
         type="text"
         {...formik.getFieldProps("location_id")}
         placeholder="Where did you find it?"
+        list="location_suggestions"
       />
       {renderFieldError("location_id")}
 
@@ -79,7 +85,13 @@ export default function NewIssueForm(props) {
         type="text"
         {...formik.getFieldProps("type_id")}
         placeholder="What kind of issue is it?"
+        list="type_suggestions"
       />
+      <datalist id="type_suggestions">
+        <option value="Option 1"></option>
+        <option value="Option 2"></option>
+        <option value="Option 3"></option>
+      </datalist>
       {renderFieldError("type_id")}
 
       <label htmlFor="details">Issue Details</label>
