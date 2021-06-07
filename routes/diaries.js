@@ -3,7 +3,7 @@ const router = express.Router();
 const { authenticateToken } = require("../helpers/authenticate-token");
 
 module.exports = (models) => {
-  const { Diary, Version, Type, Location } = models;
+  const { Diary, Issue, Version, Type, Location } = models;
   router
 
     // get information required for setting up new issues
@@ -70,11 +70,16 @@ module.exports = (models) => {
           },
         });
 
-        if (targetDiary.user_id !== req.decodedUser.id) {
-          return res.json({ error: "You cannot see another user's diaries." });
-        }
+        // if (targetDiary.user_id !== req.decodedUser.id) {
+        //   return res.json({ error: "You cannot see another user's diaries." });
+        // }
 
-        const issues = await targetDiary.getIssues();
+        const issues = await Issue.findAll({
+          include: [Type, Location, Version],
+          where: {
+            diary_id: targetDiary.id,
+          },
+        });
         return res.json({
           targetDiary,
           issues,
