@@ -20,7 +20,7 @@ export default function DiaryLocationSetup(props) {
 
   useEffect(() => {
     getLocations(uuid);
-  }, [updated]);
+  }, [updated]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const formik = useFormik({
     initialValues: {

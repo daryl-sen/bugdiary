@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import LoadingIndicator from "../elements/LoadingIndicator";
+// import LoadingIndicator from "../elements/LoadingIndicator";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 // form
 import StylizedForm from "./StylizedForm";
 import * as Yup from "yup";
-import { FormikProvider, useFormik } from "formik";
+import { useFormik } from "formik";
 
 // custom hooks
 import useDiarySetupFunctions from "../../hooks/useDiarySetupFunctions";
@@ -23,7 +23,7 @@ export default function DiaryTypesSetup(props) {
 
   useEffect(() => {
     getTypes(uuid);
-  }, [updated]);
+  }, [updated]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const formik = useFormik({
     initialValues: {

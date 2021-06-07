@@ -1,4 +1,4 @@
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import LoadingIndicator from "../elements/LoadingIndicator";
 
 // form
@@ -11,7 +11,6 @@ import useIssueFunctions from "../../hooks/useIssueFunctions";
 import { useEffect } from "react";
 
 export default function NewIssueForm(props) {
-  const history = useHistory();
   const uuid = useParams().uuid;
 
   const {
@@ -69,7 +68,7 @@ export default function NewIssueForm(props) {
 
   useEffect(() => {
     getIssueSetupDetails(uuid);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!issueData) {
     return <LoadingIndicator />;

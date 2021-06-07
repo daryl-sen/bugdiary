@@ -35,7 +35,7 @@ export default function Diary(props) {
 
   useEffect(() => {
     getDiaryContent(uuid);
-  }, [uuid]);
+  }, [uuid]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!diaryContent) {
     return <LoadingIndicator />;

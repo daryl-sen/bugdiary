@@ -3,14 +3,14 @@ import axios from "axios";
 
 import { useContext } from "react";
 import { UserContext } from "../App";
-import NotificationManager from "react-notifications/lib/NotificationManager";
+// import NotificationManager from "react-notifications/lib/NotificationManager";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function useIssueFunctions() {
   // const [selectedIssues, setSelectedIssues] = useState(null); // for selecting multiple issues
   const [issueData, setIssueData] = useState(null);
-  const [loadingStatus, setLoadingStatus] = useState(false);
+  // const [loadingStatus, setLoadingStatus] = useState(false);
 
   const uInfo = useContext(UserContext);
 

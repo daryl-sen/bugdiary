@@ -22,7 +22,7 @@ export default function DiaryVersionSetup(props) {
 
   useEffect(() => {
     getVersions(uuid);
-  }, [updated]);
+  }, [updated]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const formik = useFormik({
     initialValues: {

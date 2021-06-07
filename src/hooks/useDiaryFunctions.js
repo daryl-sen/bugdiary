@@ -68,5 +68,6 @@ export default function useDiaryFunctions() {
     getAssociatedDiaries,
     updateDiary,
     deleteDiary,
+    setDiaryConfig,
   };
 }
