@@ -36,8 +36,9 @@ export default function Diary(props) {
   };
 
   useEffect(() => {
+    console.log("updating");
     getDiaryContent(uuid);
-  }, [uuid]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [overlayStatus]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!diaryContent) {
     return <LoadingIndicator />;

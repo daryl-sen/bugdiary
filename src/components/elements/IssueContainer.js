@@ -11,7 +11,6 @@ export default function IssueContainer(props) {
       });
     }
   };
-  console.log(props.createdAt);
   return (
     <div className="issue-container">
       <IssueControls />

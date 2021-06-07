@@ -52,11 +52,6 @@ export default function NewIssueForm(props) {
     }),
 
     onSubmit: async (values) => {
-      console.log({
-        ...values,
-        diary_id: targetDiary.id,
-        version_id: latestVersion[0].id,
-      });
       await createIssue({
         ...values,
         diary_id: targetDiary.id,
