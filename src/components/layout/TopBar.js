@@ -13,7 +13,7 @@ export default function TopBar(props) {
         )}
       </button>
       <div id="title">
-        <Link to="/">BugDiary.com</Link>
+        <Link to="/diaries">BugDiary.com</Link>
       </div>
     </header>
   );
