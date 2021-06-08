@@ -32,10 +32,6 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  return res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-
 const users = require("./routes/users");
 const comments = require("./routes/comments");
 const diaries = require("./routes/diaries");
@@ -75,4 +71,8 @@ app.listen(PORT, async () => {
   } catch (error) {
     return console.log(error);
   }
+});
+
+app.get("*", (req, res) => {
+  return res.sendFile(path.join(__dirname, "build", "index.html"));
 });
