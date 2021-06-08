@@ -7,7 +7,7 @@ export default function TwoColumnLayout(props) {
   if (props.preset) {
     if (props.preset === "confined") {
       styleOverride = {
-        maxWidth: "800px",
+        maxWidth: "1000px",
         margin: "auto",
       };
     }
@@ -15,7 +15,6 @@ export default function TwoColumnLayout(props) {
     styleOverride = props.styleOverride;
   }
 
-  console.log(props.children);
   return (
     <div style={styleOverride} className="two-column-layout">
       <main>{props.children || "No content"}</main>

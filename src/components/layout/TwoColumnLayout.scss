@@ -11,13 +11,15 @@
   }
 
   & > aside {
+    min-width: 325px;
+    text-align: left;
     flex-grow: 1;
     padding-left: $standard-spacing;
     max-width: 300px;
   }
 }
 
-@media screen and (max-width: $cutoff-1) {
+@media screen and (max-width: $cutoff-1 + 100px) {
   .two-column-layout {
     flex-direction: column;
     padding: 1rem;
