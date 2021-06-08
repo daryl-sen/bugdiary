@@ -8,7 +8,9 @@ export default function MasonryLayout(props) {
       return "none";
     }
     return issues.map((issue) => {
-      return <IssueContainer key={issue.id} {...issue} />;
+      return (
+        <IssueContainer key={issue.id} {...issue} refresh={props.refresh} />
+      );
     });
   };
 

@@ -26,22 +26,25 @@ export default function IssueControls(props) {
         <>
           <div className="controls-menu">
             <button
-              onClick={() => {
-                markIssue("RESOLVED", props.issueId);
+              onClick={async () => {
+                await markIssue("RESOLVED", props.issueId);
+                props.refresh();
               }}
             >
               <CgCheckR size={20} />
             </button>
             <button
-              onClick={() => {
-                markIssue("PRIORITIZED", props.issueId);
+              onClick={async () => {
+                await markIssue("PRIORITIZED", props.issueId);
+                props.refresh();
               }}
             >
               <CgPinAlt size={20} />
             </button>
             <button
-              onClick={() => {
-                markIssue("DELETED", props.issueId);
+              onClick={async () => {
+                await markIssue("DELETED", props.issueId);
+                props.refresh();
               }}
             >
               <CgTrashEmpty size={20} />

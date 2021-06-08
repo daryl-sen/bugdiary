@@ -39,7 +39,6 @@ export default function Diary(props) {
   };
 
   useEffect(() => {
-    console.log("updating");
     getDiaryContent(uuid);
   }, [overlayStatus]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -93,9 +92,13 @@ export default function Diary(props) {
             &nbsp; Table View
           </NavigationButton>
         )}
-        <NavigationButton>
+        <NavigationButton
+          onClick={() => {
+            getDiaryContent(uuid);
+          }}
+        >
           <BiBarChartAlt />
-          &nbsp; Sort
+          &nbsp; Refresh
         </NavigationButton>
         <NavigationButton>
           <BiSearch />
@@ -115,8 +118,22 @@ export default function Diary(props) {
           <BiCog />
           &nbsp; Settings
         </NavigationButton>
-        {viewType === "cards" && <MasonryContainer issues={issues} />}
-        {viewType === "table" && <TableLayout issues={issues} />}
+        {viewType === "cards" && (
+          <MasonryContainer
+            issues={issues}
+            refresh={() => {
+              getDiaryContent(uuid);
+            }}
+          />
+        )}
+        {viewType === "table" && (
+          <TableLayout
+            issues={issues}
+            refresh={() => {
+              getDiaryContent(uuid);
+            }}
+          />
+        )}
       </SingleColumnLayout>
     </>
   );

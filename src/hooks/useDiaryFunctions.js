@@ -42,6 +42,8 @@ export default function useDiaryFunctions() {
   };
 
   const getDiaryContent = (uuid) => {
+    console.log("updating");
+
     const authorization = { headers: { authorization: `Bearer ${uInfo.jwt}` } };
     axios
       .get("/api/diaries/" + uuid, authorization)
