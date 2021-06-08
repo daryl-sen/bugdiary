@@ -3,19 +3,23 @@ import "./TwoColumnLayout.scss";
 import LinedContainer from "../elements/LinedContainer";
 
 export default function TwoColumnLayout(props) {
+  let styleOverride;
+  if (props.preset) {
+    if (props.preset === "confined") {
+      styleOverride = {
+        maxWidth: "800px",
+        margin: "auto",
+      };
+    }
+  } else {
+    styleOverride = props.styleOverride;
+  }
+
+  console.log(props.children);
   return (
-    <div className="two-column-layout">
+    <div style={styleOverride} className="two-column-layout">
       <main>{props.children || "No content"}</main>
-      <aside>
-        <LinedContainer>
-          <h3>BugDiary</h3>
-          <p>Create your own bug diary today! Get started here.</p>
-          <button>Sign Up</button>
-        </LinedContainer>
-        <LinedContainer>
-          <h3>Related Issues</h3>
-        </LinedContainer>
-      </aside>
+      <aside>{props.aside}</aside>
     </div>
   );
 }
