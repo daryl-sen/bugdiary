@@ -1,11 +1,12 @@
 import "./MasonryLayout.scss";
 import Masonry from "react-masonry-css";
 import IssueContainer from "../elements/IssueContainer";
+import NoIssuesDisplay from "../elements/NoIssuesDisplay";
 
 export default function MasonryLayout(props) {
   const renderIssueContainers = (issues) => {
-    if (!Array.isArray(issues)) {
-      return "none";
+    if (!Array.isArray(issues) || issues.length === 0) {
+      return <NoIssuesDisplay />;
     }
     return issues.map((issue) => {
       return (
