@@ -59,6 +59,10 @@ app.use("/api/locations", locations({ Issue, Diary, Location, User }));
 app.use("/api/tags", tags({ Issue, Diary, Tag, User }));
 app.use("/api/versions", versions({ Issue, Diary, Version, User }));
 
+app.get("*", (req, res) => {
+  return res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
 app.listen(PORT, async () => {
   try {
     console.log(`Running on port: ${PORT}`);
@@ -71,8 +75,4 @@ app.listen(PORT, async () => {
   } catch (error) {
     return console.log(error);
   }
-});
-
-app.get("*", (req, res) => {
-  return res.sendFile(path.join(__dirname, "build", "index.html"));
 });
