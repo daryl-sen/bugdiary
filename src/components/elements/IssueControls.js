@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./IssueControls.scss";
 import {
   BiLinkExternal,
-  BiRadioCircle,
+  BiCircle,
   BiMenuAltRight,
   BiListCheck,
   BiPin,
@@ -70,7 +70,7 @@ export default function IssueControls(props) {
   return (
     <div className="controls">
       <button className="controls-toggle">
-        <BiRadioCircle size={25} />
+        <BiCircle size={25} />
       </button>
 
       <button className="controls-toggle">
