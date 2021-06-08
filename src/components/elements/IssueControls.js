@@ -28,6 +28,7 @@ export default function IssueControls(props) {
             <button
               onClick={async () => {
                 await markIssue("RESOLVED", props.issueId);
+                toggleControls();
                 props.refresh();
               }}
             >
@@ -36,6 +37,7 @@ export default function IssueControls(props) {
             <button
               onClick={async () => {
                 await markIssue("PRIORITIZED", props.issueId);
+                toggleControls();
                 props.refresh();
               }}
             >
@@ -44,6 +46,7 @@ export default function IssueControls(props) {
             <button
               onClick={async () => {
                 await markIssue("DELETED", props.issueId);
+                toggleControls();
                 props.refresh();
               }}
             >
