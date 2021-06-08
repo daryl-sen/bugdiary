@@ -1,21 +1,21 @@
 import { useState } from "react";
 import "./IssueControls.scss";
 import {
-  CgMenuMotion,
-  CgExpand,
-  CgTrashEmpty,
-  CgCheckR,
-  CgPinAlt,
-  CgCloseR,
-} from "react-icons/cg";
+  BiLinkExternal,
+  BiRadioCircle,
+  BiMenuAltRight,
+  BiListCheck,
+  BiPin,
+  BiTrashAlt,
+  BiWindowClose,
+  BiCommentDetail,
+} from "react-icons/bi";
 import FullScreenShade from "../elements/FullScreenShade";
 import useIssueFunctions from "../../hooks/useIssueFunctions";
 
 export default function IssueControls(props) {
   const [openStatus, setOpenStatus] = useState(false);
-
   const { markIssue } = useIssueFunctions();
-
   const toggleControls = () => {
     openStatus ? setOpenStatus(false) : setOpenStatus(true);
   };
@@ -32,7 +32,7 @@ export default function IssueControls(props) {
                 props.refresh();
               }}
             >
-              <CgCheckR size={20} />
+              <BiListCheck size={25} />
             </button>
             <button
               onClick={async () => {
@@ -41,7 +41,7 @@ export default function IssueControls(props) {
                 props.refresh();
               }}
             >
-              <CgPinAlt size={20} />
+              <BiPin size={25} />
             </button>
             <button
               onClick={async () => {
@@ -50,10 +50,10 @@ export default function IssueControls(props) {
                 props.refresh();
               }}
             >
-              <CgTrashEmpty size={20} />
+              <BiTrashAlt size={25} />
             </button>
             <button onClick={toggleControls}>
-              <CgCloseR size={20} />
+              <BiWindowClose size={25} />
             </button>
           </div>
           <FullScreenShade
@@ -69,17 +69,18 @@ export default function IssueControls(props) {
 
   return (
     <div className="controls">
-      <button
-        className="controls-toggle"
-        onClick={() => {
-          props.open("open");
-        }}
-      >
-        <CgExpand size={30} />
+      <button className="controls-toggle">
+        <BiRadioCircle size={25} />
       </button>
+
+      <button className="controls-toggle">
+        <BiLinkExternal size={25} />
+      </button>
+
       <button className="controls-toggle" onClick={toggleControls}>
-        <CgMenuMotion size={30} />
+        <BiMenuAltRight size={25} />
       </button>
+
       {renderControlMenu(openStatus)}
     </div>
   );

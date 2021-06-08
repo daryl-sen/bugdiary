@@ -15,6 +15,7 @@ export default function IssueContainer(props) {
   return (
     <div className="issue-container">
       <IssueControls
+        issueUuid={props.uuid}
         issueId={props.id}
         refresh={props.refresh}
         open={props.open}

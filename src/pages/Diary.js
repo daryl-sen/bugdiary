@@ -22,6 +22,8 @@ import {
   BiBarChartAlt,
   BiSearch,
   BiCog,
+  BiRevision,
+  BiWindows,
 } from "react-icons/bi";
 
 export default function Diary(props) {
@@ -88,7 +90,7 @@ export default function Diary(props) {
         </NavigationButton>
         {viewType === "cards" && (
           <NavigationButton target={"/diary/" + uuid + "/table"}>
-            <BiBorderAll />
+            <BiWindows />
             &nbsp; Cards View
           </NavigationButton>
         )}
@@ -98,14 +100,6 @@ export default function Diary(props) {
             &nbsp; Table View
           </NavigationButton>
         )}
-        <NavigationButton
-          onClick={() => {
-            getDiaryContent(uuid);
-          }}
-        >
-          <BiBarChartAlt />
-          &nbsp; Refresh
-        </NavigationButton>
         <NavigationButton>
           <BiSearch />
           &nbsp; Search
@@ -117,13 +111,21 @@ export default function Diary(props) {
             }}
           >
             <BiCopyAlt />
-            &nbsp; Share Link
+            &nbsp; Copy URL
           </NavigationButton>
         </CopyToClipboard>
         <NavigationButton target={"/setup/" + uuid}>
           <BiCog />
           &nbsp; Settings
         </NavigationButton>
+        <NavigationButton
+          onClick={() => {
+            getDiaryContent(uuid);
+          }}
+        >
+          <BiRevision />
+        </NavigationButton>
+
         {viewType === "cards" && (
           <MasonryContainer
             issues={issues}
