@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { UserContext } from "../App";
 import NotificationManager from "react-notifications/lib/NotificationManager";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function useDiaryFunctions() {
   const [loadingStatus, setLoadingStatus] = useState(false);
