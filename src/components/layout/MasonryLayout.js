@@ -9,7 +9,12 @@ export default function MasonryLayout(props) {
     }
     return issues.map((issue) => {
       return (
-        <IssueContainer key={issue.id} {...issue} refresh={props.refresh} />
+        <IssueContainer
+          key={issue.id}
+          {...issue}
+          refresh={props.refresh}
+          open={props.open}
+        />
       );
     });
   };

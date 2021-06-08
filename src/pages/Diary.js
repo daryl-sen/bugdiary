@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import FullScreenShade from "../components/elements/FullScreenShade";
 import WhiteBgContainer from "../components/elements/WhiteBgContainer";
 import NewIssueForm from "../components/forms/NewIssueForm";
+import IndividualIssue from "../components/elements/IndividualIssue";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NotificationManager } from "react-notifications";
@@ -63,6 +64,11 @@ export default function Diary(props) {
               Cancel
             </button>
           </WhiteBgContainer>
+        </FullScreenShade>
+      )}
+      {overlayStatus === "open" && (
+        <FullScreenShade>
+          <IndividualIssue></IndividualIssue>
         </FullScreenShade>
       )}
 
@@ -124,6 +130,7 @@ export default function Diary(props) {
             refresh={() => {
               getDiaryContent(uuid);
             }}
+            open={toggleOverlay}
           />
         )}
         {viewType === "table" && (
@@ -132,6 +139,7 @@ export default function Diary(props) {
             refresh={() => {
               getDiaryContent(uuid);
             }}
+            open={toggleOverlay}
           />
         )}
       </SingleColumnLayout>

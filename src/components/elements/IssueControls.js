@@ -69,7 +69,12 @@ export default function IssueControls(props) {
 
   return (
     <div className="controls">
-      <button className="controls-toggle">
+      <button
+        className="controls-toggle"
+        onClick={() => {
+          props.open("open");
+        }}
+      >
         <CgExpand size={30} />
       </button>
       <button className="controls-toggle" onClick={toggleControls}>
