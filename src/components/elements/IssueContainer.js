@@ -23,7 +23,7 @@ export default function IssueContainer(props) {
       <main>
         <h1>{props.reference || "Loading"}</h1>
         <div className="tags">
-          <IssueTag type="pending">{props.status || "Loading"}</IssueTag>
+          <IssueTag type={props.status}>{props.status || "Loading"}</IssueTag>
           <IssueTag type="permanent">
             Type: {props.Type.name || "Loading"}
           </IssueTag>

@@ -4,14 +4,17 @@ export default function IssueTag(props) {
 
   if (props.type) {
     switch (props.type) {
-      case "pending":
+      case "PENDING":
         defaultBg = "#f0cf65";
         break;
-      case "resolved":
+      case "RESOLVED":
         defaultBg = "#ddedaa";
         break;
-      case "pinned":
+      case "PRIORITIZED":
         defaultBg = "#cf6b6e";
+        break;
+      case "DELETED":
+        defaultBg = "#e6e6e6";
         break;
       default:
         defaultBg = "#393939";
