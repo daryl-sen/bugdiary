@@ -15,7 +15,7 @@ export default function IssueControlButton(props) {
     return props.mark(props.targetStatus);
   };
   return (
-    <button style={style} onClick={markIssue}>
+    <button style={style} onClick={props.cancel || markIssue}>
       {props.children}
     </button>
   );

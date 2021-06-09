@@ -52,7 +52,7 @@ export default function IssueControls(props) {
             >
               <BiTrashAlt size={25} />
             </IssueControlButton>
-            <IssueControlButton onClick={toggleControls}>
+            <IssueControlButton cancel={toggleControls}>
               <BiWindowClose size={25} />
             </IssueControlButton>
           </div>
