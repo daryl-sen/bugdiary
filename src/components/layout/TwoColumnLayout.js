@@ -1,6 +1,4 @@
 import "./TwoColumnLayout.scss";
-// import WhiteBgContainer from "../WhiteBgContainer";
-import LinedContainer from "../elements/LinedContainer";
 
 export default function TwoColumnLayout(props) {
   let styleOverride;

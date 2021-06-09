@@ -8,7 +8,6 @@ import {
   BiPin,
   BiTrashAlt,
   BiWindowClose,
-  BiCommentDetail,
 } from "react-icons/bi";
 import FullScreenShade from "../elements/FullScreenShade";
 import useIssueFunctions from "../../hooks/useIssueFunctions";
