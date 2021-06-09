@@ -60,7 +60,13 @@ export default function Diary(props) {
     return <LoadingIndicator />;
   }
 
-  const { targetDiary, issues } = diaryContent;
+  const {
+    targetDiary,
+    issuesPending,
+    issuesPrioritized,
+    issuesDeleted,
+    issuesResolved,
+  } = diaryContent;
 
   return (
     <>
@@ -144,7 +150,12 @@ export default function Diary(props) {
 
         {view.issueView === "cards" && view.functionView === "" ? (
           <MasonryContainer
-            issues={issues}
+            issues={{
+              issuesPending,
+              issuesPrioritized,
+              issuesDeleted,
+              issuesResolved,
+            }}
             refresh={() => {
               getDiaryContent(uuid);
             }}
@@ -152,7 +163,12 @@ export default function Diary(props) {
         ) : null}
         {view.issueView === "table" && view.functionView === "" ? (
           <TableLayout
-            issues={issues}
+            issues={{
+              issuesPending,
+              issuesPrioritized,
+              issuesDeleted,
+              issuesResolved,
+            }}
             refresh={() => {
               getDiaryContent(uuid);
             }}

@@ -74,16 +74,48 @@ module.exports = (models) => {
           return res.json({ error: "You cannot see another user's diaries." });
         }
 
-        const issues = await Issue.findAll({
+        const issuesPending = await Issue.findAll({
           include: [Type, Location, Version],
           where: {
             diary_id: targetDiary.id,
+            status: "PENDING",
           },
           order: [["id", "DESC"]],
         });
+
+        const issuesPrioritized = await Issue.findAll({
+          include: [Type, Location, Version],
+          where: {
+            diary_id: targetDiary.id,
+            status: "PRIORITIZED",
+          },
+          order: [["id", "DESC"]],
+        });
+
+        const issuesResolved = await Issue.findAll({
+          include: [Type, Location, Version],
+          where: {
+            diary_id: targetDiary.id,
+            status: "RESOLVED",
+          },
+          order: [["id", "DESC"]],
+        });
+
+        const issuesDeleted = await Issue.findAll({
+          include: [Type, Location, Version],
+          where: {
+            diary_id: targetDiary.id,
+            status: "DELETED",
+          },
+          order: [["id", "DESC"]],
+        });
+
         return res.json({
           targetDiary,
-          issues,
+          issuesPending,
+          issuesPrioritized,
+          issuesDeleted,
+          issuesResolved,
         });
       } catch (err) {
         console.log(err);
