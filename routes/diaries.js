@@ -70,9 +70,9 @@ module.exports = (models) => {
           },
         });
 
-        // if (targetDiary.user_id !== req.decodedUser.id) {
-        //   return res.json({ error: "You cannot see another user's diaries." });
-        // }
+        if (targetDiary.user_id !== req.decodedUser.id) {
+          return res.json({ error: "You cannot see another user's diaries." });
+        }
 
         const issues = await Issue.findAll({
           include: [Type, Location, Version],

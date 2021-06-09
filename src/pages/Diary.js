@@ -33,7 +33,11 @@ export default function Diary(props) {
   const { uuid } = useParams();
   const { diaryContent, getDiaryContent } = useDiaryFunctions();
   const [overlayStatus, setOverlayStatus] = useState(false);
-  const [viewType, setViewType] = useState("cards");
+  const [view, setView] = useState({
+    issueView: undefined,
+    functionView: undefined,
+  });
+  const functionView = useParams().functionView || "";
 
   const toggleOverlay = (componentName) => {
     setOverlayStatus((prev) => {
@@ -45,6 +49,10 @@ export default function Diary(props) {
   };
 
   useEffect(() => {
+    setView({
+      issueView: "cards",
+      functionView,
+    });
     getDiaryContent(uuid);
   }, [overlayStatus]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -62,10 +70,12 @@ export default function Diary(props) {
         }}
       >
         <h1>{targetDiary.name}</h1>
-        {viewType !== "new" ? (
+        {view.functionView !== "add" ? (
           <NavigationButton
             onClick={() => {
-              setViewType("new");
+              setView((prev) => {
+                return { ...prev, functionView: "add" };
+              });
             }}
           >
             <BiBookAdd />
@@ -74,7 +84,9 @@ export default function Diary(props) {
         ) : (
           <NavigationButton
             onClick={() => {
-              setViewType("cards");
+              setView((prev) => {
+                return { ...prev, functionView: "" };
+              });
             }}
           >
             <BiArrowBack />
@@ -100,19 +112,23 @@ export default function Diary(props) {
           <BiCog />
           &nbsp; Settings
         </NavigationButton>
-        {viewType === "cards" && (
+        {view.issueView === "cards" && (
           <NavigationButton
             onClick={() => {
-              setViewType("table");
+              setView((prev) => {
+                return { ...prev, issueView: "table" };
+              });
             }}
           >
             <BiWindows />
           </NavigationButton>
         )}
-        {viewType === "table" && (
+        {view.issueView === "table" && (
           <NavigationButton
             onClick={() => {
-              setViewType("cards");
+              setView((prev) => {
+                return { ...prev, issueView: "cards" };
+              });
             }}
           >
             <BiBorderAll />
@@ -126,7 +142,7 @@ export default function Diary(props) {
           <BiRevision />
         </NavigationButton>
 
-        {viewType === "cards" && (
+        {view.issueView === "cards" && view.functionView === "" ? (
           <MasonryContainer
             issues={issues}
             refresh={() => {
@@ -134,8 +150,8 @@ export default function Diary(props) {
             }}
             open={toggleOverlay}
           />
-        )}
-        {viewType === "table" && (
+        ) : null}
+        {view.issueView === "table" && view.functionView === "" ? (
           <TableLayout
             issues={issues}
             refresh={() => {
@@ -143,8 +159,8 @@ export default function Diary(props) {
             }}
             open={toggleOverlay}
           />
-        )}
-        {viewType === "new" && (
+        ) : null}
+        {view.functionView === "add" && (
           <TwoColumnLayout
             preset={"confined"}
             aside={

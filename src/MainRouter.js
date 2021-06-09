@@ -45,7 +45,7 @@ export default function MainRouter(props) {
             <Diaries />
           </ProtectedRoute>
         </Route>
-        <Route exact path="/diary/:uuid/:viewType?">
+        <Route exact path="/diary/:uuid/:functionView?">
           <Diary />
         </Route>
         <Route exact path="/login">
