@@ -64,7 +64,6 @@ export default function useIssueFunctions() {
           console.log(resp.data.error);
           return false;
         }
-        console.log(resp.data);
         NotificationManager.success(`The issue is marked as '${status}'.`);
         return true;
       })

@@ -11,6 +11,7 @@ import {
 } from "react-icons/bi";
 import FullScreenShade from "../elements/FullScreenShade";
 import useIssueFunctions from "../../hooks/useIssueFunctions";
+import IssueControlButton from "./IssueControlButton";
 
 export default function IssueControls(props) {
   const [openStatus, setOpenStatus] = useState(false);
@@ -19,41 +20,41 @@ export default function IssueControls(props) {
     openStatus ? setOpenStatus(false) : setOpenStatus(true);
   };
 
+  const mark = async (targetStatus) => {
+    await markIssue(targetStatus, props.issueId);
+    toggleControls();
+    props.refresh();
+  };
+
   const renderControlMenu = (openStatus) => {
     if (openStatus) {
       return (
         <>
           <div className="controls-menu">
-            <button
-              onClick={async () => {
-                await markIssue("RESOLVED", props.issueId);
-                toggleControls();
-                props.refresh();
-              }}
+            <IssueControlButton
+              mark={mark}
+              targetStatus={"RESOLVED"}
+              currentStatus={props.status}
             >
               <BiListCheck size={25} />
-            </button>
-            <button
-              onClick={async () => {
-                await markIssue("PRIORITIZED", props.issueId);
-                toggleControls();
-                props.refresh();
-              }}
+            </IssueControlButton>
+            <IssueControlButton
+              mark={mark}
+              targetStatus={"PRIORITIZED"}
+              currentStatus={props.status}
             >
               <BiPin size={25} />
-            </button>
-            <button
-              onClick={async () => {
-                await markIssue("DELETED", props.issueId);
-                toggleControls();
-                props.refresh();
-              }}
+            </IssueControlButton>
+            <IssueControlButton
+              mark={mark}
+              targetStatus={"DELETED"}
+              currentStatus={props.status}
             >
               <BiTrashAlt size={25} />
-            </button>
-            <button onClick={toggleControls}>
+            </IssueControlButton>
+            <IssueControlButton onClick={toggleControls}>
               <BiWindowClose size={25} />
-            </button>
+            </IssueControlButton>
           </div>
           <FullScreenShade
             styleOverride={{

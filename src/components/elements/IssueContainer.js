@@ -19,6 +19,7 @@ export default function IssueContainer(props) {
         issueId={props.id}
         refresh={props.refresh}
         open={props.open}
+        status={props.status}
       />
       <main>
         <h1>{props.reference || "Loading"}</h1>
