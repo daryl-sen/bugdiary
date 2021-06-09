@@ -1,10 +1,12 @@
+import "./IssueControlButton.scss";
 export default function IssueControlButton(props) {
   let style;
 
   if (props.currentStatus && props.currentStatus === props.targetStatus) {
     style = {
-      outline: "3px inset #358bdc",
-      // backgroundColor: "#b0d9ff",
+      boxShadow: "inset 0px 0px 15px 0px rgba(0,0,0,0.15)",
+      WebKitBoxShadow: "inset 0px 0px 15px 0px rgba(0,0,0,0.15)",
+      MozBoxShadow: "inset 0px 0px 15px 0px rgba(0,0,0,0.15)",
     };
   }
 
@@ -15,7 +17,11 @@ export default function IssueControlButton(props) {
     return props.mark(props.targetStatus);
   };
   return (
-    <button style={style} onClick={props.cancel || markIssue}>
+    <button
+      className="issue-control-button"
+      style={style}
+      onClick={props.cancel || markIssue}
+    >
       {props.children}
     </button>
   );
