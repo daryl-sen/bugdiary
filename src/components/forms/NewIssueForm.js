@@ -58,6 +58,7 @@ export default function NewIssueForm(props) {
         version_id: latestVersion[0].id,
       });
       props.exit();
+      props.refresh();
     },
   });
 

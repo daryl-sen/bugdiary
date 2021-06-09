@@ -54,7 +54,7 @@ export default function Diary(props) {
       functionView,
     });
     getDiaryContent(uuid);
-  }, [overlayStatus]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [setView]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!diaryContent) {
     return <LoadingIndicator />;
@@ -209,8 +209,19 @@ export default function Diary(props) {
                     return { ...prev, functionView: "" };
                   });
                 }}
+                refresh={() => {
+                  getDiaryContent(uuid);
+                }}
               />
-              <button type="button" className="custom button-secondary">
+              <button
+                type="button"
+                className="custom button-secondary"
+                onClick={() => {
+                  setView((prev) => {
+                    return { ...prev, functionView: "" };
+                  });
+                }}
+              >
                 Cancel
               </button>
             </WhiteBgContainer>

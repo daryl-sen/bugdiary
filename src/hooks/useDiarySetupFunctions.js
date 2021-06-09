@@ -14,8 +14,6 @@ export default function useDiaryFunctions() {
   const uInfo = useContext(UserContext);
 
   const getVersions = async (uuid) => {
-    console.log("getting");
-
     const headers = {
       headers: {
         authorization: `Bearer ${uInfo.jwt}`,
@@ -33,8 +31,6 @@ export default function useDiaryFunctions() {
   };
 
   const getLocations = async (uuid) => {
-    console.log("getting");
-
     const headers = {
       headers: {
         authorization: `Bearer ${uInfo.jwt}`,
@@ -52,8 +48,6 @@ export default function useDiaryFunctions() {
   };
 
   const getTypes = async (uuid) => {
-    console.log("getting");
-
     const headers = {
       headers: {
         authorization: `Bearer ${uInfo.jwt}`,

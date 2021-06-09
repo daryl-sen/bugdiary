@@ -14,8 +14,6 @@ export default function MasonryLayout(props) {
     }
   };
 
-  console.log(props);
-
   return (
     <Masonry
       breakpointCols={{
