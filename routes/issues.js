@@ -10,6 +10,7 @@ module.exports = (models) => {
         let refLocation = await Location.findOne({
           where: {
             name: req.body.location_name,
+            diary_id: req.body.diary_id,
           },
         });
         if (!refLocation) {
@@ -21,6 +22,7 @@ module.exports = (models) => {
         let refType = await Type.findOne({
           where: {
             name: req.body.type_name,
+            diary_id: req.body.diary_id,
           },
         });
         if (!refType) {
