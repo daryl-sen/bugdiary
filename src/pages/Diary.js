@@ -203,7 +203,13 @@ export default function Diary(props) {
           >
             <WhiteBgContainer>
               <h2>Report New Issue</h2>
-              <NewIssueForm />
+              <NewIssueForm
+                exit={() => {
+                  setView((prev) => {
+                    return { ...prev, functionView: "" };
+                  });
+                }}
+              />
               <button type="button" className="custom button-secondary">
                 Cancel
               </button>
