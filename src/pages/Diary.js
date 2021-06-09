@@ -39,12 +39,12 @@ export default function Diary(props) {
   });
   const functionView = useParams().functionView || "";
 
-  const toggleOverlay = (componentName) => {
+  const toggleOverlay = () => {
     setOverlayStatus((prev) => {
       if (prev) {
         return false;
       }
-      return componentName;
+      return true;
     });
   };
 
@@ -148,7 +148,6 @@ export default function Diary(props) {
             refresh={() => {
               getDiaryContent(uuid);
             }}
-            open={toggleOverlay}
           />
         ) : null}
         {view.issueView === "table" && view.functionView === "" ? (
@@ -157,7 +156,6 @@ export default function Diary(props) {
             refresh={() => {
               getDiaryContent(uuid);
             }}
-            open={toggleOverlay}
           />
         ) : null}
         {view.functionView === "add" && (
@@ -189,7 +187,7 @@ export default function Diary(props) {
           >
             <WhiteBgContainer>
               <h2>Report New Issue</h2>
-              <NewIssueForm exit={toggleOverlay} />
+              <NewIssueForm />
               <button type="button" className="custom button-secondary">
                 Cancel
               </button>
