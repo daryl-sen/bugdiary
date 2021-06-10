@@ -8,11 +8,12 @@ import LoadingIndicator from "../components/elements/LoadingIndicator";
 import useDiaryFunctions from "../hooks/useDiaryFunctions";
 import { useEffect, useState } from "react";
 
-// import FullScreenShade from "../components/elements/FullScreenShade";
+import FullScreenShade from "../components/elements/FullScreenShade";
 import WhiteBgContainer from "../components/elements/WhiteBgContainer";
 import NewIssueForm from "../components/forms/NewIssueForm";
-// import IndividualIssue from "../components/elements/IndividualIssue";
+import IndividualIssue from "../components/elements/IndividualIssue";
 import LinedContainer from "../components/elements/LinedContainer";
+import SearchPopup from "../components/elements/SearchPopup";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NotificationManager } from "react-notifications";
@@ -32,21 +33,21 @@ import { Link } from "react-router-dom";
 export default function Diary(props) {
   const { uuid } = useParams();
   const { diaryContent, getDiaryContent } = useDiaryFunctions();
-  // const [overlayStatus, setOverlayStatus] = useState(false);
+  const [overlayStatus, setOverlayStatus] = useState(false);
   const [view, setView] = useState({
     issueView: undefined,
     functionView: undefined,
   });
   const functionView = useParams().functionView || "";
 
-  // const toggleOverlay = () => {
-  //   setOverlayStatus((prev) => {
-  //     if (prev) {
-  //       return false;
-  //     }
-  //     return true;
-  //   });
-  // };
+  const toggleOverlay = () => {
+    setOverlayStatus((prev) => {
+      if (prev) {
+        return false;
+      }
+      return true;
+    });
+  };
 
   useEffect(() => {
     setView({
@@ -70,6 +71,11 @@ export default function Diary(props) {
 
   return (
     <>
+      {overlayStatus === true && (
+        <FullScreenShade>
+          <SearchPopup exit={toggleOverlay} />
+        </FullScreenShade>
+      )}
       <SingleColumnLayout
         styleOverride={{
           textAlign: "center",
@@ -100,7 +106,7 @@ export default function Diary(props) {
           </NavigationButton>
         )}
 
-        <NavigationButton>
+        <NavigationButton onClick={toggleOverlay}>
           <BiSearch />
           &nbsp; Search
         </NavigationButton>

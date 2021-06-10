@@ -1,0 +1,10 @@
+.side-by-side {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  & > div {
+    display: block;
+    flex: 1;
+  }
+}
