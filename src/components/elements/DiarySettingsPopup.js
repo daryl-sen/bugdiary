@@ -1,6 +1,6 @@
 import WhiteBgContainer from "./WhiteBgContainer";
 
-export default function DiarySettingsMenu(props) {
+export default function DiarySettingsPopup(props) {
   return (
     <WhiteBgContainer preset="narrow">
       <h2>Diary Settings</h2>

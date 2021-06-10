@@ -11,10 +11,10 @@ import { useEffect, useState } from "react";
 import FullScreenShade from "../components/elements/FullScreenShade";
 import WhiteBgContainer from "../components/elements/WhiteBgContainer";
 import NewIssueForm from "../components/forms/NewIssueForm";
-import IndividualIssue from "../components/elements/IndividualIssue";
+// import IndividualIssue from "../components/elements/IndividualIssue";
 import LinedContainer from "../components/elements/LinedContainer";
 import SearchPopup from "../components/elements/SearchPopup";
-import DiarySettingsMenu from "../components/elements/DiarySettingsMenu";
+import DiarySettingsPopup from "../components/elements/DiarySettingsPopup";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NotificationManager } from "react-notifications";
@@ -79,14 +79,14 @@ export default function Diary(props) {
   return (
     <>
       {overlayStatus === true && view.popupView === "search" ? (
-        <FullScreenShade styleOverride={{ padding: "2rem" }}>
+        <FullScreenShade styleOverride={{ padding: "1rem" }}>
           <SearchPopup exit={toggleOverlay} />
         </FullScreenShade>
       ) : null}
 
       {overlayStatus === true && view.popupView === "settings" ? (
-        <FullScreenShade styleOverride={{ padding: "2rem" }}>
-          <DiarySettingsMenu exit={toggleOverlay} />
+        <FullScreenShade styleOverride={{ padding: "1rem" }}>
+          <DiarySettingsPopup exit={toggleOverlay} />
         </FullScreenShade>
       ) : null}
 
