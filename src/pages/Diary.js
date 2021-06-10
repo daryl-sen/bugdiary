@@ -85,7 +85,10 @@ export default function Diary(props) {
       ) : null}
 
       {overlayStatus === true && view.popupView === "settings" ? (
-        <FullScreenShade styleOverride={{ padding: "1rem" }}>
+        <FullScreenShade
+          styleOverride={{ padding: "1rem" }}
+          clickEvent={toggleOverlay}
+        >
           <DiarySettingsPopup exit={toggleOverlay} />
         </FullScreenShade>
       ) : null}
