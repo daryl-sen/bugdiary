@@ -79,13 +79,13 @@ export default function Diary(props) {
   return (
     <>
       {overlayStatus === true && view.popupView === "search" ? (
-        <FullScreenShade>
+        <FullScreenShade styleOverride={{ padding: "2rem" }}>
           <SearchPopup exit={toggleOverlay} />
         </FullScreenShade>
       ) : null}
 
       {overlayStatus === true && view.popupView === "settings" ? (
-        <FullScreenShade>
+        <FullScreenShade styleOverride={{ padding: "2rem" }}>
           <DiarySettingsMenu exit={toggleOverlay} />
         </FullScreenShade>
       ) : null}
