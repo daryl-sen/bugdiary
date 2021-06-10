@@ -31,7 +31,21 @@ export default function SideNav(props) {
     <>
       {renderShade()}
       <nav style={transformInfo}>
-        <section id="about-info">Logo</section>
+        <section id="nav-icons">
+          <Link onClick={props.toggleMenu} to="/new">
+            <BiBookAdd />
+          </Link>
+          <Link onClick={props.toggleMenu} to="/diaries">
+            <BiBookAlt />
+          </Link>
+          <Link onClick={props.toggleMenu} to="/account">
+            <BiUser />
+          </Link>
+          <Link onClick={logoutUser} to="/">
+            <BiLogOut />
+          </Link>
+          {false ? <BiLogIn /> : null}
+        </section>
         <section id="links">
           <Link onClick={props.toggleMenu} to="/about">
             About Us
@@ -50,21 +64,7 @@ export default function SideNav(props) {
             Diary #2
           </Link>
         </section>
-        <section id="footer">
-          <Link onClick={props.toggleMenu} to="/new">
-            <BiBookAdd />
-          </Link>
-          <Link onClick={props.toggleMenu} to="/diaries">
-            <BiBookAlt />
-          </Link>
-          <Link onClick={props.toggleMenu} to="/account">
-            <BiUser />
-          </Link>
-          <Link onClick={logoutUser} to="/">
-            <BiLogOut />
-          </Link>
-          {false ? <BiLogIn /> : null}
-        </section>
+        <section id="footer">&copy; Sen Tang, 2020-2021</section>
       </nav>
     </>
   );

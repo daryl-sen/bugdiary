@@ -16,10 +16,6 @@ nav {
   -moz-transition: 0.25s ease-in-out;
   -o-transition: 0.25s ease-in-out;
 
-  & > section:first-child {
-    padding-top: 4rem;
-  }
-
   section > a:link,
   section > a:visited {
     text-align: right;
@@ -42,18 +38,25 @@ nav {
     padding: 1rem 2rem 0 1rem;
   }
 
-  #footer {
+  #nav-icons {
     display: flex;
-    padding: $standard-spacing * 2;
+    padding: 1.5rem;
+    padding-top: 5.5rem;
     flex-direction: row;
     justify-content: space-between;
-    border-top: 1px solid $line-color;
+    border-bottom: 1px solid $line-color;
   }
 
-  #footer > a {
+  #nav-icons > a {
     padding: 0;
     text-align: center;
     display: block;
     font-size: 2rem;
+  }
+
+  #footer {
+    border-top: 1px solid $line-color;
+    text-align: center;
+    padding: $standard-spacing * 2;
   }
 }
