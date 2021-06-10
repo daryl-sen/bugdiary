@@ -14,6 +14,7 @@ import NewIssueForm from "../components/forms/NewIssueForm";
 import IndividualIssue from "../components/elements/IndividualIssue";
 import LinedContainer from "../components/elements/LinedContainer";
 import SearchPopup from "../components/elements/SearchPopup";
+import DiarySettingsMenu from "../components/elements/DiarySettingsMenu";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NotificationManager } from "react-notifications";
@@ -37,10 +38,16 @@ export default function Diary(props) {
   const [view, setView] = useState({
     issueView: undefined,
     functionView: undefined,
+    popupView: undefined,
   });
   const functionView = useParams().functionView || "";
 
-  const toggleOverlay = () => {
+  const toggleOverlay = (overlayComponentName) => {
+    if (overlayComponentName) {
+      setView((prev) => {
+        return { ...prev, popupView: overlayComponentName };
+      });
+    }
     setOverlayStatus((prev) => {
       if (prev) {
         return false;
@@ -71,11 +78,18 @@ export default function Diary(props) {
 
   return (
     <>
-      {overlayStatus === true && (
+      {overlayStatus === true && view.popupView === "search" ? (
         <FullScreenShade>
           <SearchPopup exit={toggleOverlay} />
         </FullScreenShade>
-      )}
+      ) : null}
+
+      {overlayStatus === true && view.popupView === "settings" ? (
+        <FullScreenShade>
+          <DiarySettingsMenu exit={toggleOverlay} />
+        </FullScreenShade>
+      ) : null}
+
       <SingleColumnLayout
         styleOverride={{
           textAlign: "center",
@@ -106,7 +120,11 @@ export default function Diary(props) {
           </NavigationButton>
         )}
 
-        <NavigationButton onClick={toggleOverlay}>
+        <NavigationButton
+          onClick={() => {
+            toggleOverlay("search");
+          }}
+        >
           <BiSearch />
           &nbsp; Search
         </NavigationButton>
@@ -120,7 +138,11 @@ export default function Diary(props) {
             &nbsp; Copy URL
           </NavigationButton>
         </CopyToClipboard>
-        <NavigationButton target={"/setup/" + uuid}>
+        <NavigationButton
+          onClick={() => {
+            toggleOverlay("settings");
+          }}
+        >
           <BiCog />
           &nbsp; Settings
         </NavigationButton>
