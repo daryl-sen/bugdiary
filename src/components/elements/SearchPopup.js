@@ -6,6 +6,8 @@ export default function SearchPopup(props) {
     <WhiteBgContainer preset="narrow">
       <h2>Search and Filter</h2>
       <input type="text" />
+      <button className="custom">Hiding Resolved Issues</button>
+      <button className="custom">Hiding Deleted Issues</button>
       <div className="side-by-side">
         <div>
           <button type="submit" className="button-primary">
