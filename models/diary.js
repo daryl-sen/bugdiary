@@ -2,6 +2,7 @@
 const { Model } = require("sequelize");
 // use a shorter uuid than what uuidv4 generates for users
 const { nanoid } = require("../helpers/nanoid-custom");
+const { generateExpiryDate } = require("../helpers/generateExpiryDate");
 
 module.exports = (sequelize, DataTypes) => {
   class Diary extends Model {
@@ -45,6 +46,16 @@ module.exports = (sequelize, DataTypes) => {
       passcode: {
         type: DataTypes.STRING,
         allowNull: true, // only required for diaries with no user_id
+      },
+      privacy: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "defaultPrivate",
+      },
+      expiry_date: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: generateExpiryDate,
       },
     },
     {
