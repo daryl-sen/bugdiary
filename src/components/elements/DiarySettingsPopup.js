@@ -15,8 +15,14 @@ export default function DiarySettingsPopup(props) {
       >
         Versions, Locations, Types
       </button>
-      <button className="custom">Diary Info</button>
-      <button className="custom">Privacy Settings</button>
+      <button
+        className="custom"
+        onClick={() => {
+          props.target("diaryInfo");
+        }}
+      >
+        Diary Info, Privacy, Ownership
+      </button>
       <button className="custom">Extend Diary Expiry</button>
       <button className="custom button-secondary" onClick={props.exit}>
         Cancel

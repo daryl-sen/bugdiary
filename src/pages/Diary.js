@@ -15,6 +15,7 @@ import NewIssueForm from "../components/forms/NewIssueForm";
 import LinedContainer from "../components/elements/LinedContainer";
 import SearchPopup from "../components/elements/SearchPopup";
 import DiarySettingsPopup from "../components/elements/DiarySettingsPopup";
+import DiaryInfoSettings from "../components/elements/DiaryInfoSettings";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NotificationManager } from "react-notifications";
@@ -89,7 +90,14 @@ export default function Diary(props) {
           styleOverride={{ padding: "1rem" }}
           clickEvent={toggleOverlay}
         >
-          <DiarySettingsPopup exit={toggleOverlay} />
+          <DiarySettingsPopup
+            exit={toggleOverlay}
+            target={(target) => {
+              setView((prev) => {
+                return { ...prev, functionView: target };
+              });
+            }}
+          />
         </FullScreenShade>
       ) : null}
 
@@ -99,7 +107,7 @@ export default function Diary(props) {
         }}
       >
         <h1>{targetDiary.name}</h1>
-        {view.functionView !== "add" ? (
+        {view.functionView === "" ? (
           <NavigationButton
             onClick={() => {
               setView((prev) => {
@@ -149,6 +157,7 @@ export default function Diary(props) {
           <BiCog />
           &nbsp; Settings
         </NavigationButton>
+
         {view.issueView === "cards" && (
           <NavigationButton
             onClick={() => {
@@ -160,6 +169,7 @@ export default function Diary(props) {
             <BiWindows />
           </NavigationButton>
         )}
+
         {view.issueView === "table" && (
           <NavigationButton
             onClick={() => {
@@ -192,6 +202,7 @@ export default function Diary(props) {
             }}
           />
         ) : null}
+
         {view.issueView === "table" && view.functionView === "" ? (
           <TableLayout
             issues={{
@@ -205,6 +216,7 @@ export default function Diary(props) {
             }}
           />
         ) : null}
+
         {view.functionView === "add" && (
           <TwoColumnLayout
             preset={"confined"}
@@ -258,6 +270,8 @@ export default function Diary(props) {
             </WhiteBgContainer>
           </TwoColumnLayout>
         )}
+
+        {view.functionView === "diaryInfo" && <DiaryInfoSettings />}
       </SingleColumnLayout>
     </>
   );
