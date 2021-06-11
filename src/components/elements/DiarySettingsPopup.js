@@ -10,7 +10,7 @@ export default function DiarySettingsPopup(props) {
       <button
         className="custom"
         onClick={() => {
-          history.push("/new");
+          history.push("/setup/" + props.diaryUuid);
         }}
       >
         Versions, Locations, Types

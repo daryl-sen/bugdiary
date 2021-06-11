@@ -37,8 +37,8 @@ export default function DiarySetup() {
       <WhiteBgContainer>
         <h1>Diary Setup ({currentStep + 1}/3)</h1>
         <p>
-          Your diary is created! Let's add some basic labels to help you
-          organize your project's issues.
+          Let's add some basic labels to help you organize your project's
+          issues.
         </p>
         <hr />
         {renderStep(currentStep)}

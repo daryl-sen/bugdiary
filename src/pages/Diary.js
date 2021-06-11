@@ -91,6 +91,7 @@ export default function Diary(props) {
           clickEvent={toggleOverlay}
         >
           <DiarySettingsPopup
+            diaryUuid={targetDiary.uuid}
             exit={toggleOverlay}
             target={(target) => {
               setView((prev) => {
