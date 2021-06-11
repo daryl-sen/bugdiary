@@ -1,8 +1,11 @@
 import { useHistory } from "react-router";
 import WhiteBgContainer from "./WhiteBgContainer";
+import useDiaryFunctions from "../../hooks/useDiaryFunctions";
+import { NotificationManager } from "react-notifications";
 
 export default function DiarySettingsPopup(props) {
   const history = useHistory();
+  const { extendExpiry } = useDiaryFunctions();
 
   return (
     <WhiteBgContainer preset="narrow">
@@ -23,7 +26,17 @@ export default function DiarySettingsPopup(props) {
       >
         Diary Info, Privacy, Ownership
       </button>
-      <button className="custom">Extend Diary Expiry</button>
+      <button
+        className="custom"
+        onClick={() => {
+          extendExpiry(props.diaryUuid);
+          NotificationManager.success(
+            "Your diary's expiry data has been extended to 3 months from now."
+          );
+        }}
+      >
+        Extend Diary Expiry
+      </button>
       <button className="custom button-secondary" onClick={props.exit}>
         Cancel
       </button>

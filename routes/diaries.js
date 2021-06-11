@@ -174,6 +174,26 @@ module.exports = (models) => {
         console.log(err);
         return res.json({ error: err.error });
       }
+    })
+
+    .patch("/extend/:uuid", authenticateToken, async (req, res) => {
+      const uuid = req.params.uuid;
+      try {
+        const targetDiary = await Diary.findOne({
+          where: {
+            uuid,
+          },
+        });
+        const newExpiry = new Date();
+        newExpiry.setTime(newExpiry.getTime() + 90 * 24 * 60 * 60 * 1000);
+        console.log(newExpiry);
+        targetDiary.expiry_date = newExpiry;
+        await targetDiary.save();
+        return res.json(targetDiary);
+      } catch (err) {
+        console.log(err);
+        return res.json({ error: err });
+      }
     });
 
   return router;

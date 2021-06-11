@@ -55,6 +55,19 @@ export default function useDiaryFunctions() {
       });
   };
 
+  const extendExpiry = async (uuid) => {
+    const authorization = { headers: { authorization: `Bearer ${uInfo.jwt}` } };
+    await axios
+      .patch("/api/diaries/extend/" + uuid, {}, authorization)
+      .then((resp) => {
+        console.log(resp.data);
+        if (resp.error) {
+          return false;
+        }
+        return true;
+      });
+  };
+
   const getAssociatedDiaries = () => {};
   const updateDiary = () => {};
   const deleteDiary = () => {};
@@ -71,5 +84,6 @@ export default function useDiaryFunctions() {
     updateDiary,
     deleteDiary,
     setDiaryConfig,
+    extendExpiry,
   };
 }
