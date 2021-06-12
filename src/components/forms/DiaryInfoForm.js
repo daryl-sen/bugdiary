@@ -23,7 +23,7 @@ export default function DiaryInfoForm(props) {
       name: props.targetDiary.name,
       description: props.targetDiary.description,
       passcode: "",
-      privacy: props.targetDiary.privacy,
+      privacy: privacyMode,
     },
 
     validationSchema: Yup.object({
@@ -74,15 +74,15 @@ export default function DiaryInfoForm(props) {
         id="privacy"
         {...formik.getFieldProps("privacy")}
         onChange={(e) => {
-          console.log("changing");
+          formik.handleChange("privacy")(e);
           setPrivacyMode(e.target.value);
         }}
+        value={privacyMode}
       >
         <option value="defaultPublic">Default to Public</option>
         <option value="defaultPrivate">Default to Private</option>
         <option value="enforcePrivate">Enforce Private</option>
       </select>
-      {privacyMode}
       {privacyMode === "defaultPublic" && (
         <p>
           Users have to check a box to make their report private. Only the
