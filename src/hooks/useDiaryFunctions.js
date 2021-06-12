@@ -96,6 +96,7 @@ export default function useDiaryFunctions() {
     setLoadingStatus,
     createDiary,
     getDiaryContent,
+    setDiaryContent,
     getAssociatedDiaries,
     updateDiary,
     deleteDiary,

@@ -2,6 +2,12 @@ import "./SearchPopup.scss";
 import WhiteBgContainer from "./WhiteBgContainer";
 
 export default function SearchPopup(props) {
+  const modifyResults = () => {
+    props.modifyResults((prev) => {
+      return { ...prev, issuesPending: [] };
+    });
+  };
+
   return (
     <WhiteBgContainer preset="narrow">
       <h2>Search and Filter</h2>
@@ -38,7 +44,11 @@ export default function SearchPopup(props) {
       </button>
       <div className="side-by-side">
         <div>
-          <button type="submit" className="button-primary">
+          <button
+            type="submit"
+            className="button-primary"
+            onClick={modifyResults}
+          >
             Search
           </button>
         </div>

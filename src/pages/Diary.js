@@ -34,7 +34,11 @@ import { Link } from "react-router-dom";
 
 export default function Diary(props) {
   const { uuid } = useParams();
-  const { diaryContent, getDiaryContent } = useDiaryFunctions();
+  const {
+    diaryContent,
+    getDiaryContent,
+    setDiaryContent,
+  } = useDiaryFunctions();
   const [overlayStatus, setOverlayStatus] = useState(false);
   const [view, setView] = useState({
     issueView: undefined,
@@ -83,7 +87,12 @@ export default function Diary(props) {
     <>
       {overlayStatus === true && view.popupView === "search" ? (
         <FullScreenShade styleOverride={{ padding: "1rem" }}>
-          <SearchPopup exit={toggleOverlay} toggleViews={setView} view={view} />
+          <SearchPopup
+            exit={toggleOverlay}
+            toggleViews={setView}
+            view={view}
+            modifyResults={setDiaryContent}
+          />
         </FullScreenShade>
       ) : null}
 
