@@ -186,7 +186,6 @@ module.exports = (models) => {
         });
         const newExpiry = new Date();
         newExpiry.setTime(newExpiry.getTime() + 90 * 24 * 60 * 60 * 1000);
-        console.log(newExpiry);
         targetDiary.expiry_date = newExpiry;
         await targetDiary.save();
         return res.json(targetDiary);

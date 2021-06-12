@@ -69,7 +69,21 @@ export default function useDiaryFunctions() {
   };
 
   const getAssociatedDiaries = () => {};
-  const updateDiary = () => {};
+
+  const updateDiary = async (uuid, values) => {
+    const authorization = { headers: { authorization: `Bearer ${uInfo.jwt}` } };
+
+    const response = await axios
+      .patch("/api/diaries/diary", values, authorization)
+      .then((resp) => {
+        if (resp.data.error) {
+          console.log(resp.data.error);
+          return false;
+        }
+        return resp.data;
+      });
+  };
+
   const deleteDiary = () => {};
 
   return {
