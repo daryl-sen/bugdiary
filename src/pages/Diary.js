@@ -274,7 +274,12 @@ export default function Diary(props) {
         )}
 
         {view.functionView === "diaryInfo" && (
-          <DiaryInfoSettings targetDiary={targetDiary} />
+          <DiaryInfoSettings
+            targetDiary={targetDiary}
+            refresh={() => {
+              getDiaryContent(uuid);
+            }}
+          />
         )}
       </SingleColumnLayout>
     </>

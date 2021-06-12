@@ -28,7 +28,10 @@ export default function DiaryInfoSettings(props) {
       }
     >
       <WhiteBgContainer>
-        <DiaryInfoForm targetDiary={props.targetDiary} />
+        <DiaryInfoForm
+          targetDiary={props.targetDiary}
+          refresh={props.refresh}
+        />
       </WhiteBgContainer>
     </TwoColumnLayout>
   );

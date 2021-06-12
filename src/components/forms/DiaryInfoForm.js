@@ -30,11 +30,12 @@ export default function DiaryInfoForm(props) {
     }),
 
     onSubmit: async (values) => {
-      updateDiary(props.targetDiary.id, {
+      await updateDiary(props.targetDiary.id, {
         ...values,
         uuid: props.targetDiary.uuid,
         passcode: values.passcode || undefined,
       });
+      props.refresh();
     },
   });
 
