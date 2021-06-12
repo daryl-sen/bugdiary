@@ -83,7 +83,7 @@ export default function Diary(props) {
     <>
       {overlayStatus === true && view.popupView === "search" ? (
         <FullScreenShade styleOverride={{ padding: "1rem" }}>
-          <SearchPopup exit={toggleOverlay} />
+          <SearchPopup exit={toggleOverlay} toggleViews={setView} view={view} />
         </FullScreenShade>
       ) : null}
 
