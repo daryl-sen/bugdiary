@@ -1,6 +1,3 @@
-import { Link } from "react-router-dom";
-// import LoadingIndicator from "../elements/LoadingIndicator";
-import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 // form
 import StylizedForm from "./StylizedForm";
@@ -16,7 +13,7 @@ export default function DiaryInfoForm(props) {
 
   useEffect(() => {
     setPrivacyMode(props.targetDiary.privacy);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const formik = useFormik({
     initialValues: {
@@ -38,7 +35,6 @@ export default function DiaryInfoForm(props) {
         uuid: props.targetDiary.uuid,
         passcode: values.passcode || undefined,
       });
-      console.log(values);
     },
   });
 
@@ -65,6 +61,7 @@ export default function DiaryInfoForm(props) {
       <input
         type="password"
         id="passcode"
+        autoComplete="off"
         {...formik.getFieldProps("passcode")}
       />
       {renderFieldError("passcode")}

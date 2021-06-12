@@ -73,7 +73,7 @@ export default function useDiaryFunctions() {
   const updateDiary = async (uuid, values) => {
     const authorization = { headers: { authorization: `Bearer ${uInfo.jwt}` } };
 
-    const response = await axios
+    await axios
       .patch("/api/diaries/diary", values, authorization)
       .then((resp) => {
         if (resp.data.error) {
