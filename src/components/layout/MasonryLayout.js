@@ -32,10 +32,10 @@ export default function MasonryLayout(props) {
       {props.issues.issuesPending
         ? renderIssueContainers(props.issues.issuesPending)
         : null}
-      {props.issues.issuesResolved
+      {props.issues.issuesResolved && props.displayStatus.showResolved
         ? renderIssueContainers(props.issues.issuesResolved)
         : null}
-      {props.issues.issuesDeleted
+      {props.issues.issuesDeleted && props.displayStatus.showDeleted
         ? renderIssueContainers(props.issues.issuesDeleted)
         : null}
 

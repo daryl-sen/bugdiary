@@ -40,6 +40,8 @@ export default function Diary(props) {
     issueView: undefined,
     functionView: undefined,
     popupView: undefined,
+    showResolved: false,
+    showDeleted: false,
   });
   const functionView = useParams().functionView || "";
 
@@ -199,6 +201,10 @@ export default function Diary(props) {
               issuesDeleted,
               issuesResolved,
             }}
+            displayStatus={{
+              showDeleted: view.showDeleted,
+              showResolved: view.showResolved,
+            }}
             refresh={() => {
               getDiaryContent(uuid);
             }}
@@ -212,6 +218,10 @@ export default function Diary(props) {
               issuesPrioritized,
               issuesDeleted,
               issuesResolved,
+            }}
+            displayStatus={{
+              showDeleted: view.showDeleted,
+              showResolved: view.showResolved,
             }}
             refresh={() => {
               getDiaryContent(uuid);
