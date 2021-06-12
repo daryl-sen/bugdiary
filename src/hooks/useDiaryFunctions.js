@@ -78,8 +78,10 @@ export default function useDiaryFunctions() {
       .then((resp) => {
         if (resp.data.error) {
           console.log(resp.data.error);
+          NotificationManager.error("An error has occurred.");
           return false;
         }
+        NotificationManager.success("Your diary has been updated!");
         return resp.data;
       });
   };

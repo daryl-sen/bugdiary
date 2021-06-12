@@ -8,26 +8,22 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 // custom hooks
-import useDiarySetupFunctions from "../../hooks/useDiarySetupFunctions";
+import useDiaryFunctions from "../../hooks/useDiaryFunctions";
 
 export default function DiaryInfoForm(props) {
-  const uuid = useParams().uuid;
-  const [updated, setUpdated] = useState(false);
-
-  const {
-    diaryConfig,
-    getTypes,
-    createType,
-    renderTags,
-  } = useDiarySetupFunctions();
+  const { updateDiary } = useDiaryFunctions();
+  const [privacyMode, setPrivacyMode] = useState();
 
   useEffect(() => {
-    getTypes(uuid);
-  }, [updated]); // eslint-disable-line react-hooks/exhaustive-deps
+    setPrivacyMode(props.targetDiary.privacy);
+  }, []);
 
   const formik = useFormik({
     initialValues: {
-      name: "",
+      name: props.targetDiary.name,
+      description: props.targetDiary.description,
+      passcode: "",
+      privacy: props.targetDiary.privacy,
     },
 
     validationSchema: Yup.object({
@@ -37,11 +33,12 @@ export default function DiaryInfoForm(props) {
     }),
 
     onSubmit: async (values) => {
-      // console.log({ ...values, uuid });
-      await createType({ ...values, uuid });
-      setUpdated((prev) => {
-        return prev + 1;
+      updateDiary(props.targetDiary.id, {
+        ...values,
+        uuid: props.targetDiary.uuid,
+        passcode: values.passcode || undefined,
       });
+      console.log(values);
     },
   });
 
@@ -53,27 +50,63 @@ export default function DiaryInfoForm(props) {
 
   return (
     <StylizedForm formik={formik}>
-      <h2>Types</h2>
-      {renderTags(diaryConfig)}
-      <p>
-        Your project might encounter different types of issues. Create some
-        options for your users to choose from.
-      </p>
-
+      <label htmlFor="name">Diary Name</label>
       <input type="text" id="name" {...formik.getFieldProps("name")} />
       {renderFieldError("name")}
-      <button type="submit" className="custom">
-        Create Type
-      </button>
-      <hr />
-      <p>That's it!</p>
-      <Link to={"/diary/" + uuid}>
-        <button type="button" className="custom button-primary">
-          Go to Diary
-        </button>
-      </Link>
-      <button type="button" onClick={props.prevStep} className="custom">
-        Previous
+
+      <label htmlFor="description">Diary Description</label>
+      <textarea
+        id="desciption"
+        {...formik.getFieldProps("description")}
+      ></textarea>
+      {renderFieldError("description")}
+
+      <label htmlFor="passcode">Diary Passcode</label>
+      <input
+        type="password"
+        id="passcode"
+        {...formik.getFieldProps("passcode")}
+      />
+      {renderFieldError("passcode")}
+
+      <h3>Diary Privacy</h3>
+      <select
+        id="privacy"
+        {...formik.getFieldProps("privacy")}
+        onChange={(e) => {
+          console.log("changing");
+          setPrivacyMode(e.target.value);
+        }}
+      >
+        <option value="defaultPublic">Default to Public</option>
+        <option value="defaultPrivate">Default to Private</option>
+        <option value="enforcePrivate">Enforce Private</option>
+      </select>
+      {privacyMode}
+      {privacyMode === "defaultPublic" && (
+        <p>
+          Users have to check a box to make their report private. Only the
+          diary's owner or users with the diary's passcode can see private
+          issues.
+        </p>
+      )}
+      {privacyMode === "defaultPrivate" && (
+        <p>
+          Users have to uncheck a box to make their report public. Only the
+          diary's owner or users with the diary's passcode can see private
+          issues.
+        </p>
+      )}
+      {privacyMode === "enforcePrivate" && (
+        <p>
+          Users will not see an option when reporting an issue. All issues are
+          private (regardless of their previous configuration) and can only be
+          viewed by the diary's owner or somebody who has the passcode.
+        </p>
+      )}
+
+      <button type="submit" className="button-primary">
+        Update
       </button>
     </StylizedForm>
   );

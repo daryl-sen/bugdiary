@@ -272,7 +272,9 @@ export default function Diary(props) {
           </TwoColumnLayout>
         )}
 
-        {view.functionView === "diaryInfo" && <DiaryInfoSettings />}
+        {view.functionView === "diaryInfo" && (
+          <DiaryInfoSettings targetDiary={targetDiary} />
+        )}
       </SingleColumnLayout>
     </>
   );

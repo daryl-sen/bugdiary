@@ -1,6 +1,7 @@
 import TwoColumnLayout from "../layout/TwoColumnLayout";
 import WhiteBgContainer from "./WhiteBgContainer";
 import LinedContainer from "./LinedContainer";
+import DiaryInfoForm from "../forms/DiaryInfoForm";
 
 export default function DiaryInfoSettings(props) {
   return (
@@ -27,7 +28,8 @@ export default function DiaryInfoSettings(props) {
       }
     >
       <WhiteBgContainer>
-        <h2>Diary Info</h2>
+        <DiaryInfoForm targetDiary={props.targetDiary} />
+        {/* <h2>Diary Info</h2>
         <label>Diary Name</label>
         <input type="text" />
         <label>Diary Description</label>
@@ -61,7 +63,7 @@ export default function DiaryInfoSettings(props) {
           </label>
         </p>
         <br />
-        <button className="custom button-primary">Update Settings</button>
+        <button className="custom button-primary">Update Settings</button> */}
       </WhiteBgContainer>
     </TwoColumnLayout>
   );
