@@ -35,7 +35,7 @@ export default function DiarySettingsPopup(props) {
           );
         }}
       >
-        Extend Diary Expiry
+        Extend Expiry ({new Date(props.diaryExpiry).toDateString()})
       </button>
       <button className="custom button-secondary" onClick={props.exit}>
         Cancel

@@ -92,6 +92,7 @@ export default function Diary(props) {
         >
           <DiarySettingsPopup
             diaryUuid={targetDiary.uuid}
+            diaryExpiry={targetDiary.expiry_date}
             exit={toggleOverlay}
             target={(target) => {
               setView((prev) => {
