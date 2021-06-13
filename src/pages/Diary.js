@@ -21,6 +21,8 @@ import FilterIndicator from "../components/elements/FilterIndicator";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NotificationManager } from "react-notifications";
 
+import PasscodePrompt from "../components/elements/PasscodePrompt";
+
 import {
   BiCopyAlt,
   BiBorderAll,
@@ -30,12 +32,14 @@ import {
   BiRevision,
   BiWindows,
   BiArrowBack,
+  BiLockOpenAlt,
 } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 export default function Diary(props) {
   const { uuid } = useParams();
   const {
+    uInfo,
     diaryContent,
     getDiaryContent,
     setDiaryContent,
@@ -117,6 +121,15 @@ export default function Diary(props) {
         </FullScreenShade>
       ) : null}
 
+      {overlayStatus === true && view.popupView === "accessPrompt" ? (
+        <FullScreenShade
+          styleOverride={{ padding: "1rem" }}
+          clickEvent={toggleOverlay}
+        >
+          <PasscodePrompt />
+        </FullScreenShade>
+      ) : null}
+
       <SingleColumnLayout
         styleOverride={{
           textAlign: "center",
@@ -165,14 +178,24 @@ export default function Diary(props) {
             &nbsp; Copy URL
           </NavigationButton>
         </CopyToClipboard>
-        <NavigationButton
-          onClick={() => {
-            toggleOverlay("settings");
-          }}
-        >
-          <BiCog />
-          &nbsp; Settings
-        </NavigationButton>
+        {uInfo.jwt || uInfo.accessKey ? (
+          <NavigationButton
+            onClick={() => {
+              toggleOverlay("settings");
+            }}
+          >
+            <BiCog />
+            &nbsp; Settings
+          </NavigationButton>
+        ) : (
+          <NavigationButton
+            onClick={() => {
+              toggleOverlay("accessPrompt");
+            }}
+          >
+            <BiLockOpenAlt />
+          </NavigationButton>
+        )}
 
         {view.issueView === "cards" && (
           <NavigationButton

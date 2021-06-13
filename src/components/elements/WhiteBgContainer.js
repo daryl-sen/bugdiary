@@ -9,6 +9,7 @@ export default function WhiteBgContainer(props) {
         width: "100%",
         maxWidth: "500px",
         margin: "auto",
+        textAlign: "left",
       };
     }
   } else {
