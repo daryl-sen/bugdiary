@@ -11,10 +11,10 @@ export default function SearchPopup(props) {
     }
     return results.filter((issue) => {
       return (
-        issue.reference.includes(term) ||
-        issue.details.includes(term) ||
-        issue.reporter_name.includes(term) ||
-        issue.reporter_email.includes(term)
+        issue.reference.toLowerCase().includes(term.toLowerCase()) ||
+        issue.details.toLowerCase().includes(term.toLowerCase()) ||
+        issue.reporter_name.toLowerCase().includes(term.toLowerCase()) ||
+        issue.reporter_email.toLowerCase().includes(term.toLowerCase())
       );
     });
   };
