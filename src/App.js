@@ -8,6 +8,8 @@ import { NotificationContainer } from "react-notifications";
 
 import LoadingIndicator from "./components/elements/LoadingIndicator";
 
+import Warning from "./components/Warning";
+
 export const UserContext = React.createContext();
 
 function App() {
@@ -44,6 +46,7 @@ function App() {
 
   return (
     <div className="App">
+      <Warning />
       <UserContext.Provider value={{ ...userSession, setUserSession }}>
         <NotificationContainer />
         <MainRouter />
