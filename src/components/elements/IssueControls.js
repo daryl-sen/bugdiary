@@ -69,13 +69,13 @@ export default function IssueControls(props) {
 
   return (
     <div className="controls">
-      <button className="controls-toggle">
+      {/* <button className="controls-toggle">
         <BiCircle size={25} />
       </button>
 
       <button className="controls-toggle">
         <BiLinkExternal size={25} />
-      </button>
+      </button> */}
 
       <button className="controls-toggle" onClick={toggleControls}>
         <BiMenuAltRight size={25} />

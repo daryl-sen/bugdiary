@@ -7,7 +7,7 @@ module.exports = (models) => {
   router
 
     // create new version
-    .post("/", authenticateToken, async (req, res) => {
+    .post("/", async (req, res) => {
       const uuid = req.body.uuid;
       try {
         const targetDiary = await Diary.findOne({
@@ -27,7 +27,7 @@ module.exports = (models) => {
     })
 
     // read all versions
-    .get("/:diaryUuid", authenticateToken, async (req, res) => {
+    .get("/:diaryUuid", async (req, res) => {
       try {
         const targetDiary = await Diary.findOne({
           where: {

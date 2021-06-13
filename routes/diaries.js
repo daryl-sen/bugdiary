@@ -120,7 +120,7 @@ module.exports = (models) => {
     })
 
     // create diary
-    .post("/diary", authenticateToken, async (req, res) => {
+    .post("/diary", async (req, res) => {
       try {
         const newDiary = await Diary.create({ ...req.body });
         return res.json(newDiary);

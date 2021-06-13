@@ -57,12 +57,12 @@ export default function SideNav(props) {
             Settings
           </Link>
           <hr />
-          <Link onClick={props.toggleMenu} to="/diary/testdiary1">
+          {/* <Link onClick={props.toggleMenu} to="/diary/testdiary1">
             My First Diary
           </Link>
           <Link onClick={props.toggleMenu} to="/diary/testdiary2">
             Diary #2
-          </Link>
+          </Link> */}
         </section>
         <section id="footer">&copy; Sen Tang, 2020-2021</section>
       </nav>
