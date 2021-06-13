@@ -23,6 +23,9 @@ export default function SearchPopup(props) {
 
   const modifyResults = (mode, term) => {
     if (mode === "filter") {
+      props.updateFilterIndicator((prev) => {
+        return [...prev, term];
+      });
       props.modifyResults((prev) => {
         return {
           ...prev,

@@ -32,7 +32,6 @@ import {
   BiArrowBack,
 } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { filter } from "minimatch";
 
 export default function Diary(props) {
   const { uuid } = useParams();
@@ -42,7 +41,7 @@ export default function Diary(props) {
     setDiaryContent,
   } = useDiaryFunctions();
   const [overlayStatus, setOverlayStatus] = useState(false);
-  const [filterState, setFilterState] = useState();
+  const [filters, setFilters] = useState([]);
   const [view, setView] = useState({
     issueView: undefined,
     functionView: undefined,
@@ -95,6 +94,7 @@ export default function Diary(props) {
             toggleViews={setView}
             view={view}
             modifyResults={setDiaryContent}
+            updateFilterIndicator={setFilters}
           />
         </FullScreenShade>
       ) : null}
@@ -153,7 +153,7 @@ export default function Diary(props) {
           }}
         >
           <BiSearch />
-          &nbsp; Search
+          &nbsp; Filter
         </NavigationButton>
         <CopyToClipboard text={"https://www.bugdiary.com/diary/" + uuid}>
           <NavigationButton
@@ -205,7 +205,15 @@ export default function Diary(props) {
           <BiRevision />
         </NavigationButton>
 
-        {filterState ? <FilterIndicator /> : null}
+        {filters.length ? (
+          <FilterIndicator
+            terms={filters}
+            refresh={() => {
+              setFilters([]);
+              getDiaryContent(uuid);
+            }}
+          />
+        ) : null}
 
         {view.issueView === "cards" && view.functionView === "" ? (
           <MasonryContainer
@@ -220,6 +228,7 @@ export default function Diary(props) {
               showResolved: view.showResolved,
             }}
             refresh={() => {
+              setFilters([]);
               getDiaryContent(uuid);
             }}
           />
@@ -238,6 +247,7 @@ export default function Diary(props) {
               showResolved: view.showResolved,
             }}
             refresh={() => {
+              setFilters([]);
               getDiaryContent(uuid);
             }}
           />
@@ -279,6 +289,7 @@ export default function Diary(props) {
                   });
                 }}
                 refresh={() => {
+                  setFilters([]);
                   getDiaryContent(uuid);
                 }}
               />
@@ -301,6 +312,7 @@ export default function Diary(props) {
           <DiaryInfoSettings
             targetDiary={targetDiary}
             refresh={() => {
+              setFilters([]);
               getDiaryContent(uuid);
             }}
           />
