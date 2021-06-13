@@ -16,6 +16,7 @@ import LinedContainer from "../components/elements/LinedContainer";
 import SearchPopup from "../components/elements/SearchPopup";
 import DiarySettingsPopup from "../components/elements/DiarySettingsPopup";
 import DiaryInfoSettings from "../components/elements/DiaryInfoSettings";
+import FilterIndicator from "../components/elements/FilterIndicator";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NotificationManager } from "react-notifications";
@@ -31,6 +32,7 @@ import {
   BiArrowBack,
 } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { filter } from "minimatch";
 
 export default function Diary(props) {
   const { uuid } = useParams();
@@ -40,6 +42,7 @@ export default function Diary(props) {
     setDiaryContent,
   } = useDiaryFunctions();
   const [overlayStatus, setOverlayStatus] = useState(false);
+  const [filterState, setFilterState] = useState();
   const [view, setView] = useState({
     issueView: undefined,
     functionView: undefined,
@@ -201,6 +204,8 @@ export default function Diary(props) {
         >
           <BiRevision />
         </NavigationButton>
+
+        {filterState ? <FilterIndicator /> : null}
 
         {view.issueView === "cards" && view.functionView === "" ? (
           <MasonryContainer
