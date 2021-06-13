@@ -19,6 +19,7 @@ function App() {
     theme: "light",
     notifications: [],
   });
+  const [warningDisplay, setWarningDisplay] = useState(true);
 
   // check for existing cookie containing jwt
   useEffect(() => {
@@ -46,7 +47,14 @@ function App() {
 
   return (
     <div className="App">
-      <Warning />
+      {warningDisplay && (
+        <Warning
+          exit={() => {
+            setWarningDisplay(false);
+          }}
+        />
+      )}
+
       <UserContext.Provider value={{ ...userSession, setUserSession }}>
         <NotificationContainer />
         <MainRouter />
