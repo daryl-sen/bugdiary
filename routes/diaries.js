@@ -7,7 +7,7 @@ module.exports = (models) => {
   router
 
     // get information required for setting up new issues
-    .get("/issue-setup/:uuid", authenticateToken, async (req, res) => {
+    .get("/issue-setup/:uuid", async (req, res) => {
       const uuid = req.params.uuid;
       try {
         const targetDiary = await Diary.findOne({
@@ -61,7 +61,7 @@ module.exports = (models) => {
     })
 
     // specific diary
-    .get("/:uuid", authenticateToken, async (req, res) => {
+    .get("/:uuid", async (req, res) => {
       const targetUuid = req.params.uuid;
       try {
         const targetDiary = await Diary.findOne({
@@ -69,10 +69,6 @@ module.exports = (models) => {
             uuid: targetUuid,
           },
         });
-
-        if (targetDiary.user_id !== req.decodedUser.id) {
-          return res.json({ error: "You cannot see another user's diaries." });
-        }
 
         const issuesPending = await Issue.findAll({
           include: [Type, Location, Version],
