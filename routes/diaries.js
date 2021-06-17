@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { authenticateToken } = require("../helpers/authenticate-token");
+const { authenticateToken } = require("../helpers/jwtAuthentication");
 
 module.exports = (models) => {
   const { Diary, Issue, Version, Type, Location } = models;
@@ -25,13 +25,18 @@ module.exports = (models) => {
             diary_id: targetDiary.id,
           },
         });
-        const latestVersion = await Version.findAll({
+        let latestVersion = await Version.findAll({
           limit: 1,
           where: {
             diary_id: targetDiary.id,
           },
           order: [["createdAt", "DESC"]],
         });
+        if (!latestVersion) {
+          latestVersion = await Version.create({
+            name: "v1.0.0",
+          });
+        }
         return res.json({
           targetDiary,
           diaryLocations,
@@ -40,98 +45,72 @@ module.exports = (models) => {
         });
       } catch (err) {
         console.log(err);
-        res.json({ error: err });
+        res.status(500).json({ error: err });
       }
     })
 
     // all diaries belonging to the current user
     .get("/", authenticateToken, async (req, res) => {
-      const targetId = req.decodedUser.id;
+      if (!req.auth.status) {
+        return res.json({
+          error: "You must be logged in to see all your diaries.",
+        });
+      }
+
       try {
         const userDiaries = await Diary.findAll({
           where: {
-            user_id: targetId,
+            user_id: req.auth.user.id,
           },
         });
         return res.json(userDiaries);
       } catch (err) {
         console.log(err);
+        return res.status(500).json({ error: err.errors });
       }
-      return res.json({ error: err.errors });
     })
 
     // specific diary
-    .get("/:uuid", async (req, res) => {
-      const targetUuid = req.params.uuid;
+    .get("/:uuid", authenticateToken, async (req, res) => {
       try {
         const targetDiary = await Diary.findOne({
           where: {
-            uuid: targetUuid,
+            uuid: req.params.uuid,
+            private: req.auth.status, // true or false
           },
         });
 
-        const issuesPending = await Issue.findAll({
+        const issues = await Issue.findAll({
           include: [Type, Location, Version],
           where: {
             diary_id: targetDiary.id,
-            status: "PENDING",
-          },
-          order: [["id", "DESC"]],
-        });
-
-        const issuesPrioritized = await Issue.findAll({
-          include: [Type, Location, Version],
-          where: {
-            diary_id: targetDiary.id,
-            status: "PRIORITIZED",
-          },
-          order: [["id", "DESC"]],
-        });
-
-        const issuesResolved = await Issue.findAll({
-          include: [Type, Location, Version],
-          where: {
-            diary_id: targetDiary.id,
-            status: "RESOLVED",
-          },
-          order: [["id", "DESC"]],
-        });
-
-        const issuesDeleted = await Issue.findAll({
-          include: [Type, Location, Version],
-          where: {
-            diary_id: targetDiary.id,
-            status: "DELETED",
           },
           order: [["id", "DESC"]],
         });
 
         return res.json({
           targetDiary,
-          issuesPending,
-          issuesPrioritized,
-          issuesDeleted,
-          issuesResolved,
+          issues,
         });
       } catch (err) {
         console.log(err);
-        return res.end("diaries route");
+        return res.status(500).json({ error: err });
       }
     })
 
     // create diary
-    .post("/diary", async (req, res) => {
+    .post("/", async (req, res) => {
       try {
         const newDiary = await Diary.create({ ...req.body });
         return res.json(newDiary);
       } catch (err) {
         console.log(err);
-        return res.json({ error: err });
+        return res.status(500).json({ error: err });
       }
     })
 
     // update diary
-    .patch("/diary", authenticateToken, async (req, res) => {
+    .patch("/:uuid", authenticateToken, async (req, res) => {
       const uuid = req.body.uuid;
       try {
         const targetDiary = await Diary.findOne({
@@ -151,7 +130,7 @@ module.exports = (models) => {
     })
 
     // delete diary
-    .delete("/diary/:uuid", authenticateToken, async (req, res) => {
+    .delete("/:uuid", authenticateToken, async (req, res) => {
       const uuid = req.params.uuid;
       try {
         const targetDiary = await Diary.findOne({
@@ -168,7 +147,7 @@ module.exports = (models) => {
         return res.json({ success: true });
       } catch (err) {
         console.log(err);
-        return res.json({ error: err.error });
+        return res.status(500).json({ error: err.error });
       }
     })
 
@@ -187,7 +166,7 @@ module.exports = (models) => {
         return res.json(targetDiary);
       } catch (err) {
         console.log(err);
-        return res.json({ error: err });
+        return res.status(500).json({ error: err });
       }
     });
 

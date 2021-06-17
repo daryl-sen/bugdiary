@@ -74,6 +74,11 @@ module.exports = (sequelize, DataTypes) => {
           isDate: true,
         },
       },
+      private: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
       priority: {
         type: DataTypes.INTEGER,
         allowNull: false,
