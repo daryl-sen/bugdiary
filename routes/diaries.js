@@ -1,10 +1,53 @@
 const express = require("express");
 const router = express.Router();
-const { authenticateToken } = require("../helpers/jwtAuthentication");
+const {
+  authenticateToken,
+  generateToken,
+} = require("../helpers/jwtAuthentication");
 
 module.exports = (models) => {
   const { Diary, Issue, Version, Type, Location } = models;
   router
+
+    .post("/passcode-auth/:uuid", authenticateToken, async (req, res) => {
+      const uuid = req.params.uuid;
+      const receivedPasscode = req.body.passcode;
+      try {
+        const targetDiary = await Diary.findOne({
+          where: {
+            uuid,
+          },
+        });
+
+        if (!targetDiary) {
+          return res.json({ error: "Diary not found." });
+        }
+
+        if (targetDiary.passcode === receivedPasscode) {
+          let token;
+          if (!req.auth.error) {
+            token = generateToken({
+              ...req.auth,
+              authenticatedDiaries: [
+                ...req.auth.authenticatedDiaries,
+                targetDiary.uuid,
+              ],
+            });
+          } else {
+            token = generateToken({
+              authenticatedDiaries: [targetDiary.uuid],
+            });
+          }
+          req.session.jwt = token;
+          return res.json({ success: true });
+        }
+        console.log(targetDiary.passcode, receivedPasscode);
+        return res.json({ error: "Incorrect diary passcode." });
+      } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: err });
+      }
+    })
 
     // get information required for setting up new issues
     .get("/issue-setup/:uuid", async (req, res) => {
