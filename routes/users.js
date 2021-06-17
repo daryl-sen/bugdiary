@@ -1,54 +1,38 @@
-require("dotenv").config();
-
 const express = require("express");
 const router = express.Router();
-const { authenticateToken } = require("../helpers/authenticate-token");
-const jwt = require("jsonwebtoken");
+const {
+  authenticateToken,
+  generateToken,
+} = require("../helpers/jwtAuthentication");
 
 module.exports = (models) => {
-  const { User, UserType, Comment, Upvote } = models;
+  const { User } = models;
 
-  // create user - no authentication required
   router
     .post("/user", async (req, res) => {
       try {
         const newUser = await User.create({ ...req.body });
-        const accessToken = jwt.sign(
-          {
-            id: newUser.id,
-            name: newUser.display_name,
-            uuid: newUser.uuid,
-          },
-          process.env.ACCESS_TOKEN_SECRET
-        );
+        const accessToken = generateToken({
+          id: newUser.id,
+          name: newUser.display_name,
+          uuid: newUser.uuid,
+        });
         req.session.jwt = accessToken;
         return res.status(201).json({ newUser, accessToken });
       } catch (error) {
         console.log(error);
-        return res.status(200).json({ error: error.errors });
+        return res.status(500).json({ error: error.errors });
       }
     })
 
-    .get("/check-token", async (req, res) => {
-      if (!req.session.jwt) {
+    .get("/check-token", authenticateToken, async (req, res) => {
+      if (!req.session.jwt || !req.auth.status) {
         return res.json({
-          error: "Not logged in",
+          loggedIn: false,
+          message: "Not logged in - no JWT or invalid JWT.",
         });
       }
-      jwt.verify(
-        req.session.jwt,
-        process.env.ACCESS_TOKEN_SECRET,
-        (error, user) => {
-          if (error) {
-            return res.json({ error: "Invalid JWT" });
-          }
-          return res.json({
-            jwt: req.session.jwt,
-            id: user.id,
-            name: user.name,
-          });
-        }
-      );
+      return res.json({ loggedIn: true, message: "Logged in." });
     })
 
     .get("/check-unique", async (req, res) => {
@@ -59,12 +43,11 @@ module.exports = (models) => {
         },
       });
       if (existingEmail) {
-        return res.status(200).json({ unique: false });
+        return res.json({ unique: false });
       }
-      return res.status(200).json({ unique: true });
+      return res.json({ unique: true });
     })
 
-    // login user - no authentication required
     .post("/login", async (req, res) => {
       const { email, password } = req.body;
 
@@ -83,24 +66,20 @@ module.exports = (models) => {
           return res.json({ error: "You have entered an incorrect password." });
         }
 
-        const accessToken = jwt.sign(
-          {
-            id: targetUser.id,
-            name: targetUser.display_name,
-            uuid: targetUser.uuid,
-          },
-          process.env.ACCESS_TOKEN_SECRET
-        );
+        const accessToken = generateToken({
+          id: targetUser.id,
+          name: targetUser.display_name,
+          uuid: targetUser.uuid,
+        });
 
         req.session.jwt = accessToken;
         res.json({ targetUser, accessToken });
       } catch (error) {
         console.log(error);
-        res.json({ error: error.errors });
+        res.status(500).json({ error });
       }
     })
 
-    // logout user - no authentication required
     .post("/logout", async (req, res) => {
       if (req.session.jwt) {
         req.session = null;
@@ -109,11 +88,10 @@ module.exports = (models) => {
       return res.json({ error: "Not logged in." });
     })
 
-    // update user - authentication required
     .patch("/user", authenticateToken, async (req, res) => {
       const { uuid } = req.body;
 
-      if (req.decodedUser.uuid !== uuid) {
+      if (req.auth.user.uuid !== uuid) {
         return res.json({
           error: "You can only update your own account details.",
         });
@@ -128,7 +106,6 @@ module.exports = (models) => {
         if (!targetUser) {
           return res.json({ error: "User not found" });
         }
-        // dynamically update all keys provided in req.body
         for (const attribute in req.body) {
           targetUser[attribute] = req.body[attribute];
         }
@@ -136,13 +113,20 @@ module.exports = (models) => {
         return res.json(targetUser);
       } catch (error) {
         console.log(error);
-        return res.json({ error: error.errors });
+        return res.status(500).json({ error: error.errors });
       }
     })
 
     // delete user - authentication required
     .delete("/user/:uuid", authenticateToken, async (req, res) => {
       const uuid = req.params.uuid;
+
+      if (req.auth.user.uuid !== uuid) {
+        return res.json({
+          error: "You cannot delete somebody else's account.",
+        });
+      }
+
       try {
         const targetUser = await User.findOne({
           where: {
@@ -152,14 +136,10 @@ module.exports = (models) => {
         if (!targetUser) {
           return res.json({ error: "User not found" });
         }
-        if (req.decodedUser.uuid !== uuid) {
-          return res.json({ error: "You cannot delete another user" });
-        }
-        // dynamically update all keys provided in req.body
         await targetUser.destroy();
         return res.json({ success: "User deleted." });
       } catch (error) {
-        return res.json({ error: error.errors });
+        return res.status(500).json({ error: error.errors });
       }
     });
 

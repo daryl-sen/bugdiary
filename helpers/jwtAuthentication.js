@@ -22,11 +22,17 @@ const authenticateToken = (req, res, next) => {
     if (error) {
       req.auth = { status: false, message: "Invalid JWT" };
     }
-    req.auth = { status: true, userInfo = user}
+    req.auth = { status: true, userInfo: user };
   });
   next();
 };
 
+const generateToken = (tokenData) => {
+  const token = jwt.sign(tokenData, process.env.ACCESS_TOKEN_SECRET);
+  return token;
+};
+
 module.exports = {
   authenticateToken,
+  generateToken,
 };
