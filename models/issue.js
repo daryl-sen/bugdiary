@@ -75,9 +75,9 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       private: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.INTEGER, // sequelize bug, using BOOLEAN returns 't' or 'f' strings
         allowNull: false,
-        defaultValue: true,
+        defaultValue: 1,
       },
       priority: {
         type: DataTypes.INTEGER,

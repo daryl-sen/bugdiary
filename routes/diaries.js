@@ -76,7 +76,6 @@ module.exports = (models) => {
         const targetDiary = await Diary.findOne({
           where: {
             uuid: req.params.uuid,
-            private: req.auth.status, // true or false
           },
         });
 
@@ -84,6 +83,7 @@ module.exports = (models) => {
           include: [Type, Location, Version],
           where: {
             diary_id: targetDiary.id,
+            private: req.auth.status ? 1 : 0, // true or false
           },
           order: [["id", "DESC"]],
         });

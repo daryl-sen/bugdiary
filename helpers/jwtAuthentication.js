@@ -15,14 +15,17 @@ const authenticateToken = (req, res, next) => {
 
   if (!authHeader) {
     req.auth = { status: false, message: "No JWT Received" };
+    return next();
   }
 
   const token = authHeader.split(" ")[1];
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, user) => {
     if (error) {
       req.auth = { status: false, message: "Invalid JWT" };
+      return next();
     }
     req.auth = { status: true, userInfo: user };
+    return next();
   });
   next();
 };
