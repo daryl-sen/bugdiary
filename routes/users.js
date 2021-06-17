@@ -9,7 +9,7 @@ module.exports = (models) => {
   const { User } = models;
 
   router
-    .post("/user", async (req, res) => {
+    .post("/", async (req, res) => {
       try {
         const newUser = await User.create({ ...req.body });
         const accessToken = generateToken({
@@ -88,7 +88,7 @@ module.exports = (models) => {
       return res.json({ error: "Not logged in." });
     })
 
-    .patch("/user", authenticateToken, async (req, res) => {
+    .patch("/", authenticateToken, async (req, res) => {
       const { uuid } = req.body;
 
       if (req.auth.user.uuid !== uuid) {
@@ -118,7 +118,7 @@ module.exports = (models) => {
     })
 
     // delete user - authentication required
-    .delete("/user/:uuid", authenticateToken, async (req, res) => {
+    .delete("/:uuid", authenticateToken, async (req, res) => {
       const uuid = req.params.uuid;
 
       if (req.auth.user.uuid !== uuid) {
