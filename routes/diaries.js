@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const {
   authenticateToken,
-  generateToken,
+  checkDiaryAuth,
+  addAuthenticatedDiary,
 } = require("../helpers/jwtAuthentication");
 
 module.exports = (models) => {
@@ -24,24 +25,12 @@ module.exports = (models) => {
         }
 
         if (targetDiary.passcode === receivedPasscode) {
-          let token;
-          if (!req.auth.error) {
-            token = generateToken({
-              ...req.auth,
-              authenticatedDiaries: [
-                ...req.auth.authenticatedDiaries,
-                targetDiary.uuid,
-              ],
-            });
-          } else {
-            token = generateToken({
-              authenticatedDiaries: [targetDiary.uuid],
-            });
-          }
-          req.session.jwt = token;
-          return res.json({ success: true });
+          addAuthenticatedDiary(targetDiary.uuid, req);
+          console.log("updated cookie", req.session.authenticatedDiaries);
+          return res.json({
+            authenticatedDiaries: req.session.authenticatedDiaries,
+          });
         }
-        console.log(targetDiary.passcode, receivedPasscode);
         return res.json({ error: "Incorrect diary passcode." });
       } catch (err) {
         console.log(err);
@@ -88,7 +77,7 @@ module.exports = (models) => {
         });
       } catch (err) {
         console.log(err);
-        res.status(500).json({ error: err });
+        return res.status(500).json({ error: err });
       }
     })
 
@@ -121,16 +110,17 @@ module.exports = (models) => {
             uuid: req.params.uuid,
           },
         });
-
+        if (!targetDiary) {
+          return res.json({ error: "No diary associated with this UUID." });
+        }
         const issues = await Issue.findAll({
           include: [Type, Location, Version],
           where: {
             diary_id: targetDiary.id,
-            private: req.auth.status ? 1 : 0, // true or false
+            private: req.auth.status ? [1, 0] : 0,
           },
           order: [["id", "DESC"]],
         });
-
         return res.json({
           targetDiary,
           issues,
@@ -142,9 +132,15 @@ module.exports = (models) => {
     })
 
     // create diary
-    .post("/", async (req, res) => {
+    .post("/", authenticateToken, async (req, res) => {
       try {
-        const newDiary = await Diary.create({ ...req.body });
+        const newDiary = await Diary.create({
+          ...req.body,
+          user_id: req.auth.userInfo.id || null,
+          uuid: undefined,
+          expiry_date: undefined,
+          created_at: undefined,
+        });
         return res.json(newDiary);
       } catch (err) {
         console.log(err);
@@ -154,13 +150,19 @@ module.exports = (models) => {
 
     // update diary
     .patch("/:uuid", authenticateToken, async (req, res) => {
-      const uuid = req.body.uuid;
+      const uuid = req.params.uuid;
       try {
         const targetDiary = await Diary.findOne({
           where: {
             uuid,
           },
         });
+
+        const check = checkDiaryAuth(targetDiary, req.auth.userInfo, req);
+        if (!check.authenticated) {
+          return res.json({ error: check.message });
+        }
+
         for (const attribute in req.body) {
           targetDiary[attribute] = req.body[attribute];
         }
@@ -181,11 +183,12 @@ module.exports = (models) => {
             uuid,
           },
         });
-        if (targetDiary.user_id !== req.decodedUser.id) {
-          return res.json({
-            error: "You cannot delete a diary that belongs to someone else.",
-          });
+
+        const check = checkDiaryAuth(targetDiary, req.auth.userInfo, req);
+        if (!check.authenticated) {
+          return res.json({ error: check.message });
         }
+
         targetDiary.destroy();
         return res.json({ success: true });
       } catch (err) {
@@ -202,6 +205,12 @@ module.exports = (models) => {
             uuid,
           },
         });
+
+        const check = checkDiaryAuth(targetDiary, req.auth.userInfo, req);
+        if (!check.authenticated) {
+          return res.json({ error: check.message });
+        }
+
         const newExpiry = new Date();
         newExpiry.setTime(newExpiry.getTime() + 90 * 24 * 60 * 60 * 1000);
         targetDiary.expiry_date = newExpiry;
