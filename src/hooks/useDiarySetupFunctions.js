@@ -73,7 +73,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .post(BASE_URL + "/api/diaries/issues/locations", values, headers)
+      .post(BASE_URL + "/api/diaries/issues/versions", values, headers)
       .then((resp) => {
         if (!resp.data.error) {
           NotificationManager.success("New version created!");

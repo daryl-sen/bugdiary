@@ -25,7 +25,6 @@ export default function useIssueFunctions() {
       .get(BASE_URL + "/api/diaries/issue-setup/" + uuid, headers)
       .then((resp) => {
         if (resp.data.error) {
-          console.log("useIssueFunction Error" + resp.data.error);
           return false;
         }
         setIssueData(resp.data);
@@ -36,7 +35,7 @@ export default function useIssueFunctions() {
   const createIssue = async (values) => {
     // create
     await axios
-      .post(BASE_URL + "/api/issues/", values, headers)
+      .post(BASE_URL + "/api/diaries/issues", values, headers)
       .then((resp) => {
         if (resp.data.error) {
           console.log(resp.data);
@@ -58,7 +57,7 @@ export default function useIssueFunctions() {
 
   const markIssue = async (status, issueId) => {
     await axios
-      .patch(BASE_URL + "/api/issues/" + issueId, { status }, headers)
+      .patch(BASE_URL + "/api/diaries/issues/" + issueId, { status }, headers)
       .then((resp) => {
         if (resp.data.error) {
           console.log(resp.data.error);

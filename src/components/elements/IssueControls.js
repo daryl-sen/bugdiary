@@ -21,7 +21,7 @@ export default function IssueControls(props) {
   };
 
   const mark = async (targetStatus) => {
-    await markIssue(targetStatus, props.issueId);
+    await markIssue(targetStatus, props.issueUuid);
     toggleControls();
     props.refresh();
   };
