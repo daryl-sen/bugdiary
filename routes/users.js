@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   authenticateToken,
   generateToken,
+  verifyToken,
 } = require("../helpers/jwtAuthentication");
 
 module.exports = (models) => {
@@ -30,6 +31,17 @@ module.exports = (models) => {
         return res.json({
           loggedIn: false,
           message: "Not logged in - no JWT or invalid JWT.",
+        });
+      } else if (req.session.jwt) {
+        const userInfo = verifyToken(req.session.jwt);
+        return res.json({
+          loggedIn: true,
+          userInfo: {
+            name: userInfo.name,
+            uuid: userInfo.uuid,
+            id: userInfo.id,
+            jwt: req.session.jwt,
+          },
         });
       }
       return res.json({ loggedIn: true, message: "Logged in." });

@@ -26,25 +26,7 @@ export default function MasonryLayout(props) {
       className="my-masonry-grid"
       columnClassName="my-masonry-grid_column"
     >
-      {props.issues.issuesPrioritized
-        ? renderIssueContainers(props.issues.issuesPrioritized)
-        : null}
-      {props.issues.issuesPending
-        ? renderIssueContainers(props.issues.issuesPending)
-        : null}
-      {props.issues.issuesResolved && props.displayStatus.showResolved
-        ? renderIssueContainers(props.issues.issuesResolved)
-        : null}
-      {props.issues.issuesDeleted && props.displayStatus.showDeleted
-        ? renderIssueContainers(props.issues.issuesDeleted)
-        : null}
-
-      {props.issues.issuesPrioritized.length === 0 &&
-      props.issues.issuesPending.length === 0 &&
-      props.issues.issuesDeleted.length === 0 &&
-      props.issues.issuesResolved.length === 0 ? (
-        <NoIssuesDisplay />
-      ) : null}
+      {props.issues ? renderIssueContainers(props.issues) : <NoIssuesDisplay />}
     </Masonry>
   );
 }

@@ -21,7 +21,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .get(BASE_URL + "/api/versions/" + uuid, headers)
+      .get(BASE_URL + "/api/diaries/issues/versions/" + uuid, headers)
       .then((resp) => {
         setDiaryConfig(resp.data);
       })
@@ -38,7 +38,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .get(BASE_URL + "/api/locations/" + uuid, headers)
+      .get(BASE_URL + "/api/diaries/issues/locations/" + uuid, headers)
       .then((resp) => {
         setDiaryConfig(resp.data);
       })
@@ -55,7 +55,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .get(BASE_URL + "/api/types/" + uuid, headers)
+      .get(BASE_URL + "/api/diaries/issues/types/" + uuid, headers)
       .then((resp) => {
         setDiaryConfig(resp.data);
       })
@@ -73,7 +73,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .post(BASE_URL + "/api/versions/", values, headers)
+      .post(BASE_URL + "/api/diaries/issues/locations", values, headers)
       .then((resp) => {
         if (!resp.data.error) {
           NotificationManager.success("New version created!");
@@ -98,7 +98,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .post(BASE_URL + "/api/locations/", values, headers)
+      .post(BASE_URL + "/api/diaries/issues/locations", values, headers)
       .then((resp) => {
         if (!resp.data.error) {
           NotificationManager.success("New location created!");
@@ -121,7 +121,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .post(BASE_URL + "/api/types/", values, headers)
+      .post(BASE_URL + "/api/diaries/issues/types", values, headers)
       .then((resp) => {
         if (!resp.data.error) {
           NotificationManager.success("New type created!");

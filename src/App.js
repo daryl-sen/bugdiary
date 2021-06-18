@@ -26,14 +26,13 @@ function App() {
     axios
       .get("/api/users/check-token")
       .then((resp) => {
-        if (resp.data.error) {
-          console.log(resp.data.error);
+        if (!resp.data.loggedIn) {
           return setUserSession((prev) => {
             return { ...prev, jwt: null };
           });
         }
         return setUserSession((prev) => {
-          return { ...prev, ...resp.data };
+          return { ...prev, ...resp.data.userInfo };
         });
       })
       .catch((err) => {

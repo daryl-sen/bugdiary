@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./IssueControls.scss";
 import {
-  BiLinkExternal,
-  BiCircle,
+  // BiLinkExternal,
+  // BiCircle,
   BiMenuAltRight,
   BiListCheck,
   BiPin,

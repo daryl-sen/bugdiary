@@ -25,16 +25,14 @@ export default function useDiaryFunctions() {
         "Content-Type": "application/json",
       },
     };
-    axios
-      .post(BASE_URL + "/api/diaries/diary", diaryDetails, config)
-      .then((resp) => {
-        if (!resp.data.error) {
-          NotificationManager.success("New diary created!");
-          return history.push("/setup/" + resp.data.uuid);
-        }
-        console.log(resp.data.error);
-        return resp.data;
-      });
+    axios.post(BASE_URL + "/api/diaries", diaryDetails, config).then((resp) => {
+      if (!resp.data.error) {
+        NotificationManager.success("New diary created!");
+        return history.push("/setup/" + resp.data.uuid);
+      }
+      console.log(resp.data.error);
+      return resp.data;
+    });
   };
 
   const getDiaryContent = (uuid) => {
@@ -70,7 +68,7 @@ export default function useDiaryFunctions() {
     const authorization = { headers: { authorization: `Bearer ${uInfo.jwt}` } };
 
     await axios
-      .patch("/api/diaries/diary", values, authorization)
+      .patch("/api/diaries/" + uuid, values, authorization)
       .then((resp) => {
         if (resp.data.error) {
           console.log(resp.data.error);

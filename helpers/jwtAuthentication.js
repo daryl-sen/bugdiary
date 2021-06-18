@@ -30,6 +30,10 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
+const verifyToken = (token) => {
+  return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+};
+
 const generateToken = (tokenData) => {
   const token = jwt.sign(tokenData, process.env.ACCESS_TOKEN_SECRET);
   return token;
@@ -95,4 +99,5 @@ module.exports = {
   checkAuthenticatedDiaries,
   addAuthenticatedDiary,
   checkDiaryAuth,
+  verifyToken,
 };
