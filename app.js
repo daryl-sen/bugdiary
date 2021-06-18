@@ -31,14 +31,14 @@ const tags = require("./routes/issueTags");
 const versions = require("./routes/IssueVersions");
 
 app.use("/api/users", users(models));
-app.use("/api/comments", comments(models));
 app.use("/api/diaries", diaries(models));
-app.use("/api/issues", issues(models));
-app.use("/api/upvotes", upvotes(models));
-app.use("/api/types", types(models));
-app.use("/api/locations", locations(models));
-app.use("/api/tags", tags(models));
-app.use("/api/versions", versions(models));
+app.use("/api/diaries/issues", issues(models));
+app.use("/api/diaries/issues/comments", comments(models));
+app.use("/api/diaries/issues/upvotes", upvotes(models));
+app.use("/api/diaries/issues/types", types(models));
+app.use("/api/diaries/issues/locations", locations(models));
+app.use("/api/diaries/issues/tags", tags(models));
+app.use("/api/diaries/issues/versions", versions(models));
 
 app.get("*", (req, res) => {
   return res.sendFile(path.join(__dirname, "build", "index.html"));

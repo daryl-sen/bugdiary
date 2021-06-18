@@ -136,7 +136,7 @@ module.exports = (models) => {
       try {
         const newDiary = await Diary.create({
           ...req.body,
-          user_id: req.auth.userInfo.id || null,
+          user_id: req.auth.userInfo ? req.auth.userInfo.id : null,
           uuid: undefined,
           expiry_date: undefined,
           created_at: undefined,
