@@ -6,15 +6,20 @@ export default function SearchPopup(props) {
   const [searchTerm, setSearchTerm] = useState();
 
   const filterResults = (term, results) => {
+    console.log("filtering");
     if (!term || !results) {
       return;
     }
     return results.filter((issue) => {
       return (
-        issue.reference.toLowerCase().includes(term.toLowerCase()) ||
-        issue.details.toLowerCase().includes(term.toLowerCase()) ||
-        issue.reporter_name.toLowerCase().includes(term.toLowerCase()) ||
-        issue.reporter_email.toLowerCase().includes(term.toLowerCase())
+        // search term
+        (issue.reference.toLowerCase().includes(term.toLowerCase()) ||
+          issue.details.toLowerCase().includes(term.toLowerCase()) ||
+          issue.reporter_name.toLowerCase().includes(term.toLowerCase()) ||
+          issue.reporter_email.toLowerCase().includes(term.toLowerCase())) &&
+        // status
+        (issue.status === "DELETED" ? props.showDeleted : true) &&
+        (issue.status === "RESOLVED" ? props.showResolved : true)
       );
     });
   };
@@ -29,14 +34,14 @@ export default function SearchPopup(props) {
       props.modifyResults((prev) => {
         return {
           ...prev,
-          issuesPending: filterResults(term, prev.issuesPending),
+          issues: filterResults(term, prev.issues),
         };
       });
     } else if (mode === "sort") {
       props.modifyResults((prev) => {
         return {
           ...prev,
-          issuesPending: sortResults(term, prev.issuesPending),
+          issues: sortResults(term, prev.issues),
         };
       });
     }

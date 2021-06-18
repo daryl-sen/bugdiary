@@ -3,9 +3,9 @@ import IssueTag from "./IssueTag";
 
 export default function FilterIndicator(props) {
   const renderSearchTerms = (terms) => {
-    return terms.map((term) => {
+    return terms.map((term, index) => {
       return (
-        <IssueTag backgroundColor="#393939" type="none">
+        <IssueTag backgroundColor="#393939" type="none" key={index}>
           {term}
         </IssueTag>
       );
