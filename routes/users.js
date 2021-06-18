@@ -26,7 +26,7 @@ module.exports = (models) => {
     })
 
     .get("/check-token", authenticateToken, async (req, res) => {
-      if (!req.session.jwt || !req.auth.status) {
+      if (!req.session.jwt && !req.auth.status) {
         return res.json({
           loggedIn: false,
           message: "Not logged in - no JWT or invalid JWT.",
@@ -91,7 +91,13 @@ module.exports = (models) => {
     .patch("/", authenticateToken, async (req, res) => {
       const { uuid } = req.body;
 
-      if (req.auth.user.uuid !== uuid) {
+      if (!req.auth.userInfo) {
+        return res.json({
+          error: "You must be logged in to change your account details.",
+        });
+      }
+
+      if (req.auth.userInfo.uuid !== uuid) {
         return res.json({
           error: "You can only update your own account details.",
         });
@@ -121,7 +127,13 @@ module.exports = (models) => {
     .delete("/:uuid", authenticateToken, async (req, res) => {
       const uuid = req.params.uuid;
 
-      if (req.auth.user.uuid !== uuid) {
+      if (!req.auth.userInfo) {
+        return res.json({
+          error: "You must be logged in to change your account details.",
+        });
+      }
+
+      if (req.auth.userInfo.uuid !== uuid) {
         return res.json({
           error: "You cannot delete somebody else's account.",
         });

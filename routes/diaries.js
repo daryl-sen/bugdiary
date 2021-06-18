@@ -92,7 +92,7 @@ module.exports = (models) => {
       try {
         const userDiaries = await Diary.findAll({
           where: {
-            user_id: req.auth.user.id,
+            user_id: req.auth.userInfo.id,
           },
         });
         return res.json(userDiaries);
