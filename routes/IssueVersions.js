@@ -90,6 +90,7 @@ module.exports = (models) => {
     .delete("/:id", authenticateToken, async (req, res) => {
       try {
         const targetVersion = await Version.findOne({
+          include: [Diary],
           where: {
             id: req.params.id,
           },
@@ -97,6 +98,15 @@ module.exports = (models) => {
 
         if (!targetVersion) {
           return res.json({ error: "No version with this id." });
+        }
+
+        const check = checkDiaryAuth(
+          targetVersion.Diary,
+          req.auth.userInfo,
+          req
+        );
+        if (!check.authenticated) {
+          return res.json({ error: check.message });
         }
 
         targetVersion.destroy();

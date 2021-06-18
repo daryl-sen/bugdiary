@@ -99,6 +99,15 @@ module.exports = (models) => {
           return res.json({ error: "No location with this id." });
         }
 
+        const check = checkDiaryAuth(
+          targetLocation.Diary,
+          req.auth.userInfo,
+          req
+        );
+        if (!check.authenticated) {
+          return res.json({ error: check.message });
+        }
+
         targetLocation.destroy();
         return res.json({ success: true });
       } catch (err) {

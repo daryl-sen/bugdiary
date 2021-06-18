@@ -86,6 +86,7 @@ module.exports = (models) => {
     .delete("/:id", authenticateToken, async (req, res) => {
       try {
         const targetType = await Type.findOne({
+          include: [Diary],
           where: {
             id: req.params.id,
           },
@@ -93,6 +94,11 @@ module.exports = (models) => {
 
         if (!targetType) {
           return res.json({ error: "No type with this id." });
+        }
+
+        const check = checkDiaryAuth(targetType.Diary, req.auth.userInfo, req);
+        if (!check.authenticated) {
+          return res.json({ error: check.message });
         }
 
         targetType.destroy();
