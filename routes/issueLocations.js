@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { authenticateToken } = require("../helpers/jwtAuthentication");
+const {
+  authenticateToken,
+  checkDiaryAuth,
+} = require("../helpers/jwtAuthentication");
 
 module.exports = (models) => {
   const { Diary, Location } = models;
@@ -15,6 +18,11 @@ module.exports = (models) => {
             uuid,
           },
         });
+
+        if (!targetDiary) {
+          return res.json({ error: "No diary with this UUID." });
+        }
+
         const newLocation = await Location.create({
           ...req.body,
           diary_id: targetDiary.id,
@@ -34,6 +42,11 @@ module.exports = (models) => {
             uuid: req.params.diaryUuid,
           },
         });
+
+        if (!targetDiary) {
+          return res.json({ error: "No diary with this UUID." });
+        }
+
         return res.json(await targetDiary.getLocations());
       } catch (err) {
         console.log(err);
@@ -42,13 +55,28 @@ module.exports = (models) => {
     })
 
     // update location
-    .patch("/", authenticateToken, async (req, res) => {
+    .patch("/:id", authenticateToken, async (req, res) => {
       try {
         const targetLocation = await Location.findOne({
+          include: [Diary],
           where: {
-            id: req.body.id,
+            id: req.params.id,
           },
         });
+
+        if (!targetLocation) {
+          return res.json({ error: "No location with this id." });
+        }
+
+        const check = checkDiaryAuth(
+          targetLocation.Diary,
+          req.auth.userInfo,
+          req
+        );
+        if (!check.authenticated) {
+          return res.json({ error: check.message });
+        }
+
         targetLocation.name = req.body.name;
         await targetLocation.save();
         return res.json(targetLocation);
@@ -66,6 +94,11 @@ module.exports = (models) => {
             id: req.params.id,
           },
         });
+
+        if (!targetLocation) {
+          return res.json({ error: "No location with this id." });
+        }
+
         targetLocation.destroy();
         return res.json({ success: true });
       } catch (err) {
