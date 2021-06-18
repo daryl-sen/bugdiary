@@ -47,6 +47,11 @@ module.exports = (models) => {
             uuid,
           },
         });
+
+        if (!targetDiary) {
+          return res.json({ error: "There is no diary with that UUID." });
+        }
+
         const diaryLocations = await Location.findAll({
           where: {
             diary_id: targetDiary.id,
@@ -134,10 +139,11 @@ module.exports = (models) => {
     // create diary
     .post("/", authenticateToken, async (req, res) => {
       try {
+        console.log(req.auth);
         const newDiary = await Diary.create({
           ...req.body,
           user_id: req.auth.userInfo ? req.auth.userInfo.id : null,
-          uuid: undefined,
+          // uuid: undefined,
           expiry_date: undefined,
           created_at: undefined,
         });

@@ -26,11 +26,7 @@ export default function useDiaryFunctions() {
       },
     };
     axios
-      .post(
-        BASE_URL + "/api/diaries/diary",
-        { ...diaryDetails, user_id: uInfo.id },
-        config
-      )
+      .post(BASE_URL + "/api/diaries/diary", diaryDetails, config)
       .then((resp) => {
         if (!resp.data.error) {
           NotificationManager.success("New diary created!");
