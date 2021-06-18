@@ -1,11 +1,15 @@
 const express = require("express");
 const router = express.Router();
+const {
+  authenticateToken,
+  checkDiaryAuth,
+} = require("../helpers/jwtAuthentication");
 
 module.exports = (models) => {
   const { Issue, Diary, Location, Type } = models;
   router
     // create new issue
-    .post("/", async (req, res) => {
+    .post("/", authenticateToken, async (req, res) => {
       try {
         let refLocation = await Location.findOne({
           where: {
@@ -38,15 +42,15 @@ module.exports = (models) => {
           location_id: refLocation.id,
           reference: req.body.reference ? req.body.reference : undefined,
         });
-        return res.json("newIssue");
+        return res.json(newIssue);
       } catch (err) {
         console.log(err);
-        res.json({ error: err });
+        res.status(500).json({ error: err });
       }
     })
 
     // get individual issue
-    .get("/:uuid", async (req, res) => {
+    .get("/:uuid", authenticateToken, async (req, res) => {
       const uuid = req.params.uuid;
       try {
         const targetIssue = await Issue.findOne({
@@ -54,26 +58,40 @@ module.exports = (models) => {
             uuid,
           },
         });
+
+        if (!targetIssue) {
+          return res.json({ error: "No issue with this UUID exists." });
+        }
+
         return res.json(targetIssue);
       } catch (err) {
         console.log(err);
-        res.json({ error: err });
+        res.status(500).json({ error: err });
       }
     })
 
     // update issue
-    .patch("/:id", async (req, res) => {
-      const id = req.params.id;
-      console.log(id, req.body.status);
+    .patch("/:uuid", authenticateToken, async (req, res) => {
+      const uuid = req.params.uuid;
       try {
         const targetIssue = await Issue.findOne({
+          include: [Diary],
           where: {
-            id,
+            uuid,
           },
         });
+
+        if (!targetIssue) {
+          return res.json({ error: "No issue with this UUID exists." });
+        }
+
+        const check = checkDiaryAuth(targetIssue.Diary, req.auth.userInfo, req);
+        if (!check.authenticated) {
+          return res.json({ error: check.message });
+        }
+
         for (const attribute in targetIssue.dataValues) {
           if (req.body[attribute]) {
-            console.log("update", attribute);
             targetIssue[attribute] = req.body[attribute];
           }
         }
@@ -86,7 +104,7 @@ module.exports = (models) => {
     })
 
     // delete issue
-    .delete("/:uuid", async (req, res) => {
+    .delete("/:uuid", authenticateToken, async (req, res) => {
       const uuid = req.params.uuid;
       try {
         const targetIssue = await Issue.findOne({
@@ -94,6 +112,16 @@ module.exports = (models) => {
             uuid,
           },
         });
+
+        if (!targetIssue) {
+          return res.json({ error: "No issue with this UUID exists." });
+        }
+
+        const check = checkDiaryAuth(targetIssue.Diary, req.auth.userInfo, req);
+        if (!check.authenticated) {
+          return res.json({ error: check.message });
+        }
+
         await targetIssue.destroy();
         return res.json({ success: true });
       } catch (err) {
