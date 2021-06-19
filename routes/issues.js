@@ -6,7 +6,7 @@ const {
 } = require("../helpers/jwtAuthentication");
 
 module.exports = (models) => {
-  const { Issue, Diary, Location, Type } = models;
+  const { Issue, Diary, Location, Type, Version } = models;
   router
     // create new issue
     .post("/", authenticateToken, async (req, res) => {
@@ -53,6 +53,7 @@ module.exports = (models) => {
     .get("/:uuid/search", authenticateToken, async (req, res) => {
       const uuid = req.params.uuid;
       const { showResolved, showDeleted } = req.query;
+      console.log(showResolved);
       try {
         const targetDiary = await Diary.findOne({
           where: {
@@ -67,6 +68,7 @@ module.exports = (models) => {
         const auth = checkDiaryAuth(targetDiary, req.auth.userInfo, req);
 
         const issues = await Issue.findAll({
+          include: [Type, Location, Version],
           where: {
             status: [
               "PENDING",

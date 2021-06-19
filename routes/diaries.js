@@ -109,6 +109,7 @@ module.exports = (models) => {
 
     // specific diary
     .get("/:uuid", authenticateToken, async (req, res) => {
+      const { showResolved, showDeleted } = req.query;
       try {
         const targetDiary = await Diary.findOne({
           where: {
@@ -123,7 +124,12 @@ module.exports = (models) => {
           where: {
             diary_id: targetDiary.id,
             private: req.auth.status ? [1, 0] : 0,
-            status: ["PENDING", "PRIORITIZED"],
+            status: [
+              "PENDING",
+              "PRIORITIZED",
+              showResolved ? "RESOLVED" : null,
+              showDeleted ? "DELETED" : null,
+            ],
           },
           order: [["id", "DESC"]],
         });
