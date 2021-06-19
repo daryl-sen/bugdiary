@@ -8,15 +8,15 @@ import LoadingIndicator from "../components/elements/LoadingIndicator";
 import useDiaryFunctions from "../hooks/useDiaryFunctions";
 import { useEffect, useState } from "react";
 
-import FullScreenShade from "../components/elements/FullScreenShade";
-import WhiteBgContainer from "../components/elements/WhiteBgContainer";
+import FullScreenShade from "../components/blocks/FullScreenShade";
+import WhiteBgContainer from "../components/blocks/WhiteBgContainer";
 import NewIssueForm from "../components/forms/NewIssueForm";
 // import IndividualIssue from "../components/elements/IndividualIssue";
 import LinedContainer from "../components/elements/LinedContainer";
-import SearchPopup from "../components/elements/SearchPopup";
+import SearchPopup from "../components/overlays/SearchPopup";
 import DiarySettingsPopup from "../components/elements/DiarySettingsPopup";
-import DiaryInfoSettings from "../components/elements/DiaryInfoSettings";
-import FilterIndicator from "../components/elements/FilterIndicator";
+import DiaryInfoSettings from "../components/overlays/DiaryInfoSettings";
+import FilterIndicator from "../components/blocks/FilterIndicator";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NotificationManager } from "react-notifications";

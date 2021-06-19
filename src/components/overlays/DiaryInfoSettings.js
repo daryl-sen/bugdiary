@@ -1,6 +1,6 @@
 import TwoColumnLayout from "../layout/TwoColumnLayout";
-import WhiteBgContainer from "./WhiteBgContainer";
-import LinedContainer from "./LinedContainer";
+import WhiteBgContainer from "../blocks/WhiteBgContainer";
+import LinedContainer from "../elements/LinedContainer";
 import DiaryInfoForm from "../forms/DiaryInfoForm";
 
 export default function DiaryInfoSettings(props) {

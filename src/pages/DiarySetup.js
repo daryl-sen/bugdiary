@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import SingleColumnLayout from "../components/layout/SingleColumnLayout";
-import WhiteBgContainer from "../components/elements/WhiteBgContainer";
+import WhiteBgContainer from "../components/blocks/WhiteBgContainer";
 
 import DiaryVersionSetup from "../components/forms/DiaryVersionSetup";
 import DiaryLocationsSetup from "../components/forms/DiaryLocationsSetup";

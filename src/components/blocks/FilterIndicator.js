@@ -1,5 +1,5 @@
 import "./FilterIndicator.scss";
-import IssueTag from "./IssueTag";
+import IssueTag from "../elements/IssueTag";
 
 export default function FilterIndicator(props) {
   const renderSearchTerms = (terms) => {

@@ -1,6 +1,6 @@
 import SingleColumnLayout from "../components/layout/SingleColumnLayout";
 import NewDiaryForm from "../components/forms/NewDiaryForm";
-import WhiteBgContainer from "../components/elements/WhiteBgContainer";
+import WhiteBgContainer from "../components/blocks/WhiteBgContainer";
 
 export default function DiarySetup() {
   return (

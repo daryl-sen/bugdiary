@@ -1,5 +1,5 @@
 import SignupForm from "../components/forms/SignupForm";
-import WhiteBgContainer from "../components/elements/WhiteBgContainer";
+import WhiteBgContainer from "../components/blocks/WhiteBgContainer";
 import { useLocation } from "react-router-dom";
 import SingleColumnLayout from "../components/layout/SingleColumnLayout";
 

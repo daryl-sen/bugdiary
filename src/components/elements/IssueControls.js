@@ -9,7 +9,7 @@ import {
   BiTrashAlt,
   BiWindowClose,
 } from "react-icons/bi";
-import FullScreenShade from "../elements/FullScreenShade";
+import FullScreenShade from "../blocks/FullScreenShade";
 import useIssueFunctions from "../../hooks/useIssueFunctions";
 import IssueControlButton from "./IssueControlButton";
 

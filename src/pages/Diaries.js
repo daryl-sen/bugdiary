@@ -5,7 +5,7 @@ import SingleColumnLayout from "../components/layout/SingleColumnLayout";
 import { useContext } from "react";
 import { UserContext } from "../App";
 
-import DiaryContainer from "../components/elements/DiaryContainer";
+import DiaryContainer from "../components/blocks/DiaryContainer";
 import NewDiaryButton from "../components/elements/NewDiaryButton";
 
 import LoadingIndicator from "../components/elements/LoadingIndicator";

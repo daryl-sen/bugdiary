@@ -1,5 +1,5 @@
 import "./SideNav.scss";
-import FullScreenShade from "../elements/FullScreenShade";
+import FullScreenShade from "../blocks/FullScreenShade";
 import {
   BiLogOut,
   BiLogIn,

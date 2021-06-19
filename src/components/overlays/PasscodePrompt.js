@@ -1,4 +1,4 @@
-import WhiteBgContainer from "./WhiteBgContainer";
+import WhiteBgContainer from "../blocks/WhiteBgContainer";
 export default function PasscodePrompt(props) {
   return (
     <WhiteBgContainer preset="narrow">

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./SearchPopup.scss";
-import WhiteBgContainer from "./WhiteBgContainer";
+import WhiteBgContainer from "../blocks/WhiteBgContainer";
 
 export default function SearchPopup(props) {
   const [searchTerm, setSearchTerm] = useState();
