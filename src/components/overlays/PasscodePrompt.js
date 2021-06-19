@@ -1,11 +1,13 @@
 import WhiteBgContainer from "../blocks/WhiteBgContainer";
+import PasscodeAuthForm from "../forms/PasscodeAuthForm";
+
 export default function PasscodePrompt(props) {
   return (
     <WhiteBgContainer preset="narrow">
       <h2>Diary Access</h2>
-      <input type="password" />
-      <button type="submit" class="button-primary">
-        Get Access
+      <PasscodeAuthForm />
+      <button onClick={props.exit} className="custom button-secondary">
+        Cancel
       </button>
       <p>
         Only the diary's owner or someone with the diary's access code can

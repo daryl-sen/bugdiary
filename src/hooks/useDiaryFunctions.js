@@ -17,14 +17,15 @@ export default function useDiaryFunctions() {
   const uInfo = useContext(UserContext);
   const history = useHistory();
 
+  const config = {
+    headers: {
+      authorization: `Bearer ${uInfo.jwt}`,
+      "Content-Type": "application/json",
+    },
+  };
+
   const createDiary = (diaryDetails) => {
     setLoadingStatus(true);
-    const config = {
-      headers: {
-        authorization: `Bearer ${uInfo.jwt}`,
-        "Content-Type": "application/json",
-      },
-    };
     axios.post(BASE_URL + "/api/diaries", diaryDetails, config).then((resp) => {
       if (!resp.data.error) {
         NotificationManager.success("New diary created!");
@@ -38,9 +39,8 @@ export default function useDiaryFunctions() {
   const getDiaryContent = (uuid) => {
     console.log("updating");
 
-    const authorization = { headers: { authorization: `Bearer ${uInfo.jwt}` } };
     axios
-      .get("/api/diaries/" + uuid, authorization)
+      .get("/api/diaries/" + uuid, config)
       .then((resp) => {
         setDiaryContent(resp.data);
       })
@@ -50,9 +50,8 @@ export default function useDiaryFunctions() {
   };
 
   const extendExpiry = async (uuid) => {
-    const authorization = { headers: { authorization: `Bearer ${uInfo.jwt}` } };
     await axios
-      .patch("/api/diaries/extend/" + uuid, {}, authorization)
+      .patch("/api/diaries/extend/" + uuid, {}, config)
       .then((resp) => {
         console.log(resp.data);
         if (resp.error) {
@@ -65,22 +64,30 @@ export default function useDiaryFunctions() {
   const getAssociatedDiaries = () => {};
 
   const updateDiary = async (uuid, values) => {
-    const authorization = { headers: { authorization: `Bearer ${uInfo.jwt}` } };
-
-    await axios
-      .patch("/api/diaries/" + uuid, values, authorization)
-      .then((resp) => {
-        if (resp.data.error) {
-          console.log(resp.data.error);
-          NotificationManager.error("An error has occurred.");
-          return false;
-        }
-        NotificationManager.success("Your diary has been updated!");
-        return resp.data;
-      });
+    await axios.patch("/api/diaries/" + uuid, values, config).then((resp) => {
+      if (resp.data.error) {
+        console.log(resp.data.error);
+        NotificationManager.error("An error has occurred.");
+        return false;
+      }
+      NotificationManager.success("Your diary has been updated!");
+      return resp.data;
+    });
   };
 
   const deleteDiary = () => {};
+
+  const authenticateWithPasscode = (values, uuid) => {
+    axios
+      .post("/api/diaries/passcode-auth/" + uuid, values, config)
+      .then((resp) => {
+        if (resp.data.error) {
+          NotificationManager.error("An error has occurred:", resp.data.error);
+          return false;
+        }
+        NotificationManager.success("You have been authenticated!");
+      });
+  };
 
   return {
     uInfo,
@@ -96,5 +103,6 @@ export default function useDiaryFunctions() {
     deleteDiary,
     setDiaryConfig,
     extendExpiry,
+    authenticateWithPasscode,
   };
 }

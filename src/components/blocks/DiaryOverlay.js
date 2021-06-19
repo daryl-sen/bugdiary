@@ -38,11 +38,8 @@ export default function DiaryOverlay(props) {
 
       {props.overlayStatus === true &&
       props.view.popupView === "accessPrompt" ? (
-        <FullScreenShade
-          styleOverride={{ padding: "1rem" }}
-          clickEvent={props.toggleOverlay}
-        >
-          <PasscodePrompt />
+        <FullScreenShade styleOverride={{ padding: "1rem" }}>
+          <PasscodePrompt exit={props.toggleOverlay} />
         </FullScreenShade>
       ) : null}
     </>
