@@ -3,7 +3,6 @@ import SingleColumnLayout from "../layouts/SingleColumnLayout";
 import TwoColumnLayout from "../layouts/TwoColumnLayout";
 import TableLayout from "../layouts/TableLayout";
 import MasonryContainer from "../layouts/MasonryLayout";
-import NavigationButton from "../elements/NavigationButton";
 import LoadingIndicator from "../blocks/LoadingIndicator";
 import useDiaryFunctions from "../../hooks/useDiaryFunctions";
 import { useEffect, useState } from "react";
@@ -14,21 +13,8 @@ import LinedContainer from "../blocks/LinedContainer";
 import DiaryInfoSettings from "../overlays/DiaryInfoSettings";
 import FilterIndicator from "../blocks/FilterIndicator";
 import DiaryOverlay from "../blocks/DiaryOverlay";
+import ShortcutNavigation from "../blocks/ShortcutNavigation";
 
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { NotificationManager } from "react-notifications";
-
-import {
-  BiCopyAlt,
-  BiBorderAll,
-  BiBookAdd,
-  BiSearch,
-  BiCog,
-  BiRevision,
-  BiWindows,
-  BiArrowBack,
-  BiLockOpenAlt,
-} from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 export default function Diary(props) {
@@ -86,6 +72,7 @@ export default function Diary(props) {
         setView={setView}
         toggleOverlay={toggleOverlay}
         targetDiary={targetDiary}
+        setDiaryContent={setDiaryContent}
       />
 
       <SingleColumnLayout
@@ -94,97 +81,14 @@ export default function Diary(props) {
         }}
       >
         <h1>{targetDiary.name}</h1>
-        {view.functionView === "" ? (
-          <NavigationButton
-            onClick={() => {
-              setView((prev) => {
-                return { ...prev, functionView: "add" };
-              });
-            }}
-          >
-            <BiBookAdd />
-            &nbsp; New
-          </NavigationButton>
-        ) : (
-          <NavigationButton
-            onClick={() => {
-              setView((prev) => {
-                return { ...prev, functionView: "" };
-              });
-            }}
-          >
-            <BiArrowBack />
-            &nbsp; Back
-          </NavigationButton>
-        )}
 
-        <NavigationButton
-          onClick={() => {
-            toggleOverlay("search");
-          }}
-        >
-          <BiSearch />
-          &nbsp; Filter
-        </NavigationButton>
-        <CopyToClipboard text={"https://www.bugdiary.com/diary/" + uuid}>
-          <NavigationButton
-            onClick={() => {
-              NotificationManager.success("URL copied!");
-            }}
-          >
-            <BiCopyAlt />
-            &nbsp; Copy URL
-          </NavigationButton>
-        </CopyToClipboard>
-        {uInfo.jwt || uInfo.accessKey ? (
-          <NavigationButton
-            onClick={() => {
-              toggleOverlay("settings");
-            }}
-          >
-            <BiCog />
-            &nbsp; Settings
-          </NavigationButton>
-        ) : (
-          <NavigationButton
-            onClick={() => {
-              toggleOverlay("accessPrompt");
-            }}
-          >
-            <BiLockOpenAlt />
-          </NavigationButton>
-        )}
-
-        {view.issueView === "cards" && (
-          <NavigationButton
-            onClick={() => {
-              setView((prev) => {
-                return { ...prev, issueView: "table" };
-              });
-            }}
-          >
-            <BiWindows />
-          </NavigationButton>
-        )}
-
-        {view.issueView === "table" && (
-          <NavigationButton
-            onClick={() => {
-              setView((prev) => {
-                return { ...prev, issueView: "cards" };
-              });
-            }}
-          >
-            <BiBorderAll />
-          </NavigationButton>
-        )}
-        <NavigationButton
-          onClick={() => {
-            getDiaryContent(uuid);
-          }}
-        >
-          <BiRevision />
-        </NavigationButton>
+        <ShortcutNavigation
+          view={view}
+          setView={setView}
+          toggleOverlay={props.toggleOverlay}
+          uInfo={uInfo}
+          getDiaryContent={getDiaryContent}
+        />
 
         {filters.length ? (
           <FilterIndicator

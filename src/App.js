@@ -23,7 +23,7 @@ function App() {
   // check for existing cookie containing jwt
   useEffect(() => {
     checkToken(setUserSession);
-  }, [userSession.jwt]);
+  }, [userSession.jwt]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (userSession.jwt === undefined) {
     return <LoadingIndicator />;
