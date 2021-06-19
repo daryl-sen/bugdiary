@@ -1,12 +1,12 @@
 import "./App.scss";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
 
 import MainRouter from "./MainRouter";
 import LoadingIndicator from "./components/blocks/LoadingIndicator";
 import Warning from "./components/Warning";
+import useUserFunctions from "./hooks/useUserFunctions";
 
 export const UserContext = React.createContext();
 
@@ -18,24 +18,11 @@ function App() {
     notifications: [],
   });
   const [warningDisplay, setWarningDisplay] = useState(true);
+  const { checkToken } = useUserFunctions();
 
   // check for existing cookie containing jwt
   useEffect(() => {
-    axios
-      .get("/api/users/check-token")
-      .then((resp) => {
-        if (!resp.data.loggedIn) {
-          return setUserSession((prev) => {
-            return { ...prev, jwt: null };
-          });
-        }
-        return setUserSession((prev) => {
-          return { ...prev, ...resp.data.userInfo };
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    checkToken(setUserSession);
   }, [userSession.jwt]);
 
   if (userSession.jwt === undefined) {

@@ -90,6 +90,25 @@ export default function useUserFunctions(next) {
   const updateUser = () => {};
   const deleteUser = () => {};
 
+  const checkToken = (setUserSession) => {
+    console.log("checking token");
+    axios
+      .get("/api/users/check-token")
+      .then((resp) => {
+        if (!resp.data.loggedIn) {
+          return setUserSession((prev) => {
+            return { ...prev, jwt: null };
+          });
+        }
+        return setUserSession((prev) => {
+          return { ...prev, ...resp.data.userInfo };
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return {
     loadingStatus,
     setLoadingStatus,
@@ -98,6 +117,7 @@ export default function useUserFunctions(next) {
     createUser,
     updateUser,
     deleteUser,
+    checkToken,
     uInfo,
   };
 }
