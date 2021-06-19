@@ -28,6 +28,7 @@ export default function NewIssueForm(props) {
       reporter_email: "",
       type_name: "",
       location_name: "",
+      private: "",
     },
 
     validationSchema: Yup.object({
@@ -52,10 +53,12 @@ export default function NewIssueForm(props) {
     }),
 
     onSubmit: async (values) => {
+      console.log(values);
       await createIssue({
         ...values,
         diary_id: targetDiary.id,
         version_id: latestVersion[0].id,
+        private: values.private ? 1 : 0,
       });
       props.exit();
       props.refresh();
@@ -144,6 +147,17 @@ export default function NewIssueForm(props) {
         placeholder="(Optional)"
       />
       {renderFieldError("reporter_name")}
+
+      <label htmlFor="private">
+        <input
+          name="private"
+          id="private"
+          type="checkbox"
+          {...formik.getFieldProps("private")}
+        />
+        Make this private
+      </label>
+      {renderFieldError("private")}
 
       <button type="submit" className="button-primary">
         Report Issue
