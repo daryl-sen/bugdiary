@@ -90,6 +90,7 @@ const checkDiaryAuth = (diaryObj, userObj, req) => {
   }
   return {
     authenticated: false,
+    message: "Please log in or authenticate with a passcode.",
   };
 };
 

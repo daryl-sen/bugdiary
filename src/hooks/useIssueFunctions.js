@@ -60,6 +60,9 @@ export default function useIssueFunctions() {
       .patch(BASE_URL + "/api/diaries/issues/" + issueId, { status }, headers)
       .then((resp) => {
         if (resp.data.error) {
+          NotificationManager.error(
+            `There was a problem marking this issue: ${resp.data.error}`
+          );
           console.log(resp.data.error);
           return false;
         }
