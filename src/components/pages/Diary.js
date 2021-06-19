@@ -85,7 +85,7 @@ export default function Diary(props) {
         <ShortcutNavigation
           view={view}
           setView={setView}
-          toggleOverlay={props.toggleOverlay}
+          toggleOverlay={toggleOverlay}
           uInfo={uInfo}
           getDiaryContent={getDiaryContent}
         />
