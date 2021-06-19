@@ -1,7 +1,7 @@
-import SignupForm from "../components/forms/SignupForm";
-import WhiteBgContainer from "../components/blocks/WhiteBgContainer";
+import SignupForm from "../forms/SignupForm";
+import WhiteBgContainer from "../blocks/WhiteBgContainer";
 import { useLocation } from "react-router-dom";
-import SingleColumnLayout from "../components/layout/SingleColumnLayout";
+import SingleColumnLayout from "../layouts/SingleColumnLayout";
 
 export default function Signup(props) {
   const queryParams = useLocation().search;

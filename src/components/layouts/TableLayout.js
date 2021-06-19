@@ -1,6 +1,6 @@
 import "./TableLayout.scss";
-import IssueContainer from "../elements/IssueContainer";
-import NoIssuesDisplay from "../elements/NoIssuesDisplay";
+import IssueContainer from "../blocks/IssueContainer";
+import NoIssuesDisplay from "../blocks/NoIssuesDisplay";
 
 export default function TableLayout(props) {
   const renderIssueContainers = (issues) => {

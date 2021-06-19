@@ -1,6 +1,6 @@
-import TwoColumnLayout from "../layout/TwoColumnLayout";
-import WhiteBgContainer from "../elements/WhiteBgContainer";
-import LinedContainer from "../elements/LinedContainer";
+import TwoColumnLayout from "../layouts/TwoColumnLayout";
+import WhiteBgContainer from "../blocks/WhiteBgContainer";
+import LinedContainer from "../blocks/LinedContainer";
 
 export default function IndividualIssue(props) {
   return (

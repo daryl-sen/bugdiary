@@ -1,5 +1,5 @@
-import SingleColumnLayout from "../components/layout/SingleColumnLayout";
-import useUserFunctions from "../hooks/useUserFunctions";
+import SingleColumnLayout from "../layouts/SingleColumnLayout";
+import useUserFunctions from "../../hooks/useUserFunctions";
 
 export default function AccountSettings() {
   const { logoutUser } = useUserFunctions();

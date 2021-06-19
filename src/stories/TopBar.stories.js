@@ -1,5 +1,5 @@
 import { React } from "react";
-import TopBar from "../components/layout/TopBar";
+import TopBar from "../layouts/TopBar";
 
 export default { title: "Top bar" };
 

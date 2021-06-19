@@ -1,5 +1,5 @@
 import { React } from "react";
-import SideNav from "../components/layout/SideNav";
+import SideNav from "../layouts/SideNav";
 
 export default { title: "Sidebar Navigation" };
 

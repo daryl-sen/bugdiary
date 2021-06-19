@@ -1,7 +1,7 @@
 import "./IssueContainer.scss";
-import IssueTag from "./IssueTag";
-import IssueFooter from "./IssueFooter";
-import IssueControls from "./IssueControls";
+import IssueTag from "../elements/IssueTag";
+import IssueFooter from "../elements/IssueFooter";
+import IssueControls from "../elements/IssueControls";
 
 export default function IssueContainer(props) {
   const renderTags = (tags) => {

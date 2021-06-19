@@ -1,5 +1,5 @@
 import { useHistory } from "react-router";
-import WhiteBgContainer from "./WhiteBgContainer";
+import WhiteBgContainer from "../blocks/WhiteBgContainer";
 import useDiaryFunctions from "../../hooks/useDiaryFunctions";
 import { NotificationManager } from "react-notifications";
 

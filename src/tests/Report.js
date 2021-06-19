@@ -1,4 +1,4 @@
-import SingleColumnLayout from "../components/layout/SingleColumnLayout";
+import SingleColumnLayout from "../layouts/SingleColumnLayout";
 
 export default function Report() {
   return (

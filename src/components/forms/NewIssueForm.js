@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import LoadingIndicator from "../elements/LoadingIndicator";
+import LoadingIndicator from "../blocks/LoadingIndicator";
 
 // form
 import StylizedForm from "./StylizedForm";

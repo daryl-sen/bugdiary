@@ -1,5 +1,5 @@
 import { React } from "react";
-import TwoColumnLayout from "../components/layout/TwoColumnLayout";
+import TwoColumnLayout from "../layouts/TwoColumnLayout";
 
 export default { title: "Two column layout" };
 

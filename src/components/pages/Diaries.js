@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import SingleColumnLayout from "../components/layout/SingleColumnLayout";
+import SingleColumnLayout from "../layouts/SingleColumnLayout";
 
 import { useContext } from "react";
-import { UserContext } from "../App";
+import { UserContext } from "../../App";
 
-import DiaryContainer from "../components/blocks/DiaryContainer";
-import NewDiaryButton from "../components/elements/NewDiaryButton";
+import DiaryContainer from "../blocks/DiaryContainer";
+import NewDiaryButton from "../elements/NewDiaryButton";
 
-import LoadingIndicator from "../components/elements/LoadingIndicator";
+import LoadingIndicator from "../blocks/LoadingIndicator";
 
 import "./Diaries.scss";
 

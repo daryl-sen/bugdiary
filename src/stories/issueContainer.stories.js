@@ -1,5 +1,5 @@
 import { React } from "react";
-import IssueContainer from "../components/elements/IssueContainer";
+import IssueContainer from "../blocks/IssueContainer";
 
 export default { title: "Issue Container" };
 

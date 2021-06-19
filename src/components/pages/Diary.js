@@ -1,27 +1,26 @@
 import { useParams } from "react-router";
-import SingleColumnLayout from "../components/layout/SingleColumnLayout";
-import TwoColumnLayout from "../components/layout/TwoColumnLayout";
-import TableLayout from "../components/layout/TableLayout";
-import MasonryContainer from "../components/layout/MasonryLayout";
-import NavigationButton from "../components/elements/NavigationButton";
-import LoadingIndicator from "../components/elements/LoadingIndicator";
-import useDiaryFunctions from "../hooks/useDiaryFunctions";
+import SingleColumnLayout from "../layouts/SingleColumnLayout";
+import TwoColumnLayout from "../layouts/TwoColumnLayout";
+import TableLayout from "../layouts/TableLayout";
+import MasonryContainer from "../layouts/MasonryLayout";
+import NavigationButton from "../elements/NavigationButton";
+import LoadingIndicator from "../blocks/LoadingIndicator";
+import useDiaryFunctions from "../../hooks/useDiaryFunctions";
 import { useEffect, useState } from "react";
 
-import FullScreenShade from "../components/blocks/FullScreenShade";
-import WhiteBgContainer from "../components/blocks/WhiteBgContainer";
-import NewIssueForm from "../components/forms/NewIssueForm";
-// import IndividualIssue from "../components/elements/IndividualIssue";
-import LinedContainer from "../components/elements/LinedContainer";
-import SearchPopup from "../components/overlays/SearchPopup";
-import DiarySettingsPopup from "../components/elements/DiarySettingsPopup";
-import DiaryInfoSettings from "../components/overlays/DiaryInfoSettings";
-import FilterIndicator from "../components/blocks/FilterIndicator";
+import FullScreenShade from "../blocks/FullScreenShade";
+import WhiteBgContainer from "../blocks/WhiteBgContainer";
+import NewIssueForm from "../forms/NewIssueForm";
+import LinedContainer from "../blocks/LinedContainer";
+import SearchPopup from "../overlays/SearchPopup";
+import DiarySettingsPopup from "../overlays/DiarySettingsPopup";
+import DiaryInfoSettings from "../overlays/DiaryInfoSettings";
+import FilterIndicator from "../blocks/FilterIndicator";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NotificationManager } from "react-notifications";
 
-import PasscodePrompt from "../components/elements/PasscodePrompt";
+import PasscodePrompt from "../overlays/PasscodePrompt";
 
 import {
   BiCopyAlt,

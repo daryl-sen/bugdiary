@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import SingleColumnLayout from "../components/layout/SingleColumnLayout";
-import WhiteBgContainer from "../components/blocks/WhiteBgContainer";
+import SingleColumnLayout from "../layouts/SingleColumnLayout";
+import WhiteBgContainer from "../blocks/WhiteBgContainer";
 
-import DiaryVersionSetup from "../components/forms/DiaryVersionSetup";
-import DiaryLocationsSetup from "../components/forms/DiaryLocationsSetup";
-import DiaryTypesSetup from "../components/forms/DiaryTypesSetup";
+import DiaryVersionSetup from "../forms/DiaryVersionSetup";
+import DiaryLocationsSetup from "../forms/DiaryLocationsSetup";
+import DiaryTypesSetup from "../forms/DiaryTypesSetup";
 
 export default function DiarySetup() {
   const [currentStep, setCurrentStep] = useState(0);
