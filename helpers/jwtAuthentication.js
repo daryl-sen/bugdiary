@@ -56,7 +56,7 @@ const addAuthenticatedDiary = (newUuid, req) => {
 
 const checkDiaryAuth = (diaryObj, userObj, req) => {
   // diary belongs to a user
-  if (diaryObj.user_id) {
+  if (diaryObj && diaryObj.user_id) {
     if (userObj) {
       // user is logged in
       if (diaryObj.user_id === userObj.id) {

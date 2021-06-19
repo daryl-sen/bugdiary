@@ -49,7 +49,42 @@ module.exports = (models) => {
       }
     })
 
-    // get individual issue
+    // search for issues (UUID belongs to DIARY)
+    .get("/:uuid/search", authenticateToken, async (req, res) => {
+      const uuid = req.params.uuid;
+      const { showResolved, showDeleted } = req.query;
+      try {
+        const targetDiary = await Diary.findOne({
+          where: {
+            uuid,
+          },
+        });
+
+        if (!targetDiary) {
+          return res.json({ error: "No diary found." });
+        }
+
+        const auth = checkDiaryAuth(targetDiary, req.auth.userInfo, req);
+
+        const issues = await Issue.findAll({
+          where: {
+            status: [
+              "PENDING",
+              "PRIORITIZED",
+              showResolved ? "RESOLVED" : null,
+              showDeleted ? "DELETED" : null,
+            ],
+            private: auth.authenticated ? [1, 0] : 0,
+          },
+        });
+        return res.json({ issues });
+      } catch (err) {
+        console.log(err);
+        return res.json({ error: err });
+      }
+    })
+
+    // get individual issue (UUID belongs to ISSUE)
     .get("/:uuid", authenticateToken, async (req, res) => {
       const uuid = req.params.uuid;
       try {

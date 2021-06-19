@@ -123,6 +123,7 @@ module.exports = (models) => {
           where: {
             diary_id: targetDiary.id,
             private: req.auth.status ? [1, 0] : 0,
+            status: ["PENDING", "PRIORITIZED"],
           },
           order: [["id", "DESC"]],
         });

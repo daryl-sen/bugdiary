@@ -92,7 +92,6 @@ export default function NewIssueForm(props) {
   return (
     <StylizedForm formik={formik}>
       {loadingStatus && <LoadingIndicator />}
-
       <label htmlFor="reference">Heading</label>
       <input
         id="reference"
@@ -101,7 +100,6 @@ export default function NewIssueForm(props) {
         placeholder="(Optional)"
       />
       {renderFieldError("reference")}
-
       <label htmlFor="location_name">Location</label>
       <datalist id="location_suggestions">
         {renderSuggestions(diaryLocations)}
@@ -114,7 +112,6 @@ export default function NewIssueForm(props) {
         list="location_suggestions"
       />
       {renderFieldError("location_name")}
-
       <label htmlFor="type_name">Type</label>
       <input
         id="type_name"
@@ -125,11 +122,9 @@ export default function NewIssueForm(props) {
       />
       <datalist id="type_suggestions">{renderSuggestions(diaryTypes)}</datalist>
       {renderFieldError("type_name")}
-
       <label htmlFor="details">Issue Details</label>
       <textarea id="details" {...formik.getFieldProps("details")}></textarea>
       {renderFieldError("details")}
-
       <label htmlFor="reporter_email">Contact Email</label>
       <input
         id="reporter_email"
@@ -138,7 +133,6 @@ export default function NewIssueForm(props) {
         placeholder="(Optional)"
       />
       {renderFieldError("reporter_email")}
-
       <label htmlFor="reporter_name">Contact Name</label>
       <input
         id="reporter_name"
@@ -147,7 +141,6 @@ export default function NewIssueForm(props) {
         placeholder="(Optional)"
       />
       {renderFieldError("reporter_name")}
-
       <label htmlFor="private">
         <input
           name="private"
@@ -158,7 +151,6 @@ export default function NewIssueForm(props) {
         Make this private
       </label>
       {renderFieldError("private")}
-
       <button type="submit" className="button-primary">
         Report Issue
       </button>
