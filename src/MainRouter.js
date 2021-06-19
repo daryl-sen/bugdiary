@@ -1,23 +1,20 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
 import { useState } from "react";
+
 import "./MainRouter.scss";
-import TopBar from "./components/layout/TopBar";
-import SideNav from "./components/layout/SideNav";
-
+import TopBar from "./components/layouts/TopBar";
+import SideNav from "./components/layouts/SideNav";
 import ProtectedRoute from "./ProtectedRoute";
-
-import Diary from "./pages/Diary";
-// import DiarySettings from "./pages/DiarySettings";
-// import Report from "./pages/Report";
-import LoginPage from "./pages/LoginPage";
-import AccountSettings from "./pages/AccountSettings";
-import Diaries from "./pages/Diaries";
-import DiarySetup from "./pages/DiarySetup";
-import DiaryNew from "./pages/DiaryNew";
-import Homepage from "./pages/Homepage";
-import AboutUs from "./pages/AboutUs";
-import Signup from "./pages/Signup";
+// pages
+import Diary from "./components/pages/Diary";
+import LoginPage from "./components/pages/LoginPage";
+import AccountSettings from "./components/pages/AccountSettings";
+import Diaries from "./components/pages/Diaries";
+import DiarySetup from "./components/pages/DiarySetup";
+import DiaryNew from "./components/pages/DiaryNew";
+import Homepage from "./components/pages/Homepage";
+import AboutUs from "./components/pages/AboutUs";
+import Signup from "./components/pages/Signup";
 
 export default function MainRouter(props) {
   const [menuState, setMenuToggle] = useState(false);
@@ -30,7 +27,6 @@ export default function MainRouter(props) {
     <Router>
       <TopBar toggleMenu={toggleMenu} menuState={menuState} />
       <SideNav menuState={menuState} toggleMenu={toggleMenu} />
-
       <Switch>
         <Route exact path="/">
           <Homepage />

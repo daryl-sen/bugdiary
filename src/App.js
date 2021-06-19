@@ -1,13 +1,11 @@
 import "./App.scss";
-import MainRouter from "./MainRouter";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
 
-import LoadingIndicator from "./components/elements/LoadingIndicator";
-
+import MainRouter from "./MainRouter";
+import LoadingIndicator from "./components/blocks/LoadingIndicator";
 import Warning from "./components/Warning";
 
 export const UserContext = React.createContext();
