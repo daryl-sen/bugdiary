@@ -8,19 +8,15 @@ import LoadingIndicator from "../blocks/LoadingIndicator";
 import useDiaryFunctions from "../../hooks/useDiaryFunctions";
 import { useEffect, useState } from "react";
 
-import FullScreenShade from "../blocks/FullScreenShade";
 import WhiteBgContainer from "../blocks/WhiteBgContainer";
 import NewIssueForm from "../forms/NewIssueForm";
 import LinedContainer from "../blocks/LinedContainer";
-import SearchPopup from "../overlays/SearchPopup";
-import DiarySettingsPopup from "../overlays/DiarySettingsPopup";
 import DiaryInfoSettings from "../overlays/DiaryInfoSettings";
 import FilterIndicator from "../blocks/FilterIndicator";
+import DiaryOverlay from "../blocks/DiaryOverlay";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NotificationManager } from "react-notifications";
-
-import PasscodePrompt from "../overlays/PasscodePrompt";
 
 import {
   BiCopyAlt,
@@ -84,44 +80,13 @@ export default function Diary(props) {
 
   return (
     <>
-      {overlayStatus === true && view.popupView === "search" ? (
-        <FullScreenShade styleOverride={{ padding: "1rem" }}>
-          <SearchPopup
-            exit={toggleOverlay}
-            toggleViews={setView}
-            view={view}
-            modifyResults={setDiaryContent}
-            updateFilterIndicator={setFilters}
-          />
-        </FullScreenShade>
-      ) : null}
-
-      {overlayStatus === true && view.popupView === "settings" ? (
-        <FullScreenShade
-          styleOverride={{ padding: "1rem" }}
-          clickEvent={toggleOverlay}
-        >
-          <DiarySettingsPopup
-            diaryUuid={targetDiary.uuid}
-            diaryExpiry={targetDiary.expiry_date}
-            exit={toggleOverlay}
-            target={(target) => {
-              setView((prev) => {
-                return { ...prev, functionView: target };
-              });
-            }}
-          />
-        </FullScreenShade>
-      ) : null}
-
-      {overlayStatus === true && view.popupView === "accessPrompt" ? (
-        <FullScreenShade
-          styleOverride={{ padding: "1rem" }}
-          clickEvent={toggleOverlay}
-        >
-          <PasscodePrompt />
-        </FullScreenShade>
-      ) : null}
+      <DiaryOverlay
+        overlayStatus={overlayStatus}
+        view={view}
+        setView={setView}
+        toggleOverlay={toggleOverlay}
+        targetDiary={targetDiary}
+      />
 
       <SingleColumnLayout
         styleOverride={{
