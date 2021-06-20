@@ -13,6 +13,12 @@ module.exports = (models) => {
     .post("/passcode-auth/:uuid", authenticateToken, async (req, res) => {
       const uuid = req.params.uuid;
       const receivedPasscode = req.body.passcode;
+
+      if (req.session.authenticatedDiaries.includes(uuid)) {
+        // console.log(req.session.authenticatedDiaries);
+        return res.json({ error: "Already authenticated." });
+      }
+
       try {
         const targetDiary = await Diary.findOne({
           where: {
@@ -24,7 +30,15 @@ module.exports = (models) => {
           return res.json({ error: "Diary not found." });
         }
 
+        if (!targetDiary.passcode && targetDiary.user_id) {
+          return res.json({
+            error:
+              "The owner of this diary has not set up sharing by passcode. Only the owner can modify this diary.",
+          });
+        }
+
         if (targetDiary.passcode === receivedPasscode) {
+          console.log("adding", targetDiary.uuid);
           addAuthenticatedDiary(targetDiary.uuid, req);
           console.log("updated cookie", req.session.authenticatedDiaries);
           return res.json({

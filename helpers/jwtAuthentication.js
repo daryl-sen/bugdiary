@@ -48,7 +48,10 @@ const checkAuthenticatedDiaries = (req) => {
 
 const addAuthenticatedDiary = (newUuid, req) => {
   if (req.session.authenticatedDiaries) {
-    return [...req.session.authenticatedDiaries, newUuid];
+    return (req.session.authenticatedDiaries = [
+      ...req.session.authenticatedDiaries,
+      newUuid,
+    ]);
   }
   req.session.authenticatedDiaries = [newUuid];
   return [newUuid];
@@ -74,6 +77,11 @@ const checkDiaryAuth = (diaryObj, userObj, req) => {
       }
     } else {
       // diary has an owner but user is not logged in
+      if (checkAuthenticatedDiaries(req).includes(diaryObj.uuid)) {
+        return {
+          authenticated: true,
+        };
+      }
       return {
         authenticated: false,
         message:

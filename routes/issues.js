@@ -88,6 +88,8 @@ module.exports = (models) => {
 
     // get individual issue (UUID belongs to ISSUE)
     .get("/:uuid", authenticateToken, async (req, res) => {
+      console.log(req.session.authenticatedDiaries);
+
       const uuid = req.params.uuid;
       try {
         const targetIssue = await Issue.findOne({
@@ -121,6 +123,8 @@ module.exports = (models) => {
         if (!targetIssue) {
           return res.json({ error: "No issue with this UUID exists." });
         }
+
+        console.log("authenticated diaries (updating)", req.session);
 
         const check = checkDiaryAuth(targetIssue.Diary, req.auth.userInfo, req);
         if (!check.authenticated) {
