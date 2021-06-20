@@ -14,8 +14,10 @@ module.exports = (models) => {
       const uuid = req.params.uuid;
       const receivedPasscode = req.body.passcode;
 
-      if (req.session.authenticatedDiaries.includes(uuid)) {
-        // console.log(req.session.authenticatedDiaries);
+      if (
+        req.session.authenticatedDiaries &&
+        req.session.authenticatedDiaries.includes(uuid)
+      ) {
         return res.json({ error: "Already authenticated." });
       }
 
