@@ -92,6 +92,7 @@ export default function useUserFunctions(context, setContext) {
     axios
       .get("/api/users/check-token")
       .then((resp) => {
+        console.log(resp.data);
         if (!resp.data.loggedIn) {
           return setContext((prev) => {
             return { ...prev, jwt: null };

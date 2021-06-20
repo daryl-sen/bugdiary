@@ -18,6 +18,7 @@ import DiaryNew from "./components/pages/DiaryNew";
 import Homepage from "./components/pages/Homepage";
 import AboutUs from "./components/pages/AboutUs";
 import Signup from "./components/pages/Signup";
+import LoadingIndicator from "./components/blocks/LoadingIndicator";
 
 export default function MainRouter(props) {
   const [menuState, setMenuToggle] = useState(false);
@@ -31,6 +32,12 @@ export default function MainRouter(props) {
   useEffect(() => {
     checkToken(setContext);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // console.log(context);
+
+  if (context.jwt === undefined) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <Router>
