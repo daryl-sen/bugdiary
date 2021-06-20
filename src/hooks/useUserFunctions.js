@@ -7,118 +7,114 @@ import { useAppContext } from "../AppContext";
 // notifications
 import { NotificationManager } from "react-notifications";
 
-export default function useUserFunctions(next) {
+export default function useUserFunctions(context) {
   const [loadingStatus, setLoadingStatus] = useState(false);
   const history = useHistory();
 
-  // console.log(useAppContext());
+  const loginUser = async (email, password, next) => {
+    await axios
+      .post("/api/users/login", {
+        email,
+        password,
+      })
+      .then((resp) => {
+        if (resp.data.accessToken) {
+          context.setUserSession((prev) => {
+            return {
+              ...prev,
+              jwt: resp.data.accessToken,
+              userId: resp.data.targetUser.id,
+            };
+          });
+          NotificationManager.success("Welcome back!", "Logged In");
+          history.push("/" + (next || "diaries"));
+        } else {
+          setLoadingStatus(false);
+          NotificationManager.error(
+            "User or password is incorrect.",
+            "Login Failed"
+          );
+        }
+      });
+  };
 
-  // const { context, setContext } = useAppContext();
+  const createUser = async (values, next) => {
+    setLoadingStatus(true);
+    const unique = await axios
+      .get(`/api/users/check-unique?email=${values.email}`)
+      .then((resp) => {
+        return resp.data.unique;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    if (unique) {
+      await axios
+        .post("/api/users/", {
+          ...values,
+          display_name: values.displayName,
+        })
+        .then((resp) => {
+          if (resp.data.error) {
+            NotificationManager.error(
+              "An error has occurred, we're figuring out what!"
+            );
+            return;
+          }
+          // automatically log the user in
+          context.setUserSession((prev) => {
+            return { ...prev, jwt: resp.data.accessToken };
+          });
+          NotificationManager.success("Welcome to BugDiary.com!");
+          history.push("/" + (next || "diaries"));
+        });
+    } else {
+      setLoadingStatus(false);
+      NotificationManager.error("This email is already in use.");
+    }
+  };
 
-  // const loginUser = async (email, password) => {
-  //   await axios
-  //     .post("/api/users/login", {
-  //       email,
-  //       password,
-  //     })
-  //     .then((resp) => {
-  //       if (resp.data.accessToken) {
-  //         context.setUserSession((prev) => {
-  //           return {
-  //             ...prev,
-  //             jwt: resp.data.accessToken,
-  //             userId: resp.data.targetUser.id,
-  //           };
-  //         });
-  //         NotificationManager.success("Welcome back!", "Logged In");
-  //         history.push("/" + (next || "diaries"));
-  //       } else {
-  //         setLoadingStatus(false);
-  //         NotificationManager.error(
-  //           "User or password is incorrect.",
-  //           "Login Failed"
-  //         );
-  //       }
-  //     });
-  // };
+  const logoutUser = () => {
+    axios.post("/api/users/logout").then((resp) => {
+      NotificationManager.success("Logged out!");
+      context.setUserSession((prev) => {
+        return { ...prev, jwt: null };
+      });
+      history.push("/");
+    });
+  };
 
-  // const createUser = async (values) => {
-  //   setLoadingStatus(true);
-  //   const unique = await axios
-  //     .get(`/api/users/check-unique?email=${values.email}`)
-  //     .then((resp) => {
-  //       return resp.data.unique;
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   if (unique) {
-  //     await axios
-  //       .post("/api/users/", {
-  //         ...values,
-  //         display_name: values.displayName,
-  //       })
-  //       .then((resp) => {
-  //         if (resp.data.error) {
-  //           NotificationManager.error(
-  //             "An error has occurred, we're figuring out what!"
-  //           );
-  //           return;
-  //         }
-  //         // automatically log the user in
-  //         context.setUserSession((prev) => {
-  //           return { ...prev, jwt: resp.data.accessToken };
-  //         });
-  //         NotificationManager.success("Welcome to BugDiary.com!");
-  //         history.push("/" + (next || "diaries"));
-  //       });
-  //   } else {
-  //     setLoadingStatus(false);
-  //     NotificationManager.error("This email is already in use.");
-  //   }
-  // };
+  const updateUser = () => {};
 
-  // const logoutUser = () => {
-  //   axios.post("/api/users/logout").then((resp) => {
-  //     NotificationManager.success("Logged out!");
-  //     context.setUserSession((prev) => {
-  //       return { ...prev, jwt: null };
-  //     });
-  //     history.push("/");
-  //   });
-  // };
+  const deleteUser = () => {};
 
-  // const updateUser = () => {};
+  const checkToken = (setUserSession) => {
+    console.log("checking token");
+    axios
+      .get("/api/users/check-token")
+      .then((resp) => {
+        if (!resp.data.loggedIn) {
+          return setUserSession((prev) => {
+            return { ...prev, jwt: null };
+          });
+        }
+        return setUserSession((prev) => {
+          return { ...prev, ...resp.data.userInfo };
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  // const deleteUser = () => {};
-
-  // const checkToken = (setUserSession) => {
-  //   console.log("checking token");
-  //   axios
-  //     .get("/api/users/check-token")
-  //     .then((resp) => {
-  //       if (!resp.data.loggedIn) {
-  //         return setUserSession((prev) => {
-  //           return { ...prev, jwt: null };
-  //         });
-  //       }
-  //       return setUserSession((prev) => {
-  //         return { ...prev, ...resp.data.userInfo };
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-
-  // return {
-  //   loadingStatus,
-  //   setLoadingStatus,
-  //   loginUser,
-  //   logoutUser,
-  //   createUser,
-  //   updateUser,
-  //   deleteUser,
-  //   checkToken,
-  // };
+  return {
+    loadingStatus,
+    setLoadingStatus,
+    loginUser,
+    logoutUser,
+    createUser,
+    updateUser,
+    deleteUser,
+    checkToken,
+  };
 }
