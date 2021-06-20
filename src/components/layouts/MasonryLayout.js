@@ -4,8 +4,6 @@ import IssueContainer from "../blocks/IssueContainer";
 import NoIssuesDisplay from "../blocks/NoIssuesDisplay";
 
 export default function MasonryLayout(props) {
-  const windowSize = { width: window.innerWidth, height: window.innerHeight };
-  console.log(windowSize);
   const renderIssueContainers = (issues) => {
     if (Array.isArray(issues)) {
       return issues.map((issue) => {
