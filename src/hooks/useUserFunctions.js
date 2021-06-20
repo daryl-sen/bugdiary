@@ -6,7 +6,7 @@ import { useState } from "react";
 // notifications
 import { NotificationManager } from "react-notifications";
 
-export default function useUserFunctions(context) {
+export default function useUserFunctions(context, setContext) {
   const [loadingStatus, setLoadingStatus] = useState(false);
   const history = useHistory();
 
@@ -18,7 +18,7 @@ export default function useUserFunctions(context) {
       })
       .then((resp) => {
         if (resp.data.accessToken) {
-          context.setUserSession((prev) => {
+          setContext((prev) => {
             return {
               ...prev,
               jwt: resp.data.accessToken,
@@ -61,7 +61,7 @@ export default function useUserFunctions(context) {
             return;
           }
           // automatically log the user in
-          context.setUserSession((prev) => {
+          setContext((prev) => {
             return { ...prev, jwt: resp.data.accessToken };
           });
           NotificationManager.success("Welcome to BugDiary.com!");
@@ -76,7 +76,7 @@ export default function useUserFunctions(context) {
   const logoutUser = () => {
     axios.post("/api/users/logout").then((resp) => {
       NotificationManager.success("Logged out!");
-      context.setUserSession((prev) => {
+      setContext((prev) => {
         return { ...prev, jwt: null };
       });
       history.push("/");
@@ -87,17 +87,17 @@ export default function useUserFunctions(context) {
 
   const deleteUser = () => {};
 
-  const checkToken = (setUserSession) => {
+  const checkToken = () => {
     console.log("checking token");
     axios
       .get("/api/users/check-token")
       .then((resp) => {
         if (!resp.data.loggedIn) {
-          return setUserSession((prev) => {
+          return setContext((prev) => {
             return { ...prev, jwt: null };
           });
         }
-        return setUserSession((prev) => {
+        return setContext((prev) => {
           return { ...prev, ...resp.data.userInfo };
         });
       })

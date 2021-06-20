@@ -1,8 +1,10 @@
 import SingleColumnLayout from "../layouts/SingleColumnLayout";
 import useUserFunctions from "../../hooks/useUserFunctions";
+import { useAppContext } from "../../AppContext";
 
 export default function AccountSettings() {
-  const { logoutUser } = useUserFunctions();
+  const { context, setContext } = useAppContext();
+  const { logoutUser } = useUserFunctions(context, setContext);
 
   return (
     <SingleColumnLayout>

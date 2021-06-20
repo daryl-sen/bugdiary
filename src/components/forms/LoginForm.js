@@ -8,8 +8,11 @@ import { useFormik } from "formik";
 // custom hooks
 import useUserFunctions from "../../hooks/useUserFunctions";
 
+import { useAppContext } from "../../AppContext";
+
 export default function LoginForm(props) {
-  const { loginUser, loadingStatus } = useUserFunctions();
+  const { context, setContext } = useAppContext();
+  const { loginUser, loadingStatus } = useUserFunctions(context, setContext);
 
   const formik = useFormik({
     initialValues: {

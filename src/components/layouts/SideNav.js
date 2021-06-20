@@ -9,9 +9,12 @@ import {
 } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import useUserFunctions from "../../hooks/useUserFunctions";
+import { useAppContext } from "../../AppContext";
 
 export default function SideNav(props) {
+  const { context, setContext } = useAppContext();
   const transformInfo = {};
+  const { logoutUser } = useUserFunctions(context, setContext);
 
   if (props.menuState) {
     transformInfo.transform = "translate(0px)";
@@ -24,8 +27,6 @@ export default function SideNav(props) {
       return <FullScreenShade clickEvent={props.toggleMenu} />;
     }
   };
-
-  const { logoutUser } = useUserFunctions();
 
   return (
     <>

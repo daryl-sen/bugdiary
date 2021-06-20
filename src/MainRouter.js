@@ -22,7 +22,7 @@ import Signup from "./components/pages/Signup";
 export default function MainRouter(props) {
   const [menuState, setMenuToggle] = useState(false);
   const { context, setContext } = useAppContext();
-  const { checkToken } = useUserFunctions(context);
+  const { checkToken } = useUserFunctions(context, setContext);
 
   const toggleMenu = () => {
     menuState ? setMenuToggle(false) : setMenuToggle(true);
