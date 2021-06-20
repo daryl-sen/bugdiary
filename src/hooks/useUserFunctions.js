@@ -5,8 +5,10 @@ import { useState } from "react";
 
 // notifications
 import { NotificationManager } from "react-notifications";
+import { useAppContext } from "../AppContext";
 
-export default function useUserFunctions(context, setContext) {
+export default function useUserFunctions() {
+  const { context, setContext } = useAppContext();
   const [loadingStatus, setLoadingStatus] = useState(false);
   const history = useHistory();
 

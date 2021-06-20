@@ -3,8 +3,7 @@ import useUserFunctions from "../../hooks/useUserFunctions";
 import { useAppContext } from "../../AppContext";
 
 export default function AccountSettings() {
-  const { context, setContext } = useAppContext();
-  const { logoutUser } = useUserFunctions(context, setContext);
+  const { logoutUser } = useUserFunctions();
 
   return (
     <SingleColumnLayout>

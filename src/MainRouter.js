@@ -23,7 +23,7 @@ import LoadingIndicator from "./components/blocks/LoadingIndicator";
 export default function MainRouter(props) {
   const [menuState, setMenuToggle] = useState(false);
   const { context, setContext } = useAppContext();
-  const { checkToken } = useUserFunctions(context, setContext);
+  const { checkToken } = useUserFunctions();
 
   const toggleMenu = () => {
     menuState ? setMenuToggle(false) : setMenuToggle(true);

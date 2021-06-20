@@ -7,7 +7,7 @@ import { useAppContext } from "../AppContext";
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function useDiaryFunctions() {
-  const { context, setContext } = useAppContext();
+  const { context } = useAppContext();
 
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [diaryContent, setDiaryContent] = useState(null);

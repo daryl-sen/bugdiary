@@ -2,10 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 import NotificationManager from "react-notifications/lib/NotificationManager";
 import IssueTag from "../components/elements/IssueTag";
+import { useAppContext } from "../AppContext";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-export default function useDiaryFunctions(context) {
+export default function useDiaryFunctions() {
+  const { context } = useAppContext();
   const [diaryConfig, setDiaryConfig] = useState(null);
   const getVersions = async (uuid) => {
     const headers = {

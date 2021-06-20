@@ -11,8 +11,7 @@ import useUserFunctions from "../../hooks/useUserFunctions";
 import { useAppContext } from "../../AppContext";
 
 export default function SignupForm(props) {
-  const { context, setContext } = useAppContext();
-  const { createUser, loadingStatus } = useUserFunctions(context, setContext);
+  const { createUser, loadingStatus } = useUserFunctions();
 
   const formik = useFormik({
     initialValues: {

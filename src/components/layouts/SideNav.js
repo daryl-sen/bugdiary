@@ -12,9 +12,8 @@ import useUserFunctions from "../../hooks/useUserFunctions";
 import { useAppContext } from "../../AppContext";
 
 export default function SideNav(props) {
-  const { context, setContext } = useAppContext();
   const transformInfo = {};
-  const { logoutUser } = useUserFunctions(context, setContext);
+  const { logoutUser } = useUserFunctions();
 
   if (props.menuState) {
     transformInfo.transform = "translate(0px)";
