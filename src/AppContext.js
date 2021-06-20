@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-const AppContext = React.createContext();
+export const AppContext = React.createContext();
 
 export function useAppContext() {
   return useContext(AppContext);

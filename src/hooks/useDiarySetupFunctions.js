@@ -1,22 +1,16 @@
 import { useState } from "react";
 import axios from "axios";
-
-import { useContext } from "react";
-import { UserContext } from "../App";
 import NotificationManager from "react-notifications/lib/NotificationManager";
 import IssueTag from "../components/elements/IssueTag";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-export default function useDiaryFunctions() {
+export default function useDiaryFunctions(context) {
   const [diaryConfig, setDiaryConfig] = useState(null);
-
-  const uInfo = useContext(UserContext);
-
   const getVersions = async (uuid) => {
     const headers = {
       headers: {
-        authorization: `Bearer ${uInfo.jwt}`,
+        authorization: `Bearer ${context.jwt}`,
         "Content-Type": "application/json",
       },
     };
@@ -33,7 +27,7 @@ export default function useDiaryFunctions() {
   const getLocations = async (uuid) => {
     const headers = {
       headers: {
-        authorization: `Bearer ${uInfo.jwt}`,
+        authorization: `Bearer ${context.jwt}`,
         "Content-Type": "application/json",
       },
     };
@@ -50,7 +44,7 @@ export default function useDiaryFunctions() {
   const getTypes = async (uuid) => {
     const headers = {
       headers: {
-        authorization: `Bearer ${uInfo.jwt}`,
+        authorization: `Bearer ${context.jwt}`,
         "Content-Type": "application/json",
       },
     };
@@ -68,7 +62,7 @@ export default function useDiaryFunctions() {
     console.log("creating");
     const headers = {
       headers: {
-        authorization: `Bearer ${uInfo.jwt}`,
+        authorization: `Bearer ${context.jwt}`,
         "Content-Type": "application/json",
       },
     };
@@ -93,7 +87,7 @@ export default function useDiaryFunctions() {
 
     const headers = {
       headers: {
-        authorization: `Bearer ${uInfo.jwt}`,
+        authorization: `Bearer ${context.jwt}`,
         "Content-Type": "application/json",
       },
     };
@@ -116,7 +110,7 @@ export default function useDiaryFunctions() {
 
     const headers = {
       headers: {
-        authorization: `Bearer ${uInfo.jwt}`,
+        authorization: `Bearer ${context.jwt}`,
         "Content-Type": "application/json",
       },
     };
@@ -144,7 +138,7 @@ export default function useDiaryFunctions() {
   };
 
   return {
-    uInfo,
+    context,
     diaryConfig,
     getVersions,
     createVersion,

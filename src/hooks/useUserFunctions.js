@@ -2,12 +2,11 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 // context
 import { useState } from "react";
-import { useAppContext } from "../AppContext";
 
 // notifications
 import { NotificationManager } from "react-notifications";
 
-export default function useUserFunctions(context) {
+export default function useUserFunctions() {
   const [loadingStatus, setLoadingStatus] = useState(false);
   const history = useHistory();
 

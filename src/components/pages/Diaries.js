@@ -2,8 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import SingleColumnLayout from "../layouts/SingleColumnLayout";
 
-import { useContext } from "react";
-import { UserContext } from "../../App";
+import { useAppContext } from "../../AppContext";
 
 import DiaryContainer from "../blocks/DiaryContainer";
 import NewDiaryButton from "../elements/NewDiaryButton";
@@ -14,7 +13,9 @@ import "./Diaries.scss";
 
 export default function Diaries() {
   const [diaries, setDiaries] = useState(null);
-  const uinfo = useContext(UserContext);
+  const { context } = useAppContext();
+  // temporary
+  const uInfo = context;
 
   useEffect(() => {
     const authorization = { headers: { authorization: `Bearer ${uinfo.jwt}` } };

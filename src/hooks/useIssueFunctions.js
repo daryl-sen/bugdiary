@@ -1,22 +1,17 @@
 import { useState } from "react";
 import axios from "axios";
-
-import { useContext } from "react";
-import { UserContext } from "../App";
 import NotificationManager from "react-notifications/lib/NotificationManager";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-export default function useIssueFunctions() {
+export default function useIssueFunctions(context) {
   // const [selectedIssues, setSelectedIssues] = useState(null); // for selecting multiple issues
   const [issueData, setIssueData] = useState(null);
   // const [loadingStatus, setLoadingStatus] = useState(false);
 
-  const uInfo = useContext(UserContext);
-
   const headers = {
     headers: {
-      authorization: `Bearer ${uInfo.jwt}`,
+      authorization: `Bearer ${context.jwt}`,
       "Content-Type": "application/json",
     },
     withCredentials: true, // enables API to read req.session cookies
@@ -85,7 +80,7 @@ export default function useIssueFunctions() {
   };
 
   return {
-    uInfo,
+    context,
     issueData,
     createIssue,
     getIssueDetails,

@@ -1,25 +1,19 @@
 import { useState } from "react";
 import axios from "axios";
-
 import { useHistory } from "react-router-dom";
-
-import { useContext } from "react";
-import { UserContext } from "../App";
 import NotificationManager from "react-notifications/lib/NotificationManager";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-export default function useDiaryFunctions() {
+export default function useDiaryFunctions(context) {
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [diaryContent, setDiaryContent] = useState(null);
   const [diaryConfig, setDiaryConfig] = useState(null);
-
-  const uInfo = useContext(UserContext);
   const history = useHistory();
 
   const config = {
     headers: {
-      authorization: `Bearer ${uInfo.jwt}`,
+      authorization: `Bearer ${context.jwt}`,
       "Content-Type": "application/json",
     },
   };
@@ -90,7 +84,7 @@ export default function useDiaryFunctions() {
   };
 
   return {
-    uInfo,
+    context,
     loadingStatus,
     diaryContent,
     diaryConfig,
