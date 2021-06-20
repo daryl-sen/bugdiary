@@ -8,6 +8,7 @@ import {
   BiPin,
   BiTrashAlt,
   BiWindowClose,
+  BiHide,
 } from "react-icons/bi";
 import FullScreenShade from "../blocks/FullScreenShade";
 import useIssueFunctions from "../../hooks/useIssueFunctions";
@@ -76,6 +77,8 @@ export default function IssueControls(props) {
       <button className="controls-toggle">
         <BiLinkExternal size={25} />
       </button> */}
+
+      {props.private ? <BiHide size={25} /> : null}
 
       <button className="controls-toggle" onClick={toggleControls}>
         <BiMenuAltRight size={25} />

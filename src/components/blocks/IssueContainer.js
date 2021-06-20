@@ -20,6 +20,7 @@ export default function IssueContainer(props) {
         refresh={props.refresh}
         open={props.open}
         status={props.status}
+        private={props.private}
       />
       <main>
         <h1>{props.reference || "Loading"}</h1>
