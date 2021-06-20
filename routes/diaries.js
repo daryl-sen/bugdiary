@@ -197,7 +197,12 @@ module.exports = (models) => {
         }
 
         for (const attribute in req.body) {
-          targetDiary[attribute] = req.body[attribute];
+          if (attribute === "passcode") {
+            console.log(attribute, req.body.passcode);
+            targetDiary.passcode = await Diary.generateHash(req.body.passcode);
+          } else {
+            targetDiary[attribute] = req.body[attribute];
+          }
         }
         await targetDiary.save();
         return res.json(targetDiary);
