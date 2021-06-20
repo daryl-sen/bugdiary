@@ -8,41 +8,35 @@ import LoadingIndicator from "./components/blocks/LoadingIndicator";
 import Warning from "./components/Warning";
 import useUserFunctions from "./hooks/useUserFunctions";
 
-export const UserContext = React.createContext();
+import AppContextProvider, { useAppContext } from "./AppContext";
 
 function App() {
-  const [userSession, setUserSession] = useState({
-    jwt: undefined,
-    name: undefined,
-    theme: "light",
-    notifications: [],
-  });
   const [warningDisplay, setWarningDisplay] = useState(true);
-  const { checkToken } = useUserFunctions();
+  // const { checkToken } = useUserFunctions();
+  // const { context, setContext } = useAppContext();
 
-  // check for existing cookie containing jwt
-  useEffect(() => {
-    checkToken(setUserSession);
-  }, [userSession.jwt]); // eslint-disable-line react-hooks/exhaustive-deps
+  // useEffect(() => {
+  //   checkToken(setContext);
+  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (userSession.jwt === undefined) {
-    return <LoadingIndicator />;
-  }
+  // if (context.jwt === undefined) {
+  //   return <LoadingIndicator />;
+  // }
 
   return (
     <div className="App">
-      {warningDisplay && (
+      {/* {warningDisplay && (
         <Warning
           exit={() => {
             setWarningDisplay(false);
           }}
         />
-      )}
+      )} */}
 
-      <UserContext.Provider value={{ ...userSession, setUserSession }}>
+      <AppContextProvider>
         <NotificationContainer />
         <MainRouter />
-      </UserContext.Provider>
+      </AppContextProvider>
     </div>
   );
 }

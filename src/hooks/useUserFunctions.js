@@ -1,123 +1,124 @@
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 // context
-import { useContext, useState } from "react";
-import { UserContext } from "../App";
+import { useState } from "react";
+import { useAppContext } from "../AppContext";
+
 // notifications
 import { NotificationManager } from "react-notifications";
 
 export default function useUserFunctions(next) {
   const [loadingStatus, setLoadingStatus] = useState(false);
   const history = useHistory();
-  const uInfo = useContext(UserContext);
 
-  const loginUser = async (email, password) => {
-    setLoadingStatus(true);
+  // console.log(useAppContext());
 
-    await axios
-      .post("/api/users/login", {
-        email,
-        password,
-      })
-      .then((resp) => {
-        if (resp.data.accessToken) {
-          uInfo.setUserSession((prev) => {
-            return {
-              ...prev,
-              jwt: resp.data.accessToken,
-              userId: resp.data.targetUser.id,
-            };
-          });
-          NotificationManager.success("Welcome back!", "Logged In");
-          history.push("/" + (next || "diaries"));
-        } else {
-          setLoadingStatus(false);
-          NotificationManager.error(
-            "User or password is incorrect.",
-            "Login Failed"
-          );
-        }
-      });
-  };
+  // const { context, setContext } = useAppContext();
 
-  const createUser = async (values) => {
-    setLoadingStatus(true);
-    const unique = await axios
-      .get(`/api/users/check-unique?email=${values.email}`)
-      .then((resp) => {
-        return resp.data.unique;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  // const loginUser = async (email, password) => {
+  //   await axios
+  //     .post("/api/users/login", {
+  //       email,
+  //       password,
+  //     })
+  //     .then((resp) => {
+  //       if (resp.data.accessToken) {
+  //         context.setUserSession((prev) => {
+  //           return {
+  //             ...prev,
+  //             jwt: resp.data.accessToken,
+  //             userId: resp.data.targetUser.id,
+  //           };
+  //         });
+  //         NotificationManager.success("Welcome back!", "Logged In");
+  //         history.push("/" + (next || "diaries"));
+  //       } else {
+  //         setLoadingStatus(false);
+  //         NotificationManager.error(
+  //           "User or password is incorrect.",
+  //           "Login Failed"
+  //         );
+  //       }
+  //     });
+  // };
 
-    if (unique) {
-      await axios
-        .post("/api/users/", {
-          ...values,
-          display_name: values.displayName,
-        })
-        .then((resp) => {
-          if (resp.data.error) {
-            NotificationManager.error(
-              "An error has occurred, we're figuring out what!"
-            );
-            return;
-          }
-          // automatically log the user in
-          uInfo.setUserSession((prev) => {
-            return { ...prev, jwt: resp.data.accessToken };
-          });
+  // const createUser = async (values) => {
+  //   setLoadingStatus(true);
+  //   const unique = await axios
+  //     .get(`/api/users/check-unique?email=${values.email}`)
+  //     .then((resp) => {
+  //       return resp.data.unique;
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //   if (unique) {
+  //     await axios
+  //       .post("/api/users/", {
+  //         ...values,
+  //         display_name: values.displayName,
+  //       })
+  //       .then((resp) => {
+  //         if (resp.data.error) {
+  //           NotificationManager.error(
+  //             "An error has occurred, we're figuring out what!"
+  //           );
+  //           return;
+  //         }
+  //         // automatically log the user in
+  //         context.setUserSession((prev) => {
+  //           return { ...prev, jwt: resp.data.accessToken };
+  //         });
+  //         NotificationManager.success("Welcome to BugDiary.com!");
+  //         history.push("/" + (next || "diaries"));
+  //       });
+  //   } else {
+  //     setLoadingStatus(false);
+  //     NotificationManager.error("This email is already in use.");
+  //   }
+  // };
 
-          NotificationManager.success("Welcome to BugDiary.com!");
-          history.push("/" + (next || "diaries"));
-        });
-    } else {
-      setLoadingStatus(false);
-      NotificationManager.error("This email is already in use.");
-    }
-  };
-  const logoutUser = () => {
-    axios.post("/api/users/logout").then((resp) => {
-      NotificationManager.success("Logged out!");
-      uInfo.setUserSession((prev) => {
-        return { ...prev, jwt: null };
-      });
-      history.push("/");
-    });
-  };
+  // const logoutUser = () => {
+  //   axios.post("/api/users/logout").then((resp) => {
+  //     NotificationManager.success("Logged out!");
+  //     context.setUserSession((prev) => {
+  //       return { ...prev, jwt: null };
+  //     });
+  //     history.push("/");
+  //   });
+  // };
 
-  const updateUser = () => {};
-  const deleteUser = () => {};
+  // const updateUser = () => {};
 
-  const checkToken = (setUserSession) => {
-    console.log("checking token");
-    axios
-      .get("/api/users/check-token")
-      .then((resp) => {
-        if (!resp.data.loggedIn) {
-          return setUserSession((prev) => {
-            return { ...prev, jwt: null };
-          });
-        }
-        return setUserSession((prev) => {
-          return { ...prev, ...resp.data.userInfo };
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const deleteUser = () => {};
 
-  return {
-    loadingStatus,
-    setLoadingStatus,
-    loginUser,
-    logoutUser,
-    createUser,
-    updateUser,
-    deleteUser,
-    checkToken,
-    uInfo,
-  };
+  // const checkToken = (setUserSession) => {
+  //   console.log("checking token");
+  //   axios
+  //     .get("/api/users/check-token")
+  //     .then((resp) => {
+  //       if (!resp.data.loggedIn) {
+  //         return setUserSession((prev) => {
+  //           return { ...prev, jwt: null };
+  //         });
+  //       }
+  //       return setUserSession((prev) => {
+  //         return { ...prev, ...resp.data.userInfo };
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  // return {
+  //   loadingStatus,
+  //   setLoadingStatus,
+  //   loginUser,
+  //   logoutUser,
+  //   createUser,
+  //   updateUser,
+  //   deleteUser,
+  //   checkToken,
+  // };
 }
