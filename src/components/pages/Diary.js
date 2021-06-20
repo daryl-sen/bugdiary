@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 export default function Diary(props) {
   const { uuid } = useParams();
   const {
-    uInfo,
+    context,
     diaryContent,
     getDiaryContent,
     setDiaryContent,
@@ -103,7 +103,7 @@ export default function Diary(props) {
           view={view}
           setView={setView}
           toggleOverlay={toggleOverlay}
-          uInfo={uInfo}
+          context={context}
           getDiaryContent={getDiaryContent}
         />
 

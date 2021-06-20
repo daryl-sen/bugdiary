@@ -2,10 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import NotificationManager from "react-notifications/lib/NotificationManager";
+import { useAppContext } from "../AppContext";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-export default function useDiaryFunctions(context) {
+export default function useDiaryFunctions() {
+  const { context, setContext } = useAppContext();
+
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [diaryContent, setDiaryContent] = useState(null);
   const [diaryConfig, setDiaryConfig] = useState(null);

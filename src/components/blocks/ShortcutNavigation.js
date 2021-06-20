@@ -60,7 +60,7 @@ export default function ShortcutNavigation(props) {
           &nbsp; Copy URL
         </NavigationButton>
       </CopyToClipboard>
-      {props.uInfo.jwt || props.uInfo.accessKey ? (
+      {props.context.jwt || props.context.accessKey ? (
         <NavigationButton
           onClick={() => {
             props.toggleOverlay("settings");
