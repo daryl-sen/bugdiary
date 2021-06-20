@@ -6,7 +6,7 @@ import { useState } from "react";
 // notifications
 import { NotificationManager } from "react-notifications";
 
-export default function useUserFunctions() {
+export default function useUserFunctions(context) {
   const [loadingStatus, setLoadingStatus] = useState(false);
   const history = useHistory();
 

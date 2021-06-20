@@ -1,5 +1,5 @@
 import "./App.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
 

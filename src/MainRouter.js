@@ -24,6 +24,10 @@ export default function MainRouter(props) {
   const { context, setContext } = useAppContext();
   const { checkToken } = useUserFunctions(context);
 
+  const toggleMenu = () => {
+    menuState ? setMenuToggle(false) : setMenuToggle(true);
+  };
+
   useEffect(() => {
     checkToken(setContext);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
