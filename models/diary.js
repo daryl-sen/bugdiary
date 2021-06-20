@@ -3,6 +3,7 @@ const { Model } = require("sequelize");
 // use a shorter uuid than what uuidv4 generates for users
 const { nanoid } = require("../helpers/nanoid-custom");
 const { generateExpiryDate } = require("../helpers/generateExpiryDate");
+const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
   class Diary extends Model {
@@ -18,6 +19,19 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(Type, { foreignKey: "diary_id" });
       this.hasMany(Tag, { foreignKey: "diary_id" });
       this.hasMany(Location, { foreignKey: "diary_id" });
+    }
+
+    static generateHash(password) {
+      const saltRounds = 10;
+      return new Promise((resolve, reject) => {
+        bcrypt.hash(password, saltRounds, function (error, hash) {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(hash);
+          }
+        });
+      });
     }
   }
   Diary.init(
@@ -45,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       passcode: {
         type: DataTypes.STRING,
-        allowNull: true, // only required for diaries with no user_id
+        allowNull: true,
       },
       privacy: {
         type: DataTypes.STRING,
@@ -70,5 +84,16 @@ module.exports = (sequelize, DataTypes) => {
       ],
     }
   );
+
+  Diary.prototype.checkPassword = async function (password) {
+    console.log(password);
+    return await bcrypt.compare(password, this.passcode);
+  };
+
+  Diary.beforeCreate(async function (diary, options) {
+    const hash = await Diary.generateHash(diary.passcode);
+    diary.passcode = hash;
+  });
+
   return Diary;
 };

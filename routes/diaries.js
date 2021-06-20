@@ -39,7 +39,9 @@ module.exports = (models) => {
           });
         }
 
-        if (targetDiary.passcode === receivedPasscode) {
+        if (!(await targetDiary.checkPassword(receivedPasscode))) {
+          return res.json({ error: "You have entered an incorrect password." });
+        } else {
           console.log("adding", targetDiary.uuid);
           addAuthenticatedDiary(targetDiary.uuid, req);
           console.log("updated cookie", req.session.authenticatedDiaries);
@@ -47,7 +49,6 @@ module.exports = (models) => {
             authenticatedDiaries: req.session.authenticatedDiaries,
           });
         }
-        return res.json({ error: "Incorrect diary passcode." });
       } catch (err) {
         console.log(err);
         return res.status(500).json({ error: err });

@@ -53,7 +53,7 @@ export default function useUserFunctions(next) {
 
     if (unique) {
       await axios
-        .post("/api/users/user", {
+        .post("/api/users/", {
           ...values,
           display_name: values.displayName,
         })

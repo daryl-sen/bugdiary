@@ -93,8 +93,8 @@ module.exports = (models) => {
     })
 
     .post("/logout", async (req, res) => {
+      req.session = null;
       if (req.session.jwt) {
-        req.session = null;
         return res.json({ success: "Logged out" });
       }
       return res.json({ error: "Not logged in." });
