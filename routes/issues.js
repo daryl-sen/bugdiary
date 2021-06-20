@@ -124,8 +124,6 @@ module.exports = (models) => {
           return res.json({ error: "No issue with this UUID exists." });
         }
 
-        console.log("authenticated diaries (updating)", req.session);
-
         const check = checkDiaryAuth(targetIssue.Diary, req.auth.userInfo, req);
         if (!check.authenticated) {
           return res.json({ error: check.message });
