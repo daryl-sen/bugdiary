@@ -42,12 +42,8 @@ module.exports = (models) => {
         if (!(await targetDiary.checkPassword(receivedPasscode))) {
           return res.json({ error: "You have entered an incorrect password." });
         } else {
-          console.log("adding", targetDiary.uuid);
           addAuthenticatedDiary(targetDiary.uuid, req);
-          console.log("updated cookie", req.session.authenticatedDiaries);
-          return res.json({
-            authenticatedDiaries: req.session.authenticatedDiaries,
-          });
+          return res.json([req.session.authenticatedDiaries]);
         }
       } catch (err) {
         console.log(err);
@@ -174,6 +170,7 @@ module.exports = (models) => {
           expiry_date: undefined,
           created_at: undefined,
         });
+        addAuthenticatedDiary(newDiary.uuid, req);
         return res.json(newDiary);
       } catch (err) {
         console.log(err);

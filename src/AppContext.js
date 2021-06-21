@@ -10,7 +10,7 @@ export default function AppContextProvider(props) {
     jwt: undefined,
     name: undefined,
     theme: "light",
-    notifications: [],
+    authenticatedDiaries: [],
   });
 
   return (

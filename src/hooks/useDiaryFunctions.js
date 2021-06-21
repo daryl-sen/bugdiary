@@ -2,12 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import NotificationManager from "react-notifications/lib/NotificationManager";
-import { useAppContext } from "../AppContext";
+import AppContextProvider, { useAppContext } from "../AppContext";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function useDiaryFunctions() {
-  const { context } = useAppContext();
+  const { context, setContext } = useAppContext();
 
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [diaryContent, setDiaryContent] = useState(null);
@@ -26,6 +26,15 @@ export default function useDiaryFunctions() {
     axios.post(BASE_URL + "/api/diaries", diaryDetails, config).then((resp) => {
       if (!resp.data.error) {
         NotificationManager.success("New diary created!");
+        setContext((prev) => {
+          return {
+            ...context,
+            authenticatedDiaries: [
+              ...context.authenticatedDiaries,
+              resp.data.uuid,
+            ],
+          };
+        });
         return history.push("/setup/" + resp.data.uuid);
       }
       console.log(resp.data.error);
@@ -75,6 +84,7 @@ export default function useDiaryFunctions() {
   const deleteDiary = () => {};
 
   const authenticateWithPasscode = (values, uuid) => {
+    console.log(context);
     axios
       .post("/api/diaries/passcode-auth/" + uuid, values, config)
       .then((resp) => {
@@ -82,6 +92,17 @@ export default function useDiaryFunctions() {
           NotificationManager.error("An error has occurred:", resp.data.error);
           return false;
         }
+        console.log(resp.data);
+        setContext((prev) => {
+          let authenticatedDiaries;
+          if (context.authenticatedDiaries.length !== 0) {
+            authenticatedDiaries = [];
+          }
+          return {
+            ...context,
+            authenticatedDiaries: resp.data,
+          };
+        });
         NotificationManager.success("You have been authenticated!");
       });
   };

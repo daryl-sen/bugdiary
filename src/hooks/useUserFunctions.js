@@ -79,7 +79,12 @@ export default function useUserFunctions() {
     axios.post("/api/users/logout").then((resp) => {
       NotificationManager.success("Logged out!");
       setContext((prev) => {
-        return { ...prev, jwt: null };
+        return {
+          ...prev,
+          jwt: null,
+          name: null,
+          authenticatedDiaries: [],
+        };
       });
       history.push("/");
     });
@@ -94,7 +99,6 @@ export default function useUserFunctions() {
     axios
       .get("/api/users/check-token")
       .then((resp) => {
-        console.log(resp.data);
         if (!resp.data.loggedIn) {
           return setContext((prev) => {
             return { ...prev, jwt: null };
