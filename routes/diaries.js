@@ -148,7 +148,10 @@ module.exports = (models) => {
               showDeleted ? "DELETED" : null,
             ],
           },
-          order: [["id", "DESC"]],
+          order: [
+            ["status", "DESC"],
+            ["id", "ASC"],
+          ],
         });
         return res.json({
           targetDiary,
