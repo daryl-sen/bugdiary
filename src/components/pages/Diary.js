@@ -14,48 +14,21 @@ import DiaryInfoSettings from "../overlays/DiaryInfoSettings";
 import FilterIndicator from "../blocks/FilterIndicator";
 import DiaryOverlay from "../blocks/DiaryOverlay";
 import ShortcutNavigation from "../blocks/ShortcutNavigation";
+import { useDiaryContext, useAppContext } from "../../AppContext";
 
 import { Link } from "react-router-dom";
 
 export default function Diary(props) {
   const { uuid } = useParams();
-  const {
-    context,
-    diaryContent,
-    getDiaryContent,
-    setDiaryContent,
-  } = useDiaryFunctions();
+  const { context, setContext } = useAppContext();
+  const { diaryContext, setDiaryContext } = useDiaryContext();
   const [overlayStatus, setOverlayStatus] = useState(false);
   const [filters, setFilters] = useState([]);
-  const [view, setView] = useState({
-    issueView: undefined,
-    functionView: undefined,
-    popupView: undefined,
-    showResolved: false,
-    showDeleted: false,
-  });
-  const functionView = useParams().functionView || "";
 
-  const toggleOverlay = (overlayComponentName) => {
-    if (overlayComponentName) {
-      setView((prev) => {
-        return { ...prev, popupView: overlayComponentName };
-      });
-    }
-    setOverlayStatus((prev) => {
-      if (prev) {
-        return false;
-      }
-      return true;
-    });
-  };
+  const { getDiaryContent, setDiaryContent } = useDiaryFunctions();
 
   useEffect(() => {
-    setView({
-      issueView: "cards",
-      functionView,
-    });
-    getDiaryContent(uuid);
+    //
   }, [setView]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!diaryContent) {

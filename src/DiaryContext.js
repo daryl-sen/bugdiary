@@ -6,7 +6,10 @@ export function useDiaryContext() {
 }
 
 export default function DiaryContextProvider(props) {
-  const [diaryContext, setDiaryContext] = useState({});
+  const [diaryContext, setDiaryContext] = useState({
+    targetDiary: null,
+    issues: [],
+  });
 
   return (
     <AppContext.Provider value={{ diaryContext, setDiaryContext }}>

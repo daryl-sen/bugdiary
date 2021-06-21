@@ -2,19 +2,18 @@ import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import NotificationManager from "react-notifications/lib/NotificationManager";
-import { useAppContext } from "../AppContext";
+import { useAppContext, useDiaryContext } from "../AppContext";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function useDiaryFunctions() {
   const { context, setContext } = useAppContext();
+  const { diaryContext, setDiaryContext } = useDiaryContext();
 
   const [loadingStatus, setLoadingStatus] = useState(false);
-  const [diaryContent, setDiaryContent] = useState(null);
-  const [diaryConfig, setDiaryConfig] = useState(null);
   const history = useHistory();
 
-  const config = {
+  const headers = {
     headers: {
       authorization: `Bearer ${context.jwt}`,
       "Content-Type": "application/json",
@@ -23,32 +22,36 @@ export default function useDiaryFunctions() {
 
   const createDiary = (diaryDetails) => {
     setLoadingStatus(true);
-    axios.post(BASE_URL + "/api/diaries", diaryDetails, config).then((resp) => {
-      if (!resp.data.error) {
-        NotificationManager.success("New diary created!");
-        setContext((prev) => {
-          return {
-            ...prev,
-            authenticatedDiaries: [
-              ...prev.authenticatedDiaries,
-              resp.data.uuid,
-            ],
-          };
-        });
-        return history.push("/setup/" + resp.data.uuid);
-      }
-      console.log(resp.data.error);
-      return resp.data;
-    });
+    axios
+      .post(BASE_URL + "/api/diaries", diaryDetails, headers)
+      .then((resp) => {
+        if (!resp.data.error) {
+          NotificationManager.success("New diary created!");
+          // add to list of authenticated diaries
+          setContext((prev) => {
+            return {
+              ...prev,
+              authenticatedDiaries: [
+                ...prev.authenticatedDiaries,
+                resp.data.uuid,
+              ],
+            };
+          });
+          return history.push("/setup/" + resp.data.uuid);
+        }
+        console.log(resp.data.error);
+        return resp.data;
+      });
   };
 
   const getDiaryContent = (uuid) => {
     console.log("updating");
-
     axios
-      .get("/api/diaries/" + uuid, config)
+      .get("/api/diaries/" + uuid, headers)
       .then((resp) => {
-        setDiaryContent(resp.data);
+        setDiaryContext({
+          ...resp.data,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -57,7 +60,7 @@ export default function useDiaryFunctions() {
 
   const extendExpiry = async (uuid) => {
     await axios
-      .patch("/api/diaries/extend/" + uuid, {}, config)
+      .patch("/api/diaries/extend/" + uuid, {}, headers)
       .then((resp) => {
         console.log(resp.data);
         if (resp.error) {
@@ -70,12 +73,15 @@ export default function useDiaryFunctions() {
   const getAssociatedDiaries = () => {};
 
   const updateDiary = async (uuid, values) => {
-    await axios.patch("/api/diaries/" + uuid, values, config).then((resp) => {
+    await axios.patch("/api/diaries/" + uuid, values, headers).then((resp) => {
       if (resp.data.error) {
         console.log(resp.data.error);
-        NotificationManager.error("An error has occurred.");
+        NotificationManager.error(`An error has occurred: ${resp.data.error}`);
         return false;
       }
+      setDiaryContext((prev) => {
+        return { ...prev, targetDiary: resp.data };
+      });
       NotificationManager.success("Your diary has been updated!");
       return resp.data;
     });
@@ -84,17 +90,14 @@ export default function useDiaryFunctions() {
   const deleteDiary = () => {};
 
   const authenticateWithPasscode = (values, uuid) => {
-    console.log("before", context);
     axios
-      .post("/api/diaries/passcode-auth/" + uuid, values, config)
+      .post("/api/diaries/passcode-auth/" + uuid, values, headers)
       .then((resp) => {
         if (resp.data.error) {
           NotificationManager.error("An error has occurred:", resp.data.error);
           return false;
         }
         setContext((prev) => {
-          console.log(resp.data);
-          console.log(prev);
           return {
             ...prev,
             authenticatedDiaries: [
@@ -110,16 +113,12 @@ export default function useDiaryFunctions() {
   return {
     context,
     loadingStatus,
-    diaryContent,
-    diaryConfig,
     setLoadingStatus,
     createDiary,
     getDiaryContent,
-    setDiaryContent,
     getAssociatedDiaries,
     updateDiary,
     deleteDiary,
-    setDiaryConfig,
     extendExpiry,
     authenticateWithPasscode,
   };
