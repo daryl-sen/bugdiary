@@ -100,6 +100,7 @@ export default function Diary(props) {
         <h1>{targetDiary.name}</h1>
 
         <ShortcutNavigation
+          uuid={targetDiary.uuid}
           view={view}
           setView={setView}
           toggleOverlay={toggleOverlay}

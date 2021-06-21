@@ -13,8 +13,10 @@ import {
   BiLockOpenAlt,
 } from "react-icons/bi";
 import { useParams } from "react-router-dom";
+import { useAppContext } from "../../AppContext";
 
 export default function ShortcutNavigation(props) {
+  const { context } = useAppContext();
   const uuid = useParams().uuid;
   return (
     <>
@@ -60,7 +62,8 @@ export default function ShortcutNavigation(props) {
           &nbsp; Copy URL
         </NavigationButton>
       </CopyToClipboard>
-      {props.context.jwt || props.context.accessKey ? (
+      {props.context.jwt ||
+      context.authenticatedDiaries.includes(props.uuid) ? (
         <NavigationButton
           onClick={() => {
             props.toggleOverlay("settings");
