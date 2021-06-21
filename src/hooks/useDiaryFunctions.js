@@ -97,7 +97,10 @@ export default function useDiaryFunctions() {
           console.log(prev);
           return {
             ...prev,
-            authenticatedDiaries: resp.data,
+            authenticatedDiaries: [
+              ...prev.authenticatedDiaries,
+              resp.data.uuid,
+            ],
           };
         });
         NotificationManager.success("You have been authenticated!");

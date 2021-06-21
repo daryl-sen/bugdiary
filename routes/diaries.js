@@ -43,7 +43,7 @@ module.exports = (models) => {
           return res.json({ error: "You have entered an incorrect password." });
         } else {
           addAuthenticatedDiary(targetDiary.uuid, req);
-          return res.json([req.session.authenticatedDiaries]);
+          return res.json(targetDiary);
         }
       } catch (err) {
         console.log(err);
