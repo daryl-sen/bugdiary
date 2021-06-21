@@ -50,7 +50,9 @@ export default function Diary(props) {
 
         {diaryContext.mode === "add" && <NewIssueForm />}
 
-        {diaryContext.mode === "diarySettings" && <DiaryInfoSettings />}
+        {diaryContext.mode === "diarySettings" && (
+          <DiaryInfoSettings targetDiary={targetDiary} />
+        )}
       </SingleColumnLayout>
     </>
   );

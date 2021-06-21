@@ -80,7 +80,6 @@ export default function ShortcutNavigation(props) {
           }}
         >
           <BiCog />
-          &nbsp;
         </NavigationButton>
       ) : (
         <NavigationButton>

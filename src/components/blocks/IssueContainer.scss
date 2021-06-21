@@ -76,6 +76,21 @@
   }
 }
 
+.my-masonry-grid,
+.table-view {
+  .DELETED {
+    color: #7e7e7e;
+    outline: 1px solid #393939;
+    background-color: transparent;
+  }
+  .PRIORITIZED {
+    outline: 1px solid #ff9b9b;
+  }
+  .RESOLVED {
+    outline: 1px solid #c8ff9b;
+  }
+}
+
 @media screen and (max-width: 560px) {
   .table-view .issue-container > footer {
     display: none;
