@@ -49,8 +49,20 @@ export default function useDiaryFunctions() {
     axios
       .get("/api/diaries/" + uuid, headers)
       .then((resp) => {
-        setDiaryContext({
-          ...resp.data,
+        if (resp.data.error) {
+          setDiaryContext((prev) => {
+            return {
+              ...prev,
+              targetDiary: null,
+            };
+          });
+        }
+        setDiaryContext((prev) => {
+          return {
+            ...prev,
+            targetDiary: resp.data.targetDiary,
+            issues: resp.data.issues,
+          };
         });
       })
       .catch((err) => {

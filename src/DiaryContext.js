@@ -9,6 +9,14 @@ export default function DiaryContextProvider(props) {
   const [diaryContext, setDiaryContext] = useState({
     targetDiary: null,
     issues: [],
+    mode: "show", // "show", "add", "filter", "diarySettings", "diaryModification", "diarySetup"
+    config: {
+      displayType: "cards",
+      showResolved: false,
+      showDeleted: false,
+      filterTerm: "",
+      order: "default",
+    },
   });
 
   return (
