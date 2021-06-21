@@ -1,17 +1,17 @@
 import { useParams } from "react-router";
 import useDiaryFunctions from "../../hooks/useDiaryFunctions";
 import { useDiaryContext, useAppContext } from "../../AppContext";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import LoadingIndicator from "../blocks/LoadingIndicator";
 import SingleColumnLayout from "../layouts/SingleColumnLayout";
-import TwoColumnLayout from "../layouts/TwoColumnLayout";
-import TableLayout from "../layouts/TableLayout";
-import MasonryContainer from "../layouts/MasonryLayout";
-import WhiteBgContainer from "../blocks/WhiteBgContainer";
-import NewIssueForm from "../forms/NewIssueForm";
-import DiaryInfoSettings from "../overlays/DiaryInfoSettings";
 import ShortcutNavigation from "../blocks/ShortcutNavigation";
+// import TwoColumnLayout from "../layouts/TwoColumnLayout";
+// import TableLayout from "../layouts/TableLayout";
+// import MasonryContainer from "../layouts/MasonryLayout";
+// import WhiteBgContainer from "../blocks/WhiteBgContainer";
+// import NewIssueForm from "../forms/NewIssueForm";
+// import DiaryInfoSettings from "../overlays/DiaryInfoSettings";
 
 import NoDiaryFound from "../functional/NoDiaryFound";
 
@@ -29,8 +29,7 @@ export default function Diary(props) {
 
   if (diaryContext.targetDiary === undefined) {
     return <LoadingIndicator />;
-  }
-  if (diaryContext.targetDiary === null) {
+  } else if (diaryContext.targetDiary === null) {
     return <NoDiaryFound />;
   }
 
@@ -40,7 +39,7 @@ export default function Diary(props) {
     <>
       <SingleColumnLayout preset="centered">
         <h1>{targetDiary.name}</h1>
-        {/* <ShortcutNavigation /> */}
+        <ShortcutNavigation />
 
         {/* {diaryContext.mode === "show" &&
           diaryContext.config.displayType === "cards" && <MasonryContainer />}

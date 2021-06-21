@@ -13,18 +13,22 @@ import {
   BiLockOpenAlt,
 } from "react-icons/bi";
 import { useParams } from "react-router-dom";
-import { useAppContext } from "../../AppContext";
+import { useAppContext, useDiaryContext } from "../../AppContext";
+import useDiaryFunctions from "../../hooks/useDiaryFunctions";
 
 export default function ShortcutNavigation(props) {
   const { context } = useAppContext();
+  const { diaryContext, setDiaryContext } = useDiaryContext();
+  const { getDiaryContent } = useDiaryFunctions();
   const uuid = useParams().uuid;
+
   return (
     <>
-      {props.view.functionView === "" ? (
+      {diaryContext.mode === "show" ? (
         <NavigationButton
           onClick={() => {
-            props.setView((prev) => {
-              return { ...prev, functionView: "add" };
+            setDiaryContext((prev) => {
+              return { ...prev, mode: "add" };
             });
           }}
         >
@@ -34,8 +38,8 @@ export default function ShortcutNavigation(props) {
       ) : (
         <NavigationButton
           onClick={() => {
-            props.setView((prev) => {
-              return { ...prev, functionView: "" };
+            setDiaryContext((prev) => {
+              return { ...prev, mode: "show" };
             });
           }}
         >
@@ -46,12 +50,15 @@ export default function ShortcutNavigation(props) {
 
       <NavigationButton
         onClick={() => {
-          props.toggleOverlay("search");
+          setDiaryContext((prev) => {
+            return { ...prev, mode: "filter" };
+          });
         }}
       >
         <BiSearch />
         &nbsp; Filter
       </NavigationButton>
+
       <CopyToClipboard text={"https://www.bugdiary.com/diary/" + uuid}>
         <NavigationButton
           onClick={() => {
@@ -62,31 +69,28 @@ export default function ShortcutNavigation(props) {
           &nbsp; Copy URL
         </NavigationButton>
       </CopyToClipboard>
-      {props.context.jwt ||
-      context.authenticatedDiaries.includes(props.uuid) ? (
-        <NavigationButton
-          onClick={() => {
-            props.toggleOverlay("settings");
-          }}
-        >
+
+      {(context.jwt && context.id === diaryContext.targetDiary.user_id) ||
+      context.authenticatedDiaries.includes(uuid) ? (
+        <NavigationButton>
           <BiCog />
-          &nbsp; Settings
+          &nbsp;
         </NavigationButton>
       ) : (
-        <NavigationButton
-          onClick={() => {
-            props.toggleOverlay("accessPrompt");
-          }}
-        >
+        <NavigationButton>
           <BiLockOpenAlt />
         </NavigationButton>
       )}
 
-      {props.view.issueView === "cards" && (
+      {diaryContext.config.displayType === "cards" && (
         <NavigationButton
           onClick={() => {
-            props.setView((prev) => {
-              return { ...prev, issueView: "table" };
+            setDiaryContext((prev) => {
+              return {
+                ...prev,
+                mode: "show",
+                config: { ...prev.config, displayType: "table" },
+              };
             });
           }}
         >
@@ -94,20 +98,25 @@ export default function ShortcutNavigation(props) {
         </NavigationButton>
       )}
 
-      {props.view.issueView === "table" && (
+      {diaryContext.config.displayType === "table" && (
         <NavigationButton
           onClick={() => {
-            props.setView((prev) => {
-              return { ...prev, issueView: "cards" };
+            setDiaryContext((prev) => {
+              return {
+                ...prev,
+                mode: "show",
+                config: { ...prev.config, displayType: "cards" },
+              };
             });
           }}
         >
           <BiBorderAll />
         </NavigationButton>
       )}
+
       <NavigationButton
         onClick={() => {
-          props.getDiaryContent(uuid);
+          getDiaryContent(uuid);
         }}
       >
         <BiRevision />

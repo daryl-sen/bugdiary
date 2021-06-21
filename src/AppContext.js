@@ -18,11 +18,39 @@ export default function AppContextProvider(props) {
     authenticatedDiaries: [],
   });
 
-  const [diaryContext, setDiaryContext] = useState({});
+  const [diaryContext, setDiaryContext] = useState({
+    targetDiary: undefined,
+    issues: [],
+    mode: "show", // "show", "add", "filter", "diarySettings", "diaryModification", "diarySetup"
+    config: {
+      displayType: "cards",
+      showResolved: false,
+      showDeleted: false,
+      filterTerm: "",
+      order: "default",
+    },
+  });
+
+  const resetDiaryContext = () => {
+    setDiaryContext({
+      targetDiary: undefined,
+      issues: [],
+      mode: "show", // "show", "add", "filter", "diarySettings", "diaryModification", "diarySetup"
+      config: {
+        displayType: "cards",
+        showResolved: false,
+        showDeleted: false,
+        filterTerm: "",
+        order: "default",
+      },
+    });
+  };
 
   return (
     <AppContext.Provider value={{ context, setContext }}>
-      <DiaryContext.Provider value={{ diaryContext, setDiaryContext }}>
+      <DiaryContext.Provider
+        value={{ diaryContext, setDiaryContext, resetDiaryContext }}
+      >
         {props.children}
       </DiaryContext.Provider>
     </AppContext.Provider>
