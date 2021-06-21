@@ -5,17 +5,18 @@ import NoIssuesDisplay from "../blocks/NoIssuesDisplay";
 export default function TableLayout(props) {
   const renderIssueContainers = (issues) => {
     if (Array.isArray(issues)) {
-      return issues.map((issue) => {
-        return (
-          <IssueContainer key={issue.id} {...issue} refresh={props.refresh} />
-        );
-      });
+      if (issues.length > 0) {
+        return issues.map((issue) => {
+          return (
+            <IssueContainer key={issue.id} {...issue} refresh={props.refresh} />
+          );
+        });
+      }
+      return <NoIssuesDisplay />;
     }
   };
 
   return (
-    <div className="table-view">
-      {props.issues ? renderIssueContainers(props.issues) : <NoIssuesDisplay />}
-    </div>
+    <div className="table-view">{renderIssueContainers(props.issues)}</div>
   );
 }

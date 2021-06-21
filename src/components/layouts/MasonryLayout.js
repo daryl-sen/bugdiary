@@ -6,11 +6,14 @@ import NoIssuesDisplay from "../blocks/NoIssuesDisplay";
 export default function MasonryLayout(props) {
   const renderIssueContainers = (issues) => {
     if (Array.isArray(issues)) {
-      return issues.map((issue) => {
-        return (
-          <IssueContainer key={issue.id} {...issue} refresh={props.refresh} />
-        );
-      });
+      if (issues.length > 0) {
+        return issues.map((issue) => {
+          return (
+            <IssueContainer key={issue.id} {...issue} refresh={props.refresh} />
+          );
+        });
+      }
+      return <NoIssuesDisplay />;
     }
   };
 
@@ -26,7 +29,7 @@ export default function MasonryLayout(props) {
       className="my-masonry-grid"
       columnClassName="my-masonry-grid_column"
     >
-      {props.issues ? renderIssueContainers(props.issues) : <NoIssuesDisplay />}
+      {renderIssueContainers(props.issues)}
     </Masonry>
   );
 }
