@@ -5,7 +5,7 @@ export default function PasscodePrompt(props) {
   return (
     <WhiteBgContainer preset="narrow">
       <h2>Diary Access</h2>
-      <PasscodeAuthForm />
+      <PasscodeAuthForm exit={props.exit} />
       <button onClick={props.exit} className="custom button-secondary">
         Cancel
       </button>

@@ -28,9 +28,9 @@ export default function useDiaryFunctions() {
         NotificationManager.success("New diary created!");
         setContext((prev) => {
           return {
-            ...context,
+            ...prev,
             authenticatedDiaries: [
-              ...context.authenticatedDiaries,
+              ...prev.authenticatedDiaries,
               resp.data.uuid,
             ],
           };
@@ -84,7 +84,7 @@ export default function useDiaryFunctions() {
   const deleteDiary = () => {};
 
   const authenticateWithPasscode = (values, uuid) => {
-    console.log(context);
+    console.log("before", context);
     axios
       .post("/api/diaries/passcode-auth/" + uuid, values, config)
       .then((resp) => {
@@ -92,14 +92,11 @@ export default function useDiaryFunctions() {
           NotificationManager.error("An error has occurred:", resp.data.error);
           return false;
         }
-        console.log(resp.data);
         setContext((prev) => {
-          let authenticatedDiaries;
-          if (context.authenticatedDiaries.length !== 0) {
-            authenticatedDiaries = [];
-          }
+          console.log(resp.data);
+          console.log(prev);
           return {
-            ...context,
+            ...prev,
             authenticatedDiaries: resp.data,
           };
         });

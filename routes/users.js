@@ -31,6 +31,7 @@ module.exports = (models) => {
         return res.json({
           loggedIn: false,
           message: "Not logged in - no JWT or invalid JWT.",
+          authenticatedDiaries: req.session.authenticatedDiaries || [],
         });
       } else if (req.session.jwt) {
         const userInfo = verifyToken(req.session.jwt);
@@ -42,6 +43,7 @@ module.exports = (models) => {
             id: userInfo.id,
             jwt: req.session.jwt,
           },
+          authenticatedDiaries: req.session.authenticatedDiaries || [],
         });
       }
       return res.json({ loggedIn: true, message: "Logged in." });

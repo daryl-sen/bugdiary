@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import useDiaryFunctions from "../../hooks/useDiaryFunctions";
 import { useParams } from "react-router-dom";
 
-export default function PasscodeAuthForm() {
+export default function PasscodeAuthForm(props) {
   const uuid = useParams().uuid;
   const { authenticateWithPasscode } = useDiaryFunctions();
   const formik = useFormik({
@@ -13,8 +13,8 @@ export default function PasscodeAuthForm() {
       passcode: "",
     },
     onSubmit: async (values) => {
-      console.log("authenticate", values);
       authenticateWithPasscode(values, uuid);
+      props.exit();
     },
   });
 

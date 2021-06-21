@@ -99,13 +99,22 @@ export default function useUserFunctions() {
     axios
       .get("/api/users/check-token")
       .then((resp) => {
+        console.log(resp.data);
         if (!resp.data.loggedIn) {
           return setContext((prev) => {
-            return { ...prev, jwt: null };
+            return {
+              ...prev,
+              jwt: null,
+              authenticatedDiaries: resp.data.authenticatedDiaries,
+            };
           });
         }
         return setContext((prev) => {
-          return { ...prev, ...resp.data.userInfo };
+          return {
+            ...prev,
+            ...resp.data.userInfo,
+            authenticatedDiaries: resp.data.authenticatedDiaries,
+          };
         });
       })
       .catch((err) => {

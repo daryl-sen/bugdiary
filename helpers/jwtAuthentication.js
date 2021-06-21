@@ -48,6 +48,7 @@ const checkAuthenticatedDiaries = (req) => {
 
 const addAuthenticatedDiary = (newUuid, req) => {
   if (req.session.authenticatedDiaries) {
+    console.log("adding new diary");
     return (req.session.authenticatedDiaries = [
       ...req.session.authenticatedDiaries,
       newUuid,
