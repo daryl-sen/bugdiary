@@ -13,6 +13,10 @@ export default function SingleColumnLayout(props) {
         flexDirection: "column",
         justifyContent: "space-around",
       };
+    } else if (props.preset === "centered") {
+      styleOverride = {
+        textAlign: "center",
+      };
     }
   } else {
     styleOverride = props.styleOverride;

@@ -1,32 +1,25 @@
 import { useParams } from "react-router";
+import useDiaryFunctions from "../../hooks/useDiaryFunctions";
+import { useDiaryContext, useAppContext } from "../../AppContext";
+import { useEffect, useState } from "react";
+
+import LoadingIndicator from "../blocks/LoadingIndicator";
 import SingleColumnLayout from "../layouts/SingleColumnLayout";
 import TwoColumnLayout from "../layouts/TwoColumnLayout";
 import TableLayout from "../layouts/TableLayout";
 import MasonryContainer from "../layouts/MasonryLayout";
-import LoadingIndicator from "../blocks/LoadingIndicator";
-import useDiaryFunctions from "../../hooks/useDiaryFunctions";
-import { useEffect, useState } from "react";
-
 import WhiteBgContainer from "../blocks/WhiteBgContainer";
 import NewIssueForm from "../forms/NewIssueForm";
 import DiaryInfoSettings from "../overlays/DiaryInfoSettings";
 import ShortcutNavigation from "../blocks/ShortcutNavigation";
-import { useDiaryContext, useAppContext } from "../../AppContext";
 
 import NoDiaryFound from "../functional/NoDiaryFound";
-
-import { Link } from "react-router-dom";
 
 export default function Diary(props) {
   const { uuid } = useParams();
   const { context, setContext } = useAppContext();
   const { diaryContext, setDiaryContext } = useDiaryContext();
   const { getDiaryContent, setDiaryContent } = useDiaryFunctions();
-  const [overlayStatus, setOverlayStatus] = useState(false);
-
-  const toggleOverlay = () => {
-    setOverlayStatus((prev) => !prev);
-  };
 
   useEffect(() => {
     getDiaryContent(uuid);
@@ -37,7 +30,6 @@ export default function Diary(props) {
   if (diaryContext.targetDiary === undefined) {
     return <LoadingIndicator />;
   }
-
   if (diaryContext.targetDiary === null) {
     return <NoDiaryFound />;
   }
@@ -46,21 +38,14 @@ export default function Diary(props) {
 
   return (
     <>
-      <SingleColumnLayout
-        styleOverride={{
-          textAlign: "center",
-        }}
-      >
+      <SingleColumnLayout preset="centered">
         <h1>{targetDiary.name}</h1>
-        {/* 
-        <ShortcutNavigation toggleOverlay={toggleOverlay} />
+        {/* <ShortcutNavigation /> */}
 
-        {diaryContext.mode === "show" &&
+        {/* {diaryContext.mode === "show" &&
           diaryContext.config.displayType === "cards" && <MasonryContainer />}
-
         {diaryContext.mode === "show" &&
           diaryContext.config.displayType === "table" && <TableLayout />}
-
         {diaryContext.mode === "add" && (
           <TwoColumnLayout preset={"confined"} aside="addSidebar">
             <WhiteBgContainer>
@@ -76,7 +61,6 @@ export default function Diary(props) {
             </WhiteBgContainer>
           </TwoColumnLayout>
         )}
-
         {diaryContext.mode === "diaryInfo" && <DiaryInfoSettings />} */}
       </SingleColumnLayout>
     </>
