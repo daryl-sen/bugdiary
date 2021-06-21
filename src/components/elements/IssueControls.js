@@ -24,12 +24,10 @@ export default function IssueControls(props) {
   };
 
   const mark = async (targetStatus) => {
-    await markIssue(targetStatus, props.issue.uuid);
-    toggleControls();
     setDiaryContext((prev) => {
       return {
         ...prev,
-        issues: prev.issues.map((issue, index) => {
+        issues: prev.issues.map((issue) => {
           if (issue.uuid === props.issue.uuid) {
             return { ...issue, status: targetStatus };
           }
@@ -37,6 +35,8 @@ export default function IssueControls(props) {
         }),
       };
     });
+    toggleControls();
+    await markIssue(targetStatus, props.issue.uuid);
   };
 
   const renderControlMenu = (openStatus) => {
