@@ -1,8 +1,13 @@
 import React, { useContext, useState } from "react";
 export const AppContext = React.createContext();
+export const DiaryContext = React.createContext();
 
 export function useAppContext() {
   return useContext(AppContext);
+}
+
+export function useDiaryContext() {
+  return useContext(DiaryContext);
 }
 
 export default function AppContextProvider(props) {
@@ -13,9 +18,13 @@ export default function AppContextProvider(props) {
     authenticatedDiaries: [],
   });
 
+  const [diaryContext, setDiaryContext] = useState({});
+
   return (
     <AppContext.Provider value={{ context, setContext }}>
-      {props.children}
+      <DiaryContext.Provider value={{ diaryContext, setDiaryContext }}>
+        {props.children}
+      </DiaryContext.Provider>
     </AppContext.Provider>
   );
 }
