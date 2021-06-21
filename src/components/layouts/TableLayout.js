@@ -7,9 +7,7 @@ export default function TableLayout(props) {
     if (Array.isArray(issues)) {
       if (issues.length > 0) {
         return issues.map((issue) => {
-          return (
-            <IssueContainer key={issue.id} {...issue} refresh={props.refresh} />
-          );
+          return <IssueContainer key={issue.id} {...issue} />;
         });
       }
       return <NoIssuesDisplay />;

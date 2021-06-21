@@ -40,10 +40,14 @@ export default function Diary(props) {
         <ShortcutNavigation />
 
         {diaryContext.mode === "show" &&
-          diaryContext.config.displayType === "cards" && <MasonryContainer />}
+          diaryContext.config.displayType === "cards" && (
+            <MasonryContainer issues={issues} />
+          )}
 
         {diaryContext.mode === "show" &&
-          diaryContext.config.displayType === "table" && <TableLayout />}
+          diaryContext.config.displayType === "table" && (
+            <TableLayout issues={issues} />
+          )}
 
         {diaryContext.mode === "add" && <NewIssueForm />}
 
