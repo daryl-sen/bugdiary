@@ -8,14 +8,15 @@ import { useFormik } from "formik";
 
 // custom hooks
 import useIssueFunctions from "../../hooks/useIssueFunctions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import TwoColumnLayout from "../layouts/TwoColumnLayout";
 import WhiteBgContainer from "../blocks/WhiteBgContainer";
 import { useDiaryContext } from "../../AppContext";
 
 export default function NewIssueForm(props) {
-  const { diaryContext, setDiaryContext } = useDiaryContext();
+  const { setDiaryContext } = useDiaryContext();
+  const [loadingStatus, setLoadingStatus] = useState(false);
   const uuid = useParams().uuid;
 
   const { issueData, getIssueSetupDetails, createIssue } = useIssueFunctions();
@@ -53,14 +54,15 @@ export default function NewIssueForm(props) {
     }),
 
     onSubmit: async (values) => {
-      await createIssue({
+      setLoadingStatus(true);
+      const newIssue = await createIssue({
         ...values,
         diary_id: targetDiary.id,
         version_id: latestVersion[0].id,
         private: values.private ? 1 : 0,
       });
       setDiaryContext((prev) => {
-        return { ...prev, mode: "show" };
+        return { ...prev, mode: "show", issues: [newIssue, ...prev.issues] };
       });
     },
   });
@@ -91,6 +93,7 @@ export default function NewIssueForm(props) {
 
   return (
     <TwoColumnLayout preset={"confined"} aside="addSidebar">
+      {loadingStatus && <LoadingIndicator />}
       <WhiteBgContainer>
         <h2>Report New Issue</h2>
         <StylizedForm formik={formik}>

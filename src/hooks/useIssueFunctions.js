@@ -31,7 +31,7 @@ export default function useIssueFunctions() {
 
   const createIssue = async (values) => {
     // create
-    await axios
+    return await axios
       .post(BASE_URL + "/api/diaries/issues", values, headers)
       .then((resp) => {
         if (resp.data.error) {
@@ -40,7 +40,7 @@ export default function useIssueFunctions() {
         }
         setIssueData(resp.data);
         NotificationManager.success("New issue added!");
-        return true;
+        return resp.data;
       })
       .catch((err) => {
         console.log(err);

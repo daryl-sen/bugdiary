@@ -42,6 +42,10 @@ module.exports = (models) => {
           location_id: refLocation.id,
           reference: req.body.reference ? req.body.reference : undefined,
         });
+
+        newIssue.dataValues.Type = refType;
+        newIssue.dataValues.Location = refLocation;
+
         return res.json(newIssue);
       } catch (err) {
         console.log(err);
