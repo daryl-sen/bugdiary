@@ -10,6 +10,7 @@ import TableLayout from "../layouts/TableLayout";
 import MasonryContainer from "../layouts/MasonryLayout";
 import NewIssueForm from "../forms/NewIssueForm";
 import DiaryInfoSettings from "../overlays/DiaryInfoSettings";
+import ScrollToTop from "../elements/ScrollToTop";
 
 import NoDiaryFound from "../functional/NoDiaryFound";
 
@@ -33,6 +34,7 @@ export default function Diary(props) {
   return (
     <>
       <SingleColumnLayout preset="centered">
+        <ScrollToTop />
         <h1>{targetDiary.name}</h1>
         <ShortcutNavigation />
 

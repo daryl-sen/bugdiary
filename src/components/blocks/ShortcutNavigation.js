@@ -66,7 +66,7 @@ export default function ShortcutNavigation(props) {
           }}
         >
           <BiCopyAlt />
-          &nbsp; Copy URL
+          &nbsp; URL
         </NavigationButton>
       </CopyToClipboard>
 
