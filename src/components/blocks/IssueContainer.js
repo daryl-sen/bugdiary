@@ -14,14 +14,7 @@ export default function IssueContainer(props) {
 
   return (
     <div className="issue-container">
-      <IssueControls
-        issueUuid={props.uuid}
-        issueId={props.id}
-        refresh={props.refresh}
-        open={props.open}
-        status={props.status}
-        private={props.private}
-      />
+      <IssueControls issue={props} />
       <main>
         <h1>{props.reference || "Loading"}</h1>
         <div className="tags">

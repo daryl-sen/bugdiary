@@ -23,8 +23,6 @@ export default function Diary(props) {
     getDiaryContent(uuid);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // console.log(context, diaryContext);
-
   if (diaryContext.targetDiary === undefined) {
     return <LoadingIndicator />;
   } else if (diaryContext.targetDiary === null) {

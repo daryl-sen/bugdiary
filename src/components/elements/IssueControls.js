@@ -13,8 +13,10 @@ import {
 import FullScreenShade from "../blocks/FullScreenShade";
 import useIssueFunctions from "../../hooks/useIssueFunctions";
 import IssueControlButton from "./IssueControlButton";
+import { useDiaryContext } from "../../AppContext";
 
 export default function IssueControls(props) {
+  const { setDiaryContext } = useDiaryContext();
   const [openStatus, setOpenStatus] = useState(false);
   const { markIssue } = useIssueFunctions();
   const toggleControls = () => {
@@ -22,9 +24,11 @@ export default function IssueControls(props) {
   };
 
   const mark = async (targetStatus) => {
-    await markIssue(targetStatus, props.issueUuid);
+    await markIssue(targetStatus, props.issue.uuid);
     toggleControls();
-    props.refresh();
+    setDiaryContext((prev) => {
+      return { ...prev, mode: "show" };
+    });
   };
 
   const renderControlMenu = (openStatus) => {
@@ -35,21 +39,21 @@ export default function IssueControls(props) {
             <IssueControlButton
               mark={mark}
               targetStatus={"RESOLVED"}
-              currentStatus={props.status}
+              currentStatus={props.issue.status}
             >
               <BiListCheck size={25} />
             </IssueControlButton>
             <IssueControlButton
               mark={mark}
               targetStatus={"PRIORITIZED"}
-              currentStatus={props.status}
+              currentStatus={props.issue.status}
             >
               <BiPin size={25} />
             </IssueControlButton>
             <IssueControlButton
               mark={mark}
               targetStatus={"DELETED"}
-              currentStatus={props.status}
+              currentStatus={props.issue.status}
             >
               <BiTrashAlt size={25} />
             </IssueControlButton>
@@ -78,7 +82,7 @@ export default function IssueControls(props) {
         <BiLinkExternal size={25} />
       </button> */}
 
-      {props.private ? <BiHide size={25} /> : null}
+      {props.issue.private ? <BiHide size={25} /> : null}
 
       <button className="controls-toggle" onClick={toggleControls}>
         <BiMenuAltRight size={25} />
