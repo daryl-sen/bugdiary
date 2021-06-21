@@ -122,6 +122,7 @@ module.exports = (models) => {
 
     // specific diary
     .get("/:uuid", authenticateToken, async (req, res) => {
+      console.log("fetching diary content");
       const { showResolved, showDeleted } = req.query;
       try {
         const targetDiary = await Diary.findOne({

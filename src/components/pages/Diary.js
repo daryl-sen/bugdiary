@@ -6,12 +6,10 @@ import { useEffect } from "react";
 import LoadingIndicator from "../blocks/LoadingIndicator";
 import SingleColumnLayout from "../layouts/SingleColumnLayout";
 import ShortcutNavigation from "../blocks/ShortcutNavigation";
-// import TwoColumnLayout from "../layouts/TwoColumnLayout";
-// import TableLayout from "../layouts/TableLayout";
-// import MasonryContainer from "../layouts/MasonryLayout";
-// import WhiteBgContainer from "../blocks/WhiteBgContainer";
-// import NewIssueForm from "../forms/NewIssueForm";
-// import DiaryInfoSettings from "../overlays/DiaryInfoSettings";
+import TableLayout from "../layouts/TableLayout";
+import MasonryContainer from "../layouts/MasonryLayout";
+import NewIssueForm from "../forms/NewIssueForm";
+import DiaryInfoSettings from "../overlays/DiaryInfoSettings";
 
 import NoDiaryFound from "../functional/NoDiaryFound";
 
@@ -25,7 +23,7 @@ export default function Diary(props) {
     getDiaryContent(uuid);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  console.log(context, diaryContext);
+  // console.log(context, diaryContext);
 
   if (diaryContext.targetDiary === undefined) {
     return <LoadingIndicator />;
@@ -41,26 +39,15 @@ export default function Diary(props) {
         <h1>{targetDiary.name}</h1>
         <ShortcutNavigation />
 
-        {/* {diaryContext.mode === "show" &&
+        {diaryContext.mode === "show" &&
           diaryContext.config.displayType === "cards" && <MasonryContainer />}
+
         {diaryContext.mode === "show" &&
           diaryContext.config.displayType === "table" && <TableLayout />}
-        {diaryContext.mode === "add" && (
-          <TwoColumnLayout preset={"confined"} aside="addSidebar">
-            <WhiteBgContainer>
-              <h2>Report New Issue</h2>
-              <NewIssueForm exit={() => {}} refresh={() => {}} />
-              <button
-                type="button"
-                className="custom button-secondary"
-                onClick={() => {}}
-              >
-                Cancel
-              </button>
-            </WhiteBgContainer>
-          </TwoColumnLayout>
-        )}
-        {diaryContext.mode === "diaryInfo" && <DiaryInfoSettings />} */}
+
+        {diaryContext.mode === "add" && <NewIssueForm />}
+
+        {diaryContext.mode === "diarySettings" && <DiaryInfoSettings />}
       </SingleColumnLayout>
     </>
   );

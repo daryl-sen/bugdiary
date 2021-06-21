@@ -10,15 +10,15 @@ import { useFormik } from "formik";
 import useIssueFunctions from "../../hooks/useIssueFunctions";
 import { useEffect } from "react";
 
+import TwoColumnLayout from "../layouts/TwoColumnLayout";
+import WhiteBgContainer from "../blocks/WhiteBgContainer";
+import { useDiaryContext } from "../../AppContext";
+
 export default function NewIssueForm(props) {
+  const { diaryContext, setDiaryContext } = useDiaryContext();
   const uuid = useParams().uuid;
 
-  const {
-    loadingStatus,
-    issueData,
-    getIssueSetupDetails,
-    createIssue,
-  } = useIssueFunctions();
+  const { issueData, getIssueSetupDetails, createIssue } = useIssueFunctions();
 
   const formik = useFormik({
     initialValues: {
@@ -53,15 +53,15 @@ export default function NewIssueForm(props) {
     }),
 
     onSubmit: async (values) => {
-      console.log(values);
       await createIssue({
         ...values,
         diary_id: targetDiary.id,
         version_id: latestVersion[0].id,
         private: values.private ? 1 : 0,
       });
-      props.exit();
-      props.refresh();
+      setDiaryContext((prev) => {
+        return { ...prev, mode: "show" };
+      });
     },
   });
 
@@ -90,70 +90,90 @@ export default function NewIssueForm(props) {
   };
 
   return (
-    <StylizedForm formik={formik}>
-      {loadingStatus && <LoadingIndicator />}
-      <label htmlFor="reference">Heading</label>
-      <input
-        id="reference"
-        type="text"
-        {...formik.getFieldProps("reference")}
-        placeholder="(Optional)"
-      />
-      {renderFieldError("reference")}
-      <label htmlFor="location_name">Location</label>
-      <datalist id="location_suggestions">
-        {renderSuggestions(diaryLocations)}
-      </datalist>
-      <input
-        id="location_name"
-        type="text"
-        {...formik.getFieldProps("location_name")}
-        placeholder="Where did you find it?"
-        list="location_suggestions"
-      />
-      {renderFieldError("location_name")}
-      <label htmlFor="type_name">Type</label>
-      <input
-        id="type_name"
-        type="text"
-        {...formik.getFieldProps("type_name")}
-        placeholder="What kind of issue is it?"
-        list="type_suggestions"
-      />
-      <datalist id="type_suggestions">{renderSuggestions(diaryTypes)}</datalist>
-      {renderFieldError("type_name")}
-      <label htmlFor="details">Issue Details</label>
-      <textarea id="details" {...formik.getFieldProps("details")}></textarea>
-      {renderFieldError("details")}
-      <label htmlFor="reporter_email">Contact Email</label>
-      <input
-        id="reporter_email"
-        type="email"
-        {...formik.getFieldProps("reporter_email")}
-        placeholder="(Optional)"
-      />
-      {renderFieldError("reporter_email")}
-      <label htmlFor="reporter_name">Contact Name</label>
-      <input
-        id="reporter_name"
-        type="text"
-        {...formik.getFieldProps("reporter_name")}
-        placeholder="(Optional)"
-      />
-      {renderFieldError("reporter_name")}
-      <label htmlFor="private">
-        <input
-          name="private"
-          id="private"
-          type="checkbox"
-          {...formik.getFieldProps("private")}
-        />
-        Make this private
-      </label>
-      {renderFieldError("private")}
-      <button type="submit" className="button-primary">
-        Report Issue
-      </button>
-    </StylizedForm>
+    <TwoColumnLayout preset={"confined"} aside="addSidebar">
+      <WhiteBgContainer>
+        <h2>Report New Issue</h2>
+        <StylizedForm formik={formik}>
+          <label htmlFor="reference">Heading</label>
+          <input
+            id="reference"
+            type="text"
+            {...formik.getFieldProps("reference")}
+            placeholder="(Optional)"
+          />
+          {renderFieldError("reference")}
+          <label htmlFor="location_name">Location</label>
+          <datalist id="location_suggestions">
+            {renderSuggestions(diaryLocations)}
+          </datalist>
+          <input
+            id="location_name"
+            type="text"
+            {...formik.getFieldProps("location_name")}
+            placeholder="Where did you find it?"
+            list="location_suggestions"
+          />
+          {renderFieldError("location_name")}
+          <label htmlFor="type_name">Type</label>
+          <input
+            id="type_name"
+            type="text"
+            {...formik.getFieldProps("type_name")}
+            placeholder="What kind of issue is it?"
+            list="type_suggestions"
+          />
+          <datalist id="type_suggestions">
+            {renderSuggestions(diaryTypes)}
+          </datalist>
+          {renderFieldError("type_name")}
+          <label htmlFor="details">Issue Details</label>
+          <textarea
+            id="details"
+            {...formik.getFieldProps("details")}
+          ></textarea>
+          {renderFieldError("details")}
+          <label htmlFor="reporter_email">Contact Email</label>
+          <input
+            id="reporter_email"
+            type="email"
+            {...formik.getFieldProps("reporter_email")}
+            placeholder="(Optional)"
+          />
+          {renderFieldError("reporter_email")}
+          <label htmlFor="reporter_name">Contact Name</label>
+          <input
+            id="reporter_name"
+            type="text"
+            {...formik.getFieldProps("reporter_name")}
+            placeholder="(Optional)"
+          />
+          {renderFieldError("reporter_name")}
+          <label htmlFor="private">
+            <input
+              name="private"
+              id="private"
+              type="checkbox"
+              {...formik.getFieldProps("private")}
+            />
+            Make this private
+          </label>
+          {renderFieldError("private")}
+          <button type="submit" className="button-primary">
+            Report Issue
+          </button>
+        </StylizedForm>
+        <button
+          type="button"
+          className="custom button-secondary"
+          onClick={() => {
+            setDiaryContext((prev) => {
+              return { ...prev, mode: "show" };
+            });
+          }}
+        >
+          Cancel
+        </button>
+      </WhiteBgContainer>
+    </TwoColumnLayout>
   );
 }

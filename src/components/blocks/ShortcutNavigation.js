@@ -72,7 +72,13 @@ export default function ShortcutNavigation(props) {
 
       {(context.jwt && context.id === diaryContext.targetDiary.user_id) ||
       context.authenticatedDiaries.includes(uuid) ? (
-        <NavigationButton>
+        <NavigationButton
+          onClick={() => {
+            setDiaryContext((prev) => {
+              return { ...prev, mode: "diarySettings" };
+            });
+          }}
+        >
           <BiCog />
           &nbsp;
         </NavigationButton>
