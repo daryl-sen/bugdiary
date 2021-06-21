@@ -9,11 +9,12 @@ import {
 } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import useUserFunctions from "../../hooks/useUserFunctions";
-import { useAppContext } from "../../AppContext";
+// import { useAppContext } from "../../AppContext";
 
 export default function SideNav(props) {
   const transformInfo = {};
   const { logoutUser } = useUserFunctions();
+  // const { context } = useAppContext();
 
   if (props.menuState) {
     transformInfo.transform = "translate(0px)";
@@ -26,6 +27,8 @@ export default function SideNav(props) {
       return <FullScreenShade clickEvent={props.toggleMenu} />;
     }
   };
+
+  const renderRecentDiaries = () => {};
 
   return (
     <>
@@ -57,12 +60,7 @@ export default function SideNav(props) {
             Settings
           </Link>
           <hr />
-          {/* <Link onClick={props.toggleMenu} to="/diary/testdiary1">
-            My First Diary
-          </Link>
-          <Link onClick={props.toggleMenu} to="/diary/testdiary2">
-            Diary #2
-          </Link> */}
+          {renderRecentDiaries()}
         </section>
         <section id="footer">&copy; Sen Tang, 2020-2021</section>
       </nav>

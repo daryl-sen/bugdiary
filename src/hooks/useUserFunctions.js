@@ -1,6 +1,5 @@
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-// context
 import { useState } from "react";
 
 // notifications
@@ -8,7 +7,7 @@ import { NotificationManager } from "react-notifications";
 import { useAppContext } from "../AppContext";
 
 export default function useUserFunctions() {
-  const { context, setContext } = useAppContext();
+  const { setContext } = useAppContext();
   const [loadingStatus, setLoadingStatus] = useState(false);
   const history = useHistory();
 
@@ -99,7 +98,6 @@ export default function useUserFunctions() {
     axios
       .get("/api/users/check-token")
       .then((resp) => {
-        console.log(resp.data);
         if (!resp.data.loggedIn) {
           return setContext((prev) => {
             return {

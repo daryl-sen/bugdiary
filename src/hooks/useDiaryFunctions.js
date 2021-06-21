@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import NotificationManager from "react-notifications/lib/NotificationManager";
-import AppContextProvider, { useAppContext } from "../AppContext";
+import { useAppContext } from "../AppContext";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 

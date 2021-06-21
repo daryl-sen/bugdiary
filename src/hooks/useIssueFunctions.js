@@ -6,7 +6,7 @@ import { useAppContext } from "../AppContext";
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function useIssueFunctions() {
-  const { context, setContext } = useAppContext();
+  const { context } = useAppContext();
 
   // const [selectedIssues, setSelectedIssues] = useState(null); // for selecting multiple issues
   const [issueData, setIssueData] = useState(null);
