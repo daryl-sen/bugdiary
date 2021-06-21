@@ -8,7 +8,7 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function useDiaryFunctions() {
   const { context, setContext } = useAppContext();
-  const { diaryContext, setDiaryContext } = useDiaryContext();
+  const { setDiaryContext } = useDiaryContext();
 
   const [loadingStatus, setLoadingStatus] = useState(false);
   const history = useHistory();

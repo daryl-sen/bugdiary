@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import useDiaryFunctions from "../../hooks/useDiaryFunctions";
-import { useDiaryContext, useAppContext } from "../../AppContext";
+import { useDiaryContext } from "../../AppContext";
 import { useEffect } from "react";
 
 import LoadingIndicator from "../blocks/LoadingIndicator";
@@ -15,9 +15,8 @@ import NoDiaryFound from "../functional/NoDiaryFound";
 
 export default function Diary(props) {
   const { uuid } = useParams();
-  const { context, setContext } = useAppContext();
-  const { diaryContext, setDiaryContext } = useDiaryContext();
-  const { getDiaryContent, setDiaryContent } = useDiaryFunctions();
+  const { diaryContext } = useDiaryContext();
+  const { getDiaryContent } = useDiaryFunctions();
 
   useEffect(() => {
     getDiaryContent(uuid);
