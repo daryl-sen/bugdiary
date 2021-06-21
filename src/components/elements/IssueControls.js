@@ -27,7 +27,15 @@ export default function IssueControls(props) {
     await markIssue(targetStatus, props.issue.uuid);
     toggleControls();
     setDiaryContext((prev) => {
-      return { ...prev, mode: "show" };
+      return {
+        ...prev,
+        issues: prev.issues.map((issue, index) => {
+          if (issue.uuid === props.issue.uuid) {
+            return { ...issue, status: targetStatus };
+          }
+          return issue;
+        }),
+      };
     });
   };
 
