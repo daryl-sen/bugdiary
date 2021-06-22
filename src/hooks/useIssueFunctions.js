@@ -82,7 +82,7 @@ export default function useIssueFunctions() {
   };
 
   const searchIssues = (searchTerm, uuid, showResolved, showDeleted) => {
-    axios
+    return axios
       .get(BASE_URL + `/api/diaries/issues/${uuid}/search`, {
         params: {
           showResolved: showResolved ? 1 : 0,
@@ -95,7 +95,6 @@ export default function useIssueFunctions() {
           NotificationManager.error("Search error");
           return false;
         }
-        console.log(resp.data);
         setDiaryContext((prev) => {
           return { ...prev, issues: resp.data.issues };
         });

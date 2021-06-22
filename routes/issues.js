@@ -83,7 +83,17 @@ module.exports = (models) => {
             ],
             private: auth.authenticated ? [1, 0] : 0,
             diary_id: targetDiary.id,
-            details: { [Op.like]: "%" + searchTerm.toLowerCase() + "%" },
+            [Op.or]: [
+              { details: { [Op.like]: "%" + searchTerm.toLowerCase() + "%" } },
+              {
+                reference: { [Op.like]: "%" + searchTerm.toLowerCase() + "%" },
+              },
+              {
+                reporter_name: {
+                  [Op.like]: "%" + searchTerm.toLowerCase() + "%",
+                },
+              },
+            ],
           },
         });
         return res.json({ issues });
