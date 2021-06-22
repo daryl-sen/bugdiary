@@ -81,12 +81,13 @@ export default function useIssueFunctions() {
     // push to selectedIssues
   };
 
-  const searchIssues = (uuid, showResolved, showDeleted) => {
+  const searchIssues = (searchTerm, uuid, showResolved, showDeleted) => {
     axios
       .get(BASE_URL + `/api/diaries/issues/${uuid}/search`, {
         params: {
           showResolved: showResolved ? 1 : 0,
           showDeleted: showDeleted ? 1 : 0,
+          searchTerm,
         },
       })
       .then((resp) => {

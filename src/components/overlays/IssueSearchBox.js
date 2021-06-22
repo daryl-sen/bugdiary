@@ -88,6 +88,7 @@ export default function IssueSearchBox(props) {
               className="button-primary"
               onClick={() => {
                 searchIssues(
+                  searchTerm.toLowerCase(),
                   uuid,
                   diaryContext.config.showResolved,
                   diaryContext.config.showDeleted

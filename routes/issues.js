@@ -6,7 +6,8 @@ const {
 } = require("../helpers/jwtAuthentication");
 
 module.exports = (models) => {
-  const { Issue, Diary, Location, Type, Version } = models;
+  const { Issue, Diary, Location, Type, Version, Sequelize } = models;
+  const { Op } = Sequelize;
   router
     // create new issue
     .post("/", authenticateToken, async (req, res) => {
@@ -56,7 +57,7 @@ module.exports = (models) => {
     // search for issues (UUID belongs to DIARY)
     .get("/:uuid/search", authenticateToken, async (req, res) => {
       const uuid = req.params.uuid;
-      const { showResolved, showDeleted } = req.query;
+      const { showResolved, showDeleted, searchTerm } = req.query;
       console.log(showResolved);
       try {
         const targetDiary = await Diary.findOne({
@@ -82,6 +83,7 @@ module.exports = (models) => {
             ],
             private: auth.authenticated ? [1, 0] : 0,
             diary_id: targetDiary.id,
+            details: { [Op.like]: "%" + searchTerm.toLowerCase() + "%" },
           },
         });
         return res.json({ issues });
