@@ -87,8 +87,7 @@ export default function IssueSearchBox(props) {
         <div className="side-by-side">
           <div>
             <button
-              type="submit"
-              className="button-primary"
+              className="button-primary custom"
               onClick={async () => {
                 setLoadingStatus(true);
                 await searchIssues(
@@ -107,13 +106,11 @@ export default function IssueSearchBox(props) {
           </div>
           <div>
             <button
-              type="submit"
-              className="button-secondary"
+              className="button-secondary custom"
               onClick={() => {
                 setDiaryContext((prev) => {
                   return { ...prev, mode: "show" };
                 });
-                modifyResults("filter", searchTerm);
               }}
             >
               Cancel

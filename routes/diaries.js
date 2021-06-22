@@ -124,6 +124,7 @@ module.exports = (models) => {
     .get("/:uuid", authenticateToken, async (req, res) => {
       console.log("fetching diary content");
       const { showResolved, showDeleted } = req.query;
+
       try {
         const targetDiary = await Diary.findOne({
           where: {
@@ -144,8 +145,8 @@ module.exports = (models) => {
             status: [
               "PENDING",
               "PRIORITIZED",
-              showResolved ? "RESOLVED" : null,
-              showDeleted ? "DELETED" : null,
+              showResolved > 0 ? "RESOLVED" : undefined,
+              showDeleted > 0 ? "DELETED" : undefined,
             ],
           },
           order: [

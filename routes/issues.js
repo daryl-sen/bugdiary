@@ -78,19 +78,19 @@ module.exports = (models) => {
             status: [
               "PENDING",
               "PRIORITIZED",
-              showResolved ? "RESOLVED" : null,
-              showDeleted ? "DELETED" : null,
+              showResolved > 0 ? "RESOLVED" : undefined,
+              showDeleted > 0 ? "DELETED" : undefined,
             ],
             private: auth.authenticated ? [1, 0] : 0,
             diary_id: targetDiary.id,
             [Op.or]: [
-              { details: { [Op.like]: "%" + searchTerm.toLowerCase() + "%" } },
+              { details: { [Op.iLike]: "%" + searchTerm.toLowerCase() + "%" } },
               {
-                reference: { [Op.like]: "%" + searchTerm.toLowerCase() + "%" },
+                reference: { [Op.iLike]: "%" + searchTerm.toLowerCase() + "%" },
               },
               {
                 reporter_name: {
-                  [Op.like]: "%" + searchTerm.toLowerCase() + "%",
+                  [Op.iLike]: "%" + searchTerm.toLowerCase() + "%",
                 },
               },
             ],

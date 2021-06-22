@@ -6,6 +6,11 @@ import { useAppContext, useDiaryContext } from "../AppContext";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
+// axios.interceptors.request.use((request) => {
+//   console.log("Starting Request", JSON.stringify(request, null, 2));
+//   return request;
+// });
+
 export default function useDiaryFunctions() {
   const { context, setContext } = useAppContext();
   const { setDiaryContext } = useDiaryContext();
@@ -44,10 +49,19 @@ export default function useDiaryFunctions() {
       });
   };
 
-  const getDiaryContent = (uuid) => {
+  const getDiaryContent = (uuid, showResolved, showDeleted) => {
     console.log("updating");
     axios
-      .get("/api/diaries/" + uuid, headers)
+      .get(
+        "/api/diaries/" + uuid,
+        {
+          params: {
+            showResolved: showResolved ? 1 : 0,
+            showDeleted: showDeleted ? 1 : 0,
+          },
+        },
+        headers
+      )
       .then((resp) => {
         if (resp.data.error) {
           setDiaryContext((prev) => {
