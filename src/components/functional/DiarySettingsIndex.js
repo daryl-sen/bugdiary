@@ -9,7 +9,7 @@ import { useState } from "react";
 export default function DiarySettingsIndex(props) {
   const history = useHistory();
   const { setDiaryContext } = useDiaryContext();
-  const { extendExpiry } = useDiaryFunctions();
+  const { extendExpiry, deleteDiary } = useDiaryFunctions();
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 
   return (
@@ -65,7 +65,14 @@ export default function DiarySettingsIndex(props) {
               This action is irreversible! All the data in this diary will
               disappear FOREVER. Are you sure?
             </p>
-            <button className="custom button-secondary">CONFIRM</button>
+            <button
+              className="custom button-secondary"
+              onClick={() => {
+                deleteDiary(props.targetDiary.uuid);
+              }}
+            >
+              CONFIRM DELETE
+            </button>
           </>
         ) : (
           <button

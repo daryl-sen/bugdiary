@@ -13,7 +13,7 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function useDiaryFunctions() {
   const { context, setContext } = useAppContext();
-  const { setDiaryContext } = useDiaryContext();
+  const { setDiaryContext, resetDiaryContext } = useDiaryContext();
 
   const [loadingStatus, setLoadingStatus] = useState(false);
   const history = useHistory();
@@ -113,7 +113,18 @@ export default function useDiaryFunctions() {
     });
   };
 
-  const deleteDiary = () => {};
+  const deleteDiary = (uuid) => {
+    return axios.delete("/api/diaries/" + uuid, headers).then((resp) => {
+      if (resp.data.error) {
+        NotificationManager.error("Cannot delete diary", resp.data.error);
+        return false;
+      }
+      NotificationManager.success("Deleted diary.");
+      resetDiaryContext();
+      history.push("/");
+      return true;
+    });
+  };
 
   const authenticateWithPasscode = (values, uuid) => {
     return axios
