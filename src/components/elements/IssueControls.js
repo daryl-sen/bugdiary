@@ -36,7 +36,20 @@ export default function IssueControls(props) {
       };
     });
     toggleControls();
-    await markIssue(targetStatus, props.issue.uuid);
+
+    if (!(await markIssue(targetStatus, props.issue.uuid))) {
+      setDiaryContext((prev) => {
+        return {
+          ...prev,
+          issues: prev.issues.map((issue) => {
+            if (issue.uuid === props.issue.uuid) {
+              return { ...issue, status: props.issue.status };
+            }
+            return issue;
+          }),
+        };
+      });
+    }
   };
 
   const renderControlMenu = (openStatus) => {

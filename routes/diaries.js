@@ -150,7 +150,7 @@ module.exports = (models) => {
           },
           order: [
             ["status", "DESC"],
-            ["id", "ASC"],
+            ["id", "DESC"],
           ],
         });
         return res.json({

@@ -29,6 +29,7 @@ export default function AppContextProvider(props) {
       filterTerm: "",
       order: "default",
     },
+    selected: [],
   });
 
   const resetDiaryContext = () => {
@@ -43,6 +44,7 @@ export default function AppContextProvider(props) {
         filterTerm: "",
         order: "default",
       },
+      selected: [],
     });
   };
 

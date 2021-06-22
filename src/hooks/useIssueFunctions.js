@@ -52,8 +52,8 @@ export default function useIssueFunctions() {
     // read
   };
 
-  const markIssue = async (status, issueId) => {
-    await axios
+  const markIssue = (status, issueId) => {
+    return axios
       .patch(BASE_URL + "/api/diaries/issues/" + issueId, { status }, headers)
       .then((resp) => {
         if (resp.data.error) {
