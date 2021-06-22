@@ -11,7 +11,8 @@ import MasonryContainer from "../layouts/MasonryLayout";
 import NewIssueForm from "../forms/NewIssueForm";
 import DiaryInfoSettings from "../overlays/DiaryInfoSettings";
 import ScrollToTop from "../elements/ScrollToTop";
-
+import DiarySettingsIndex from "../functional/DiarySettingsIndex";
+import DiarySetupProcess from "../functional/DiarySetupProcess";
 import NoDiaryFound from "../functional/NoDiaryFound";
 
 export default function Diary(props) {
@@ -51,7 +52,15 @@ export default function Diary(props) {
         {diaryContext.mode === "add" && <NewIssueForm />}
 
         {diaryContext.mode === "diarySettings" && (
+          <DiarySettingsIndex targetDiary={targetDiary} />
+        )}
+
+        {diaryContext.mode === "diaryModification" && (
           <DiaryInfoSettings targetDiary={targetDiary} />
+        )}
+
+        {diaryContext.mode === "diarySetup" && (
+          <DiarySetupProcess targetDiary={targetDiary} />
         )}
       </SingleColumnLayout>
     </>
