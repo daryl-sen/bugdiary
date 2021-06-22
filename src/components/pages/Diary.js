@@ -15,10 +15,11 @@ import DiarySettingsIndex from "../functional/DiarySettingsIndex";
 import DiarySetupProcess from "../functional/DiarySetupProcess";
 import NoDiaryFound from "../functional/NoDiaryFound";
 import IssueSearchBox from "../overlays/IssueSearchBox";
+import PasscodePrompt from "../overlays/PasscodePrompt";
 
 export default function Diary(props) {
   const { uuid } = useParams();
-  const { diaryContext } = useDiaryContext();
+  const { diaryContext, setDiaryContext } = useDiaryContext();
   const { getDiaryContent } = useDiaryFunctions();
 
   useEffect(() => {
@@ -65,6 +66,16 @@ export default function Diary(props) {
         )}
 
         {diaryContext.mode === "filter" && <IssueSearchBox />}
+
+        {diaryContext.mode === "passcodePrompt" && (
+          <PasscodePrompt
+            exit={(target) => {
+              setDiaryContext((prev) => {
+                return { ...prev, mode: target };
+              });
+            }}
+          />
+        )}
       </SingleColumnLayout>
     </>
   );

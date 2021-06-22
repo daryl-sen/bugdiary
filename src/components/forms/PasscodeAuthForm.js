@@ -13,8 +13,10 @@ export default function PasscodeAuthForm(props) {
       passcode: "",
     },
     onSubmit: async (values) => {
-      authenticateWithPasscode(values, uuid);
-      props.exit();
+      const authenticated = await authenticateWithPasscode(values, uuid);
+      if (authenticated) {
+        props.exit("diarySettings");
+      }
     },
   });
 

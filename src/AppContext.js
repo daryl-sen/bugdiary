@@ -36,7 +36,7 @@ export default function AppContextProvider(props) {
     setDiaryContext({
       targetDiary: undefined,
       issues: [],
-      mode: "show", // "show", "add", "filter", "diarySettings", "diaryModification", "diarySetup"
+      mode: "show", // "show", "add", "filter", "diarySettings", "diaryModification", "diarySetup", "passcodePrompt"
       config: {
         displayType: "cards",
         showResolved: false,

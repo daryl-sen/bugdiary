@@ -102,7 +102,7 @@ export default function useDiaryFunctions() {
   const deleteDiary = () => {};
 
   const authenticateWithPasscode = (values, uuid) => {
-    axios
+    return axios
       .post("/api/diaries/passcode-auth/" + uuid, values, headers)
       .then((resp) => {
         if (resp.data.error) {
@@ -119,6 +119,7 @@ export default function useDiaryFunctions() {
           };
         });
         NotificationManager.success("You have been authenticated!");
+        return true;
       });
   };
 

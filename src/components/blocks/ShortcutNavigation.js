@@ -82,7 +82,13 @@ export default function ShortcutNavigation(props) {
           <BiCog />
         </NavigationButton>
       ) : (
-        <NavigationButton>
+        <NavigationButton
+          onClick={() => {
+            setDiaryContext((prev) => {
+              return { ...prev, mode: "passcodePrompt" };
+            });
+          }}
+        >
           <BiLockOpenAlt />
         </NavigationButton>
       )}
