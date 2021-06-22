@@ -8,7 +8,8 @@ export default function SingleColumnLayout(props) {
       styleOverride = {
         maxWidth: "500px",
         margin: "auto",
-        minHeight: "60vh",
+        height: "100%",
+        maxHeight: "80vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-around",

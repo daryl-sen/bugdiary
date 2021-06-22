@@ -60,7 +60,7 @@ export default function Diary(props) {
         )}
 
         {diaryContext.mode === "diarySetup" && (
-          <DiarySetupProcess targetDiary={targetDiary} />
+          <DiarySetupProcess initiated={true} />
         )}
       </SingleColumnLayout>
     </>

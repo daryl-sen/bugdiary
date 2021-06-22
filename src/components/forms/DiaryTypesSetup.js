@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 // form
@@ -66,11 +65,13 @@ export default function DiaryTypesSetup(props) {
       </button>
       <hr />
       <p>That's it!</p>
-      <Link to={"/diary/" + uuid}>
-        <button type="button" className="custom button-primary">
-          Go to Diary
-        </button>
-      </Link>
+      <button
+        type="button"
+        className="custom button-primary"
+        onClick={props.end}
+      >
+        Go to Diary
+      </button>
       <button type="button" onClick={props.prevStep} className="custom">
         Previous
       </button>
