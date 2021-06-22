@@ -14,6 +14,7 @@ import ScrollToTop from "../elements/ScrollToTop";
 import DiarySettingsIndex from "../functional/DiarySettingsIndex";
 import DiarySetupProcess from "../functional/DiarySetupProcess";
 import NoDiaryFound from "../functional/NoDiaryFound";
+import IssueSearchBox from "../overlays/IssueSearchBox";
 
 export default function Diary(props) {
   const { uuid } = useParams();
@@ -62,6 +63,8 @@ export default function Diary(props) {
         {diaryContext.mode === "diarySetup" && (
           <DiarySetupProcess initiated={true} />
         )}
+
+        {diaryContext.mode === "filter" && <IssueSearchBox />}
       </SingleColumnLayout>
     </>
   );
