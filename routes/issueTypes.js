@@ -24,7 +24,7 @@ module.exports = (models) => {
         }
 
         const newType = await Type.create({
-          ...req.body,
+          name: req.body.name.toLowerCase(),
           diary_id: targetDiary.id,
         });
         return res.json(newType);

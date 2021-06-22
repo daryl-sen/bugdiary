@@ -13,25 +13,25 @@ module.exports = (models) => {
       try {
         let refLocation = await Location.findOne({
           where: {
-            name: req.body.location_name,
+            name: req.body.location_name.toLowerCase(),
             diary_id: req.body.diary_id,
           },
         });
         if (!refLocation) {
           refLocation = await Location.create({
-            name: req.body.location_name,
+            name: req.body.location_name.toLowerCase(),
             diary_id: req.body.diary_id,
           });
         }
         let refType = await Type.findOne({
           where: {
-            name: req.body.type_name,
+            name: req.body.type_name.toLowerCase(),
             diary_id: req.body.diary_id,
           },
         });
         if (!refType) {
           refType = await Type.create({
-            name: req.body.type_name,
+            name: req.body.type_name.toLowerCase(),
             diary_id: req.body.diary_id,
           });
         }
