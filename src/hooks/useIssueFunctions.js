@@ -1,12 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 import NotificationManager from "react-notifications/lib/NotificationManager";
-import { useAppContext } from "../AppContext";
+import { useAppContext, useDiaryContext } from "../AppContext";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function useIssueFunctions() {
   const { context } = useAppContext();
+  const { setDiaryContext } = useDiaryContext();
 
   const [issueData, setIssueData] = useState(null);
 
@@ -80,6 +81,26 @@ export default function useIssueFunctions() {
     // push to selectedIssues
   };
 
+  const searchIssues = (uuid, showResolved, showDeleted) => {
+    axios
+      .get(BASE_URL + `/api/diaries/issues/${uuid}/search`, {
+        params: {
+          showResolved: showResolved ? 1 : 0,
+          showDeleted: showDeleted ? 1 : 0,
+        },
+      })
+      .then((resp) => {
+        if (resp.data.error) {
+          NotificationManager.error("Search error");
+          return false;
+        }
+        console.log(resp.data);
+        setDiaryContext((prev) => {
+          return { ...prev, issues: resp.data.issues };
+        });
+      });
+  };
+
   return {
     context,
     issueData,
@@ -89,5 +110,6 @@ export default function useIssueFunctions() {
     deleteIssue,
     selectIssue,
     getIssueSetupDetails,
+    searchIssues,
   };
 }

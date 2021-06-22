@@ -3,9 +3,13 @@ import "./SearchPopup.scss";
 import WhiteBgContainer from "../blocks/WhiteBgContainer";
 import { useDiaryContext } from "../../AppContext";
 import SingleColumnLayout from "../layouts/SingleColumnLayout";
+import useIssueFunctions from "../../hooks/useIssueFunctions";
+import { useParams } from "react-router-dom";
 
 export default function IssueSearchBox(props) {
+  const uuid = useParams().uuid;
   const [searchTerm, setSearchTerm] = useState();
+  const { searchIssues } = useIssueFunctions();
   const { diaryContext, setDiaryContext } = useDiaryContext();
 
   const filterResults = (term, results) => {
@@ -29,26 +33,7 @@ export default function IssueSearchBox(props) {
 
   const sortResults = (orderBy, results) => {};
 
-  const modifyResults = (mode, term) => {
-    if (mode === "filter") {
-      props.updateFilterIndicator((prev) => {
-        return [...prev, term];
-      });
-      props.modifyResults((prev) => {
-        return {
-          ...prev,
-          issues: filterResults(term, prev.issues),
-        };
-      });
-    } else if (mode === "sort") {
-      props.modifyResults((prev) => {
-        return {
-          ...prev,
-          issues: sortResults(term, prev.issues),
-        };
-      });
-    }
-  };
+  const modifyResults = (mode, term) => {};
 
   return (
     <SingleColumnLayout preset="narrow-centered">
@@ -102,6 +87,14 @@ export default function IssueSearchBox(props) {
               type="submit"
               className="button-primary"
               onClick={() => {
+                searchIssues(
+                  uuid,
+                  diaryContext.config.showResolved,
+                  diaryContext.config.showDeleted
+                );
+                setDiaryContext((prev) => {
+                  return { ...prev, mode: "show" };
+                });
                 modifyResults("filter", searchTerm);
               }}
             >
@@ -112,7 +105,12 @@ export default function IssueSearchBox(props) {
             <button
               type="submit"
               className="button-secondary"
-              onClick={props.exit}
+              onClick={() => {
+                setDiaryContext((prev) => {
+                  return { ...prev, mode: "show" };
+                });
+                modifyResults("filter", searchTerm);
+              }}
             >
               Cancel
             </button>

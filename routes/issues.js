@@ -81,6 +81,7 @@ module.exports = (models) => {
               showDeleted ? "DELETED" : null,
             ],
             private: auth.authenticated ? [1, 0] : 0,
+            diary_id: targetDiary.id,
           },
         });
         return res.json({ issues });
