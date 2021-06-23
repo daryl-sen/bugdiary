@@ -56,7 +56,7 @@ export default function ShortcutNavigation(props) {
         }}
       >
         <BiSearch />
-        &nbsp; Filter
+        &nbsp; Search
       </NavigationButton>
 
       <CopyToClipboard text={"https://www.bugdiary.com/diary/" + uuid}>

@@ -4,7 +4,7 @@ import HighlightedSection from "../blocks/HighlightedSection";
 
 export default function Homepage() {
   return (
-    <>
+    <div style={{ backgroundColor: "#fff" }}>
       <section id="splash">
         <div id="welcome">
           <h1>Welcome to Bug Diary</h1>
@@ -31,7 +31,7 @@ export default function Homepage() {
       </section>
 
       <HighlightedSection
-        imgURL="https://res.cloudinary.com/sensworks/image/upload/v1624484767/bugdiary/twogirlsdebugging_qpeyrr.jpg"
+        imgURL="https://res.cloudinary.com/sensworks/image/upload/v1624490033/bugdiary/diaryscreenshot_uq2k9w.png"
         textPosition="left"
       >
         <h2>General-Purpose, No Learning Curve</h2>
@@ -68,6 +68,6 @@ export default function Homepage() {
           </Link>
         </p>
       </HighlightedSection>
-    </>
+    </div>
   );
 }
