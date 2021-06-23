@@ -1,5 +1,6 @@
 import "./Homepage.scss";
 import { Link } from "react-router-dom";
+import HighlightedSection from "../blocks/HighlightedSection";
 
 export default function Homepage() {
   return (
@@ -28,9 +29,36 @@ export default function Homepage() {
         </div>
       </section>
 
-      <section>
-        <h2>Built for you and your team</h2>
-      </section>
+      <HighlightedSection
+        imgURL="https://res.cloudinary.com/sensworks/image/upload/v1624484767/bugdiary/twogirlsdebugging_qpeyrr.jpg"
+        textPosition="left"
+      >
+        <h2>Built for You and Your Team</h2>
+        <p>
+          Create a Bug Diary is as little as 30 seconds, then share its unique
+          URL with your teammates.
+        </p>
+        <p>
+          BugDiary is a non-technical bug tracker, meaning that anyone can pick
+          it up and start using it. You can get set up in less than 30 seconds!
+        </p>
+      </HighlightedSection>
+
+      <HighlightedSection
+        imgURL="https://res.cloudinary.com/sensworks/image/upload/v1624484767/bugdiary/debuglaptop_d4kgwn.jpg"
+        textPosition="right"
+      >
+        <h2>Built for You and Your Team</h2>
+        <p>
+          Reports are generated each time you login, telling you how many issues
+          have been reported or solved across all your BugDiaries since your
+          last login.
+        </p>
+        <p>
+          Collaborate with other BugDiary users to track multiple projects
+          together.
+        </p>
+      </HighlightedSection>
     </>
   );
 }
