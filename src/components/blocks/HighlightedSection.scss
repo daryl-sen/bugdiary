@@ -5,21 +5,25 @@ section.highlighted {
   display: flex;
   flex-direction: row;
   min-height: 400px;
+  text-align: left;
 
   p {
     line-height: 150%;
+    text-align: left;
   }
 
   .section-text {
     max-width: 33%;
     display: flex;
     flex-direction: column;
-    align-items: center;
   }
   .section-image {
     flex-grow: 1;
     background-size: cover;
     background-repeat: no-repeat;
     background-position-x: center;
+    -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.2);
   }
 }
