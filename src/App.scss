@@ -41,6 +41,14 @@ hr {
   border-top: 1px solid $line-color;
 }
 
+a:link,
+a:visited {
+  color: #ff3939;
+}
+a:hover {
+  color: #581515;
+}
+
 .App {
   & > main {
     text-align: center;

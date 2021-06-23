@@ -1,8 +1,9 @@
 import "./Homepage.scss";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import HighlightedSection from "../blocks/HighlightedSection";
 
 export default function Homepage() {
+  const history = useHistory();
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <section id="splash">
@@ -14,19 +15,22 @@ export default function Homepage() {
             and running in <Link to="/new">as little as 30 seconds</Link>
             <sup>1</sup>! What's there to lose?
           </p>
-          <div style={{ maxWidth: "50%", margin: "auto" }}>
-            <Link to="/new">
-              <button className="custom button-primary">
-                Get Setup In 30 seconds
-              </button>
-            </Link>
-            <Link to="/signup">
-              <button className="custom button-primary">
-                Sign Up For More Features
-              </button>
-            </Link>
-          </div>
-          <p></p>
+          <button
+            className="custom button-primary"
+            onClick={() => {
+              history.push("/new");
+            }}
+          >
+            Get Setup In 30 seconds
+          </button>
+          <button
+            className="custom button-primary"
+            onClick={() => {
+              history.push("/signup");
+            }}
+          >
+            Sign Up For More Features
+          </button>
         </div>
       </section>
 
@@ -45,7 +49,7 @@ export default function Homepage() {
           for projects of various types.
         </p>
         <p>
-          <Link>Is BugDiary Right For My Project?</Link>
+          <Link to="/">Is BugDiary Right For My Project?</Link>
         </p>
       </HighlightedSection>
 
