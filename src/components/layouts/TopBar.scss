@@ -7,17 +7,16 @@ header {
   z-index: 50;
 
   #title {
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    display: block;
+    margin: auto;
     font-family: "Pattaya", sans-serif;
     text-align: center;
     color: #ffffff;
     font-weight: bolder;
     font-size: 1.2rem;
-  }
-
-  #title > a:link,
-  #title > a:visited {
-    text-decoration: none;
-    color: inherit;
   }
 
   #side-nav-toggle {
