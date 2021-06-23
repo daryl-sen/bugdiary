@@ -13,7 +13,11 @@ export default function IssueContainer(props) {
   };
 
   return (
-    <div className={"issue-container" + " " + props.status}>
+    <div
+      className={
+        props.status ? "issue-container" : `issue-container ${props.status}`
+      }
+    >
       <IssueControls issue={props} />
       <main>
         <h1>{props.reference || "Loading"}</h1>

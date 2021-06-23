@@ -35,7 +35,7 @@ export default function IssueSearchBox(props) {
 
   // const sortResults = (orderBy, results) => {};
 
-  const modifyResults = (mode, term) => {};
+  // const modifyResults = (mode, term) => {};
 
   return (
     <SingleColumnLayout preset="narrow-centered">

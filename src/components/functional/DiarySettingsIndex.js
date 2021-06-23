@@ -1,4 +1,3 @@
-import { useHistory } from "react-router";
 import WhiteBgContainer from "../blocks/WhiteBgContainer";
 import useDiaryFunctions from "../../hooks/useDiaryFunctions";
 import { NotificationManager } from "react-notifications";
@@ -7,7 +6,6 @@ import { useDiaryContext } from "../../AppContext";
 import { useState } from "react";
 
 export default function DiarySettingsIndex(props) {
-  const history = useHistory();
   const { setDiaryContext } = useDiaryContext();
   const { extendExpiry, deleteDiary } = useDiaryFunctions();
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
