@@ -3,8 +3,6 @@ import axios from "axios";
 import NotificationManager from "react-notifications/lib/NotificationManager";
 import { useAppContext, useDiaryContext } from "../AppContext";
 
-const BASE_URL = process.env.REACT_APP_API_URL;
-
 export default function useIssueFunctions() {
   const { context } = useAppContext();
   const { setDiaryContext } = useDiaryContext();
@@ -19,21 +17,19 @@ export default function useIssueFunctions() {
     withCredentials: true, // enables API to read req.session cookies
   };
   const getIssueSetupDetails = (uuid) => {
-    axios
-      .get(BASE_URL + "/api/diaries/issue-setup/" + uuid, headers)
-      .then((resp) => {
-        if (resp.data.error) {
-          return false;
-        }
-        setIssueData(resp.data);
-        return true;
-      });
+    axios.get("/api/diaries/issue-setup/" + uuid, headers).then((resp) => {
+      if (resp.data.error) {
+        return false;
+      }
+      setIssueData(resp.data);
+      return true;
+    });
   };
 
   const createIssue = async (values) => {
     // create
     return await axios
-      .post(BASE_URL + "/api/diaries/issues", values, headers)
+      .post("/api/diaries/issues", values, headers)
       .then((resp) => {
         if (resp.data.error) {
           console.log(resp.data);
@@ -55,7 +51,7 @@ export default function useIssueFunctions() {
 
   const markIssue = (status, issueId) => {
     return axios
-      .patch(BASE_URL + "/api/diaries/issues/" + issueId, { status }, headers)
+      .patch("/api/diaries/issues/" + issueId, { status }, headers)
       .then((resp) => {
         if (resp.data.error) {
           NotificationManager.error(
@@ -83,7 +79,7 @@ export default function useIssueFunctions() {
 
   const searchIssues = (searchTerm, uuid, showResolved, showDeleted) => {
     return axios
-      .get(BASE_URL + `/api/diaries/issues/${uuid}/search`, {
+      .get(`/api/diaries/issues/${uuid}/search`, {
         params: {
           showResolved: showResolved ? 1 : 0,
           showDeleted: showDeleted ? 1 : 0,

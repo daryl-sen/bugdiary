@@ -4,8 +4,6 @@ import NotificationManager from "react-notifications/lib/NotificationManager";
 import IssueTag from "../components/elements/IssueTag";
 import { useAppContext } from "../AppContext";
 
-const BASE_URL = process.env.REACT_APP_API_URL;
-
 export default function useDiaryFunctions() {
   const { context } = useAppContext();
   const [diaryConfig, setDiaryConfig] = useState(null);
@@ -17,7 +15,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .get(BASE_URL + "/api/diaries/issues/versions/" + uuid, headers)
+      .get("/api/diaries/issues/versions/" + uuid, headers)
       .then((resp) => {
         setDiaryConfig(resp.data);
       })
@@ -34,7 +32,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .get(BASE_URL + "/api/diaries/issues/locations/" + uuid, headers)
+      .get("/api/diaries/issues/locations/" + uuid, headers)
       .then((resp) => {
         setDiaryConfig(resp.data);
       })
@@ -51,7 +49,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .get(BASE_URL + "/api/diaries/issues/types/" + uuid, headers)
+      .get("/api/diaries/issues/types/" + uuid, headers)
       .then((resp) => {
         setDiaryConfig(resp.data);
       })
@@ -69,7 +67,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .post(BASE_URL + "/api/diaries/issues/versions", values, headers)
+      .post("/api/diaries/issues/versions", values, headers)
       .then((resp) => {
         if (!resp.data.error) {
           NotificationManager.success("New version created!");
@@ -94,7 +92,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .post(BASE_URL + "/api/diaries/issues/locations", values, headers)
+      .post("/api/diaries/issues/locations", values, headers)
       .then((resp) => {
         if (!resp.data.error) {
           NotificationManager.success("New location created!");
@@ -117,7 +115,7 @@ export default function useDiaryFunctions() {
       },
     };
     await axios
-      .post(BASE_URL + "/api/diaries/issues/types", values, headers)
+      .post("/api/diaries/issues/types", values, headers)
       .then((resp) => {
         if (!resp.data.error) {
           NotificationManager.success("New type created!");

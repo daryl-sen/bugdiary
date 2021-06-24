@@ -4,8 +4,6 @@ import { useHistory } from "react-router-dom";
 import NotificationManager from "react-notifications/lib/NotificationManager";
 import { useAppContext, useDiaryContext } from "../AppContext";
 
-const BASE_URL = process.env.REACT_APP_API_URL;
-
 // axios.interceptors.request.use((request) => {
 //   console.log("Starting Request", JSON.stringify(request, null, 2));
 //   return request;
@@ -27,26 +25,24 @@ export default function useDiaryFunctions() {
 
   const createDiary = (diaryDetails) => {
     setLoadingStatus(true);
-    axios
-      .post(BASE_URL + "/api/diaries", diaryDetails, headers)
-      .then((resp) => {
-        if (!resp.data.error) {
-          NotificationManager.success("New diary created!");
-          // add to list of authenticated diaries
-          setContext((prev) => {
-            return {
-              ...prev,
-              authenticatedDiaries: [
-                ...prev.authenticatedDiaries,
-                resp.data.uuid,
-              ],
-            };
-          });
-          return history.push("/setup/" + resp.data.uuid);
-        }
-        console.log(resp.data.error);
-        return resp.data;
-      });
+    axios.post("/api/diaries", diaryDetails, headers).then((resp) => {
+      if (!resp.data.error) {
+        NotificationManager.success("New diary created!");
+        // add to list of authenticated diaries
+        setContext((prev) => {
+          return {
+            ...prev,
+            authenticatedDiaries: [
+              ...prev.authenticatedDiaries,
+              resp.data.uuid,
+            ],
+          };
+        });
+        return history.push("/setup/" + resp.data.uuid);
+      }
+      console.log(resp.data.error);
+      return resp.data;
+    });
   };
 
   const getDiaryContent = (uuid, showResolved, showDeleted) => {

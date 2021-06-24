@@ -1,7 +1,6 @@
 import "./HighlightedSection.scss";
 
 export default function HighlightedSection(props) {
-  console.log(props);
   return (
     <section className="highlighted">
       <div
