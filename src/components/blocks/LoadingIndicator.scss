@@ -8,9 +8,22 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+
   & > div {
+    animation: rotation 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
     text-align: center;
     font-size: 100px;
     color: #000;
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
   }
 }
