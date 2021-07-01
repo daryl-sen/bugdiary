@@ -15,7 +15,7 @@ export default function IssueContainer(props) {
   return (
     <div
       className={
-        props.status ? "issue-container" : `issue-container ${props.status}`
+        props.status ? `issue-container ${props.status}` : "issue-container"
       }
     >
       <IssueControls issue={props} />
