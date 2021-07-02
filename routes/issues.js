@@ -76,7 +76,7 @@ module.exports = (models) => {
         const issues = await Issue.findAll({
           include: [Type, Location, Version, Status],
           where: {
-            status: [
+            status_id: [
               2,
               1,
               showResolved > 0 ? 4 : undefined,
@@ -96,6 +96,10 @@ module.exports = (models) => {
               },
             ],
           },
+          order: [
+            ["status_id", "ASC"],
+            ["id", "DESC"],
+          ],
         });
         return res.json({ issues });
       } catch (err) {
