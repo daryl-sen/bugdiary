@@ -1,7 +1,7 @@
 [
   {
     "details": "This #1 (private)",
-    "status": "PENDING",
+    "status_id": 2,
     "reporter_name": "Me",
     "reporter_email": "email@fakemail.com",
     "resolve_date": "2021-05-30T03:44:36.067Z",
@@ -14,7 +14,7 @@
   },
   {
     "details": "This #2",
-    "status": "PENDING",
+    "status_id": 2,
     "reporter_name": "Me",
     "reporter_email": "email@fakemail.com",
     "resolve_date": "2021-05-30T03:44:36.067Z",
@@ -27,7 +27,7 @@
   },
   {
     "details": "This #3",
-    "status": "PENDING",
+    "status_id": 2,
     "reporter_name": "Me",
     "reporter_email": "email@fakemail.com",
     "resolve_date": "2021-05-30T03:44:36.067Z",
@@ -40,7 +40,7 @@
   },
   {
     "details": "This #4",
-    "status": "PENDING",
+    "status_id": 2,
     "reporter_name": "Me",
     "reporter_email": "email@fakemail.com",
     "resolve_date": "2021-05-30T03:44:36.067Z",
@@ -53,7 +53,7 @@
   },
   {
     "details": "This #5",
-    "status": "PENDING",
+    "status_id": 2,
     "reporter_name": "Me",
     "reporter_email": "email@fakemail.com",
     "resolve_date": "2021-05-30T03:44:36.067Z",
@@ -66,7 +66,7 @@
   },
   {
     "details": "This #6",
-    "status": "PENDING",
+    "status_id": 2,
     "reporter_name": "Me",
     "reporter_email": "email@fakemail.com",
     "resolve_date": "2021-05-30T03:44:36.067Z",
@@ -79,7 +79,7 @@
   },
   {
     "details": "This #7",
-    "status": "PENDING",
+    "status_id": 2,
     "reporter_name": "Me",
     "reporter_email": "email@fakemail.com",
     "resolve_date": "2021-05-30T03:44:36.067Z",
@@ -92,7 +92,7 @@
   },
   {
     "details": "This #1",
-    "status": "PENDING",
+    "status_id": 2,
     "reporter_name": "Me",
     "reporter_email": "email@fakemail.com",
     "resolve_date": "2021-05-30T03:44:36.067Z",
@@ -105,7 +105,7 @@
   },
   {
     "details": "This #2",
-    "status": "PENDING",
+    "status_id": 2,
     "reporter_name": "Me",
     "reporter_email": "email@fakemail.com",
     "resolve_date": "2021-05-30T03:44:36.067Z",
@@ -118,7 +118,7 @@
   },
   {
     "details": "This #1",
-    "status": "PENDING",
+    "status_id": 2,
     "reporter_name": "Me",
     "reporter_email": "email@fakemail.com",
     "resolve_date": "2021-05-30T03:44:36.067Z",

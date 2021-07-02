@@ -6,7 +6,7 @@ const {
 } = require("../helpers/jwtAuthentication");
 
 module.exports = (models) => {
-  const { Issue, Diary, Location, Type, Version, Sequelize } = models;
+  const { Issue, Diary, Location, Type, Version, Sequelize, Status } = models;
   const { Op } = Sequelize;
   router
     // create new issue
@@ -76,10 +76,10 @@ module.exports = (models) => {
           include: [Type, Location, Version],
           where: {
             status: [
-              "PENDING",
-              "PRIORITIZED",
-              showResolved > 0 ? "RESOLVED" : undefined,
-              showDeleted > 0 ? "DELETED" : undefined,
+              2,
+              1,
+              showResolved > 0 ? 4 : undefined,
+              showDeleted > 0 ? 5 : undefined,
             ],
             private: auth.authenticated ? [1, 0] : 0,
             diary_id: targetDiary.id,
@@ -131,7 +131,7 @@ module.exports = (models) => {
       const uuid = req.params.uuid;
       try {
         const targetIssue = await Issue.findOne({
-          include: [Diary],
+          include: [Diary, Status],
           where: {
             uuid,
           },

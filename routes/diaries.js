@@ -7,7 +7,7 @@ const {
 } = require("../helpers/jwtAuthentication");
 
 module.exports = (models) => {
-  const { Diary, Issue, Version, Type, Location } = models;
+  const { Diary, Issue, Version, Type, Location, Status } = models;
   router
 
     .post("/passcode-auth/:uuid", authenticateToken, async (req, res) => {
@@ -138,19 +138,19 @@ module.exports = (models) => {
         const auth = checkDiaryAuth(targetDiary, req.auth.userInfo, req);
 
         const issues = await Issue.findAll({
-          include: [Type, Location, Version],
+          include: [Type, Location, Version, Status],
           where: {
             diary_id: targetDiary.id,
             private: auth.authenticated ? [1, 0] : 0,
-            status: [
-              "PENDING",
-              "PRIORITIZED",
-              showResolved > 0 ? "RESOLVED" : undefined,
-              showDeleted > 0 ? "DELETED" : undefined,
+            status_id: [
+              2,
+              1,
+              showResolved > 0 ? 4 : undefined,
+              showDeleted > 0 ? 5 : undefined,
             ],
           },
           order: [
-            ["status", "DESC"],
+            ["status_id", "ASC"],
             ["id", "DESC"],
           ],
         });
