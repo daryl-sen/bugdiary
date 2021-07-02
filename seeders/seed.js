@@ -11,13 +11,15 @@ const createEntries = async (modelName, instance) => {
     const newEntry = await models[modelName].create({ ...instance });
     console.log(`Created #${newEntry.id} in '${modelName}'`);
   } catch (error) {
-    // throw new Error(error);
     console.log(error);
   }
 };
 
+// register new model and seeds below
+
 const jsonData = {
   UserType: getContent("./seeders/JSONseeds/userTypes.json"),
+  Status: getContent("./seeders/JSONseeds/statuses.json"),
   User: getContent("./seeders/JSONseeds/users.json"),
   Diary: getContent("./seeders/JSONseeds/diaries.json"),
   Version: getContent("./seeders/JSONseeds/versions.json"),
