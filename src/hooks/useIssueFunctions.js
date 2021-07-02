@@ -49,9 +49,9 @@ export default function useIssueFunctions() {
     // read
   };
 
-  const markIssue = (status, issueId) => {
+  const markIssue = (status_id, issueId) => {
     return axios
-      .patch("/api/diaries/issues/" + issueId, { status }, headers)
+      .patch("/api/diaries/issues/" + issueId, { status_id }, headers)
       .then((resp) => {
         if (resp.data.error) {
           NotificationManager.error(
@@ -60,7 +60,7 @@ export default function useIssueFunctions() {
           console.log(resp.data.error);
           return false;
         }
-        NotificationManager.success(`The issue is marked as '${status}'.`);
+        NotificationManager.success(`Issue status updated.`);
         return true;
       })
       .catch((err) => {

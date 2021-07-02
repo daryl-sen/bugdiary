@@ -14,6 +14,7 @@ import FullScreenShade from "../blocks/FullScreenShade";
 import useIssueFunctions from "../../hooks/useIssueFunctions";
 import IssueControlButton from "./IssueControlButton";
 import { useDiaryContext } from "../../AppContext";
+const issueStatusCodes = ["PRIORITIZED", "PENDING", "DEFERRED", "RESOLVED", "DELETED"]
 
 export default function IssueControls(props) {
   const { setDiaryContext } = useDiaryContext();
@@ -29,7 +30,7 @@ export default function IssueControls(props) {
         ...prev,
         issues: prev.issues.map((issue) => {
           if (issue.uuid === props.issue.uuid) {
-            return { ...issue, status: targetStatus };
+            return { ...issue, Status: {id: targetStatus , name: issueStatusCodes[targetStatus - 1]}, status_id: targetStatus };
           }
           return issue;
         }),
@@ -43,7 +44,7 @@ export default function IssueControls(props) {
           ...prev,
           issues: prev.issues.map((issue) => {
             if (issue.uuid === props.issue.uuid) {
-              return { ...issue, status: props.issue.Status.name };
+              return { ...issue, Status: {id: props.Status.id , name: props.Status.name}, status_id: props.Status.id };
             }
             return issue;
           }),
@@ -59,22 +60,22 @@ export default function IssueControls(props) {
           <div className="controls-menu">
             <IssueControlButton
               mark={mark}
-              targetStatus={"RESOLVED"}
-              currentStatus={props.issue.Status.name}
+              targetStatus={4}
+              currentStatus={props.issue.status_id}
             >
               <BiListCheck size={25} />
             </IssueControlButton>
             <IssueControlButton
               mark={mark}
-              targetStatus={"PRIORITIZED"}
-              currentStatus={props.issue.Status.name}
+              targetStatus={1}
+              currentStatus={props.issue.status_id}
             >
               <BiPin size={25} />
             </IssueControlButton>
             <IssueControlButton
               mark={mark}
-              targetStatus={"DELETED"}
-              currentStatus={props.issue.Status.name}
+              targetStatus={5}
+              currentStatus={props.issue.status_id}
             >
               <BiTrashAlt size={25} />
             </IssueControlButton>

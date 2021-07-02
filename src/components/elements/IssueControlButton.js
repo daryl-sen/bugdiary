@@ -12,7 +12,7 @@ export default function IssueControlButton(props) {
 
   const markIssue = () => {
     if (props.currentStatus === props.targetStatus) {
-      return props.mark("PENDING");
+      return props.mark(2);
     }
     return props.mark(props.targetStatus);
   };
