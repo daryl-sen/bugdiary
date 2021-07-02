@@ -66,6 +66,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: "defaultPrivate",
       },
+      allow_new: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: 1,
+      },
       expiry_date: {
         type: DataTypes.DATE,
         allowNull: true,
