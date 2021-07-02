@@ -18,7 +18,9 @@ module.exports = (sequelize, DataTypes) => {
       Version,
       Tag,
       IssueTags,
+      Status
     }) {
+      this.belongsTo(Status, { foreignKey: "status_id" });
       this.belongsTo(Diary, { foreignKey: "diary_id", onDelete: "cascade" });
       this.belongsTo(Location, {
         foreignKey: "location_id",
