@@ -12,7 +12,7 @@ module.exports = (models) => {
   router
     .post("/", async (req, res) => {
       try {
-        const newUser = await User.create({ ...req.body });
+        const newUser = await User.create({ ...req.body, email: req.body.email.toLowerCase() });
         const accessToken = generateToken({
           id: newUser.id,
           name: newUser.display_name,
@@ -68,7 +68,7 @@ module.exports = (models) => {
       try {
         const targetUser = await User.findOne({
           where: {
-            email,
+            email: email.toLowerCase(),
           },
         });
 

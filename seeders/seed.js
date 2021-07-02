@@ -1,5 +1,6 @@
 const models = require("../models");
 const fs = require("fs");
+require("dotenv").config();
 
 const getContent = (path) => {
   return JSON.parse(fs.readFileSync(path));
@@ -34,7 +35,11 @@ const jsonData = {
 const targetModel = process.argv.slice(2)[0];
 
 async function run() {
-  await models.sequelize.sync({ force: true });
+  if (process.env.RESETDB === "true") {
+    await models.sequelize.sync({ force: true });
+  } else {
+    await models.sequelize.sync({ alter: true });
+  }
 
   if (!targetModel) {
     for (const modelName in jsonData) {

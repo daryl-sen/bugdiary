@@ -49,9 +49,14 @@ app.listen(PORT, async () => {
     console.log(`Running on port: ${PORT}`);
     await models.sequelize.authenticate();
     console.log("Connected to database");
-    if (process.env.RESETDB === "true") {
-      await models.sequelize.sync({ force: true });
-      console.log("Synced all models. All data have been deleted.");
+    if (process.env.UPDATEDB === "true") {
+      if (process.env.RESETDB === "true") {
+        await models.sequelize.sync({ force: true });
+        console.log("Synced all models. All data have been deleted.");
+      } else {
+        await models.sequelize.sync({ alter: true });
+        console.log("Updated models.");
+      }
     }
   } catch (error) {
     return console.log(error);
