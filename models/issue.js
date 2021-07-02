@@ -53,14 +53,6 @@ module.exports = (sequelize, DataTypes) => {
         validate: { len: [1, 500] },
         notEmpty: true,
       },
-      status: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          isIn: [["RESOLVED", "PENDING", "DELETED", "PRIORITIZED"]],
-        },
-        defaultValue: "PENDING",
-      },
       reporter_name: {
         type: DataTypes.STRING,
         allowNull: true,

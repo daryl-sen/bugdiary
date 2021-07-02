@@ -1,0 +1,17 @@
+[
+  {
+    "name": "PRIORITIZED"
+  },
+  {
+    "name": "PENDING"
+  },
+  {
+    "name": "DEFERRED"
+  },
+  {
+    "name": "RESOLVED"
+  },
+  {
+    "name": "DELETED"
+  }
+]
