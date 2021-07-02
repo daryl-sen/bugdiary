@@ -1,11 +1,11 @@
 import "./LoadingIndicator.scss";
-import { VscLoading } from "react-icons/vsc";
+import { BiLoaderCircle } from "react-icons/bi";
 
 export default function LoadingIndicator() {
   return (
     <div className="loading-indicator">
       <div>
-        <VscLoading />
+        <BiLoaderCircle />
       </div>
     </div>
   );
