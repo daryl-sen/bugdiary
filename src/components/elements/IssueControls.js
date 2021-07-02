@@ -43,7 +43,7 @@ export default function IssueControls(props) {
           ...prev,
           issues: prev.issues.map((issue) => {
             if (issue.uuid === props.issue.uuid) {
-              return { ...issue, status: props.issue.status };
+              return { ...issue, status: props.issue.Status.name };
             }
             return issue;
           }),
@@ -60,21 +60,21 @@ export default function IssueControls(props) {
             <IssueControlButton
               mark={mark}
               targetStatus={"RESOLVED"}
-              currentStatus={props.issue.status}
+              currentStatus={props.issue.Status.name}
             >
               <BiListCheck size={25} />
             </IssueControlButton>
             <IssueControlButton
               mark={mark}
               targetStatus={"PRIORITIZED"}
-              currentStatus={props.issue.status}
+              currentStatus={props.issue.Status.name}
             >
               <BiPin size={25} />
             </IssueControlButton>
             <IssueControlButton
               mark={mark}
               targetStatus={"DELETED"}
-              currentStatus={props.issue.status}
+              currentStatus={props.issue.Status.name}
             >
               <BiTrashAlt size={25} />
             </IssueControlButton>

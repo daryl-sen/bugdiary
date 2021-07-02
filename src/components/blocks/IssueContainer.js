@@ -15,14 +15,14 @@ export default function IssueContainer(props) {
   return (
     <div
       className={
-        props.status ? `issue-container ${props.status}` : "issue-container"
+        props.Status.name ? `issue-container ${props.Status.name}` : "issue-container"
       }
     >
       <IssueControls issue={props} />
       <main>
         <h1>{props.reference || "Loading"}</h1>
         <div className="tags">
-          <IssueTag type={props.status}>{props.status || "Loading"}</IssueTag>
+          <IssueTag type={props.Status.name}>{props.Status.name || "Loading"}</IssueTag>
           <IssueTag type="permanent">
             Type: {props.Type.name || "Loading"}
           </IssueTag>
