@@ -61,6 +61,7 @@ export default function NewIssueForm(props) {
         version_id: latestVersion[0].id,
         private: values.private ? 1 : 0,
       });
+      console.log(newIssue);
       setDiaryContext((prev) => {
         return { ...prev, mode: "show", issues: [newIssue, ...prev.issues] };
       });

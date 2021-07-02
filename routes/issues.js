@@ -46,6 +46,7 @@ module.exports = (models) => {
 
         newIssue.dataValues.Type = refType;
         newIssue.dataValues.Location = refLocation;
+        newIssue.dataValues.Status = await Status.findOne({ where: { id: 2 } });
 
         return res.json(newIssue);
       } catch (err) {
@@ -73,7 +74,7 @@ module.exports = (models) => {
         const auth = checkDiaryAuth(targetDiary, req.auth.userInfo, req);
 
         const issues = await Issue.findAll({
-          include: [Type, Location, Version],
+          include: [Type, Location, Version, Status],
           where: {
             status: [
               2,
