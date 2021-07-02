@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Comment, Upvote, Diary, UserType }) {
+    static associate({ Comment, Upvote, Diary, UserType, Preferences }) {
       this.belongsTo(UserType, {
         foreignKey: "user_type_id",
         onDelete: "cascade",
@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(Comment, { foreignKey: "user_id" });
       this.hasMany(Upvote, { foreignKey: "user_id" });
       this.hasMany(Diary, { foreignKey: "user_id" });
+      this.hasOne(Preferences, { foreignKey: "user_id" });
     }
 
     static generateHash(password) {
