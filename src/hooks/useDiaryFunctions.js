@@ -84,7 +84,6 @@ export default function useDiaryFunctions() {
     await axios
       .patch("/api/diaries/extend/" + uuid, {}, headers)
       .then((resp) => {
-        console.log(resp.data);
         if (resp.error) {
           return false;
         }
