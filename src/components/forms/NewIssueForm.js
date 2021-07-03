@@ -14,6 +14,8 @@ import TwoColumnLayout from "../layouts/TwoColumnLayout";
 import WhiteBgContainer from "../blocks/WhiteBgContainer";
 import { useDiaryContext } from "../../AppContext";
 
+import NewIssueSidebar from "../sidebars/NewIssueSidebar";
+
 
 export default function NewIssueForm(props) {
   const { setDiaryContext } = useDiaryContext();
@@ -94,7 +96,7 @@ export default function NewIssueForm(props) {
   };
 
   return (
-    <TwoColumnLayout preset={"confined"} aside="addSidebar">
+    <TwoColumnLayout preset={"confined"} aside={<NewIssueSidebar />}>
       {loadingStatus && <LoadingIndicator />}
       <WhiteBgContainer>
         <h2>Report New Issue</h2>
