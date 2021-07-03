@@ -14,6 +14,7 @@ import TwoColumnLayout from "../layouts/TwoColumnLayout";
 import WhiteBgContainer from "../blocks/WhiteBgContainer";
 import { useDiaryContext } from "../../AppContext";
 
+
 export default function NewIssueForm(props) {
   const { setDiaryContext } = useDiaryContext();
   const [loadingStatus, setLoadingStatus] = useState(false);

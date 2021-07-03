@@ -14,7 +14,13 @@ import FullScreenShade from "../blocks/FullScreenShade";
 import useIssueFunctions from "../../hooks/useIssueFunctions";
 import IssueControlButton from "./IssueControlButton";
 import { useDiaryContext } from "../../AppContext";
-const issueStatusCodes = ["PRIORITIZED", "PENDING", "DEFERRED", "RESOLVED", "DELETED"]
+const issueStatusCodes = [
+  "PRIORITIZED",
+  "PENDING",
+  "DEFERRED",
+  "RESOLVED",
+  "DELETED",
+];
 
 export default function IssueControls(props) {
   const { setDiaryContext } = useDiaryContext();
@@ -30,7 +36,14 @@ export default function IssueControls(props) {
         ...prev,
         issues: prev.issues.map((issue) => {
           if (issue.uuid === props.issue.uuid) {
-            return { ...issue, Status: {id: targetStatus , name: issueStatusCodes[targetStatus - 1]}, status_id: targetStatus };
+            return {
+              ...issue,
+              Status: {
+                id: targetStatus,
+                name: issueStatusCodes[targetStatus - 1],
+              },
+              status_id: targetStatus,
+            };
           }
           return issue;
         }),
@@ -44,7 +57,11 @@ export default function IssueControls(props) {
           ...prev,
           issues: prev.issues.map((issue) => {
             if (issue.uuid === props.issue.uuid) {
-              return { ...issue, Status: {id: props.Status.id , name: props.Status.name}, status_id: props.Status.id };
+              return {
+                ...issue,
+                Status: { id: props.Status.id, name: props.Status.name },
+                status_id: props.Status.id,
+              };
             }
             return issue;
           }),

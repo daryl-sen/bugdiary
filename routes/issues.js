@@ -41,6 +41,7 @@ module.exports = (models) => {
           ...req.body,
           type_id: refType.id,
           location_id: refLocation.id,
+          status_id: 2,
           reference: req.body.reference ? req.body.reference : undefined,
         });
 
