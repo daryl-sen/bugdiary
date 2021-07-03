@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ User }) {
       this.belongsTo(User, {
-        foreignKey: "preferences_id",
+        foreignKey: "user_id",
         onDelete: "cascade",
       });
     }

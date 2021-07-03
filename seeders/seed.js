@@ -22,6 +22,7 @@ const jsonData = {
   UserType: getContent("./seeders/JSONseeds/userTypes.json"),
   Status: getContent("./seeders/JSONseeds/statuses.json"),
   User: getContent("./seeders/JSONseeds/users.json"),
+  Preferences: getContent("./seeders/JSONseeds/preferences.json"),
   Diary: getContent("./seeders/JSONseeds/diaries.json"),
   Version: getContent("./seeders/JSONseeds/versions.json"),
   Location: getContent("./seeders/JSONseeds/locations.json"),

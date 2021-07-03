@@ -7,16 +7,23 @@ const {
 } = require("../helpers/jwtAuthentication");
 
 module.exports = (models) => {
-  const { User } = models;
+  const { User, Preferences } = models;
 
   router
     .post("/", async (req, res) => {
       try {
-        const newUser = await User.create({ ...req.body, email: req.body.email.toLowerCase() });
+        const newUser = await User.create({
+          ...req.body,
+          email: req.body.email.toLowerCase(),
+        });
         const accessToken = generateToken({
           id: newUser.id,
           name: newUser.display_name,
           uuid: newUser.uuid,
+        });
+        const newUserPreferences = await Preferences.create({
+          user_id: newUser.id,
+          // other fields have default values
         });
         req.session.jwt = accessToken;
         return res.status(201).json({ newUser, accessToken });
