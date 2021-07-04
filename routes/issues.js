@@ -6,12 +6,13 @@ const {
 } = require("../helpers/jwtAuthentication");
 
 module.exports = (models) => {
-  const { Issue, Diary, Location, Type, Version, Sequelize, Status } = models;
+  const { Issue, Diary, Location, Type, Version, Sequelize, Status, sequelize } = models;
   const { Op } = Sequelize;
   router
     // create new issue
     .post("/", authenticateToken, async (req, res) => {
       try {
+        const transaction = await sequelize.transaction();
         const issueCount = await Issue.count({
           where: {
             diary_id: req.body.diary_id,
@@ -55,6 +56,8 @@ module.exports = (models) => {
         newIssue.dataValues.Type = refType;
         newIssue.dataValues.Location = refLocation;
         newIssue.dataValues.Status = await Status.findOne({ where: { id: 2 } });
+
+        await transaction.commit();
 
         return res.json(newIssue);
       } catch (err) {
