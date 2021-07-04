@@ -127,7 +127,7 @@ export default function IssueControls(props) {
         <BiLinkExternal size={25} />
       </button> */}
 
-      {props.issue.private ? <BiHide size={25} /> : null}
+      {props.issue.private ? <BiHide data-testid={"private-icon"} size={25} /> : null}
 
       <button className="controls-toggle" onClick={toggleControls}>
         <BiMenuAltRight size={25} />
