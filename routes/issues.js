@@ -12,6 +12,13 @@ module.exports = (models) => {
     // create new issue
     .post("/", authenticateToken, async (req, res) => {
       try {
+        const issueCount = await Issue.count({
+          where: {
+            diary_id: req.body.diary_id,
+          },
+        });
+        console.log(issueCount);
+
         let refLocation = await Location.findOne({
           where: {
             name: req.body.location_name.toLowerCase(),
@@ -42,7 +49,7 @@ module.exports = (models) => {
           type_id: refType.id,
           location_id: refLocation.id,
           status_id: 2,
-          reference: req.body.reference ? req.body.reference : undefined,
+          reference: req.body.reference || "#" + (issueCount + 1),
         });
 
         newIssue.dataValues.Type = refType;
