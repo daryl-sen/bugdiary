@@ -21,6 +21,7 @@ export default function IssueControlButton(props) {
       className="issue-control-button"
       style={style}
       onClick={props.cancel || markIssue}
+      data-testid={props.testId || null}
     >
       {props.children}
     </button>

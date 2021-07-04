@@ -16,7 +16,6 @@ import { useDiaryContext } from "../../AppContext";
 
 import NewIssueSidebar from "../sidebars/NewIssueSidebar";
 
-
 export default function NewIssueForm(props) {
   const { setDiaryContext } = useDiaryContext();
   const [loadingStatus, setLoadingStatus] = useState(false);
@@ -165,7 +164,11 @@ export default function NewIssueForm(props) {
             Make this private
           </label>
           {renderFieldError("private")}
-          <button type="submit" className="button-primary">
+          <button
+            type="submit"
+            className="button-primary"
+            data-testid={"new-issue-button"}
+          >
             Report Issue
           </button>
         </StylizedForm>

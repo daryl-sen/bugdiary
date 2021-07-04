@@ -79,6 +79,7 @@ export default function IssueControls(props) {
               mark={mark}
               targetStatus={4}
               currentStatus={props.issue.status_id}
+              testId={"resolve-button"}
             >
               <BiListCheck size={25} />
             </IssueControlButton>
@@ -86,6 +87,7 @@ export default function IssueControls(props) {
               mark={mark}
               targetStatus={1}
               currentStatus={props.issue.status_id}
+              testId={"pin-button"}
             >
               <BiPin size={25} />
             </IssueControlButton>
@@ -93,10 +95,14 @@ export default function IssueControls(props) {
               mark={mark}
               targetStatus={5}
               currentStatus={props.issue.status_id}
+              testId={"delete-button"}
             >
               <BiTrashAlt size={25} />
             </IssueControlButton>
-            <IssueControlButton cancel={toggleControls}>
+            <IssueControlButton
+              cancel={toggleControls}
+              testId={"cancel-button"}
+            >
               <BiWindowClose size={25} />
             </IssueControlButton>
           </div>
