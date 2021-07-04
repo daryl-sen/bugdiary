@@ -35,16 +35,28 @@ export default function SideNav(props) {
       {renderShade()}
       <nav style={transformInfo}>
         <section id="nav-icons">
-          <Link onClick={props.toggleMenu} to="/new">
+          <Link
+            onClick={props.toggleMenu}
+            to="/new"
+            data-testid={"new-diary-shortcut-button"}
+          >
             <BiBookAdd />
           </Link>
-          <Link onClick={props.toggleMenu} to="/diaries">
+          <Link
+            onClick={props.toggleMenu}
+            to="/diaries"
+            data-testid={"my-diaries-shortcut-button"}
+          >
             <BiBookAlt />
           </Link>
-          <Link onClick={props.toggleMenu} to="/account">
+          <Link
+            onClick={props.toggleMenu}
+            to="/account"
+            data-testid={"my-account-shortcut-button"}
+          >
             <BiUser />
           </Link>
-          <Link onClick={logoutUser} to="/">
+          <Link onClick={logoutUser} to="/" data-testid={"logout-button"}>
             <BiLogOut />
           </Link>
           {false ? <BiLogIn /> : null}
