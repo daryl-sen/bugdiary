@@ -16,6 +16,7 @@ export default function Homepage() {
             <sup>1</sup>! What's there to lose?
           </p>
           <button
+            data-testid={"setup-button"}
             className="custom button-primary"
             onClick={() => {
               history.push("/new");
@@ -24,6 +25,7 @@ export default function Homepage() {
             Get Setup In 30 seconds
           </button>
           <button
+            data-testid={"signup-button"}
             className="custom button-primary"
             onClick={() => {
               history.push("/signup");

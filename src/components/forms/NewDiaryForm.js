@@ -71,7 +71,11 @@ export default function NewDiaryForm(props) {
       />
       {renderFieldError("passcode")}
 
-      <button type="submit" className="button-primary">
+      <button
+        type="submit"
+        className="button-primary"
+        data-testid={"create-diary-button"}
+      >
         Create Diary
       </button>
       <Link to="/diaries">

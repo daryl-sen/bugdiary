@@ -78,6 +78,7 @@ export default function DiaryVersionSetup(props) {
         type="button"
         onClick={handleSkip}
         className="custom button-primary"
+        data-testid={"next-step"}
       >
         Next Step
       </button>

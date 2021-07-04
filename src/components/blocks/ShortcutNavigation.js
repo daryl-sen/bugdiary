@@ -26,6 +26,7 @@ export default function ShortcutNavigation(props) {
     <>
       {diaryContext.mode === "show" ? (
         <NavigationButton
+          testId={"new-issue-button"}
           onClick={() => {
             setDiaryContext((prev) => {
               return { ...prev, mode: "add" };
@@ -37,6 +38,7 @@ export default function ShortcutNavigation(props) {
         </NavigationButton>
       ) : (
         <NavigationButton
+          testId={"diary-back-button"}
           onClick={() => {
             setDiaryContext((prev) => {
               return { ...prev, mode: "show" };
@@ -49,6 +51,7 @@ export default function ShortcutNavigation(props) {
       )}
 
       <NavigationButton
+        testId={"search-button"}
         onClick={() => {
           setDiaryContext((prev) => {
             return { ...prev, mode: "filter" };
@@ -61,6 +64,7 @@ export default function ShortcutNavigation(props) {
 
       <CopyToClipboard text={"https://www.bugdiary.com/diary/" + uuid}>
         <NavigationButton
+          testId={"copy-url-button"}
           onClick={() => {
             NotificationManager.success("URL copied!");
           }}
@@ -73,6 +77,7 @@ export default function ShortcutNavigation(props) {
       {(context.jwt && context.id === diaryContext.targetDiary.user_id) ||
       context.authenticatedDiaries.includes(uuid) ? (
         <NavigationButton
+          testId={"settings-button"}
           onClick={() => {
             setDiaryContext((prev) => {
               return { ...prev, mode: "diarySettings" };
@@ -83,6 +88,7 @@ export default function ShortcutNavigation(props) {
         </NavigationButton>
       ) : (
         <NavigationButton
+          testId={"passcode-button"}
           onClick={() => {
             setDiaryContext((prev) => {
               return { ...prev, mode: "passcodePrompt" };
@@ -95,6 +101,7 @@ export default function ShortcutNavigation(props) {
 
       {diaryContext.config.displayType === "cards" && (
         <NavigationButton
+          testId={"cards-view-button"}
           onClick={() => {
             setDiaryContext((prev) => {
               return {
@@ -111,6 +118,7 @@ export default function ShortcutNavigation(props) {
 
       {diaryContext.config.displayType === "table" && (
         <NavigationButton
+          testId={"table-view-button"}
           onClick={() => {
             setDiaryContext((prev) => {
               return {
@@ -126,6 +134,7 @@ export default function ShortcutNavigation(props) {
       )}
 
       <NavigationButton
+        testId={"refresh-button"}
         onClick={() => {
           getDiaryContent(uuid);
         }}

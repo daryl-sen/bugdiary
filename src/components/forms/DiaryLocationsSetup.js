@@ -68,6 +68,7 @@ export default function DiaryLocationSetup(props) {
         type="button"
         onClick={props.nextStep}
         className="custom button-primary"
+        data-testid={"next-step"}
       >
         Next Step
       </button>

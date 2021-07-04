@@ -69,6 +69,7 @@ export default function DiaryTypesSetup(props) {
         type="button"
         className="custom button-primary"
         onClick={props.end}
+        data-testid={"next-step"}
       >
         Go to Diary
       </button>

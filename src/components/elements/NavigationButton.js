@@ -10,6 +10,7 @@ export default function NavigationButton(props) {
   return (
     <button
       className="navigation-button"
+      data-testid={props.testId || null}
       onClick={() => {
         if (props.target) {
           return redirect(props.target);
