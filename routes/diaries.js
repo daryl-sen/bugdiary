@@ -134,9 +134,7 @@ module.exports = (models) => {
         if (!targetDiary) {
           return res.json({ error: "No diary associated with this UUID." });
         }
-        console.log('req.auth', req.auth);
         const auth = checkDiaryAuth(targetDiary, req.auth.userInfo, req);
-        console.log(auth);
 
         const issues = await Issue.findAll({
           include: [Type, Location, Version, Status],
@@ -168,7 +166,6 @@ module.exports = (models) => {
     // create diary
     .post("/", authenticateToken, async (req, res) => {
       try {
-        console.log(req.auth);
         const newDiary = await Diary.create({
           ...req.body,
           user_id: req.auth.userInfo ? req.auth.userInfo.id : null,
@@ -201,7 +198,6 @@ module.exports = (models) => {
 
         for (const attribute in req.body) {
           if (attribute === "passcode") {
-            console.log(attribute, req.body.passcode);
             targetDiary.passcode = await Diary.generateHash(req.body.passcode);
           } else {
             targetDiary[attribute] = req.body[attribute];

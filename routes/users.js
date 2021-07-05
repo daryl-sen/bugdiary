@@ -46,7 +46,6 @@ module.exports = (models) => {
             uuid: userInfo.uuid,
           },
         });
-        // console.log(targetUser)
         return res.json({
           loggedIn: true,
           userDetails: { ...targetUser.dataValues, Preference: undefined },
