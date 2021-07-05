@@ -14,6 +14,7 @@ import FullScreenShade from "../blocks/FullScreenShade";
 import useIssueFunctions from "../../hooks/useIssueFunctions";
 import IssueControlButton from "./IssueControlButton";
 import { useDiaryContext } from "../../AppContext";
+import { useHistory } from "react-router-dom";
 const issueStatusCodes = [
   "PRIORITIZED",
   "PENDING",
@@ -26,6 +27,7 @@ export default function IssueControls(props) {
   const { setDiaryContext } = useDiaryContext();
   const [openStatus, setOpenStatus] = useState(false);
   const { markIssue } = useIssueFunctions();
+  const history = useHistory();
   const toggleControls = () => {
     openStatus ? setOpenStatus(false) : setOpenStatus(true);
   };
@@ -57,12 +59,16 @@ export default function IssueControls(props) {
       setDiaryContext((prev) => {
         return {
           ...prev,
+          mode: "passcodePrompt",
           issues: prev.issues.map((issue) => {
             if (issue.uuid === props.issue.uuid) {
-              console.log('props.Status.id', props.issue.Status.id);
+              console.log("props.Status.id", props.issue.Status.id);
               return {
                 ...issue,
-                Status: { id: props.issue.Status.id, name: props.issue.Status.name },
+                Status: {
+                  id: props.issue.Status.id,
+                  name: props.issue.Status.name,
+                },
                 status_id: props.issue.Status.id,
               };
             }
@@ -130,7 +136,9 @@ export default function IssueControls(props) {
         <BiLinkExternal size={25} />
       </button> */}
 
-      {props.issue.private ? <BiHide data-testid={"private-icon"} size={25} /> : null}
+      {props.issue.private ? (
+        <BiHide data-testid={"private-icon"} size={25} />
+      ) : null}
 
       <button className="controls-toggle" onClick={toggleControls}>
         <BiMenuAltRight size={25} />
