@@ -19,10 +19,16 @@ import PasscodePrompt from "../overlays/PasscodePrompt";
 
 export default function Diary(props) {
   const { uuid } = useParams();
-  const { diaryContext, setDiaryContext } = useDiaryContext();
+  const {
+    diaryContext,
+    setDiaryContext,
+    resetDiaryContext,
+  } = useDiaryContext();
   const { getDiaryContent } = useDiaryFunctions();
 
   useEffect(() => {
+    console.log("reset");
+    resetDiaryContext();
     getDiaryContent(uuid);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
