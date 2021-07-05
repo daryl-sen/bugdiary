@@ -8,12 +8,16 @@ export default function IssueFooter(props) {
       </div>
       <div>
         {props.reporterName ? (
-          <a
-            href={props.reporterEmail ? "mailto:" + props.reporterEmail : "#"}
-            className="email"
-          >
-            {props.reporterName}
-          </a>
+          props.reporterEmail ? (
+            <a
+              href={props.reporterEmail ? "mailto:" + props.reporterEmail : "#"}
+              className="email"
+            >
+              {props.reporterName}
+            </a>
+          ) : (
+            props.reporterName
+          )
         ) : (
           "No author"
         )}
