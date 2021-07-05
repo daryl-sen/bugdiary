@@ -44,17 +44,19 @@ module.exports = (models) => {
         });
       } else if (req.session.jwt) {
         const userInfo = verifyToken(req.session.jwt);
-        const targetUser = User.findOne({
+        const targetUser = await User.findOne({
           include: [Preferences],
           where: {
             uuid: userInfo.uuid,
           },
         });
+        // console.log(targetUser)
         return res.json({
           loggedIn: true,
-          userDetails: targetUser,
-          userPreferences: targetUser.Preferences,
+          userDetails: {...targetUser.dataValues, Preference: undefined},
+          userPreferences: targetUser.dataValues.Preference,
           authenticatedDiaries: req.session.authenticatedDiaries || [],
+          jwt: req.session.jwt,
         });
       }
       return res.json({ loggedIn: true, message: "Logged in." });

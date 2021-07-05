@@ -105,6 +105,7 @@ export default function useUserFunctions() {
               ...prev,
               loggedIn: false,
               authenticatedDiaries: resp.data.authenticatedDiaries,
+              authPasscodeOnly: true,
             };
           });
         }
@@ -115,6 +116,7 @@ export default function useUserFunctions() {
             userDetails: resp.data.userDetails,
             userPreferences: resp.data.userPreferences,
             authenticatedDiaries: resp.data.authenticatedDiaries,
+            jwt: resp.data.jwt,
           };
         });
       })
