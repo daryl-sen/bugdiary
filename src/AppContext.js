@@ -17,6 +17,7 @@ export default function AppContextProvider(props) {
     userDetails: {
       uuid: undefined,
       display_name: undefined,
+      id: undefined,
     },
     userPreferences: {
       nightModeOverride: undefined,

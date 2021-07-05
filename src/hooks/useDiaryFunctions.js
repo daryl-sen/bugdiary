@@ -144,6 +144,31 @@ export default function useDiaryFunctions() {
       });
   };
 
+  const transferOwnership = async (uuid, newOwnerId) => {
+    await axios
+      .patch(
+        "/api/diaries/" + uuid,
+        {
+          user_id: newOwnerId,
+        },
+        headers
+      )
+      .then((resp) => {
+        if (resp.data.error) {
+          console.log(resp.data.error);
+          NotificationManager.error(
+            "Could not claim this diary", resp.data.error
+          );
+          return false;
+        }
+        setDiaryContext((prev) => {
+          return { ...prev, targetDiary: resp.data };
+        });
+        NotificationManager.success("You have claimed this diary!");
+        return resp.data;
+      });
+  };
+
   return {
     context,
     loadingStatus,
@@ -155,5 +180,6 @@ export default function useDiaryFunctions() {
     deleteDiary,
     extendExpiry,
     authenticateWithPasscode,
+    transferOwnership,
   };
 }

@@ -4,10 +4,12 @@ import LinedContainer from "../blocks/LinedContainer";
 import DiaryInfoForm from "../forms/DiaryInfoForm";
 import { useAppContext, useDiaryContext } from "../../AppContext";
 import { Link } from "react-router-dom";
+import useDiaryFunctions from "../../hooks/useDiaryFunctions";
 
 export default function DiaryInfoSettings(props) {
   const { context } = useAppContext();
   const { diaryContext } = useDiaryContext();
+  const { transferOwnership } = useDiaryFunctions();
 
   return (
     <TwoColumnLayout
@@ -24,7 +26,15 @@ export default function DiaryInfoSettings(props) {
                     authenticated via passcode, you may add this diary to your
                     account.
                   </p>
-                  <button class="custom button-secondary">
+                  <button
+                    class="custom button-secondary"
+                    onClick={() => {
+                      transferOwnership(
+                        diaryContext.targetDiary.uuid,
+                        context.userDetails.id
+                      );
+                    }}
+                  >
                     Claim Diary
                   </button>
                 </>
