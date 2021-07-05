@@ -70,6 +70,7 @@ export default function Diary(props) {
         {diaryContext.mode === "passcodePrompt" && (
           <PasscodePrompt
             exit={(target) => {
+              getDiaryContent(uuid);
               setDiaryContext((prev) => {
                 return { ...prev, mode: target };
               });
