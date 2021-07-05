@@ -85,6 +85,9 @@ export default function useUserFunctions() {
   const logoutUser = () => {
     axios.post("/api/users/logout").then((resp) => {
       resetAppContext();
+      setContext((prev) => {
+        return { ...prev, loggedIn: false };
+      });
       NotificationManager.success("Logged out!");
       history.push("/");
     });
