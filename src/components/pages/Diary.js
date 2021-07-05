@@ -36,7 +36,11 @@ export default function Diary(props) {
       const storedRecentDiaries = localStorage.getItem("recentDiaries");
       if (storedRecentDiaries) {
         if (!storedRecentDiaries.includes(targetDiary.uuid)) {
-          const recentDiaries = JSON.parse(storedRecentDiaries);
+          let recentDiaries = JSON.parse(storedRecentDiaries);
+          if (recentDiaries.length > 3) {
+            recentDiaries = recentDiaries.slice(1);
+            console.log(recentDiaries);
+          }
           recentDiaries.push(currentDiary);
           localStorage.recentDiaries = JSON.stringify(recentDiaries);
         }
