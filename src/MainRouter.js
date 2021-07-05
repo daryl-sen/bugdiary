@@ -33,7 +33,7 @@ export default function MainRouter(props) {
     checkToken(setContext);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  console.log(context);
+  // console.log(context);
 
   if (context.loggedIn === undefined) {
     return <LoadingIndicator />;

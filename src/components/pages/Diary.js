@@ -29,7 +29,21 @@ export default function Diary(props) {
   useEffect(() => {
     console.log("reset");
     resetDiaryContext();
-    getDiaryContent(uuid);
+    getDiaryContent(uuid, false, false, (targetDiary) => {
+      // add current diary to recent diaries
+      const currentDiary = [targetDiary.name, targetDiary.uuid];
+
+      const storedRecentDiaries = localStorage.getItem("recentDiaries");
+      if (storedRecentDiaries) {
+        if (!storedRecentDiaries.includes(targetDiary.uuid)) {
+          const recentDiaries = JSON.parse(storedRecentDiaries);
+          recentDiaries.push(currentDiary);
+          localStorage.recentDiaries = JSON.stringify(recentDiaries);
+        }
+      } else {
+        localStorage.recentDiaries = JSON.stringify([currentDiary]);
+      }
+    });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (diaryContext.targetDiary === undefined) {

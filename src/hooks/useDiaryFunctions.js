@@ -46,7 +46,7 @@ export default function useDiaryFunctions() {
     });
   };
 
-  const getDiaryContent = (uuid, showResolved, showDeleted) => {
+  const getDiaryContent = (uuid, showResolved, showDeleted, callback) => {
     console.log("updating");
     axios
       .get(
@@ -75,6 +75,7 @@ export default function useDiaryFunctions() {
             issues: resp.data.issues,
           };
         });
+        if (callback) callback(resp.data.targetDiary);
       })
       .catch((err) => {
         console.log(err);
@@ -157,7 +158,8 @@ export default function useDiaryFunctions() {
         if (resp.data.error) {
           console.log(resp.data.error);
           NotificationManager.error(
-            "Could not claim this diary", resp.data.error
+            "Could not claim this diary",
+            resp.data.error
           );
           return false;
         }
