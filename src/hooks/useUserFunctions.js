@@ -7,7 +7,7 @@ import { NotificationManager } from "react-notifications";
 import { useAppContext } from "../AppContext";
 
 export default function useUserFunctions() {
-  const { setContext } = useAppContext();
+  const { setContext, resetAppContext } = useAppContext();
   const [loadingStatus, setLoadingStatus] = useState(false);
   const history = useHistory();
 
@@ -22,8 +22,10 @@ export default function useUserFunctions() {
           setContext((prev) => {
             return {
               ...prev,
+              loggedIn: true,
               jwt: resp.data.accessToken,
-              userId: resp.data.targetUser.id,
+              userDetails: resp.data.targetUser,
+              userPreferences: resp.data.targetUser.Preferences,
             };
           });
           NotificationManager.success("Welcome back!", "Logged In");
@@ -63,7 +65,13 @@ export default function useUserFunctions() {
           }
           // automatically log the user in
           setContext((prev) => {
-            return { ...prev, jwt: resp.data.accessToken };
+            return {
+              ...prev,
+              loggedIn: true,
+              jwt: resp.data.accessToken,
+              userDetails: resp.data.newUser,
+              userPreferences: resp.data.newUserPreferences,
+            };
           });
           NotificationManager.success("Welcome to BugDiary.com!");
           history.push("/" + (next || "diaries"));
@@ -76,15 +84,8 @@ export default function useUserFunctions() {
 
   const logoutUser = () => {
     axios.post("/api/users/logout").then((resp) => {
+      resetAppContext();
       NotificationManager.success("Logged out!");
-      setContext((prev) => {
-        return {
-          ...prev,
-          jwt: null,
-          name: null,
-          authenticatedDiaries: [],
-        };
-      });
       history.push("/");
     });
   };
@@ -102,7 +103,7 @@ export default function useUserFunctions() {
           return setContext((prev) => {
             return {
               ...prev,
-              jwt: null,
+              loggedIn: false,
               authenticatedDiaries: resp.data.authenticatedDiaries,
             };
           });
@@ -110,7 +111,9 @@ export default function useUserFunctions() {
         return setContext((prev) => {
           return {
             ...prev,
-            ...resp.data.userInfo,
+            loggedIn: true,
+            userDetails: resp.data.userDetails,
+            userPreferences: resp.data.userPreferences,
             authenticatedDiaries: resp.data.authenticatedDiaries,
           };
         });

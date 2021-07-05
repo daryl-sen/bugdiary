@@ -11,17 +11,23 @@ export function useDiaryContext() {
 }
 
 export default function AppContextProvider(props) {
-  const [context, setContext] = useState({
+  const defaultAppContext = {
+    loggedIn: undefined,
     jwt: undefined,
-    name: undefined,
-    theme: "light",
+    userDetails: {
+      uuid: undefined,
+      display_name: undefined,
+    },
+    userPreferences: {
+      nightModeOverride: undefined,
+    },
     authenticatedDiaries: [],
-  });
+  };
 
-  const [diaryContext, setDiaryContext] = useState({
+  const defaultDiaryContext = {
     targetDiary: undefined,
     issues: [],
-    mode: "show", // "show", "add", "filter", "diarySettings", "diaryModification", "diarySetup"
+    mode: "show", // "show", "add", "filter", "diarySettings", "diaryModification", "diarySetup", "passcodePrompt"
     config: {
       displayType: "cards",
       showResolved: false,
@@ -30,26 +36,20 @@ export default function AppContextProvider(props) {
       order: "default",
     },
     selected: [],
-  });
+  };
 
+  const [context, setContext] = useState(defaultAppContext);
+  const resetAppContext = () => {
+    setContext(defaultAppContext);
+  };
+
+  const [diaryContext, setDiaryContext] = useState(defaultDiaryContext);
   const resetDiaryContext = () => {
-    setDiaryContext({
-      targetDiary: undefined,
-      issues: [],
-      mode: "show", // "show", "add", "filter", "diarySettings", "diaryModification", "diarySetup", "passcodePrompt"
-      config: {
-        displayType: "cards",
-        showResolved: false,
-        showDeleted: false,
-        filterTerm: "",
-        order: "default",
-      },
-      selected: [],
-    });
+    setDiaryContext(defaultDiaryContext);
   };
 
   return (
-    <AppContext.Provider value={{ context, setContext }}>
+    <AppContext.Provider value={{ context, setContext, resetAppContext }}>
       <DiaryContext.Provider
         value={{ diaryContext, setDiaryContext, resetDiaryContext }}
       >
