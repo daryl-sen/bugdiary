@@ -21,10 +21,10 @@ export default function DiaryContainer(props) {
         </h3>
         {props.description}
       </main>
-      <aside>
+      {/* <aside>
         <BiBug />
         &nbsp; 0 / 5
-      </aside>
+      </aside> */}
     </div>
   );
 }
