@@ -32,10 +32,7 @@ export default function SideNav(props) {
     const storedRecentDiaries = localStorage.getItem("recentDiaries");
     if (storedRecentDiaries) {
       const recentDiaries = JSON.parse(localStorage.getItem("recentDiaries"));
-      const last3 = recentDiaries.slice(
-        recentDiaries.length - 3,
-      );
-      return last3.map((diary) => {
+      return recentDiaries.map((diary) => {
         return (
           <Link key={diary[1]} to={"/diary/" + diary[1]}>
             {diary[0]}
