@@ -26,7 +26,9 @@ module.exports = (models) => {
           // other fields have default values
         });
         req.session.jwt = accessToken;
-        return res.status(201).json({ newUser, accessToken });
+        return res
+          .status(201)
+          .json({ newUser, accessToken, newUserPreferences });
       } catch (error) {
         console.log(error);
         return res.status(500).json({ error: error.errors });
@@ -42,14 +44,16 @@ module.exports = (models) => {
         });
       } else if (req.session.jwt) {
         const userInfo = verifyToken(req.session.jwt);
+        const targetUser = User.findOne({
+          include: [Preferences],
+          where: {
+            uuid: userInfo.uuid,
+          },
+        });
         return res.json({
           loggedIn: true,
-          userInfo: {
-            name: userInfo.name,
-            uuid: userInfo.uuid,
-            id: userInfo.id,
-            jwt: req.session.jwt,
-          },
+          userDetails: targetUser,
+          userPreferences: targetUser.Preferences,
           authenticatedDiaries: req.session.authenticatedDiaries || [],
         });
       }
@@ -74,6 +78,7 @@ module.exports = (models) => {
 
       try {
         const targetUser = await User.findOne({
+          include: [Preferences],
           where: {
             email: email.toLowerCase(),
           },
