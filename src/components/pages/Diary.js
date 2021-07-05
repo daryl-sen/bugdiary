@@ -44,7 +44,7 @@ export default function Diary(props) {
         localStorage.recentDiaries = JSON.stringify([currentDiary]);
       }
     });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [uuid]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (diaryContext.targetDiary === undefined) {
     return <LoadingIndicator />;
