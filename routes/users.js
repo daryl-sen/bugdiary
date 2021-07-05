@@ -16,11 +16,7 @@ module.exports = (models) => {
           ...req.body,
           email: req.body.email.toLowerCase(),
         });
-        const accessToken = generateToken({
-          id: newUser.id,
-          name: newUser.display_name,
-          uuid: newUser.uuid,
-        });
+        const accessToken = generateToken({ ...newUser, password: undefined });
         const newUserPreferences = await Preferences.create({
           user_id: newUser.id,
           // other fields have default values
@@ -53,7 +49,7 @@ module.exports = (models) => {
         // console.log(targetUser)
         return res.json({
           loggedIn: true,
-          userDetails: {...targetUser.dataValues, Preference: undefined},
+          userDetails: { ...targetUser.dataValues, Preference: undefined },
           userPreferences: targetUser.dataValues.Preference,
           authenticatedDiaries: req.session.authenticatedDiaries || [],
           jwt: req.session.jwt,
@@ -95,9 +91,8 @@ module.exports = (models) => {
         }
 
         const accessToken = generateToken({
-          id: targetUser.id,
-          name: targetUser.display_name,
-          uuid: targetUser.uuid,
+          ...targetUser.dataValues,
+          password: undefined,
         });
 
         req.session.jwt = accessToken;

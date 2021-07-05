@@ -30,6 +30,8 @@ export default function IssueControls(props) {
     openStatus ? setOpenStatus(false) : setOpenStatus(true);
   };
 
+  // console.log(props)
+
   const mark = async (targetStatus) => {
     setDiaryContext((prev) => {
       return {
@@ -57,10 +59,11 @@ export default function IssueControls(props) {
           ...prev,
           issues: prev.issues.map((issue) => {
             if (issue.uuid === props.issue.uuid) {
+              console.log('props.Status.id', props.issue.Status.id);
               return {
                 ...issue,
-                Status: { id: props.Status.id, name: props.Status.name },
-                status_id: props.Status.id,
+                Status: { id: props.issue.Status.id, name: props.issue.Status.name },
+                status_id: props.issue.Status.id,
               };
             }
             return issue;

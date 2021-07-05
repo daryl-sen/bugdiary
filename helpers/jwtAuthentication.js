@@ -11,13 +11,17 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 const authenticateToken = (req, res, next) => {
+  let token;
   const authHeader = req.headers["authorization"];
-  if (!authHeader) {
+  if (!authHeader && !req.session.jwt) {
     req.auth = { status: false, message: "No JWT Received" };
     next();
     return;
+  } else if (req.session.jwt) {
+    token = req.session.jwt;
+  } else {
+    token = authHeader.split(" ")[1];
   }
-  const token = authHeader.split(" ")[1];
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, user) => {
     if (error) {
       req.auth = { status: false, message: "Invalid JWT" };

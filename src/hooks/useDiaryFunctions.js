@@ -21,6 +21,7 @@ export default function useDiaryFunctions() {
       authorization: `Bearer ${context.jwt}`,
       "Content-Type": "application/json",
     },
+    withCredentials: true, // enables API to read req.session cookies
   };
 
   const createDiary = (diaryDetails) => {

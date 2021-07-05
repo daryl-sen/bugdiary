@@ -74,7 +74,7 @@ export default function ShortcutNavigation(props) {
         </NavigationButton>
       </CopyToClipboard>
 
-      {(context.jwt && context.id === diaryContext.targetDiary.user_id) ||
+      {(context.loggedIn && context.userDetails.id === diaryContext.targetDiary.user_id) ||
       context.authenticatedDiaries.includes(uuid) ? (
         <NavigationButton
           testId={"settings-button"}

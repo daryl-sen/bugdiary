@@ -134,8 +134,9 @@ module.exports = (models) => {
         if (!targetDiary) {
           return res.json({ error: "No diary associated with this UUID." });
         }
-
+        console.log('req.auth', req.auth);
         const auth = checkDiaryAuth(targetDiary, req.auth.userInfo, req);
+        console.log(auth);
 
         const issues = await Issue.findAll({
           include: [Type, Location, Version, Status],
