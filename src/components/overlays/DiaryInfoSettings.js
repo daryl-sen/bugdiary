@@ -2,20 +2,45 @@ import TwoColumnLayout from "../layouts/TwoColumnLayout";
 import WhiteBgContainer from "../blocks/WhiteBgContainer";
 import LinedContainer from "../blocks/LinedContainer";
 import DiaryInfoForm from "../forms/DiaryInfoForm";
+import { useAppContext, useDiaryContext } from "../../AppContext";
+import { Link } from "react-router-dom";
 
 export default function DiaryInfoSettings(props) {
+  const { context } = useAppContext();
+  const { diaryContext } = useDiaryContext();
+
   return (
     <TwoColumnLayout
       preset="confined"
       aside={
         <>
-          <LinedContainer>
-            <h2>Diary Ownership</h2>
-            <p>
-              This diary does not belong to any user, if you have the passcode,
-              you can claim this diary and add it to your account.
-            </p>
-          </LinedContainer>
+          {diaryContext.targetDiary.user_id ? null : (
+            <LinedContainer>
+              <h2>Diary Ownership</h2>
+              {context.loggedIn ? (
+                <>
+                  <p>
+                    This diary does not belong to any user. Since you're
+                    authenticated via passcode, you may add this diary to your
+                    account.
+                  </p>
+                  <button class="custom button-secondary">
+                    Claim Diary
+                  </button>
+                </>
+              ) : (
+                <>
+                  <p>
+                    This diary does not belong to any user. You can add this
+                    diary to your account if you log in.
+                  </p>
+                  <Link to="/login">
+                    <button className="custom button-secondary">Log In</button>
+                  </Link>
+                </>
+              )}
+            </LinedContainer>
+          )}
           <LinedContainer>
             <h2>Privacy Settings</h2>
             <p>
