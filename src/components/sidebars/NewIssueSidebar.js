@@ -15,7 +15,7 @@ export default function NewIssueSidebar() {
           that's completely free to use! You can get set up in as little as 30
           seconds, no signups required!
         </p>
-        <Link>
+        <Link to="/new">
           <button className="custom button-primary">Get Started</button>
         </Link>
       </LinedContainer>

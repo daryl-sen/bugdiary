@@ -14,7 +14,6 @@ import FullScreenShade from "../blocks/FullScreenShade";
 import useIssueFunctions from "../../hooks/useIssueFunctions";
 import IssueControlButton from "./IssueControlButton";
 import { useDiaryContext } from "../../AppContext";
-import { useHistory } from "react-router-dom";
 const issueStatusCodes = [
   "PRIORITIZED",
   "PENDING",
@@ -27,7 +26,6 @@ export default function IssueControls(props) {
   const { setDiaryContext } = useDiaryContext();
   const [openStatus, setOpenStatus] = useState(false);
   const { markIssue } = useIssueFunctions();
-  const history = useHistory();
   const toggleControls = () => {
     openStatus ? setOpenStatus(false) : setOpenStatus(true);
   };
