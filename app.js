@@ -40,6 +40,29 @@ app.use("/api/diaries/issues/locations", locations(models));
 app.use("/api/diaries/issues/tags", tags(models));
 app.use("/api/diaries/issues/versions", versions(models));
 
+app.get("/r/:alias", async (req, res) => {
+  console.log('object');
+  try {
+    const aliasEntry = await models.Alias.findOne({
+      where: {
+        alias: req.params.alias,
+      },
+    });
+    if (!aliasEntry) {
+      console.log("nope");
+      return res.end("no alias found");
+    }
+    return res.json(aliasEntry);
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
+
+app.post("/r/:alias", (req, res) => {
+  //
+});
+
 app.get("*", (req, res) => {
   return res.sendFile(path.join(__dirname, "build", "index.html"));
 });
