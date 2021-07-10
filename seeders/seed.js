@@ -43,11 +43,7 @@ const jsonData = {
 
 // drops tables and reseeds them with premade seeds
 async function seed() {
-  // if (process.env.RESETDB === "true") {
-  //   await models.sequelize.sync({ force: true });
-  // } else {
-  //   await models.sequelize.sync({ alter: true });
-  // }
+  await models.sequelize.sync({ force: true });
 
   for (const modelName in jsonData) {
     for (const instance of jsonData[modelName]) {
