@@ -16,8 +16,7 @@ const createEntries = async (modelName, instance) => {
   }
 };
 
-// register new model and seeds below
-
+// register new models and their seed files below
 const jsonData = {
   UserType: getContent("./seeders/JSONseeds/userTypes.json"),
   Status: getContent("./seeders/JSONseeds/statuses.json"),
@@ -35,7 +34,8 @@ const jsonData = {
 
 const targetModel = process.argv.slice(2)[0];
 
-async function run() {
+// drops tables and reseeds them with premade seeds
+async function seed() {
   if (process.env.RESETDB === "true") {
     await models.sequelize.sync({ force: true });
   } else {
@@ -59,4 +59,25 @@ async function run() {
   }
 }
 
-run();
+// generates JSON seeds based on existing entries in the database
+const generate = async () => {
+  if (!fs.existsSync("seeders/regenerated/")) {
+    fs.mkdirSync("seeders/regenerated/");
+  }
+  for (const modelName in jsonData) {
+    const content = [];
+    try {
+      const allEntries = await models[modelName].findAll();
+      for (const entry of allEntries) {
+        content.push(entry.dataValues);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    const jsonContent = JSON.stringify(content);
+    fs.writeFileSync(`seeders/regenerated/${modelName}.json`, jsonContent);
+  }
+};
+
+generate();
