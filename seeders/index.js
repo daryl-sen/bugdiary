@@ -38,7 +38,6 @@ const jsonData = {
   Issue: getContent(`./seeders/${seedPath}/Issue.json`),
   Comment: getContent(`./seeders/${seedPath}/Comment.json`),
   Upvote: getContent(`./seeders/${seedPath}/Upvote.json`),
-  Alias: getContent(`./seeders/${seedPath}/Alias.json`),
 };
 
 // drops tables and reseeds them with premade seeds
