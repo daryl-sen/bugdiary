@@ -2,20 +2,20 @@ const express = require("express");
 const router = express.Router();
 
 module.exports = (models) => {
-  const { Diary, Alias } = models;
+  const { Diary } = models;
   router
 
     .get("/:alias", async (req, res) => {
       try {
-        const aliasEntry = await models.Alias.findOne({
+        const targetDiary = await Diary.findOne({
           where: {
-            name: req.params.alias,
+            alias: req.params.alias,
           },
         });
-        if (!aliasEntry) {
-          return res.end("no alias found");
+        if (!targetDiary) {
+          res.redirect(`/errors`);
         }
-        return res.json(aliasEntry);
+        return res.redirect(`/diary/${targetDiary.uuid}`);
       } catch (err) {
         console.log(err);
         res.json(err);

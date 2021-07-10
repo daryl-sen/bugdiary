@@ -76,6 +76,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         defaultValue: 0,
       },
+      alias: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
+      },
       expiry_date: {
         type: DataTypes.DATE,
         allowNull: true,
