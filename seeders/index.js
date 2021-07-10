@@ -38,6 +38,7 @@ const jsonData = {
   Issue: getContent(`./seeders/${seedPath}/Issue.json`),
   Comment: getContent(`./seeders/${seedPath}/Comment.json`),
   Upvote: getContent(`./seeders/${seedPath}/Upvote.json`),
+  Alias: getContent(`./seeders/${seedPath}/Alias.json`),
 };
 
 // drops tables and reseeds them with premade seeds
@@ -95,7 +96,6 @@ const reseed = async () => {
       } else {
         lastId = 1;
       }
-      console.log(lastId);
 
       // set auto_increment of PK after all insertions
       await models.sequelize.query(
