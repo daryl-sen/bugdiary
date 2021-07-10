@@ -1,5 +1,6 @@
 const models = require("../models");
 const fs = require("fs");
+const { sequelize } = require("../models");
 require("dotenv").config();
 
 const getContent = (path) => {
@@ -16,11 +17,9 @@ const createEntries = async (modelName, instance) => {
 };
 
 // operatingMode = "reset" OR "regenerate" OR "reseed"
-/*
-  reset: drop all tables, recreate, and seed with precreated data
-  regenerate: create seeds as a JSON file
-  reseed: drop all tables, recreate, and reseed with regenerated seeds
-*/
+// reset: drop all tables, recreate, and seed with precreated data
+// regenerate: create seeds as a JSON file
+// reseed: drop all tables, recreate, and reseed with regenerated seeds
 
 const operatingMode = process.argv.slice(2)[0] || "reset";
 let seedPath = operatingMode === "reseed" ? "regenerated" : "JSONseeds";
@@ -50,6 +49,7 @@ async function seed() {
       await createEntries(modelName, instance);
     }
   }
+  models.sequelize.close();
 }
 
 // generates JSON seeds based on existing entries in the database
@@ -70,11 +70,54 @@ const regenerate = async () => {
 
     const jsonContent = JSON.stringify(content);
     fs.writeFileSync(`seeders/regenerated/${modelName}.json`, jsonContent);
+    console.log(`Created seeds for ${modelName}`);
   }
+  models.sequelize.close();
 };
 
-if (operatingMode === "regenerate") {
-  regenerate();
-} else {
-  seed();
+const reseed = async () => {
+  await models.sequelize.sync({ force: true });
+
+  for (const modelName in jsonData) {
+    try {
+      const data = jsonData[modelName];
+      await models[modelName].bulkCreate(data);
+      let tableName = modelName;
+
+      // models with table names that are different from their model names
+      if (modelName === "User") tableName = "app_user";
+      if (modelName === "UserType") tableName = "user_type";
+
+      // find the last ID in that table
+      let lastId;
+      if (data.length > 0) {
+        lastId = data[data.length - 1].id + 1;
+      } else {
+        lastId = 1;
+      }
+      console.log(lastId);
+
+      // set auto_increment of PK after all insertions
+      await models.sequelize.query(
+        `ALTER SEQUENCE "${tableName.toLowerCase()}_id_seq" restart with ${lastId}`
+      );
+      console.log(`Finished reseeding ${modelName}`);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  models.sequelize.close();
+};
+
+switch (operatingMode) {
+  case "regenerate":
+    regenerate();
+    break;
+  case "reseed":
+    reseed();
+    break;
+  default:
+    seed();
 }
+
+/**/
