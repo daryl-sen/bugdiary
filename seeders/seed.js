@@ -7,7 +7,6 @@ const getContent = (path) => {
 };
 
 const createEntries = async (modelName, instance) => {
-  // console.log(`processing ${JSON.stringify(instance)}\n\n`);
   try {
     const newEntry = await models[modelName].create({ ...instance });
     console.log(`Created #${newEntry.id} in '${modelName}'`);
@@ -16,53 +15,51 @@ const createEntries = async (modelName, instance) => {
   }
 };
 
+// operatingMode = "reset" OR "regenerate" OR "reseed"
+/*
+  reset: drop all tables, recreate, and seed with precreated data
+  regenerate: create seeds as a JSON file
+  reseed: drop all tables, recreate, and reseed with regenerated seeds
+*/
+
+const operatingMode = process.argv.slice(2)[0];
+let seedPath = operatingMode === "reseed" ? "regenerated" : "JSONseeds";
+
 // register new models and their seed files below
 const jsonData = {
-  UserType: getContent("./seeders/JSONseeds/userTypes.json"),
-  Status: getContent("./seeders/JSONseeds/statuses.json"),
-  User: getContent("./seeders/JSONseeds/users.json"),
-  Preferences: getContent("./seeders/JSONseeds/preferences.json"),
-  Diary: getContent("./seeders/JSONseeds/diaries.json"),
-  Version: getContent("./seeders/JSONseeds/versions.json"),
-  Location: getContent("./seeders/JSONseeds/locations.json"),
-  Type: getContent("./seeders/JSONseeds/types.json"),
-  Tag: getContent("./seeders/JSONseeds/tags.json"),
-  Issue: getContent("./seeders/JSONseeds/issues.json"),
-  Comment: getContent("./seeders/JSONseeds/comments.json"),
-  Upvote: getContent("./seeders/JSONseeds/upvotes.json"),
+  UserType: getContent(`./seeders/${seedPath}/UserType.json`),
+  Status: getContent(`./seeders/${seedPath}/Status.json`),
+  User: getContent(`./seeders/${seedPath}/User.json`),
+  Preferences: getContent(`./seeders/${seedPath}/Preferences.json`),
+  Diary: getContent(`./seeders/${seedPath}/Diary.json`),
+  Version: getContent(`./seeders/${seedPath}/Version.json`),
+  Location: getContent(`./seeders/${seedPath}/Location.json`),
+  Type: getContent(`./seeders/${seedPath}/Type.json`),
+  Tag: getContent(`./seeders/${seedPath}/Tag.json`),
+  Issue: getContent(`./seeders/${seedPath}/Issue.json`),
+  Comment: getContent(`./seeders/${seedPath}/Comment.json`),
+  Upvote: getContent(`./seeders/${seedPath}/Upvote.json`),
 };
-
-const targetModel = process.argv.slice(2)[0];
 
 // drops tables and reseeds them with premade seeds
 async function seed() {
-  if (process.env.RESETDB === "true") {
-    await models.sequelize.sync({ force: true });
-  } else {
-    await models.sequelize.sync({ alter: true });
-  }
+  // if (process.env.RESETDB === "true") {
+  //   await models.sequelize.sync({ force: true });
+  // } else {
+  //   await models.sequelize.sync({ alter: true });
+  // }
 
-  if (!targetModel) {
-    for (const modelName in jsonData) {
-      for (const instance of jsonData[modelName]) {
-        await createEntries(modelName, instance);
-      }
-    }
-  } else {
-    if (targetModel in models) {
-      for (const instance of jsonData[targetModel]) {
-        await createEntries(targetModel, instance);
-      }
-    } else {
-      console.log(`The model you specified does not exist. ("${targetModel}")`);
+  for (const modelName in jsonData) {
+    for (const instance of jsonData[modelName]) {
+      await createEntries(modelName, instance);
     }
   }
 }
 
 // generates JSON seeds based on existing entries in the database
-const generate = async () => {
-  if (!fs.existsSync("seeders/regenerated/")) {
-    fs.mkdirSync("seeders/regenerated/");
+const regenerate = async () => {
+  if (!fs.existsSync("./seeders/regenerated/")) {
+    fs.mkdirSync("./seeders/regenerated/");
   }
   for (const modelName in jsonData) {
     const content = [];
@@ -80,4 +77,8 @@ const generate = async () => {
   }
 };
 
-generate();
+if (operatingMode === "regenerate") {
+  regenerate();
+} else {
+  seed();
+}
