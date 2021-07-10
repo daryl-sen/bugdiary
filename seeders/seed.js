@@ -22,7 +22,7 @@ const createEntries = async (modelName, instance) => {
   reseed: drop all tables, recreate, and reseed with regenerated seeds
 */
 
-const operatingMode = process.argv.slice(2)[0];
+const operatingMode = process.argv.slice(2)[0] || "reset";
 let seedPath = operatingMode === "reseed" ? "regenerated" : "JSONseeds";
 
 // register new models and their seed files below
