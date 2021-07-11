@@ -65,9 +65,9 @@ export default function Diary(props) {
         <ScrollToTop />
         <h1>{targetDiary.name}</h1>
         <div>
-          <IssueTag type="PRIORITIZED">Resolved:</IssueTag>
-          <IssueTag type="PENDING">Resolved:</IssueTag>
-          <IssueTag type="RESOLVED">Resolved:</IssueTag>
+          <IssueTag type="PRIORITIZED">Prioritized: {diaryContext.counts.prioritizedCount}</IssueTag>
+          <IssueTag type="PENDING">Pending: {diaryContext.counts.pendingCount}</IssueTag>
+          <IssueTag type="RESOLVED">Resolved: {diaryContext.counts.resolvedCount}</IssueTag>
         </div>
         <ShortcutNavigation />
 

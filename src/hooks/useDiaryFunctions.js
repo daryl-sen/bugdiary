@@ -72,6 +72,7 @@ export default function useDiaryFunctions() {
           return {
             ...prev,
             targetDiary: resp.data.targetDiary,
+            counts: resp.data.counts,
             issues: resp.data.issues,
           };
         });

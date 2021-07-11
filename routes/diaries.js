@@ -137,7 +137,7 @@ module.exports = (models) => {
 
         const resolvedCount = await targetDiary.countIssues({
           where: {
-            status_id: 3,
+            status_id: 4,
           },
         });
         const pendingCount = await targetDiary.countIssues({
