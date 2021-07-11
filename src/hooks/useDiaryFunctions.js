@@ -191,6 +191,14 @@ export default function useDiaryFunctions() {
       });
   };
 
+  const updateIssueCounts = (uuid) => {
+    axios.get("/api/diaries/counts/" + uuid).then((resp) => {
+      setDiaryContext((prev) => {
+        return { ...prev, counts: resp.data };
+      });
+    });
+  };
+
   return {
     context,
     loadingStatus,
@@ -204,5 +212,6 @@ export default function useDiaryFunctions() {
     authenticateWithPasscode,
     transferOwnership,
     updateAlias,
+    updateIssueCounts,
   };
 }

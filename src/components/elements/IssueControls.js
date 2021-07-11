@@ -14,6 +14,7 @@ import FullScreenShade from "../blocks/FullScreenShade";
 import useIssueFunctions from "../../hooks/useIssueFunctions";
 import IssueControlButton from "./IssueControlButton";
 import { useDiaryContext } from "../../AppContext";
+import useDiaryFunctions from "../../hooks/useDiaryFunctions";
 const issueStatusCodes = [
   "PRIORITIZED",
   "PENDING",
@@ -23,14 +24,13 @@ const issueStatusCodes = [
 ];
 
 export default function IssueControls(props) {
-  const { setDiaryContext } = useDiaryContext();
+  const { diaryContext, setDiaryContext } = useDiaryContext();
   const [openStatus, setOpenStatus] = useState(false);
+  const { updateIssueCounts } = useDiaryFunctions();
   const { markIssue } = useIssueFunctions();
   const toggleControls = () => {
     openStatus ? setOpenStatus(false) : setOpenStatus(true);
   };
-
-  // console.log(props)
 
   const mark = async (targetStatus) => {
     setDiaryContext((prev) => {
@@ -74,6 +74,8 @@ export default function IssueControls(props) {
           }),
         };
       });
+    } else {
+      updateIssueCounts(diaryContext.targetDiary.uuid);
     }
   };
 
