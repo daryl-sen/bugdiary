@@ -17,7 +17,7 @@ import { useDiaryContext } from "../../AppContext";
 import NewIssueSidebar from "../sidebars/NewIssueSidebar";
 
 export default function NewIssueForm(props) {
-  const { setDiaryContext } = useDiaryContext();
+  const { diaryContext, setDiaryContext } = useDiaryContext();
   const [loadingStatus, setLoadingStatus] = useState(false);
   const uuid = useParams().uuid;
 
@@ -31,7 +31,11 @@ export default function NewIssueForm(props) {
       reporter_email: "",
       type_name: "",
       location_name: "",
-      private: "",
+      private:
+        diaryContext.targetDiary.privacy === "defaultPrivate" ||
+        diaryContext.targetDiary.privacy === "enforcePrivate"
+          ? true
+          : false,
     },
 
     validationSchema: Yup.object({
@@ -160,6 +164,10 @@ export default function NewIssueForm(props) {
               id="private"
               type="checkbox"
               {...formik.getFieldProps("private")}
+              checked={formik.values.private}
+              disabled={
+                diaryContext.targetDiary.privacy === "enforcePrivate" && true
+              }
             />
             Make this private
           </label>
