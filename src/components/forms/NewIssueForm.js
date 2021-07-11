@@ -15,12 +15,14 @@ import WhiteBgContainer from "../blocks/WhiteBgContainer";
 import { useAppContext, useDiaryContext } from "../../AppContext";
 
 import NewIssueSidebar from "../sidebars/NewIssueSidebar";
+import useDiaryFunctions from "../../hooks/useDiaryFunctions";
 
 export default function NewIssueForm(props) {
   const { diaryContext, setDiaryContext } = useDiaryContext();
   const { context } = useAppContext();
   const [loadingStatus, setLoadingStatus] = useState(false);
   const uuid = useParams().uuid;
+  const { updateIssueCounts } = useDiaryFunctions();
   const { issueData, getIssueSetupDetails, createIssue } = useIssueFunctions();
 
   const formik = useFormik({
@@ -70,6 +72,7 @@ export default function NewIssueForm(props) {
       setDiaryContext((prev) => {
         return { ...prev, mode: "show", issues: [newIssue, ...prev.issues] };
       });
+      updateIssueCounts(uuid);
     },
   });
 
