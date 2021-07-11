@@ -16,6 +16,7 @@ import DiarySetupProcess from "../functional/DiarySetupProcess";
 import NoDiaryFound from "../functional/NoDiaryFound";
 import IssueSearchBox from "../overlays/IssueSearchBox";
 import PasscodePrompt from "../overlays/PasscodePrompt";
+import IssueTag from "../elements/IssueTag";
 
 export default function Diary(props) {
   const { uuid } = useParams();
@@ -63,6 +64,11 @@ export default function Diary(props) {
       <SingleColumnLayout preset="centered">
         <ScrollToTop />
         <h1>{targetDiary.name}</h1>
+        <div>
+          <IssueTag type="PRIORITIZED">Resolved:</IssueTag>
+          <IssueTag type="PENDING">Resolved:</IssueTag>
+          <IssueTag type="RESOLVED">Resolved:</IssueTag>
+        </div>
         <ShortcutNavigation />
 
         {diaryContext.mode === "show" &&

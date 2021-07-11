@@ -134,6 +134,23 @@ module.exports = (models) => {
         if (!targetDiary) {
           return res.json({ error: "No diary associated with this UUID." });
         }
+
+        const resolvedCount = await targetDiary.countIssues({
+          where: {
+            status_id: 3,
+          },
+        });
+        const pendingCount = await targetDiary.countIssues({
+          where: {
+            status_id: 2,
+          },
+        });
+        const prioritizedCount = await targetDiary.countIssues({
+          where: {
+            status_id: 1,
+          },
+        });
+
         const auth = checkDiaryAuth(targetDiary, req.auth.userInfo, req);
 
         const issues = await Issue.findAll({
@@ -156,6 +173,11 @@ module.exports = (models) => {
         return res.json({
           targetDiary,
           issues,
+          counts: {
+            pendingCount,
+            resolvedCount,
+            prioritizedCount,
+          },
         });
       } catch (err) {
         console.log(err);
