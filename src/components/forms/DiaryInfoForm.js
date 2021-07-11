@@ -47,6 +47,7 @@ export default function DiaryInfoForm(props) {
 
   return (
     <StylizedForm formik={formik}>
+      <h2>Update Diary Info</h2>
       <label htmlFor="name">Diary Name</label>
       <input type="text" id="name" {...formik.getFieldProps("name")} />
       {renderFieldError("name")}
