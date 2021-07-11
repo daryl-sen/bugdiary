@@ -98,9 +98,8 @@ export default function DiaryInfoForm(props) {
       )}
       {privacyMode === "enforcePrivate" && (
         <p>
-          Users will not see an option when reporting an issue. All issues are
-          private (regardless of their previous configuration) and can only be
-          viewed by the diary's owner or somebody who has the passcode.
+          All new issues are private and can only be viewed by the diary's owner or
+          somebody who has the passcode. There is no option to change the issue's privacy settings on creation.
         </p>
       )}
 
