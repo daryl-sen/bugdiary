@@ -288,6 +288,44 @@ module.exports = (models) => {
         console.log(err);
         return res.status(500).json({ error: err });
       }
+    })
+
+    .get("/counts/:uuid", async (req, res) => {
+      try {
+        const targetDiary = await Diary.findOne({
+          where: {
+            uuid: req.params.uuid,
+          },
+        });
+        if (!targetDiary) {
+          return res.json({ error: "No diary associated with this UUID." });
+        }
+
+        const resolvedCount = await targetDiary.countIssues({
+          where: {
+            status_id: 4,
+          },
+        });
+        const pendingCount = await targetDiary.countIssues({
+          where: {
+            status_id: 2,
+          },
+        });
+        const prioritizedCount = await targetDiary.countIssues({
+          where: {
+            status_id: 1,
+          },
+        });
+
+        res.json({
+          resolvedCount,
+          pendingCount,
+          prioritizedCount,
+        });
+      } catch (err) {
+        console.log(err);
+        res.json({ error: "Could not fetch diary stats." });
+      }
     });
 
   return router;
