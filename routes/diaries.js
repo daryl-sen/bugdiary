@@ -222,6 +222,7 @@ module.exports = (models) => {
           if (attribute === "passcode") {
             targetDiary.passcode = await Diary.generateHash(req.body.passcode);
           } else if (attribute === "alias") {
+            console.log("updating alias");
             const duplicate = await Diary.findOne({
               where: {
                 alias: req.body.alias,
@@ -229,6 +230,8 @@ module.exports = (models) => {
             });
             if (duplicate) {
               return res.json({ error: "This alias is currently in use." });
+            } else {
+              targetDiary.alias = req.body.alias;
             }
           } else {
             targetDiary[attribute] = req.body[attribute];
