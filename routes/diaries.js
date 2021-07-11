@@ -101,6 +101,7 @@ module.exports = (models) => {
 
     // all diaries belonging to the current user
     .get("/", authenticateToken, async (req, res) => {
+      console.log("req.auth", req.auth);
       if (!req.auth.status) {
         return res.json({
           error: "You must be logged in to see all your diaries.",

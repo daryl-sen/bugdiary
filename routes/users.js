@@ -15,8 +15,12 @@ module.exports = (models) => {
         const newUser = await User.create({
           ...req.body,
           email: req.body.email.toLowerCase(),
+          user_type_id: 1,
         });
-        const accessToken = generateToken({ ...newUser, password: undefined });
+        const accessToken = generateToken({
+          ...newUser.dataValues,
+          password: undefined,
+        });
         const newUserPreferences = await Preferences.create({
           user_id: newUser.id,
           // other fields have default values
