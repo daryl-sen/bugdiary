@@ -25,7 +25,7 @@ export default function DiaryInfoForm(props) {
 
     validationSchema: Yup.object({
       name: Yup.string()
-        .max(10, "Version name must be less than 10 characters.")
+        .max(20, "Version name must be less than 20 characters.")
         .required("The type name is required."),
     }),
 
@@ -64,6 +64,7 @@ export default function DiaryInfoForm(props) {
         type="password"
         id="passcode"
         autoComplete="off"
+        placeholder="Leave empty if no change needed"
         {...formik.getFieldProps("passcode")}
       />
       {renderFieldError("passcode")}
