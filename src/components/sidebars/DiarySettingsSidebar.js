@@ -10,7 +10,6 @@ export default function DiarySettingsSidebar(props) {
   const { diaryContext } = useDiaryContext();
   const { transferOwnership, updateAlias } = useDiaryFunctions();
   const [aliasUrl, setAliasUrl] = useState("");
-  console.log(diaryContext)
   return (
     <>
       {diaryContext.targetDiary.user_id ? null : (
@@ -52,7 +51,7 @@ export default function DiarySettingsSidebar(props) {
         <h2>Diary Alias</h2>
         <p>
           You can copy your diary's URL by clicking on the "{<BiCopyAlt />}"
-          icon in the shortcuts bar above. 
+          icon in the shortcuts bar above.
         </p>
         {diaryContext.targetDiary.alias ? (
           <>
@@ -65,7 +64,8 @@ export default function DiarySettingsSidebar(props) {
         ) : (
           <>
             <p>
-              If you'd like, you can register a friendly alias for your diary! (This action is permanent)
+              If you'd like, you can register a friendly alias for your diary!
+              (This action is permanent)
             </p>
 
             {aliasUrl !== "" ? (
@@ -86,9 +86,14 @@ export default function DiarySettingsSidebar(props) {
                 setAliasUrl(e.target.value);
               }}
             />
-            <button className="custom button-secondary" onClick={() => {
-              updateAlias(aliasUrl, diaryContext.targetDiary.uuid)
-            }}>Register Alias</button>
+            <button
+              className="custom button-secondary"
+              onClick={() => {
+                updateAlias(aliasUrl, diaryContext.targetDiary.uuid);
+              }}
+            >
+              Register Alias
+            </button>
           </>
         )}
       </LinedContainer>

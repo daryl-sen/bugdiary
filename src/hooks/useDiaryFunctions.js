@@ -186,7 +186,7 @@ export default function useDiaryFunctions() {
         setDiaryContext((prev) => {
           return { ...prev, targetDiary: resp.data };
         });
-        NotificationManager.success("Your diary alias been updated!");
+        NotificationManager.success("Your diary alias has been updated!");
         return resp.data;
       });
   };
