@@ -35,7 +35,6 @@ export default function DiaryInfoForm(props) {
         uuid: props.targetDiary.uuid,
         passcode: values.passcode || undefined,
       });
-      props.refresh();
     },
   });
 
