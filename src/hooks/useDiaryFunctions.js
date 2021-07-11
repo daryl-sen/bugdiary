@@ -171,6 +171,25 @@ export default function useDiaryFunctions() {
       });
   };
 
+  const updateAlias = async (alias, uuid) => {
+    await axios
+      .patch("/api/diaries/" + uuid, { alias }, headers)
+      .then((resp) => {
+        if (resp.data.error) {
+          console.log(resp.data.error);
+          NotificationManager.error(
+            `An error has occurred: ${resp.data.error}`
+          );
+          return false;
+        }
+        setDiaryContext((prev) => {
+          return { ...prev, targetDiary: resp.data };
+        });
+        NotificationManager.success("Your diary alias been updated!");
+        return resp.data;
+      });
+  };
+
   return {
     context,
     loadingStatus,
@@ -183,5 +202,6 @@ export default function useDiaryFunctions() {
     extendExpiry,
     authenticateWithPasscode,
     transferOwnership,
+    updateAlias,
   };
 }
