@@ -12,14 +12,16 @@ import { useEffect, useState } from "react";
 
 import TwoColumnLayout from "../layouts/TwoColumnLayout";
 import WhiteBgContainer from "../blocks/WhiteBgContainer";
-import { useDiaryContext } from "../../AppContext";
+import { useAppContext, useDiaryContext } from "../../AppContext";
 
 import NewIssueSidebar from "../sidebars/NewIssueSidebar";
 
 export default function NewIssueForm(props) {
   const { diaryContext, setDiaryContext } = useDiaryContext();
+  const { context } = useAppContext();
   const [loadingStatus, setLoadingStatus] = useState(false);
   const uuid = useParams().uuid;
+  console.log(context);
 
   const { issueData, getIssueSetupDetails, createIssue } = useIssueFunctions();
 
@@ -27,7 +29,7 @@ export default function NewIssueForm(props) {
     initialValues: {
       reference: "",
       details: "",
-      reporter_name: "",
+      reporter_name: context.userDetails.display_name || "",
       reporter_email: "",
       type_name: "",
       location_name: "",
@@ -112,6 +114,7 @@ export default function NewIssueForm(props) {
             placeholder="(Optional)"
           />
           {renderFieldError("reference")}
+
           <label htmlFor="location_name">Location</label>
           <datalist id="location_suggestions">
             {renderSuggestions(diaryLocations)}
@@ -124,6 +127,7 @@ export default function NewIssueForm(props) {
             list="location_suggestions"
           />
           {renderFieldError("location_name")}
+
           <label htmlFor="type_name">Type</label>
           <input
             id="type_name"
@@ -136,20 +140,14 @@ export default function NewIssueForm(props) {
             {renderSuggestions(diaryTypes)}
           </datalist>
           {renderFieldError("type_name")}
+
           <label htmlFor="details">Issue Details</label>
           <textarea
             id="details"
             {...formik.getFieldProps("details")}
           ></textarea>
           {renderFieldError("details")}
-          <label htmlFor="reporter_email">Contact Email</label>
-          <input
-            id="reporter_email"
-            type="email"
-            {...formik.getFieldProps("reporter_email")}
-            placeholder="(Optional)"
-          />
-          {renderFieldError("reporter_email")}
+
           <label htmlFor="reporter_name">Contact Name</label>
           <input
             id="reporter_name"
@@ -158,6 +156,16 @@ export default function NewIssueForm(props) {
             placeholder="(Optional)"
           />
           {renderFieldError("reporter_name")}
+
+          <label htmlFor="reporter_email">Contact Email</label>
+          <input
+            id="reporter_email"
+            type="email"
+            {...formik.getFieldProps("reporter_email")}
+            placeholder="(Optional)"
+          />
+          {renderFieldError("reporter_email")}
+
           <label htmlFor="private">
             <input
               name="private"
