@@ -12,8 +12,7 @@ export default function Homepage() {
           <p>
             Bug Diary is an online issue-reporting and bug-tracking platform. No
             payments, no sign-ups required, and you can get your Bug Diary up
-            and running in <Link to="/new">as little as 30 seconds</Link>
-            <sup>1</sup>! What's there to lose?
+            and running in <b>as little as 30 seconds</b>! What's there to lose?
           </p>
           <button
             data-testid={"setup-button"}
