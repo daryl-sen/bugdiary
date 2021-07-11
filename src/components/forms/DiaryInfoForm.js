@@ -63,7 +63,7 @@ export default function DiaryInfoForm(props) {
         type="password"
         id="passcode"
         autoComplete="off"
-        placeholder="Leave empty if no change needed"
+        placeholder="Leave empty to keep passcode as-is"
         {...formik.getFieldProps("passcode")}
       />
       {renderFieldError("passcode")}
@@ -98,8 +98,9 @@ export default function DiaryInfoForm(props) {
       )}
       {privacyMode === "enforcePrivate" && (
         <p>
-          All new issues are private and can only be viewed by the diary's owner or
-          somebody who has the passcode. There is no option to change the issue's privacy settings on creation.
+          All new issues are private and can only be viewed by the diary's owner
+          or somebody who has the passcode. There is no option to change the
+          issue's privacy settings on creation.
         </p>
       )}
 

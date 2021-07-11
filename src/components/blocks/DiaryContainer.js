@@ -1,5 +1,5 @@
 import "./DiaryContainer.scss";
-import { BiBug, BiLink } from "react-icons/bi";
+import { BiLink } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 export default function DiaryContainer(props) {
