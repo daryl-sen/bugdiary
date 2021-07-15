@@ -9,12 +9,13 @@ import {
 } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import useUserFunctions from "../../hooks/useUserFunctions";
+import useRecents from "../../hooks/useRecents";
 // import { useAppContext } from "../../AppContext";
 
 export default function SideNav(props) {
   const transformInfo = {};
   const { logoutUser } = useUserFunctions();
-  // const { context } = useAppContext();
+  const { getRecents, clearRecents } = useRecents();
 
   if (props.menuState) {
     transformInfo.transform = "translate(0px)";
@@ -29,9 +30,8 @@ export default function SideNav(props) {
   };
 
   const renderRecentDiaries = () => {
-    const storedRecentDiaries = localStorage.getItem("recentDiaries");
-    if (storedRecentDiaries) {
-      const recentDiaries = JSON.parse(localStorage.getItem("recentDiaries"));
+    const recentDiaries = getRecents();
+    if (recentDiaries) {
       return recentDiaries.map((diary) => {
         return (
           <Link key={diary[1]} to={"/diary/" + diary[1]}>
@@ -68,7 +68,14 @@ export default function SideNav(props) {
           >
             <BiUser />
           </Link>
-          <Link onClick={logoutUser} to="/" data-testid={"logout-button"}>
+          <Link
+            onClick={() => {
+              logoutUser();
+              props.toggleMenu();
+            }}
+            to="/"
+            data-testid={"logout-button"}
+          >
             <BiLogOut />
           </Link>
           {false ? <BiLogIn /> : null}
@@ -85,6 +92,15 @@ export default function SideNav(props) {
           </Link>
           <hr />
           {renderRecentDiaries()}
+          <button
+            id="clear-recents-button"
+            onClick={() => {
+              clearRecents();
+              props.toggleMenu();
+            }}
+          >
+            Clear Recents
+          </button>
         </section>
         <section id="footer">&copy; Sen Tang, 2020-2021</section>
       </nav>

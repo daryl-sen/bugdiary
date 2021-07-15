@@ -17,7 +17,8 @@ nav {
   -o-transition: 0.25s ease-in-out;
 
   section > a:link,
-  section > a:visited {
+  section > a:visited,
+  #clear-recents-button {
     text-align: right;
     display: block;
     padding: 0.5rem 2rem;
@@ -58,5 +59,13 @@ nav {
     border-top: 1px solid $line-color;
     text-align: center;
     padding: $standard-spacing * 2;
+  }
+
+  #clear-recents-button {
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    color: #ff3939;
   }
 }

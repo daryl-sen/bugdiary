@@ -17,6 +17,7 @@ import NoDiaryFound from "../functional/NoDiaryFound";
 import IssueSearchBox from "../overlays/IssueSearchBox";
 import PasscodePrompt from "../overlays/PasscodePrompt";
 import IssueTag from "../elements/IssueTag";
+import useRecents from "../../hooks/useRecents";
 
 export default function Diary(props) {
   const { uuid } = useParams();
@@ -26,28 +27,14 @@ export default function Diary(props) {
     resetDiaryContext,
   } = useDiaryContext();
   const { getDiaryContent } = useDiaryFunctions();
+  const { updateRecents } = useRecents();
 
   useEffect(() => {
     console.log("reset");
     resetDiaryContext();
     getDiaryContent(uuid, false, false, (targetDiary) => {
       // add current diary to recent diaries
-      const currentDiary = [targetDiary.name, targetDiary.uuid];
-
-      const storedRecentDiaries = localStorage.getItem("recentDiaries");
-      if (storedRecentDiaries) {
-        if (!storedRecentDiaries.includes(targetDiary.uuid)) {
-          let recentDiaries = JSON.parse(storedRecentDiaries);
-          if (recentDiaries.length > 3) {
-            recentDiaries = recentDiaries.slice(1);
-            console.log(recentDiaries);
-          }
-          recentDiaries.push(currentDiary);
-          localStorage.recentDiaries = JSON.stringify(recentDiaries);
-        }
-      } else {
-        localStorage.recentDiaries = JSON.stringify([currentDiary]);
-      }
+      updateRecents(targetDiary);
     });
   }, [uuid]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -65,9 +52,15 @@ export default function Diary(props) {
         <ScrollToTop />
         <h1>{targetDiary.name}</h1>
         <div>
-          <IssueTag type="PRIORITIZED">Prioritized: {diaryContext.counts.prioritizedCount}</IssueTag>
-          <IssueTag type="PENDING">Pending: {diaryContext.counts.pendingCount}</IssueTag>
-          <IssueTag type="RESOLVED">Resolved: {diaryContext.counts.resolvedCount}</IssueTag>
+          <IssueTag type="PRIORITIZED">
+            Prioritized: {diaryContext.counts.prioritizedCount}
+          </IssueTag>
+          <IssueTag type="PENDING">
+            Pending: {diaryContext.counts.pendingCount}
+          </IssueTag>
+          <IssueTag type="RESOLVED">
+            Resolved: {diaryContext.counts.resolvedCount}
+          </IssueTag>
         </div>
         <ShortcutNavigation />
 
