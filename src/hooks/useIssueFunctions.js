@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import NotificationManager from "react-notifications/lib/NotificationManager";
 import { useAppContext, useDiaryContext } from "../AppContext";
+import IssueContainer from "../components/blocks/IssueContainer";
+import NoIssuesDisplay from "../components/blocks/NoIssuesDisplay";
 
 export default function useIssueFunctions() {
   const { context } = useAppContext();
@@ -97,6 +99,15 @@ export default function useIssueFunctions() {
       });
   };
 
+  const renderIssueContainers = (issues) => {
+    if (Array.isArray(issues) && issues.length > 0) {
+      return issues.map((issue) => {
+        return <IssueContainer key={issue.id} {...issue} />;
+      });
+    }
+    return <NoIssuesDisplay />;
+  };
+
   return {
     context,
     issueData,
@@ -107,5 +118,6 @@ export default function useIssueFunctions() {
     selectIssue,
     getIssueSetupDetails,
     searchIssues,
+    renderIssueContainers,
   };
 }

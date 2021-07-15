@@ -151,6 +151,11 @@ module.exports = (models) => {
             status_id: 1,
           },
         });
+        const privateCount = await targetDiary.countIssues({
+          where: {
+            private: 1,
+          },
+        });
 
         const auth = checkDiaryAuth(targetDiary, req.auth.userInfo, req);
 
@@ -178,6 +183,7 @@ module.exports = (models) => {
             pendingCount,
             resolvedCount,
             prioritizedCount,
+            privateCount,
           },
         });
       } catch (err) {
@@ -320,11 +326,17 @@ module.exports = (models) => {
             status_id: 1,
           },
         });
+        const privateCount = await targetDiary.countIssues({
+          where: {
+            private: 1,
+          },
+        });
 
         res.json({
           resolvedCount,
           pendingCount,
           prioritizedCount,
+          privateCount,
         });
       } catch (err) {
         console.log(err);
