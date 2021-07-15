@@ -64,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
       privacy: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "defaultPrivate",
+        defaultValue: "defaultPublic",
       },
       allow_new: {
         type: DataTypes.INTEGER,
