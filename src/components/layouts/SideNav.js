@@ -91,6 +91,7 @@ export default function SideNav(props) {
             Settings
           </Link>
           <hr />
+          <h2>Recents</h2>
           {renderRecentDiaries()}
           <button
             id="clear-recents-button"
@@ -99,7 +100,7 @@ export default function SideNav(props) {
               props.toggleMenu();
             }}
           >
-            Clear Recents
+            Clear
           </button>
         </section>
         <section id="footer">&copy; Sen Tang, 2020-2021</section>
