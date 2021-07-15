@@ -4,7 +4,6 @@ import useIssueFunctions from "../../hooks/useIssueFunctions";
 import HiddenIssueCount from "../blocks/HiddenIssueCount";
 import { useAppContext, useDiaryContext } from "../../AppContext";
 
-
 export default function MasonryLayout(props) {
   const { renderIssueContainers } = useIssueFunctions();
   const { context } = useAppContext();
@@ -22,11 +21,11 @@ export default function MasonryLayout(props) {
       className="my-masonry-grid"
       columnClassName="my-masonry-grid_column"
     >
-      {(
-    !context.loggedIn &&
-    !context.authenticatedDiaries.includes(diaryContext.targetDiary.uuid) &&
-    diaryContext.counts.privateCount !== 0
-  ) && <HiddenIssueCount count={diaryContext.counts.privateCount} />}
+      {!context.loggedIn &&
+        !context.authenticatedDiaries.includes(diaryContext.targetDiary.uuid) &&
+        diaryContext.counts.privateCount !== 0 && (
+          <HiddenIssueCount count={diaryContext.counts.privateCount} />
+        )}
       {renderIssueContainers(props.issues)}
     </Masonry>
   );
