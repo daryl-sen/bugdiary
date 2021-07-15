@@ -154,6 +154,7 @@ module.exports = (models) => {
         const privateCount = await targetDiary.countIssues({
           where: {
             private: 1,
+            status_id: 2,
           },
         });
 
@@ -329,6 +330,7 @@ module.exports = (models) => {
         const privateCount = await targetDiary.countIssues({
           where: {
             private: 1,
+            status_id: 2,
           },
         });
 

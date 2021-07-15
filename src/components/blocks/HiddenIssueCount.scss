@@ -1,0 +1,18 @@
+.my-masonry-grid .hidden-issue-count {
+  border: 1px solid #979797;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.table-view .hidden-issue-count {
+  padding: 1rem;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.hidden-issue-count {
+  padding: 2rem;
+  color: #616161;
+  margin-bottom: 1rem;
+}

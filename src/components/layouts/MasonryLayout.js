@@ -1,6 +1,7 @@
 import "./MasonryLayout.scss";
 import Masonry from "react-masonry-css";
 import useIssueFunctions from "../../hooks/useIssueFunctions";
+import HiddenIssueCount from "../blocks/HiddenIssueCount";
 
 export default function MasonryLayout(props) {
   const { renderIssueContainers } = useIssueFunctions();
@@ -17,6 +18,7 @@ export default function MasonryLayout(props) {
       className="my-masonry-grid"
       columnClassName="my-masonry-grid_column"
     >
+      <HiddenIssueCount />
       {renderIssueContainers(props.issues)}
     </Masonry>
   );

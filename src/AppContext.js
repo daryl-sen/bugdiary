@@ -31,6 +31,7 @@ export default function AppContextProvider(props) {
       resolvedCount: undefined,
       prioritizedCount: undefined,
       pendingCount: undefined,
+      privateCount: undefined,
     },
     issues: [],
     mode: "show", // "show", "add", "filter", "diarySettings", "diaryModification", "diarySetup", "passcodePrompt"
@@ -44,12 +45,12 @@ export default function AppContextProvider(props) {
     selected: [],
   };
 
-  const [context, setContext] = useState({...defaultAppContext});
+  const [context, setContext] = useState({ ...defaultAppContext });
   const resetAppContext = () => {
     setContext(defaultAppContext);
   };
 
-  const [diaryContext, setDiaryContext] = useState({...defaultDiaryContext});
+  const [diaryContext, setDiaryContext] = useState({ ...defaultDiaryContext });
   const resetDiaryContext = () => {
     setDiaryContext(defaultDiaryContext);
   };
