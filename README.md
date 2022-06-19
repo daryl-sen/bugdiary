@@ -1,5 +1,8 @@
 # BugDiary
 
+IMPORTANT UPDATE:
+This project has been deprecated. There are many good project management and bug tracking software out there, making this not as useful. I've personally stopped using BugDiary, the users have been notified, and the website was recently taken down.
+
 BugDiary is an online bug-tracking and issue-reporting platform that's easy to pick up and use. Please visit www.bugdiary.com/about to learn more about this project. Version 2 is currently in the works with major UI and performance improvements.
 
 ## What's BugDiary?
